@@ -9,8 +9,8 @@
 <!-- PAGE FOOTER -->
 <div class="page-footer">
     <div class="row">
-        <div class="col-xs-12 col-sm-6">
-            <span class="txt-color-white">NIL SOFTWARE © 2014 - NIL SOFTWARE is Elliot Felgines, Léo Mieulet, Julien Custoja</span> <!--<span class="txt-color-white"><a href="">Mentions légales</a> --> - <a href="">Conditions d'utilisation</a></span>
+        <div class="col-xs-12 col-sm-8">
+            <span class="txt-color-white">Application développée par NIL SOFTWARE © 2014 - NIL SOFTWARE is Elliot Felgines, Léo Mieulet, Julien Custoja</span> <!--<span class="txt-color-white"><a href="">Mentions légales</a> --> - <a href="">Conditions d'utilisation</a></span>
         </div>
 
         <div class="col-xs-6 col-sm-6 text-right hidden-xs">
