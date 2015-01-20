@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-    <title>Suivi-AAC.fr - @if(isset($titre)) {{$titre}} @else Votre assistant de conduite @endif</title>
+    <title>#ApplicationSansNom - @if(isset($titre)) {{$titre}} @else Titre par défaut @endif</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -144,4 +144,3 @@
                         @endforeach
                     @endif
                     <!-- FIN ALERT BOX -->
-
