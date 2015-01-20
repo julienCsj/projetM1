@@ -30,7 +30,6 @@ class DashboardController extends BaseController {
         // $utilisateur = User::find($utilisateur_id);
         //
         // if($utilisateur->nombre_kilometre_initial == -1) {
-             $data['breadcrumb'] = array('Suivi-AAC.fr', 'Tableau de bord', 'Première connexion');
              $data = array(
                'notifications' => array(
                  array(
