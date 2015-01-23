@@ -7,7 +7,7 @@
 				<span> <!-- User image size is adjusted inside CSS, it should stay as it -->
 
 					<a id="show-shortcut" data-action="toggleShortcut">
-                        <img src="{{ asset('back/img/avatars/sunny.png') }}" alt="me" class="online" />
+                        <img src="{{ asset('img/avatars/sunny.png') }}" alt="me" class="online" />
 						<span>
                              <?php
                             // $nom = Session::get('utilisateur')->nom;

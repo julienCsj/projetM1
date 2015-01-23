@@ -3,6 +3,8 @@
     <div class="row">
         <!-- NEW WIDGET START -->
             <h1>Formation</h1>
+            
+            <p> Par Julien : Permettre d'ajouter des groupes de TD / TP pour chaque formation dans cette vue</p>
         <!-- WIDGET END -->
     </div>
 </section>
