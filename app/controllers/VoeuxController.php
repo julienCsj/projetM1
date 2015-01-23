@@ -1,17 +1,17 @@
 <?php
-class FormationController extends BaseController {
-	public function getFormations()
+class VoeuxController extends BaseController {
+	public function getVoeux()
     {
         $data = array(
                'notifications' => array(
                  array(
                    'type' => 'success',
-                   'titre' => 'Les formations',
+                   'titre' => 'Les voeux',
                    'message' => 'Bienvenue sur #ApplicationSansNom<br/>Vous pouvez maintennant vous connecter'
                  )),
-                 'breadcrumb' => array('#ApplicationJaneDoe', 'Les formations')
+                 'breadcrumb' => array('#ApplicationJaneDoe', 'Les voeux')
                );
-        return View::make('formation')->with($data);
+        return View::make('voeux')->with($data);
     }
 
 }

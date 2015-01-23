@@ -38,25 +38,28 @@ traditional href="" links. See documentation for details.
     <li><a class="disabled"> <span class="menu-item-parent">Pour activer le menu, merci de remplir le formulaire de première connexion.</span></a></li>
     @else
     <li>
-        <a href="{{URL::route('dashboard')}}" class="" title="Dashboard"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Formation</span></a>
+        <a href="{{URL::route('formation')}}" class="" title="Dashboard"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Formation</span></a>
     </li>
     <li>
-        <a href="{{URL::route('trajet_liste')}}" class=""><i class="fa fa-lg fa-fw fa-road"></i> <span class="menu-item-parent">UEs / Matières</span><span class="badge pull-right inbox-badge">2</span></a>
+        <a href="{{URL::route('matiere')}}" class=""><i class="fa fa-lg fa-fw fa-road"></i> <span class="menu-item-parent">UEs / Matières</span><span class="badge pull-right inbox-badge">2</span></a>
     </li>
     <li>
-        <a href="{{URL::route('trajet_ajouter')}}" class=""><i class="fa fa-lg fa-fw fa-automobile "></i> <span class="menu-item-parent">Enseignants</span></a>
+        <a href="{{URL::route('enseignant')}}" class=""><i class="fa fa-lg fa-fw fa-automobile "></i> <span class="menu-item-parent">Enseignants</span></a>
     </li>
     <li>
-        <a href="{{URL::route('exporter')}}" title="Exporter"><i class="fa fa-lg fa-fw fa-cloud-download"></i> <span class="menu-item-parent">Calendrier</span></a>
+        <a href="{{URL::route('calendrier')}}" title="Exporter"><i class="fa fa-lg fa-fw fa-cloud-download"></i> <span class="menu-item-parent">Calendrier</span></a>
     </li>
     <li>
-        <a href="{{URL::route('journal')}}" title="Journal"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Affectation</span></a>
+        <a href="{{URL::route('affectation')}}" title="Journal"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Affectation</span></a>
     </li>
     <li>
-        <a href="{{URL::route('adresse')}}" title="Adresses"><i class="fa fa-lg fa-fw fa-location-arrow "></i> <span class="menu-item-parent">Voeux</span></a>
+        <a href="{{URL::route('voeux')}}" title="Adresses"><i class="fa fa-lg fa-fw fa-location-arrow "></i> <span class="menu-item-parent">Voeux</span></a>
     </li>
     <li>
-        <a href="{{URL::route('timeline')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-send-o"></i> <span class="menu-item-parent">Mon service</span></a>
+        <a href="{{URL::route('monservice')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-send-o"></i> <span class="menu-item-parent">Mon service</span></a>
+    </li>
+    <li>
+        <a href="{{URL::route('heuresexterieures')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-send-o"></i> <span class="menu-item-parent">Heures exterieures</span></a>
     </li>
     <li>
         <a href="{{URL::route('deconnexion')}}" title="Déconnexion"><i class="fa fa-lg fa-fw fa-external-link-square"></i> <span class="menu-item-parent">Déconnexion</span></a>

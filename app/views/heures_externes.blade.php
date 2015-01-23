@@ -2,9 +2,7 @@
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-
-
-        </article>
+        	<h1>Heures externes</h1>
         <!-- WIDGET END -->
     </div>
 </section>

@@ -16,8 +16,15 @@
 // Connexion non obligatoire
 Route::group(array('before' => 'guest'), function () { // Login not required
     Route::get('/',                  array('as' => 'dashboard',              'uses' => 'DashboardController@getIndex'));
-    Route::get('formation',          array('as' => 'formation',              'uses' => 'FormationController@getFormation'));
-    Route::get('inscription',        array('as' => 'inscription',           'uses' => 'UserController@getInscription'));
+    Route::get('formation',          array('as' => 'formation',              'uses' => 'FormationController@getFormations'));
+    Route::get('matiere',            array('as' => 'matiere',                'uses' => 'MatiereController@getMatieres'));
+    Route::get('enseignant',         array('as' => 'enseignant',             'uses' => 'EnseignantController@getEnseignants'));
+    Route::get('calendrier',         array('as' => 'calendrier',             'uses' => 'CalendrierController@getCalendrier'));
+    Route::get('affectation',        array('as' => 'affectation',            'uses' => 'AffectationController@getAffectation'));
+    Route::get('voeux',              array('as' => 'voeux',                  'uses' => 'VoeuxController@getVoeux'));
+    Route::get('monservice',         array('as' => 'monservice',             'uses' => 'ServiceController@getService'));
+    Route::get('heuresexterieures',  array('as' => 'heuresexterieures',      'uses' => 'HeuresExternesController@getHeuresExternes'));
+
 });
 
 // Connexion obligatoire
