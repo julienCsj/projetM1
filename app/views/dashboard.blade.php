@@ -1,4 +1,4 @@
-@include('back.layout.header')
+@include('layout.header')
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
@@ -9,7 +9,7 @@
     </div>
 </section>
 
-@include('back.layout.footer')
+@include('layout.footer')
 <!-- PAGE RELATED PLUGIN(S) -->
 <script src="back/js/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 <script src="back/js/plugin/fuelux/wizard/wizard.min.js"></script>

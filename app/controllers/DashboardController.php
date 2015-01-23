@@ -44,6 +44,6 @@ class DashboardController extends BaseController {
         // } else {
         //     $data['breadcrumb'] = array('Suivi-AAC.fr', 'Tableau de bord');
         //     $data['premiere_connexion'] = false;
-            return View::make('back.dashboard')->with($data);
+            return View::make('dashboard')->with($data);
     }
 }

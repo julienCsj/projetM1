@@ -94,7 +94,7 @@
 </header>
 <!-- END HEADER -->
 
-@include('back.layout.menu')
+@include('layout.menu')
 
 <!-- MAIN PANEL -->
 <div id="main" role="main">

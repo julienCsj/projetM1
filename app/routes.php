@@ -16,6 +16,7 @@
 // Connexion non obligatoire
 Route::group(array('before' => 'guest'), function () { // Login not required
     Route::get('/',                  array('as' => 'dashboard',              'uses' => 'DashboardController@getIndex'));
+    Route::get('formation',          array('as' => 'formation',              'uses' => 'FormationController@getFormation'));
     Route::get('inscription',        array('as' => 'inscription',           'uses' => 'UserController@getInscription'));
 });
 
