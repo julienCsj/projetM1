@@ -2,7 +2,7 @@
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        <h1>Formation / UE / Matières <small>Cette page permet de gérer le volume de CM/TD/TP</small></h1>
+        <h1>Enseignant <small>Cette page permet de gérer les enseignants</small></h1>
         <br/>
         <br/>
         <!-- NEW WIDGET START -->
