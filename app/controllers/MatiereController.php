@@ -20,12 +20,7 @@ class MatiereController extends BaseController {
     public function getMatieres()
     {
         $data = array(
-               'notifications' => array(
-                 array(
-                   'type' => 'success',
-                   'titre' => 'Les Matieres & UEs',
-                   'message' => 'Bienvenue sur #ApplicationSansNom<br/>Vous pouvez maintennant vous connecter'
-                 )),
+               'notifications' => array(),
                  'breadcrumb' => array('#ApplicationJaneDoe', 'Matières & UE\'s')
                );
         return View::make('matiere')->with($data);

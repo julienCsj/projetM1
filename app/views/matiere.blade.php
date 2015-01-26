@@ -321,4 +321,9 @@
     .ui-spinner-button {
         width: 15px;
     }
+    .ui-spinner-input.spinner-left {
+        height: 24px;
+        padding-left: 18px;
+        padding-right: 0px;
+    }
 </style>
