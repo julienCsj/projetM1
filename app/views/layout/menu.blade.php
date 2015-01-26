@@ -40,7 +40,7 @@
                 <a href="{{URL::route('matiere')}}" class=""><i class="fa fa-lg fa-fw fa-road"></i> <span class="menu-item-parent">UEs / Matières</span><span class="badge pull-right inbox-badge">2</span></a>
             </li>
             <li class="{{ URL::route('enseignant') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('enseignant')}}" class=""><i class="fa fa-lg fa-fw fa-automobile "></i> <span class="menu-item-parent">Enseignants</span></a>
+                <a href="{{URL::route('enseignant')}}" class=""><i class="fa fa-lg fa-fw fa-users "></i> <span class="menu-item-parent">Enseignants</span></a>
             </li>
             <li class="{{ URL::route('calendrier') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('calendrier')}}" title="Calendrier"><i class="fa fa-lg fa-fw fa-cloud-download"></i> <span class="menu-item-parent">Calendrier</span></a>

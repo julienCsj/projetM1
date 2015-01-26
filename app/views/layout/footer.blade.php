@@ -128,8 +128,12 @@ you can add as many as you like
 <script src="{{ asset('js/plugin/fastclick/fastclick.min.js') }}"></script>
 
 <!-- Datatables: Display tables with some usefull functions -->
-<script src="{{ asset('js/plugin/datatables/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/plugin/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/plugin/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/plugin/datatables/dataTables.colVis.min.js') }}"></script>
+<script src="{{ asset('js/plugin/datatables/dataTables.tableTools.min.js') }}"></script>
+<script src="{{ asset('js/plugin/datatables/dataTables.bootstrap.min.js') }}"></script>
+
 
 <!--[if IE 8]>
 

@@ -49,13 +49,13 @@
     <link rel="apple-touch-startup-image" href="{{asset('img/splash/iphone.png') }}" media="screen and (max-device-width: 320px)">
 
 </head>
-<body class="fixed-header smart-style-3">
+<body class="fixed-header smart-style-2">
 
 <header id="header">
     <div id="logo-group">
 
         <!-- PLACE YOUR LOGO HERE -->
-        <span id="logo"> #ApplicationJaneDoe </span>
+        <span id="logo"> <img src="{{asset('img/logo.png') }}" alt="SmartAdmin"> </span>
         <!-- END LOGO PLACEHOLDER -->
 
         <!-- Note: The activity badge color changes when clicked and resets the number to 0
