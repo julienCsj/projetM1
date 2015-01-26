@@ -32,13 +32,13 @@
                                             <span><i class="fa fa-lg fa-plus-circle"></i> Groupe 1</span> &ndash; <a href="#">Supprimer</a> &ndash; <a href="#">Modifier</a>
                                             <ul>
                                                 <li style="display:none">
-                                                    <span>Groupe 1.1</span> &ndash; <a href="#">Supprimer</a> &ndash; <a href="#">Modifier</a>
+                                                    <span>Groupe 1.1</span> &ndash; <a href="#">Supprimer</a> &ndash; <a id="modifier_groupe" href="#">Modifier</a>
                                                 </li>
                                                 <li style="display:none">
                                                     <span>Groupe 1.2</span> &ndash; <a href="#">Supprimer</a> &ndash; <a href="#">Modifier</a>
                                                 </li>
                                                 <li style="display:none">
-                                                    <span><a href="#">Ajouter</a></span>
+                                                    <span><a id="ajouter_groupe" href="#">Ajouter</a></span>
                                                 </li>
                                             </ul>
                                         </li>
@@ -225,6 +225,30 @@
     </div>
 </section>
 
+<div id="ajouterGroupe" title="Ajouter un groupe">
+    <form>
+        <fieldset>
+            <input name="authenticity_token" type="hidden">
+            <div class="form-group">
+                <label>Numéro de groupe</label>
+                <input class="form-control" id="tab_title" value="" type="text">
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<div id="modifierGroupe" title="Modifier un groupe">
+    <form>
+        <fieldset>
+            <input name="authenticity_token" type="hidden">
+            <div class="form-group">
+                <label>Numéro de groupe</label>
+                <input class="form-control" id="tab_title" value="" type="text">
+            </div>
+        </fieldset>
+    </form>
+</div>
+
 @include('layout.footer')
 
 <script type="text/javascript">     
@@ -246,8 +270,59 @@ $(document).ready(function() {
             $(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
         }
         e.stopPropagation();
-    });         
+    });
 
+    var ajouter = $("#ajouterGroupe").dialog({
+        autoOpen : false,
+        width : 600,
+        resizable : false,
+        modal : true,
+        buttons : [{
+            html : "<i class='fa fa-times'></i>&nbsp; Annuler",
+            "class" : "btn btn-default",
+            click : function() {
+                $(this).dialog("close");
+
+            }
+        }, {
+
+            html : "<i class='fa fa-plus'></i>&nbsp; Ajouter",
+            "class" : "btn btn-danger",
+            click : function() {
+                $(this).dialog("close");
+            }
+        }]
+    });
+
+    var modifier = $("#modifierGroupe").dialog({
+        autoOpen : false,
+        width : 600,
+        resizable : false,
+        modal : true,
+        buttons : [{
+            html : "<i class='fa fa-times'></i>&nbsp; Annuler",
+            "class" : "btn btn-default",
+            click : function() {
+                $(this).dialog("close");
+
+            }
+        }, {
+
+            html : "<i class='fa fa-check'></i>&nbsp; Modifier",
+            "class" : "btn btn-danger",
+            click : function() {
+                $(this).dialog("close");
+            }
+        }]
+    });
+
+    $("#ajouter_groupe").button().click(function() {
+        ajouter.dialog("open");
+    });
+
+    $("#modifier_groupe").button().click(function() {
+        modifier.dialog("open");
+    });
 })
 </script>
 
