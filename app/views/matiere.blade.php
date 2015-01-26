@@ -42,33 +42,41 @@
                                         <li class="dd-item" data-id="2">
                                             <ol class="dd-list">
                                                 <li class="dd-item" data-id="3">
-                                                    <div class="dd-handle" style="line-height: 30px;">
+                                                    <div class="dd-handle">
                                                         Matiere #1.1
                                                       
-                                                        <div class="pull-right"><span>CM :</span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>TD :</span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>TP :</span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
                                                     </div>
                                                 </li>
                                                 <li class="dd-item" data-id="3">
                                                     <div class="dd-handle">
                                                         Matiere #1.2
-                                                    </div>
+                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
                                                 </li>
                                                 <li class="dd-item" data-id="4">
                                                     <div class="dd-handle">
                                                         Matiere #1.3
-                                                    </div>
+                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
                                                 </li>
                                                 <li class="dd-item" data-id="5">
                                                     <div class="dd-handle">
                                                         Matiere #1.4
-                                                    </div>
+                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
                                                 </li>
                                                 <li class="dd-item" data-id="6">
                                                     <div class="dd-handle">
                                                         Matiere #1.5
-                                                    </div>
+                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
                                                 </li>
                                             </ol>
                                         </li>
@@ -84,27 +92,37 @@
                                                 <li class="dd-item" data-id="8">
                                                     <div class="dd-handle">
                                                         Matiere #2.1
-                                                    </div>
+                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
                                                 </li>
                                                 <li class="dd-item" data-id="9">
                                                     <div class="dd-handle">
                                                         Matiere #2.2
-                                                    </div>
+                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
                                                 </li>
                                                 <li class="dd-item" data-id="10">
                                                     <div class="dd-handle">
                                                         Matiere #2.3
-                                                    </div>
+                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
                                                 </li>
                                                 <li class="dd-item" data-id="11">
                                                     <div class="dd-handle">
                                                         Matiere #2.4
-                                                    </div>
+                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
                                                 </li>
                                                 <li class="dd-item" data-id="12">
                                                     <div class="dd-handle">
                                                         Matiere #2.5
-                                                    </div>
+                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
                                                 </li>
                                             </ol>
                                         </li>
@@ -325,5 +343,9 @@
         height: 24px;
         padding-left: 18px;
         padding-right: 0px;
+    }
+    
+    .dd-handle {
+        line-height: 30px;
     }
 </style>
