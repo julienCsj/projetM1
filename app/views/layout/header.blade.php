@@ -49,7 +49,7 @@
     <link rel="apple-touch-startup-image" href="{{asset('img/splash/iphone.png') }}" media="screen and (max-device-width: 320px)">
 
 </head>
-<body class="fixed-header smart-style-2">
+<body class="fixed-header smart-style-0">
 
 <header id="header">
     <div id="logo-group">
