@@ -7,13 +7,12 @@
         <span> <!-- User image size is adjusted inside CSS, it should stay as it -->
 
             <a id="show-shortcut" data-action="toggleShortcut">
-                <img src="{{ asset('img/avatars/sunny.png') }}" alt="me" class="online" />
                 <span>
                     <?php
-                    // $nom = Session::get('utilisateur')->nom;
-                    // $prenom = Session::get('utilisateur')->prenom;
+                        $nom = "Dupond";
+                        $prenom = "Jacques";
                     ?>
-                    {{--@if(!empty($nom) && !empty($prenom)) {{$nom}} {{$prenom}} @else {{Session::get('utilisateur')->email}} @endif --}}
+                    @if(!empty($nom) && !empty($prenom)) {{$nom}} {{$prenom}} @else {{Session::get('utilisateur')->email}} @endif
                 </span>
             </a>
 

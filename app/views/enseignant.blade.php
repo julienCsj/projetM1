@@ -3,18 +3,11 @@
     <div class="row">
         <!-- NEW WIDGET START -->
         	<h1>Enseignant</h1>
-        	<div role="content">
-
-
-				<!-- widget div-->
-				<div>
-
-					<!-- widget edit box -->
-					<div class="jarviswidget-editbox">
-						<!-- This area used as dropdown edit box -->
-
-					</div>
-					<!-- end widget edit box -->
+            <br/>
+            <br/>
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
 
 					<!-- widget content -->
 					<div class="widget-body">
@@ -37,9 +30,9 @@
 									<td>Statut 1</td>
 									<td>
 										<div class="easy-pie-chart text-danger easyPieChart" data-percent="33" data-pie-size="25" data-pie-track-color="rgba(169, 3, 41,0.07)" style="width: 30px; height: 30px; line-height: 30px;">
-										<span class="percent txt-color-green">66</span>
+										<span class="percent txt-color-red">66</span>
 										</div>
-										heures réalisés 
+										quota d'heure réalisé
 									</td>
 									<td>Statut 1</td>
 								</tr>
@@ -48,16 +41,26 @@
 						</table>
 
 					</div>
+                    <!-- end widget div -->
+                </div>
+                <!-- end widget -->
+            </article>
+        	<div role="content">
+
+
+				<!-- widget div-->
+				<div>
+
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
+
+					</div>
+					<!-- end widget edit box -->
 					<!-- end widget content -->
 
 				</div>
 				<!-- end widget div -->
-
-
-
-
-				<!-- end widget content -->
-
 			</div>
         	
         <!-- WIDGET END -->
