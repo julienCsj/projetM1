@@ -6,7 +6,7 @@
 
     <title>#ApplicationSansNom - @if(isset($titre)) {{$titre}} @else Titre par défaut @endif</title>
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Nil Software">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -49,13 +49,13 @@
     <link rel="apple-touch-startup-image" href="{{asset('img/splash/iphone.png') }}" media="screen and (max-device-width: 320px)">
 
 </head>
-<body class="fixed-header">
+<body class="fixed-header smart-style-3">
 
 <header id="header">
     <div id="logo-group">
 
         <!-- PLACE YOUR LOGO HERE -->
-        <span id="logo"> <img src="{{asset('img/logo.png') }}" alt="SmartAdmin"> </span>
+        <span id="logo"> #ApplicationJaneDoe </span>
         <!-- END LOGO PLACEHOLDER -->
 
         <!-- Note: The activity badge color changes when clicked and resets the number to 0
