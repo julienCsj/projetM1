@@ -7,7 +7,7 @@
 
             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget jarviswidget-color-darken" id="formation-1" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                <div class="jarviswidget jarviswidget-color-darken" id="formation-1" data-widget-sortable="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
                     <header>
                         <h2 class="font-md"><strong>1ère année</strong></h2>
                     </header>
@@ -35,7 +35,7 @@
 
             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget jarviswidget-color-darken" id="formation-2" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                <div class="jarviswidget jarviswidget-color-darken" id="formation-2" data-widget-sortable="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
                     <header>
                         <h2 class="font-md"><strong>2ème année</strong></h2>
                     </header>
