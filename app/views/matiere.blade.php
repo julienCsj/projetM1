@@ -315,6 +315,10 @@
 
 <style>
     .ui-spinner {
+        line-height: 15px;
         width: 50px;
+    }
+    .ui-spinner-button {
+        width: 15px;
     }
 </style>
