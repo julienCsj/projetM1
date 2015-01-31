@@ -19,6 +19,10 @@ class MatiereController extends BaseController {
 
     public function getMatieres()
     {
+      
+        $lesFormations = Formation::getFormationUeModule();
+        var_dump($lesFormations);
+        
         $data = array(
                'notifications' => array(),
                  'breadcrumb' => array('#ApplicationJaneDoe', 'Matières & UE\'s')

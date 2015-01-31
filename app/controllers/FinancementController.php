@@ -21,7 +21,7 @@ class FinancementController extends BaseController {
     public function supprimerFinancement($id) {
         $financement = Financement::find($id);
         $financement->delete();
-        return Redirect::action('FinancementController@getFinancement')->with($data);
+        return Redirect::action('FinancementController@getFinancement');
     }
     
     public function modifierFinancement() {
