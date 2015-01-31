@@ -1,32 +1,32 @@
 <?php
 
 class MatiereController extends BaseController {
-
     /*
-    |--------------------------------------------------------------------------
-    | IndexController
-    |--------------------------------------------------------------------------
-    |
-    |
-    |
-    |
-    |
-    |
-    |
-    */
+      |--------------------------------------------------------------------------
+      | IndexController
+      |--------------------------------------------------------------------------
+      |
+      |
+      |
+      |
+      |
+      |
+      |
+     */
 
     //private $titre = "Proprietaire";
 
-    public function getMatieres()
-    {
-      
+    public function getMatieres() {
+
         $lesFormations = Formation::getFormationUeModule();
-        var_dump($lesFormations);
-        
+        //var_dump($lesFormations);
+
         $data = array(
-               'notifications' => array(),
-                 'breadcrumb' => array('#ApplicationJaneDoe', 'Matières & UE\'s')
-               );
+            'notifications' => array(),
+            'breadcrumb' => array('#ApplicationJaneDoe', 'Matières & UE\'s'),
+            'lesFormations' => $lesFormations
+        );
         return View::make('matiere')->with($data);
     }
+
 }

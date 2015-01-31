@@ -6,6 +6,8 @@
             <h1>Formation / UE / Matières <small>Cette page permet de gérer le volume de CM/TD/TP</small></h1>
             <br/>
             <br/>
+
+            @foreach ($lesFormations as $formation)
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!-- Widget ID (each widget will need unique ID)-->
@@ -17,9 +19,12 @@
                      data-widget-collapsed="true"
                      data-widget-sortable="false">
 
+
+                 
+
                     <header>
                         <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-                        <h2 class="font-md"><strong>D.U.T</strong> <i>Première année</i></h2>
+                        <h2 class="font-md"><strong>{{$formation->short_title}}</strong> <i>{{$formation->long_title}}</i></h2>
                     </header>
 
                     <!-- widget div-->
@@ -33,287 +38,69 @@
                             <!-- ICI CODE DES UE-->
                             <div class="table-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div id="nestable">
+                                    @foreach($formation->lesUE as $ue)
                                     <ol class="dd-list">
                                         <li class="dd-item" data-id="1">
                                             <div class="dd-handle">
-                                                UE  1<span>- Nom de l'UE #1</span>
+                                                {{$ue->long_title}}
                                             </div>
                                         </li>
                                         <li class="dd-item" data-id="2">
                                             <ol class="dd-list">
+                                                @foreach($ue->lesModules as $module)
                                                 <li class="dd-item" data-id="3">
                                                     <div class="dd-handle">
-                                                        Matiere #1.1
-                                                      
-                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
+                                                        {{$module->long_title}}
+                                                        <div class="pull-right">
+                                                            <button class="btn btn-success btn-xs" 
+                                                                    rel="tooltip" data-placement="bottom" 
+                                                                    data-original-title="<h6>Financement</h6>
+                                                                    <ul>
+                                                                    <li>Source #1 - 12000$</li>
+                                                                    <li>Source #2 - 12000$</li>
+                                                                    </ul>" 
+                                                                    data-html="true">Financement
+                                                            </button>
+                                                            <button class="btn btn-success btn-xs" 
+                                                                    rel="tooltip" data-placement="bottom" 
+                                                                    data-original-title="<h6>Effectifs</h6>
+                                                                    <ul>
+                                                                    <li>Groupe CM - 1</li>
+                                                                    <li>Groupe TD - 5</li>
+                                                                    <li>Groupe TP - 10</li>
+                                                                    </ul>" 
+                                                                    data-html="true">Volume horaire
+                                                            </button>
+                                                            <button class="btn btn-success btn-xs" 
+                                                                    rel="tooltip" data-placement="bottom" 
+                                                                    data-original-title="<h6>Volume horaire</h6>
+                                                                    <ul>
+                                                                    <li>CM - 12h</li>
+                                                                    <li>TD - 12h</li>
+                                                                    <li>TP - 06h</li>
+                                                                    </ul>" 
+                                                                    data-html="true">Volume horaire
+                                                            </button>
+                                                            <button class="btn btn-primary btn-xs">Modifier</button>
+                                                        </div>
                                                     </div>
                                                 </li>
-                                                <li class="dd-item" data-id="3">
-                                                    <div class="dd-handle">
-                                                        Matiere #1.2
-                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
-                                                </li>
-                                                <li class="dd-item" data-id="4">
-                                                    <div class="dd-handle">
-                                                        Matiere #1.3
-                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
-                                                </li>
-                                                <li class="dd-item" data-id="5">
-                                                    <div class="dd-handle">
-                                                        Matiere #1.4
-                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
-                                                </li>
-                                                <li class="dd-item" data-id="6">
-                                                    <div class="dd-handle">
-                                                        Matiere #1.5
-                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
-                                                </li>
+                                                @endforeach
                                             </ol>
                                         </li>
                                     </ol>
-                                    <ol class="dd-list">
-                                        <li class="dd-item" data-id="1">
-                                            <div class="dd-handle">
-                                                UE  1<span>- Nom de l'UE #2</span>
-                                            </div>
-                                        </li>
-                                        <li class="dd-item" data-id="7">
-                                            <ol class="dd-list">
-                                                <li class="dd-item" data-id="8">
-                                                    <div class="dd-handle">
-                                                        Matiere #2.1
-                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
-                                                </li>
-                                                <li class="dd-item" data-id="9">
-                                                    <div class="dd-handle">
-                                                        Matiere #2.2
-                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
-                                                </li>
-                                                <li class="dd-item" data-id="10">
-                                                    <div class="dd-handle">
-                                                        Matiere #2.3
-                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
-                                                </li>
-                                                <li class="dd-item" data-id="11">
-                                                    <div class="dd-handle">
-                                                        Matiere #2.4
-                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
-                                                </li>
-                                                <li class="dd-item" data-id="12">
-                                                    <div class="dd-handle">
-                                                        Matiere #2.5
-                                                        <div class="pull-right"><span>&nbsp;TP : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;TD : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div>
-                                                        <div class="pull-right"><span>&nbsp;CM : </span><input  class="form-control spinner-left" id="spinner" name="spinner" value="1" type="text"></div></div>
-                                                </li>
-                                            </ol>
-                                        </li>
-                                    </ol>
+                                    @endforeach
                                 </div>
-
                             </div>
                         </div>
                     </div>
                     <!-- end widget content -->
                 </div>
                 <!-- end widget div -->
+            </article>
+            @endforeach
         </div>
-        <!-- end widget -->
-        <!-- Widget ID (each widget will need unique ID)-->
-        <div class="jarviswidget jarviswidget-color-darken" id="formation-2" 
-             data-widget-editbutton="false" 
-             data-widget-colorbutton="false" 
-             data-widget-deletebutton="false" 
-             data-widget-fullscreenbutton="false" 
-             data-widget-collapsed="true"
-
-             data-widget-sortable="false">
-
-            <header>
-                <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-                <h2 class="font-md"><strong>D.U.T</strong> <i>Deuxième année</i></h2>
-            </header>
-
-            <!-- widget div-->
-            <div>
-                <div class="jarviswidget-editbox">
-                    <!-- This area used as dropdown edit box -->
-                </div>
-                <!-- end widget edit box -->
-                <!-- widget content -->
-                <div class="widget-body">
-                    <!-- ICI CODE DES UE-->
-                    <p>DUT DEUXIEME ANNEE</p>
-                </div>
-                <!-- end widget content -->
-            </div>
-            <!-- end widget div -->
-        </div>
-        <!-- end widget -->
-        <!-- Widget ID (each widget will need unique ID)-->
-        <div class="jarviswidget jarviswidget-color-greenLight" id="formation-3" 
-             data-widget-editbutton="false" 
-             data-widget-colorbutton="false" 
-             data-widget-deletebutton="false" 
-             data-widget-fullscreenbutton="false" 
-             data-widget-collapsed="true"
-             data-widget-sortable="false">
-
-            <header>
-                <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-                <h2 class="font-md"><strong>D.U.T</strong> <i>Année spéciale</i></h2>
-            </header>
-
-            <!-- widget div-->
-            <div>
-                <div class="jarviswidget-editbox">
-                    <!-- This area used as dropdown edit box -->
-                </div>
-                <!-- end widget edit box -->
-                <!-- widget content -->
-                <div class="widget-body">
-                    <!-- ICI CODE DES UE-->
-                </div>
-                <!-- end widget content -->
-            </div>
-            <!-- end widget div -->
-        </div>
-        <!-- end widget -->
-        <!-- Widget ID (each widget will need unique ID)-->
-        <div class="jarviswidget jarviswidget-color-blue" id="formation-4" 
-             data-widget-editbutton="false" 
-             data-widget-colorbutton="false" 
-             data-widget-deletebutton="false" 
-             data-widget-fullscreenbutton="false" 
-             data-widget-collapsed="true"
-             data-widget-sortable="false">
-
-            <header>
-                <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-                <h2 class="font-md"><strong>D.U.T</strong> <i>Cours du soir</i></h2>
-            </header>
-
-            <!-- widget div-->
-            <div>
-                <div class="jarviswidget-editbox">
-                    <!-- This area used as dropdown edit box -->
-                </div>
-                <!-- end widget edit box -->
-                <!-- widget content -->
-                <div class="widget-body">
-                    <!-- ICI CODE DES UE-->
-                </div>
-                <!-- end widget content -->
-            </div>
-            <!-- end widget div -->
-        </div>
-        <!-- end widget -->
-        <!-- Widget ID (each widget will need unique ID)-->
-        <div class="jarviswidget jarviswidget-color-purple" id="formation-5" 
-             data-widget-editbutton="false" 
-             data-widget-colorbutton="false" 
-             data-widget-deletebutton="false" 
-             data-widget-fullscreenbutton="false" 
-             data-widget-collapsed="true"
-             data-widget-sortable="false">
-
-            <header>
-                <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-                <h2 class="font-md"><strong>D.U.T</strong> <i>Cours à distance</i></h2>
-            </header>
-
-            <!-- widget div-->
-            <div>
-                <div class="jarviswidget-editbox">
-                    <!-- This area used as dropdown edit box -->
-                </div>
-                <!-- end widget edit box -->
-                <!-- widget content -->
-                <div class="widget-body">
-                    <!-- ICI CODE DES UE-->
-                </div>
-                <!-- end widget content -->
-            </div>
-            <!-- end widget div -->
-        </div>
-        <!-- end widget -->
-        <!-- Widget ID (each widget will need unique ID)-->
-        <div class="jarviswidget jarviswidget-color-red" id="formation-6" 
-             data-widget-editbutton="false" 
-             data-widget-colorbutton="false" 
-             data-widget-deletebutton="false" 
-             data-widget-fullscreenbutton="false" 
-             data-widget-collapsed="true"
-             data-widget-sortable="false">
-
-            <header>
-                <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-                <h2 class="font-md"><strong>Licence professionelle</strong> <i>Licence #1</i></h2>
-            </header>
-
-            <!-- widget div-->
-            <div>
-                <div class="jarviswidget-editbox">
-                    <!-- This area used as dropdown edit box -->
-                </div>
-                <!-- end widget edit box -->
-                <!-- widget content -->
-                <div class="widget-body">
-                    <!-- ICI CODE DES UE-->
-                </div>
-                <!-- end widget content -->
-            </div>
-            <!-- end widget div -->
-        </div>
-        <!-- end widget -->
-        <!-- Widget ID (each widget will need unique ID)-->
-        <div class="jarviswidget jarviswidget-color-red" id="formation-7" 
-             data-widget-editbutton="false" 
-             data-widget-colorbutton="false" 
-             data-widget-deletebutton="false" 
-             data-widget-fullscreenbutton="false" 
-             data-widget-collapsed="true"
-             data-widget-sortable="false">
-
-            <header>
-                <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-
-                <!-- widget div-->
-                <div>
-                    <div class="jarviswidget-editbox">
-                        <!-- This area used as dropdown edit box -->
-                    </div>
-                    <!-- end widget edit box -->
-                    <!-- widget content -->
-                    <div class="widget-body">
-                        <!-- ICI CODE DES UE-->
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
-        </div>
-        <!-- end widget -->
-        </article>
-</div>
-</section>
+    </section>
 </div>
 @include('layout.footer')
 <!-- PAGE RELATED PLUGIN(S) -->
@@ -326,26 +113,9 @@
 
     $(document).ready(function () {
         pageSetUp();
-
-        $(".spinner-left").spinner();
     });
 </script>
 
 <style>
-    .ui-spinner {
-        line-height: 15px;
-        width: 50px;
-    }
-    .ui-spinner-button {
-        width: 15px;
-    }
-    .ui-spinner-input.spinner-left {
-        height: 24px;
-        padding-left: 18px;
-        padding-right: 0px;
-    }
-    
-    .dd-handle {
-        line-height: 30px;
-    }
+   
 </style>
