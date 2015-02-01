@@ -6,7 +6,7 @@ class GroupeController extends BaseController {
 
         $data = array(
                 'notifications' => array(),
-                'lesFormations' => $lesFormations
+                'lesFormations' => $lesFormations,
                 'breadcrumb' => array('#ApplicationJaneDoe', 'Les formations')
                );
         return View::make('groupe')->with($data);
