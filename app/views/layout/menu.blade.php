@@ -36,8 +36,8 @@
             <li class="{{ URL::route('financement') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('financement')}}" class="" title="FInancement"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Financement</span></a>
             </li>
-            <li class="{{ URL::route('formation') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('formation')}}" class="" title="Formation"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Formation</span></a>
+            <li class="{{ URL::route('groupe') === URL::current() ? 'active' : '' }}">
+                <a href="{{URL::route('groupe')}}" class="" title="Groupe"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Groupes</span></a>
             </li>
             <li class="{{ URL::route('matiere') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('matiere')}}" class=""><i class="fa fa-lg fa-fw fa-road"></i> <span class="menu-item-parent">UEs / Matières</span><span class="badge pull-right inbox-badge">2</span></a>

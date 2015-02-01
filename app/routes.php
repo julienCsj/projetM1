@@ -21,7 +21,7 @@ Route::post('financement/modifier/{id}',   array('as' => 'financement.modifierFi
 
 
 // Routes à classer
-Route::get('formation', array('as' => 'formation', 'uses' => 'FormationController@getFormations'));
+Route::get('groupe', array('as' => 'groupe', 'uses' => 'GroupeController@getGroupes'));
 Route::get('matiere', array('as' => 'matiere', 'uses' => 'MatiereController@getMatieres'));
 Route::get('enseignant', array('as' => 'enseignant', 'uses' => 'EnseignantController@getEnseignants'));
 Route::get('calendrier', array('as' => 'calendrier', 'uses' => 'CalendrierController@getCalendrier'));
