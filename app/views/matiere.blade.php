@@ -50,7 +50,9 @@
                                                 @foreach($ue->lesModules as $module)
                                                 <li class="dd-item" data-id="3">
                                                     <div class="dd-handle">
-                                                        {{$module->long_title}}
+                                                        <span class="dd-handle-title" title="{{$module->long_title}}">
+                                                            {{$module->long_title}}
+                                                        </span>
                                                         <div class="pull-right">
                                                             <button class="btn btn-success btn-xs" 
                                                                     rel="tooltip" data-placement="bottom" 
@@ -105,7 +107,19 @@
 @include('layout.footer')
 <!-- PAGE RELATED PLUGIN(S) -->
 
-
+<style type="text/css">
+.dd-handle-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 40%;
+    display: block;
+    float:left;
+ }
+ .dd-handle {
+    height: 40px;
+ }
+</style>
 
 
 <script type="text/javascript">
