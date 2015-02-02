@@ -15,35 +15,23 @@ class Groupe extends Eloquent {
 	 * @var string
 	 */
 	protected $table = '_groupe';
-        //protected $fillable = array('libelle', 'montant');
-        public $timestamps = false;
-        
-        public $lesUE;
-        
-        
-        /* 
-         * Redéfinition de la méthode all de Eloquent.
-         * La base de données n'etant pas normalisé, il est impossible ici
-         * d'utiliser Eloquent de maniere conventionnelle.
-         */
-        /*public static function all($column = null) {
-           return DB::table('semestre')
-            ->join('pages', 'pages.id', '=', 'semestre.id')
-            ->select('semestre.id', 'pages.short_title', 'pages.long_title')
-            ->get();
-        }
-        
-        public static function getFormationUeModule() {
-            $lesFormations = (array) Formation::all();       
-            //exit(var_dump($lesFormations));
-            
-            foreach ($lesFormations as $f) {
-                $f->lesUE = UE::getUeByFormation($f->id);
-                foreach ($f->lesUE as $ue) {
-                    $ue->lesModules = Module::getModuleByUE($ue->id);
-                }
-            }
-            return $lesFormations;
-        }*/
-}
+    //protected $fillable = array('libelle', 'montant');
+    public $timestamps = false;
+    
+    public static function getGroupeModule() {
+        $lesFormations = (array) Formation::all();       
 
+        foreach ($lesFormations as $f) {
+            $f->lesGroupes = Groupe::getGroupesByFormation($f->id);
+        }
+        return $lesFormations;
+    }
+
+    public static function getGroupesByFormation($id) {
+        return DB::select(DB::raw(''
+                    . 'select _groupe.id, nom '
+                    . 'from _groupe, semestre '
+                    . 'where _groupe.formation_id = semestre.id '
+                    . ''));  
+    }
+}

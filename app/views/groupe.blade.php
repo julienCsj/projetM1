@@ -6,12 +6,13 @@
         <h1>Formation <small>Cette page permet de gérer les groupes des différentes formations</small></h1>
         <br/>
     </div>
+    @foreach ($lesGroupes as $formation)
     <div class="row">
-        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <!-- Widget ID (each widget will need unique ID)-->
             <div class="jarviswidget jarviswidget-color-darken" id="formation-1" data-widget-collapsed="true" data-widget-colorbutton="false" data-widget-sortable="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
                 <header>
-                    <h2 class="font-md"><strong>D.U.T</strong> <i>Première année</i></h2>
+                    <h2 class="font-md"><strong>{{$formation->short_title}}</strong> <i>{{$formation->long_title}}</i></h2>
                 </header>
 
                 <!-- widget div-->
@@ -28,33 +29,21 @@
                                 <li>
                                     <span><i class="fa fa-lg fa-folder-open"></i> Groupes</span>
                                     <ul>
+                                        @foreach ($formation->lesGroupes as $groupe)
                                         <li>
-                                            <span><i class="fa fa-lg fa-plus-circle"></i> Groupe 1</span> &ndash; <a href="#">Supprimer</a> &ndash; <a href="#">Modifier</a>
+                                            <span><i class="fa fa-lg fa-plus-circle"></i> Groupe {{$groupe->nom}}</span> &ndash; <a href="#">Supprimer</a> &ndash; <a href="modifier_groupe">Modifier</a>
                                             <ul>
                                                 <li style="display:none">
-                                                    <span>Groupe 1.1</span> &ndash; <a href="#">Supprimer</a> &ndash; <a id="modifier_groupe" href="#">Modifier</a>
+                                                    <span>Groupe {{$groupe->nom}} 1</span>
                                                 </li>
                                                 <li style="display:none">
-                                                    <span>Groupe 1.2</span> &ndash; <a href="#">Supprimer</a> &ndash; <a href="#">Modifier</a>
-                                                </li>
-                                                <li style="display:none">
-                                                    <span><a id="ajouter_groupe" href="#">Ajouter</a></span>
+                                                    <span>Groupe {{$groupe->nom}} 2</span>
                                                 </li>
                                             </ul>
                                         </li>
+                                        @endforeach
                                         <li>
-                                            <span><i class="fa fa-lg fa-plus-circle"></i> Groupe 2</span> &ndash; <a href="#">Supprimer</a> &ndash; <a href="#">Modifier</a>
-                                            <ul>
-                                                <li style="display:none">
-                                                    <span>Groupe 2.1</span> &ndash; <a href="#">Supprimer</a> &ndash; <a href="#">Modifier</a>
-                                                </li>
-                                                <li style="display:none">
-                                                    <span><a href="#">Ajouter</a></span>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span><a href="#">Ajouter</a></span>
+                                            <span><a href="ajouter_groupe">Ajouter</a></span>
                                         </li>
                                     </ul>
                                 </li>
@@ -67,162 +56,8 @@
             </div>
             <!-- end widget -->
         </article>
-
-        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget jarviswidget-color-darken" id="formation-2" data-widget-collapsed="true" data-widget-colorbutton="false" data-widget-sortable="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-                <header>
-                    <h2 class="font-md"><strong>D.U.T</strong> <i>Deuxième année</i></h2>
-                </header>
-
-                <!-- widget div-->
-                <div>
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                        <!-- This area used as dropdown edit box -->
-                    </div>
-                    <!-- end widget edit box -->
-                    <!-- widget content -->
-                    <div class="widget-body">
-                        
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
-            </div>
-            <!-- end widget -->
-        </article>
     </div>
-    <div class="row">
-        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget jarviswidget-color-greenLight" id="formation-3" data-widget-collapsed="true" data-widget-colorbutton="false" data-widget-sortable="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-                <header>
-                    <h2 class="font-md"><strong>D.U.T</strong> <i>Année spéciale</i></h2>
-                </header>
-
-                <!-- widget div-->
-                <div>
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                        <!-- This area used as dropdown edit box -->
-                    </div>
-                    <!-- end widget edit box -->
-                    <!-- widget content -->
-                    <div class="widget-body">
-                        
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
-            </div>
-            <!-- end widget -->
-        </article>
-
-        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget jarviswidget-color-blue" id="formation-4" data-widget-collapsed="true" data-widget-colorbutton="false" data-widget-sortable="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-                <header>
-                    <h2 class="font-md"><strong>D.U.T</strong> <i>Cours du soir</i></h2>
-                </header>
-
-                <!-- widget div-->
-                <div>
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                        <!-- This area used as dropdown edit box -->
-                    </div>
-                    <!-- end widget edit box -->
-                    <!-- widget content -->
-                    <div class="widget-body">
-                        
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
-            </div>
-            <!-- end widget -->
-        </article>
-    </div>
-    <div class="row">
-        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget jarviswidget-color-purple" id="formation-5" data-widget-collapsed="true" data-widget-colorbutton="false" data-widget-sortable="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-                <header>
-                    <h2 class="font-md"><strong>D.U.T</strong> <i>Cours à distance</i></h2>
-                </header>
-
-                <!-- widget div-->
-                <div>
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                        <!-- This area used as dropdown edit box -->
-                    </div>
-                    <!-- end widget edit box -->
-                    <!-- widget content -->
-                    <div class="widget-body">
-                        
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
-            </div>
-            <!-- end widget -->
-        </article>
-
-        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget jarviswidget-color-red" id="formation-6" data-widget-collapsed="true" data-widget-colorbutton="false" data-widget-sortable="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-                <header>
-                    <h2 class="font-md"><strong>Licence professionnelle</strong> <i>Licence #1</i></h2>
-                </header>
-
-                <!-- widget div-->
-                <div>
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                        <!-- This area used as dropdown edit box -->
-                    </div>
-                    <!-- end widget edit box -->
-                    <!-- widget content -->
-                    <div class="widget-body">
-                        
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
-            </div>
-            <!-- end widget -->
-        </article>
-    </div>
-    <div class="row">
-        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget jarviswidget-color-red" id="formation-7" data-widget-collapsed="true" data-widget-colorbutton="false" data-widget-sortable="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-                <header>
-                    <h2 class="font-md"><strong>Licence professionnelle</strong> <i>Licence #2</i></h2>
-                </header>
-
-                <!-- widget div-->
-                <div>
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                        <!-- This area used as dropdown edit box -->
-                    </div>
-                    <!-- end widget edit box -->
-                    <!-- widget content -->
-                    <div class="widget-body">
-                        
-                    </div>
-                    <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
-            </div>
-            <!-- end widget -->
-        </article>
-    </div>
-        <!-- WIDGET END -->
-    </div>
+    @endforeach
 </section>
 
 <div id="ajouterGroupe" title="Ajouter un groupe">

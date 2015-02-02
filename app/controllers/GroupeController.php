@@ -1,15 +1,16 @@
 <?php
 class GroupeController extends BaseController {
 	public function getGroupes()
-    {
-        $lesFormations = Formation::getFormationUeModule();
+  {
+      $lesGroupes = Groupe::getGroupeModule();
 
-        $data = array(
-                'notifications' => array(),
-                'lesFormations' => $lesFormations,
-                'breadcrumb' => array('#ApplicationJaneDoe', 'Les formations')
-               );
-        return View::make('groupe')->with($data);
-    }
+      $data = array(
+              'notifications' => array(),
+              'lesGroupes' => $lesGroupes,
+              'breadcrumb' => array('#ApplicationJaneDoe', 'Les formations')
+             );
+
+      return View::make('groupe')->with($data);
+  }
 
 }
