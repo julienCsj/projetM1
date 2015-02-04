@@ -57,14 +57,14 @@
                                 <tbody>
                                     @foreach ($enseignant as $e)
                                     <tr>
-                                        <td>{{ $e['nom'] }}</td>
-                                        <td>{{ $e['prenom'] }}</td>
-                                        <td><a class="enseignant-statut" href="#">Statut 1</a></td>
+                                        <td>{{ $e->LASTNAME }}</td>
+                                        <td>{{ $e->FIRSTNAME }}</td>
+                                        <td><a class="enseignant-statut" href="#">{{ $typeStatus[intval($e->ROLES)]->label }} - {{ $typeStatus[intval($e->ROLES)]->heure }} h</a></td>
                                         <td>
-                                            <div class="easy-pie-chart text-danger easyPieChart" data-percent="33" data-pie-size="25" data-pie-track-color="rgba(169, 3, 41,0.07)" style="width: 30px; height: 30px; line-height: 30px;">
-                                                <span class="percent txt-color-red">66</span>
+                                            <div class="easy-pie-chart text-danger easyPieChart" data-percent="0" data-pie-size="25" data-pie-track-color="rgba(169, 3, 41,0.07)" style="width: 30px; height: 30px; line-height: 30px;">
+                                                <span class="percent txt-color-red">0</span>
                                             </div>
-                                            quota d'heure réalisé
+                                            % heures planifiées
                                         </td>
                                         <td></td>
                                     </tr>
@@ -84,18 +84,36 @@
 <!-- #dialog-message -->
 <div id="dialog-message" title="Dialog Simple Title">
     <p>
-        This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.
+        Vous pouvez changer le statut de l'enseignant pour définir le volume horaire, ou le renseigner à la main
     </p>
 
     <div class="hr hr-12 hr-double"></div>
+    <form id="form-status-enseignant" class="smart-form" novalidate="novalidate">
 
+        <fieldset>
+            <div class="row">
+                <section> Valeur classique
+                    <label class="select">
+                        <select name="status" id="input-status">
+                            @foreach ($typeStatus as $t)
+                            <option value="{{$t->id}}">{{$t->label}} - {{$t->heure}} heures </option>
+                            @endforeach
+                        </select> <i></i> </label>
+                </section>
+            </div>  
 
-    Currently using
-    <b>36% of your storage space</b>
-    <div class="progress progress-striped active no-margin">
-        <div class="progress-bar progress-primary" role="progressbar" style="width: 36%"></div>
-    </div>
-
+            <hr>
+            <br>
+            <div class="row">
+                <section>
+                    <label class="input"> Ou saissisez le volume horaire
+                        <input type="text" name="volumeHoraire" placeholder="192" id="input-volumeHoraire">
+                    </label>
+                </section>
+            </div>
+            
+        </fieldset>
+    </form>
 </div>
 <!-- #dialog-message -->
 
@@ -145,6 +163,32 @@
     });
 
     function modifier_statut() {
-        alert("Fonctionnel");
+        var from_data =  {"volumeHoraire" : $("#input-volumeHoraire").val(),
+                        "status" : $("#input-status").val()};
+                        console.log(from_data);
+        $.ajax({
+            url: "test.html",
+            data: from_data
+        })
+        .done(function( html ) {
+            $.bigBox({
+                title : "Modification réalisé",
+                content : "Le status de l'enseignant a bien été modifié !",
+                color : "#3276B1",
+                icon : "fa fa-bell swing animated",
+                number : "2",
+                timeout : 6000
+            });
+        })
+        .fail(function( html ) {
+            $.bigBox({
+                title : "Modification réalisé",
+                content : "Un problème est survenu !",
+                color : "#C46A69",
+                icon : "fa fa-warning shake animated",
+                number : "2",
+                timeout : 6000
+            });
+        });
     }
 </script>
