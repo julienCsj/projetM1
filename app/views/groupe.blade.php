@@ -3,10 +3,10 @@
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        <h1>Formation <small>Cette page permet de gérer les groupes des différentes formations</small></h1>
+        <h1>Groupes <small>Cette page permet de gérer les groupes des différentes formations</small></h1>
         <br/>
     </div>
-    @foreach ($lesGroupes as $formation)
+    @foreach ($lesGroupesParFormation as $formation)
     <div class="row">
         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <!-- Widget ID (each widget will need unique ID)-->
@@ -31,7 +31,7 @@
                                     <ul>
                                         @foreach ($formation->lesGroupes as $groupe)
                                         <li>
-                                            <span><i class="fa fa-lg fa-plus-circle"></i> Groupe {{$groupe->nom}}</span> &ndash; <a href="#">Supprimer</a> &ndash; <a href="modifier_groupe">Modifier</a>
+                                            <span><i class="fa fa-lg fa-plus-circle"></i> Groupe {{$groupe->nom}}</span> &ndash; <a href="{{ route('groupe.supprimerGroupe', array($groupe->id)); }}">Supprimer</a> &ndash; <a data-toggle="modal" data-target="#modifierGroupe-{{$groupe->id}}" href="javascript(void);">Modifier</a>
                                             <ul>
                                                 <li style="display:none">
                                                     <span>Groupe {{$groupe->nom}} 1</span>
@@ -43,7 +43,7 @@
                                         </li>
                                         @endforeach
                                         <li>
-                                            <span><a href="ajouter_groupe">Ajouter</a></span>
+                                            <span><a href="javascript:void(0);" data-toggle="modal" data-target="#ajouterGroupe-{{$formation->id}}">Ajouter</a></span>
                                         </li>
                                     </ul>
                                 </li>
@@ -60,29 +60,69 @@
     @endforeach
 </section>
 
-<div id="ajouterGroupe" title="Ajouter un groupe">
-    <form>
-        <fieldset>
-            <input name="authenticity_token" type="hidden">
-            <div class="form-group">
-                <label>Numéro de groupe</label>
-                <input class="form-control" id="tab_title" value="" type="text">
+@foreach($lesGroupesParFormation as $formation)
+<div class="modal fade" id="ajouterGroupe-{{$formation->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Ajouter un groupe à {{$formation->short_title}}</h4>
             </div>
-        </fieldset>
-    </form>
+            {{ Form::open(array('route' => 'groupe.ajouterGroupe')) }}
+            <input type="hidden" name="id" value="{{$formation->id}}" />
+            <div class="modal-body">
+                <div class="row">    
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" name="nom" class="form-control" placeholder="Nom du groupe" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <input type="submit" class="btn btn-primary" value="Ajouter" />
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
 </div>
+@endforeach
 
-<div id="modifierGroupe" title="Modifier un groupe">
-    <form>
-        <fieldset>
-            <input name="authenticity_token" type="hidden">
-            <div class="form-group">
-                <label>Numéro de groupe</label>
-                <input class="form-control" id="tab_title" value="" type="text">
+@foreach($lesGroupesParFormation as $formation)
+    @foreach($formation->lesGroupes as $groupe)
+    <div class="modal fade" id="modifierGroupe-{{$groupe->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Modifier le groupe {{$groupe->nom}}</h4>
+                </div>
+                {{ Form::open(array('route' => 'groupe.modifierGroupe')) }}
+                <input type="hidden" name="id" value="{{$groupe->id}}" />
+                <div class="modal-body">
+                    <div class="row">    
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" name="nom" value="{{$groupe->nom}}" class="form-control" placeholder="Nom du groupe" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <input type="submit" class="btn btn-primary" value="Confirmer" />
+                </div>
+                {{ Form::close() }}
             </div>
-        </fieldset>
-    </form>
-</div>
+        </div>
+    </div>
+    @endforeach
+@endforeach
 
 @include('layout.footer')
 
@@ -105,58 +145,6 @@ $(document).ready(function() {
             $(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
         }
         e.stopPropagation();
-    });
-
-    var ajouter = $("#ajouterGroupe").dialog({
-        autoOpen : false,
-        width : 600,
-        resizable : false,
-        modal : true,
-        buttons : [{
-            html : "<i class='fa fa-times'></i>&nbsp; Annuler",
-            "class" : "btn btn-default",
-            click : function() {
-                $(this).dialog("close");
-
-            }
-        }, {
-
-            html : "<i class='fa fa-plus'></i>&nbsp; Ajouter",
-            "class" : "btn btn-danger",
-            click : function() {
-                $(this).dialog("close");
-            }
-        }]
-    });
-
-    var modifier = $("#modifierGroupe").dialog({
-        autoOpen : false,
-        width : 600,
-        resizable : false,
-        modal : true,
-        buttons : [{
-            html : "<i class='fa fa-times'></i>&nbsp; Annuler",
-            "class" : "btn btn-default",
-            click : function() {
-                $(this).dialog("close");
-
-            }
-        }, {
-
-            html : "<i class='fa fa-check'></i>&nbsp; Modifier",
-            "class" : "btn btn-danger",
-            click : function() {
-                $(this).dialog("close");
-            }
-        }]
-    });
-
-    $("#ajouter_groupe").button().click(function() {
-        ajouter.dialog("open");
-    });
-
-    $("#modifier_groupe").button().click(function() {
-        modifier.dialog("open");
     });
 })
 </script>

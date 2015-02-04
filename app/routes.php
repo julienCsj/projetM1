@@ -19,9 +19,16 @@ Route::get('financement/supprimer/{id}', array('as' => 'financement.supprimerFin
 Route::post('financement/ajouter',   array('as' => 'financement.ajouterFinancement',   'uses' => 'FinancementController@ajouterFinancement'));
 Route::post('financement/modifier/{id}',   array('as' => 'financement.modifierFinancement',   'uses' => 'FinancementController@modifierFinancement'));
 
+// Routes module groupe
+Route::get('groupe', array('as' => 'groupe', 'uses' => 'GroupeController@getGroupes'));
+Route::get('groupe/supprimer/{id}', array('as' => 'groupe.supprimerGroupe', 'uses' => 'GroupeController@supprimerGroupe'));
+Route::post('groupe/ajouter',   array('as' => 'groupe.ajouterGroupe',   'uses' => 'GroupeController@ajouterGroupe'));
+Route::post('groupe/modifier',   array('as' => 'groupe.modifierGroupe',   'uses' => 'GroupeController@modifierGroupe'));
+
+
+
 
 // Routes à classer
-Route::get('groupe', array('as' => 'groupe', 'uses' => 'GroupeController@getGroupes'));
 Route::get('matiere', array('as' => 'matiere', 'uses' => 'MatiereController@getMatieres'));
 Route::get('enseignant', array('as' => 'enseignant', 'uses' => 'EnseignantController@getEnseignants'));
 Route::get('calendrier', array('as' => 'calendrier', 'uses' => 'CalendrierController@getCalendrier'));

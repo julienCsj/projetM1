@@ -29,9 +29,9 @@ class Groupe extends Eloquent {
 
     public static function getGroupesByFormation($id) {
         return DB::select(DB::raw(''
-                    . 'select _groupe.id, nom '
-                    . 'from _groupe, semestre '
-                    . 'where _groupe.formation_id = semestre.id '
+                    . 'select id, nom '
+                    . 'from _groupe '
+                    . 'where _groupe.formation_id = "'.$id.'"'
                     . ''));  
     }
 }
