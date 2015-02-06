@@ -55,11 +55,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
+                                    @if (!empty($enseignant))
                                     @foreach ($enseignant as $e)
                                     <tr>
                                         <td>{{ $e->LASTNAME }}</td>
                                         <td>{{ $e->FIRSTNAME }}</td>
-                                        <td><a class="enseignant-statut" href="#">{{ $typeStatus[intval($e->ROLES)]->label }} - {{ $typeStatus[intval($e->ROLES)]->heure }} h</a></td>
+                                        <td>
+                                            @if(!empty($typeStatus))
+                                            <a class="enseignant-statut" href="#">
+                                                {{ $typeStatus[intval($e->ROLES)]->label }} - 
+                                                {{ $typeStatus[intval($e->ROLES)]->heure }} h
+                                            </a>
+                                            @else
+                                            <p>Statut inconnu</p>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="easy-pie-chart text-danger easyPieChart" data-percent="0" data-pie-size="25" data-pie-track-color="rgba(169, 3, 41,0.07)" style="width: 30px; height: 30px; line-height: 30px;">
                                                 <span class="percent txt-color-red">0</span>
@@ -69,6 +80,9 @@
                                         <td></td>
                                     </tr>
                                     @endforeach
+                                @else
+                                <p>Aucun enseignant a afficher</p>
+                                @endif
                                 </tbody>
                             </table>
 
@@ -111,7 +125,7 @@
                     </label>
                 </section>
             </div>
-            
+
         </fieldset>
     </form>
 </div>
@@ -163,32 +177,32 @@
     });
 
     function modifier_statut() {
-        var from_data =  {"volumeHoraire" : $("#input-volumeHoraire").val(),
-                        "status" : $("#input-status").val()};
-                        console.log(from_data);
+        var from_data = {"volumeHoraire": $("#input-volumeHoraire").val(),
+            "status": $("#input-status").val()};
+        console.log(from_data);
         $.ajax({
             url: "test.html",
             data: from_data
         })
-        .done(function( html ) {
-            $.bigBox({
-                title : "Modification réalisé",
-                content : "Le status de l'enseignant a bien été modifié !",
-                color : "#3276B1",
-                icon : "fa fa-bell swing animated",
-                number : "2",
-                timeout : 6000
-            });
-        })
-        .fail(function( html ) {
-            $.bigBox({
-                title : "Modification réalisé",
-                content : "Un problème est survenu !",
-                color : "#C46A69",
-                icon : "fa fa-warning shake animated",
-                number : "2",
-                timeout : 6000
-            });
-        });
+                .done(function (html) {
+                    $.bigBox({
+                        title: "Modification réalisé",
+                        content: "Le status de l'enseignant a bien été modifié !",
+                        color: "#3276B1",
+                        icon: "fa fa-bell swing animated",
+                        number: "2",
+                        timeout: 6000
+                    });
+                })
+                .fail(function (html) {
+                    $.bigBox({
+                        title: "Modification réalisé",
+                        content: "Un problème est survenu !",
+                        color: "#C46A69",
+                        icon: "fa fa-warning shake animated",
+                        number: "2",
+                        timeout: 6000
+                    });
+                });
     }
 </script>
