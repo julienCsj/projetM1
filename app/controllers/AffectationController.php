@@ -7,11 +7,13 @@ class AffectationController extends BaseController {
                  array(
                    'type' => 'success',
                    'titre' => 'affectation',
-                   'message' => 'Bienvenue sur #ApplicationSansNom<br/>Vous pouvez maintennant vous connecter'
+                   'message' => 'Bienvenue sur Scolarel<br/>Vous pouvez maintennant vous connecter'
                  )),
-                 'breadcrumb' => array('#ApplicationJaneDoe', 'affectation')
+                 'breadcrumb' => array('Scolarel', 'affectation')
                );
         return View::make('affectation')->with($data);
     }
+    
+    // A chaque professeur ont associe une source de financement
 
 }

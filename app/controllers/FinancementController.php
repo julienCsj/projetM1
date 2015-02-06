@@ -32,5 +32,8 @@ class FinancementController extends BaseController {
         $financement->save();
         return Redirect::action('FinancementController@getFinancement');
     }
+    
+    
+   
 
 }

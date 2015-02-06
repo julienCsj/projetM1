@@ -71,7 +71,7 @@
                                                                     <li>Groupe TD - 5</li>
                                                                     <li>Groupe TP - 10</li>
                                                                     </ul>" 
-                                                                    data-html="true">Volume horaire
+                                                                    data-html="true">Effectifs
                                                             </button>
                                                             <button class="btn btn-success btn-xs" 
                                                                     rel="tooltip" data-placement="bottom" 

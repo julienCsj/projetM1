@@ -28,6 +28,10 @@ Route::post('groupe/modifier',   array('as' => 'groupe.modifierGroupe',   'uses'
 
 
 
+// Routes module groupe
+Route::get('groupe', array('as' => 'groupe', 'uses' => 'GroupeController@getGroupes'));
+
+
 // Routes à classer
 Route::get('matiere', array('as' => 'matiere', 'uses' => 'MatiereController@getMatieres'));
 Route::get('enseignant', array('as' => 'enseignant', 'uses' => 'EnseignantController@getEnseignants'));
