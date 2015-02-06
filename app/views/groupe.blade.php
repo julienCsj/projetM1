@@ -43,7 +43,7 @@
                                         </li>
                                         @endforeach
                                         <li>
-                                            <span><a href="javascript:void(0);" data-toggle="modal" data-target="#ajouterGroupe-{{$formation->id}}">Ajouter</a></span>
+                                            <span><a href="#" data-toggle="modal" data-target="#ajouterGroupe-{{$formation->id}}">Ajouter</a></span>
                                         </li>
                                     </ul>
                                 </li>

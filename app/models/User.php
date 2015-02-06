@@ -13,7 +13,7 @@ class User extends Eloquent {
 	static function getEnseignant() {
 		return  DB::table('user')
 			->where('ROLES', '=', "ESPE")
-	        ->join("_statusenseignant", 'login_id', '=', 'login')
+	        ->leftJoin("_statusenseignant", 'login_id', '=', 'login')
 	        ->get();
 	}
 }
