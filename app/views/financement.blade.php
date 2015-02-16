@@ -36,7 +36,6 @@
                                     <tr>
                                         <th>#ID</th>
                                         <th>Libellé</th>
-                                        <th>Montant</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -45,7 +44,6 @@
                                     <tr>
                                         <td>{{ $f['id'] }}</td>
                                         <td>{{ $f['libelle'] }}</td>
-                                        <td>{{ $f['montant'] }}</td>
                                         <td>
                                             <a class="btn btn-xs btn-danger" href="{{ route('financement.supprimerFinancement', array($f['id'])); }}"> <i class="glyphicon glyphicon-trash"></i></a>
                                             <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modifierFinancement-{{$f['id']}}" href="javascript:void(0);"> <i class="glyphicon glyphicon-pencil"></i></a>
@@ -92,9 +90,6 @@
                         <div class="form-group">
                             <input type="text" name="libelle" class="form-control" placeholder="Libelle" required />
                         </div>
-                        <div class="form-group">
-                            <input type="number" name="montant" class="form-control" placeholder="Montant" required />
-                        </div>
                     </div>
                 </div>
             </div>
@@ -127,9 +122,6 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <input type="text" name="libelle" class="form-control" placeholder="Libelle" value="{{$f['libelle']}}" required />
-                        </div>
-                        <div class="form-group">
-                            <input type="number" name="montant" class="form-control" placeholder="Montant" value="{{$f['montant']}}" required />
                         </div>
                     </div>
                 </div>

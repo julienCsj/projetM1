@@ -12,7 +12,6 @@ class FinancementController extends BaseController {
     
     public function ajouterFinancement() {
         $financement = new Financement();
-        $financement->montant = Input::get('montant');
         $financement->libelle = Input::get('libelle');
         $financement->save();
         return Redirect::action('FinancementController@getFinancement');
@@ -27,7 +26,6 @@ class FinancementController extends BaseController {
     public function modifierFinancement() {
         $id = Input::get('id');
         $financement = Financement::find($id);
-        $financement->montant = Input::get('montant');
         $financement->libelle = Input::get('libelle');
         $financement->save();
         return Redirect::action('FinancementController@getFinancement');

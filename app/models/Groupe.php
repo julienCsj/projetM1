@@ -31,7 +31,7 @@ class Groupe extends Eloquent {
         return DB::select(DB::raw(''
                     . 'select id, nom '
                     . 'from _groupe '
-                    . 'where _groupe.formation_id = "'.$id.'"'
+                    . 'where _groupe.semestre_id = "'.$id.'"'
                     . ''));  
     }
 }

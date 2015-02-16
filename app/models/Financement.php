@@ -17,6 +17,4 @@ class Financement extends Eloquent {
 	protected $table = '_financement';
         protected $fillable = array('libelle', 'montant');
         public $timestamps = false;
-	
-
 }

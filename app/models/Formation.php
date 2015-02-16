@@ -19,6 +19,8 @@ class Formation extends Eloquent {
         public $timestamps = false;
         
         public $lesUE;
+        public $lesGroupes;
+        public $nbGroupe;
         
         
         /* 
@@ -34,13 +36,14 @@ class Formation extends Eloquent {
         }
         
         public static function getFormationUeModule() {
-            $lesFormations = (array) Formation::all();       
-            //exit(var_dump($lesFormations));
-            
+            $lesFormations = (array) Formation::all();
             foreach ($lesFormations as $f) {
                 $f->lesUE = UE::getUeByFormation($f->id);
                 foreach ($f->lesUE as $ue) {
-                    $ue->lesModules = Module::getModuleByUE($ue->id);
+                    $listeModule = Module::getModuleByUE($ue->id);
+                    foreach($listeModule as $module) {
+                        $ue->lesModules[] = Module::getModuleWithData($module->id);
+                    }
                 }
             }
             return $lesFormations;

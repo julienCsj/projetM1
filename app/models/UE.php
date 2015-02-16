@@ -16,7 +16,7 @@ class UE extends Eloquent {
     protected $table = 'ue';
     //protected $fillable = array('libelle', 'montant');
     public $timestamps = false;
-    public $lesModules;
+    public $lesModules = array();
 
     /*
      * Redéfinition de la méthode all de Eloquent.

@@ -10,7 +10,7 @@ class User extends Eloquent {
     protected $table = 'user';
     public $timestamps = false;
 
-    static function getEnseignant() {
+    public static function getEnseignant() {
         return DB::table('user')
                         ->where('ROLES', '=', "ESPE")
                         ->leftJoin("_statusenseignant", 'login_id', '=', 'login')

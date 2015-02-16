@@ -34,7 +34,7 @@
 
         <ul>
             <li class="{{ URL::route('financement') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('financement')}}" class="" title="FInancement"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Financement</span></a>
+                <a href="{{URL::route('financement')}}" class="" title="Financement"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Financement</span></a>
             </li>
             <li class="{{ URL::route('groupe') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('groupe')}}" class="" title="Groupe"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Groupes</span></a>

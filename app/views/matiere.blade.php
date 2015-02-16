@@ -50,16 +50,17 @@
                                                 @foreach($ue->lesModules as $module)
                                                 <li class="dd-item" data-id="3">
                                                     <div class="dd-handle">
-                                                        <span class="dd-handle-title" title="{{$module->long_title}}">
-                                                            {{$module->long_title}}
+                                                        <span class="dd-handle-title" title="{{$module->LONG_TITLE}}">
+                                                            {{$module->LONG_TITLE}}
                                                         </span>
                                                         <div class="pull-right">
                                                             <button class="btn btn-success btn-xs" 
                                                                     rel="tooltip" data-placement="bottom" 
                                                                     data-original-title="<h6>Financement</h6>
                                                                     <ul>
-                                                                    <li>Source #1 - 12000$</li>
-                                                                    <li>Source #2 - 12000$</li>
+                                                                    @foreach($module->lesFinancements as $f)
+                                                                    <li>{{$f->libelle}}</li>
+                                                                    @endforeach
                                                                     </ul>" 
                                                                     data-html="true">Financement
                                                             </button>
@@ -67,9 +68,9 @@
                                                                     rel="tooltip" data-placement="bottom" 
                                                                     data-original-title="<h6>Effectifs</h6>
                                                                     <ul>
-                                                                    <li>Groupe CM - 1</li>
-                                                                    <li>Groupe TD - 5</li>
-                                                                    <li>Groupe TP - 10</li>
+                                                                    <li>Groupe CM - {{$module->GROUPE_CM}}</li>
+                                                                    <li>Groupe TD - {{$module->GROUPE_CM}}</li>
+                                                                    <li>Groupe TP - {{$module->GROUPE_TP}}</li>
                                                                     </ul>" 
                                                                     data-html="true">Effectifs
                                                             </button>
@@ -77,13 +78,23 @@
                                                                     rel="tooltip" data-placement="bottom" 
                                                                     data-original-title="<h6>Volume horaire</h6>
                                                                     <ul>
-                                                                    <li>CM - 12h</li>
-                                                                    <li>TD - 12h</li>
-                                                                    <li>TP - 06h</li>
+                                                                    <li>CM - {{$module->CM_REEL}}</li>
+                                                                    <li>TD - {{$module->TD_REEL}}</li>
+                                                                    <li>TP - {{$module->TP_REEL}}</li>
                                                                     </ul>" 
                                                                     data-html="true">Volume horaire
                                                             </button>
-                                                            <button class="btn btn-primary btn-xs">Modifier</button>
+                                                            <button class="btn btn-success btn-xs"
+                                                                    rel="tooltip" data-placement="bottom"
+                                                                    data-original-title="<h6>Volume horaire</h6>
+                                                                    <ul>
+                                                                     @foreach($module->lesEnseignants as $e)
+                                                                    <li>{{$e->firstname}} {{$e->lastname}}</li>
+                                                                    @endforeach
+                                                                    </ul>"
+                                                                    data-html="true">Enseignants
+                                                            </button>
+                                                            <a class="btn btn-primary btn-xs" href="{{ route('matiere.modifier', array($formation->id, $module->ID)); }}">Modifier</a>
                                                         </div>
                                                     </div>
                                                 </li>
