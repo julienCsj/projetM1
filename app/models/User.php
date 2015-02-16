@@ -1,6 +1,8 @@
 <?php
 
-class User extends Eloquent {
+use Illuminate\Auth\UserInterface;
+
+class User extends Eloquent implements UserInterface {
 
     /**
      * The database table used by the model.
@@ -8,13 +10,49 @@ class User extends Eloquent {
      * @var string
      */
     protected $table = 'user';
-    public $timestamps = false;
+    protected  $primaryKey = 'LOGIN';
+    protected  $timestamp = false;
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = array('PASSWORD');
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
 
     public static function getEnseignant() {
         return DB::table('user')
-                        ->where('ROLES', '=', "ESPE")
-                        ->leftJoin("_statusenseignant", 'login_id', '=', 'login')
-                        ->get();
+            ->where('ROLES', '=', "ESPE")
+            ->leftJoin("_statusenseignant", 'login_id', '=', 'login')
+            ->get();
     }
-
 }

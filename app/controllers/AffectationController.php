@@ -1,6 +1,7 @@
 <?php
 class AffectationController extends BaseController {
-	public function getAffectation()
+
+    public function getAffectation()
     {
         $data = array(
                'notifications' => array(
