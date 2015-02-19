@@ -4,17 +4,17 @@
         <!-- NEW WIDGET START -->
         	<h1>Calendrier <small>Cette page permet de gérer XX de XX</small></h1>
         <!-- WIDGET END -->
-        
+
         <!-- NEW WIDGET START -->
         <div class="row">
         	<div class="col-sm-12 col-md-12 col-lg-3">
-		
+        		<div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" role="widget">
+				<header>
+					<h2> Draggable Events </h2>
+				</header>
 				<div class="well well-sm" id="event-container">
 					<form>
 						<fieldset>
-							<legend>
-								Draggable Events
-							</legend>
 							<ul id="external-events" class="list-unstyled">
 								<li class="ui-draggable" style="position: relative;">
 									<span class="bg-color-darken txt-color-white external-event" data-description="Currently busy" data-icon="fa-time">Office Meeting</span>
@@ -30,6 +30,8 @@
 					</form>
 		
 				</div>
+				</div>
+				
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-9">
 				<!-- new widget -->
