@@ -37,8 +37,12 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::get('formation/{idFormation}/matiere/{idMatiere}/enseignant/{idEnseignant}/supprimer/', array('as' => 'matiere.supprimerEnseignant', 'uses' => 'MatiereController@supprimerEnseignantMatiere'));
     Route::get('formation/{idFormation}/matiere/{idMatiere}/financement/{idFinancement}/supprimer/', array('as' => 'matiere.supprimerFinancement', 'uses' => 'MatiereController@supprimerFinancementMatiere'));
 
-    // Routes à classer
+    // Routes enseignant / status
     Route::get('enseignant', array('as' => 'enseignant', 'uses' => 'EnseignantController@getEnseignants'));
+    Route::post('enseignant/status', array('as' => 'enseignant.postModifierStatus', 'uses' => 'StatusEnseignantController@postModifierStatus'));
+    
+
+    // Routes à classer
     Route::get('calendrier', array('as' => 'calendrier', 'uses' => 'CalendrierController@getCalendrier'));
     Route::get('affectation', array('as' => 'affectation', 'uses' => 'AffectationController@getAffectation'));
     Route::get('voeux', array('as' => 'voeux', 'uses' => 'VoeuxController@getVoeux'));

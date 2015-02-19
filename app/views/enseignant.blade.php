@@ -62,14 +62,21 @@
                                         <td>{{ $e->LASTNAME }}</td>
                                         <td>{{ $e->FIRSTNAME }}</td>
                                         <td>
-                                            @if(!empty($typeStatus))
-                                            <a class="enseignant-statut" href="#">
-                                                {{ $typeStatus[intval($e->ROLES)]->label }} - 
-                                                {{ $typeStatus[intval($e->ROLES)]->heure }} h
-                                            </a>
+
+                                            <a id="enseignant-statut-{{ $e->LOGIN }}" class="enseignant-statut" href="#" data-taux-horaire-specifique="{{$e->taux_horaire_specifique}}" data-idEnseignant="{{ $e->LOGIN }}">
+                                            @if(!empty($typeStatus) && $e->id != NULL)
+                                                @if($e->taux_horaire_specifique == 0)
+                                                    <span data-status="{{ intval($e->typestatus_id) }}" data-volumeHoraire="{{ intval($e->volume_horaire) }}">
+                                                    {{ $typeStatus[intval($e->typestatus_id)]["label"] }} -
+                                                    {{ $typeStatus[intval($e->typestatus_id)]["heure"] }} h</span>
+                                                @else
+                                                    <span data-status="{{ intval($e->typestatus_id) }}" data-volumeHoraire="{{ intval($e->volume_horaire) }}">
+                                                    {{ $e->volume_horaire }} h</span>
+                                                @endif
                                             @else
-                                            <p>Statut inconnu</p>
+                                            <span data-id="-1" data-status="0" data-volumeHoraire="-1">Statut non renseigné</span>
                                             @endif
+                                            </a>
                                         </td>
                                         <td>
                                             <div class="easy-pie-chart text-danger easyPieChart" data-percent="0" data-pie-size="25" data-pie-track-color="rgba(169, 3, 41,0.07)" style="width: 30px; height: 30px; line-height: 30px;">
@@ -81,7 +88,7 @@
                                     </tr>
                                     @endforeach
                                 @else
-                                <p>Aucun enseignant a afficher</p>
+                                <p>Aucun enseignant à afficher</p>
                                 @endif
                                 </tbody>
                             </table>
@@ -101,32 +108,34 @@
         Vous pouvez changer le statut de l'enseignant pour définir le volume horaire, ou le renseigner à la main
     </p>
 
-    <div class="hr hr-12 hr-double"></div>
     <form id="form-status-enseignant" class="smart-form" novalidate="novalidate">
 
         <fieldset>
-            <div class="row">
-                <section> Valeur classique
-                    <label class="select">
+                <div class="checkbox">
+                    <label>
+                      <input type="checkbox" class="checkbox style-3" name="choix" id="input-choix">
+                      <span>Appliquer un volume horaire spécifique</span>
+                    </label>
+                </div>
+                <section id="section-status-select">
+                    <label class="select">Type de status
                         <select name="status" id="input-status">
                             @foreach ($typeStatus as $t)
-                            <option value="{{$t->id}}">{{$t->label}} - {{$t->heure}} heures </option>
+                            @if($t['id'] != 1)
+                            <option value="{{$t['id']}}">{{$t['label']}} - {{$t['heure']}} à {{$t['heure_max']}} heures </option>
+                            @endif
                             @endforeach
-                        </select> <i></i> </label>
+                        </select> </label>
                 </section>
-            </div>  
-
-            <hr>
-            <br>
-            <div class="row">
-                <section>
-                    <label class="input"> Ou saissisez le volume horaire
+                <section id="section-status-input">
+                    <label class="input">Volume horaire
                         <input type="text" name="volumeHoraire" placeholder="192" id="input-volumeHoraire">
                     </label>
                 </section>
-            </div>
 
         </fieldset>
+        <input type="hidden" name="idEnseignant" id="input-idEnseignant">
+        <input type="hidden" name="id" id="input-id-statusenseignant">
     </form>
 </div>
 <!-- #dialog-message -->
@@ -168,41 +177,92 @@
                     }
                 }]
         });
-
+        // au click sur le statut d'un enseignant
+        // recupere idStatus et le volume horaire
+        // et ouvre la pop up selon ces vars
         $(".enseignant-statut").bind('click', function () {
+            var idStatus = parseInt($(this).find("span").attr("data-status"));
+            var volumeHoraire = parseInt($(this).find("span").attr("data-volumeHoraire"));
+            var idEnseignant = $(this).attr("data-idEnseignant");
+            var tauxHoraireSpecifique = $(this).attr("data-taux-horaire-specifique");
+
+            $("#input-idEnseignant").val(idEnseignant);
+
+            if (idStatus <= 1) { // cet enseignant n'a pas de status
+                $("#input-status").val(-1);
+                if (tauxHoraireSpecifique == 0) {
+                    // nouvel enseignant ?
+                    $("#input-volumeHoraire").val("");
+                    $("#input-choix").prop("checked", false);
+                    toggleVisibilityFormChoix(false);
+                } else {
+                    // il a un volume horaire spécifique
+                    $("#input-volumeHoraire").val(volumeHoraire);
+                    $("#input-choix").prop("checked", true);
+                    toggleVisibilityFormChoix(true);
+                }
+            } else {
+                $("#input-volumeHoraire").val("");
+                $("#input-status").val(idStatus);
+                $("#input-choix").prop("checked", false);
+                toggleVisibilityFormChoix(false);
+            }
             $('#dialog-message').dialog('open');
             return false;
-
+        })
+        $("#input-choix").bind('change', function() {
+            if ($(this).is(':checked')) {
+                toggleVisibilityFormChoix(true);
+            } else {
+                toggleVisibilityFormChoix(false);
+            }
         })
     });
 
     function modifier_statut() {
-        var from_data = {"volumeHoraire": $("#input-volumeHoraire").val(),
-            "status": $("#input-status").val()};
-        console.log(from_data);
+        var from_data = {
+            "volumeHoraire": $("#input-volumeHoraire").val(),
+            "status": $("#input-status").val(),
+            "idEnseignant":$("#input-idEnseignant").val(),
+            "choix" : $("#input-choix").is(':checked') ? "1" : "0",
+        };
         $.ajax({
-            url: "test.html",
-            data: from_data
+            url: "enseignant/status",
+            data: from_data,
+            type: "POST"
         })
-                .done(function (html) {
-                    $.bigBox({
-                        title: "Modification réalisé",
-                        content: "Le status de l'enseignant a bien été modifié !",
-                        color: "#3276B1",
-                        icon: "fa fa-bell swing animated",
-                        number: "2",
-                        timeout: 6000
-                    });
-                })
-                .fail(function (html) {
-                    $.bigBox({
-                        title: "Modification réalisé",
-                        content: "Un problème est survenu !",
-                        color: "#C46A69",
-                        icon: "fa fa-warning shake animated",
-                        number: "2",
-                        timeout: 6000
-                    });
-                });
+        .done(function (html) {
+            $.bigBox({
+                title: "Modification réalisé",
+                content: "Le status de l'enseignant a bien été modifié !",
+                color: "#3276B1",
+                icon: "fa fa-bell swing animated",
+                timeout: 2000
+            });
+            // modifie la valeur dans le tableau
+            if (from_data["choix"] == "0") {
+                $("#enseignant-statut-"+from_data["idEnseignant"]).html($("#input-status > option[value="+from_data["status"]+"]").html())
+            } else {
+                $("#enseignant-statut-"+from_data["idEnseignant"]).html(from_data["volumeHoraire"]+"h")
+            }
+        })
+        .fail(function (html) {
+            $.bigBox({
+                title: "Modification réalisé",
+                content: "Un problème est survenu !",
+                color: "#C46A69",
+                icon: "fa fa-warning swing animated",
+                timeout: 3000
+            });
+        });
+    }
+    function toggleVisibilityFormChoix(bool) {
+        if (bool) {
+            $("#section-status-input").show();
+            $("#section-status-select").hide();
+        } else {
+            $("#section-status-input").hide();
+            $("#section-status-select").show();
+        }
     }
 </script>

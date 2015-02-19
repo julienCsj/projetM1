@@ -12,6 +12,10 @@ class CreateStatusEnseignant extends Migration {
 	 */
 	public function up()
 	{
+		Schema::dropIfExists('_statusenseignant');
+		Schema::dropIfExists('_typestatusenseignant');
+		Schema::dropIfExists('_financement');
+		Schema::dropIfExists('_groupe');
 
 		Schema::create('_groupe', function($table){
 			$table->engine = 'InnoDB';
@@ -33,6 +37,10 @@ class CreateStatusEnseignant extends Migration {
 			$table->integer('heure');
 			$table->integer('heure_max');
 		});
+		// Creation des types de status enseignant primaires
+		DB::insert("INSERT INTO `_typestatusenseignant`(`id`, `label`, `heure`, `heure_max`) VALUES (1,'Heure fixe', 0,0);");
+		DB::insert("INSERT INTO `_typestatusenseignant`(`label`, `heure`, `heure_max`) VALUES ('Enseignant chercheur', 192,384);");
+		
 		Schema::create('_statusenseignant', function($table){
 			$table->engine = 'InnoDB';
 			$table->increments('id');
@@ -40,6 +48,8 @@ class CreateStatusEnseignant extends Migration {
 			$table->foreign('login_id')->references('login')->on('user');
 			$table->integer('typestatus_id')->unsigned();
 			$table->foreign('typestatus_id')->references('id')->on('_typestatusenseignant');
+			$table->integer('taux_horaire_specifique');
+			$table->integer('volume_horaire');
 		});
 
 	}
