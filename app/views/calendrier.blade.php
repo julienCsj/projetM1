@@ -128,6 +128,8 @@
 			},
             weekends : false,
 			defaultView: 'year',
+            firstDay: 1,
+            firstMonth: 8,
 			editable: true,
 			droppable: true, // this allows things to be dropped onto the calendar !!!
 			drop: function(date, allDay) { // this function is called when something is dropped
@@ -153,8 +155,3 @@
 	});
 
 </script>
-<style>
-
-
-
-</style>
