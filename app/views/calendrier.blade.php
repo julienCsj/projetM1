@@ -17,14 +17,17 @@
 						<fieldset>
 							<ul id="external-events" class="list-unstyled">
 								<li class="ui-draggable" style="position: relative;">
-									<span class="bg-color-darken txt-color-white external-event" data-description="Currently busy" data-icon="fa-time">Office Meeting</span>
+									<span class="bg-color-darken txt-color-white external-event" data-description="Période réservée à l'enseignement" data-icon="fa-time">Enseignement</span>
 								</li>
 								<li class="ui-draggable" style="position: relative;">
-									<span class="bg-color-blue txt-color-white external-event" data-description="No Description" data-icon="fa-pie">Lunch Break</span>
+									<span class="bg-color-blue txt-color-white external-event" data-description="Période réservée aux évaluations" data-icon="fa-pie">Evaluation</span>
 								</li>
-								<li class="ui-draggable" style="position: relative;">
+                                <li class="ui-draggable" style="position: relative;">
+                                    <span class="bg-color-blue txt-color-white external-event" data-description="Période réservée aux vacances" data-icon="fa-pie">Vacances</span>
+                                </li>
+								<!--<li class="ui-draggable" style="position: relative;">
 									<span class="bg-color-red txt-color-white external-event" data-description="Urgent Tasks" data-icon="fa-alert">URGENT</span>
-								</li>
+								</li>-->
 							</ul>
 						</fieldset>
 					</form>
@@ -35,21 +38,15 @@
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-9">
 				<!-- new widget -->
-				<div class="jarviswidget jarviswidget-color-blueDark">
-		
-					<!-- widget options:
-					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-		
-					data-widget-colorbutton="false"
+				<div class="jarviswidget jarviswidget-color-blueDark"
+                    data-widget-colorbutton="false"
 					data-widget-editbutton="false"
 					data-widget-togglebutton="false"
 					data-widget-deletebutton="false"
 					data-widget-fullscreenbutton="false"
 					data-widget-custombutton="false"
-					data-widget-collapsed="true"
-					data-widget-sortable="false"
-		
-					-->
+					data-widget-collapsed="false"
+					data-widget-sortable="false">
 					<header>
 						<span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
 						<h2> My Events </h2>
@@ -123,10 +120,13 @@
 		
 		$('#calendar').fullCalendar({
 			header: {
-				left: 'prev,next today',
+				//left: 'prev,next today',
+                left : '',
 				center: 'title',
-				right: 'year,month,agendaWeek,agendaDay'
+				//right: 'year,month,agendaWeek,agendaDay'
+                right : ''
 			},
+            weekends : false,
 			defaultView: 'year',
 			editable: true,
 			droppable: true, // this allows things to be dropped onto the calendar !!!
