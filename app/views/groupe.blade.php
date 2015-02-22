@@ -32,14 +32,21 @@
                                         @foreach ($formation->lesGroupes as $groupe)
                                         <li>
                                             <span><i class="fa fa-lg fa-plus-circle"></i> Groupe {{$groupe->nom}}</span> &ndash; <a href="{{ route('groupe.supprimerGroupe', array($groupe->id)); }}">Supprimer</a> &ndash; <a data-toggle="modal" data-target="#modifierGroupe-{{$groupe->id}}" href="javascript(void);">Modifier</a>
+                                            @if ($groupe->sous_groupe > 1)
                                             <ul>
                                                 <li style="display:none">
-                                                    <span>Groupe {{$groupe->nom}} 1</span>
+                                                    <span>Groupe {{$groupe->nom}} A</span>
                                                 </li>
                                                 <li style="display:none">
-                                                    <span>Groupe {{$groupe->nom}} 2</span>
+                                                    <span>Groupe {{$groupe->nom}} B</span>
                                                 </li>
+                                                @if ($groupe->sous_groupe == 3)
+                                                <li style="display:none">
+                                                    <span>Groupe {{$groupe->nom}} C</span>
+                                                </li>
+                                                @endif
                                             </ul>
+                                            @endif
                                         </li>
                                         @endforeach
                                         <li>
@@ -76,7 +83,17 @@
                 <div class="row">    
                     <div class="col-md-12">
                         <div class="form-group">
-                            <input type="text" name="nom" class="form-control" placeholder="Nom du groupe" required />
+                            <input type="text" name="nom" class="form-control" placeholder="Nom du groupe" required/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group" required>
+                            <select name="sous_groupe" class="form-control" required/>
+                                <option value="" selected disabled>Nombre de sous-groupes</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -109,6 +126,28 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <input type="text" name="nom" value="{{$groupe->nom}}" class="form-control" placeholder="Nom du groupe" required />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group" required>
+                                <select name="sous_groupe" class="form-control" required/>
+                                    <option value="" disabled>Nombre de sous-groupes</option>
+                                    @if($groupe->sous_groupe == 1)
+                                        <option value="1" selected>1</option>
+                                    @else
+                                        <option value="1">1</option>
+                                    @endif
+                                    @if($groupe->sous_groupe == 2)
+                                        <option value="2" selected>2</option>
+                                    @else
+                                        <option value="2">2</option>
+                                    @endif
+                                    @if($groupe->sous_groupe == 3)
+                                        <option value="3" selected>3</option>
+                                    @else
+                                        <option value="3">3</option>
+                                    @endif
+                                </select>
                             </div>
                         </div>
                     </div>

@@ -29,7 +29,7 @@ class Groupe extends Eloquent {
 
     public static function getGroupesByFormation($id) {
         return DB::select(DB::raw(''
-                    . 'select id, nom '
+                    . 'select id, nom, sous_groupe '
                     . 'from _groupe '
                     . 'where _groupe.semestre_id = "'.$id.'"'
                     . ''));  

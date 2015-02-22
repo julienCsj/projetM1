@@ -25,6 +25,7 @@ class GroupeController extends BaseController {
   {
       $groupe = new Groupe();
       $groupe->nom = Input::get('nom');
+      $groupe->sous_groupe = Input::get('sous_groupe');
       $groupe->semestre_id = Input::get('id');
       $groupe->save();
       return Redirect::action('GroupeController@getGroupes');
@@ -35,6 +36,7 @@ class GroupeController extends BaseController {
       $id = Input::get('id');
       $groupe = Groupe::find($id);
       $groupe->nom = Input::get('nom');
+      $groupe->sous_groupe = Input::get('sous_groupe');
       $groupe->save();
       return Redirect::action('GroupeController@getGroupes');
   }
