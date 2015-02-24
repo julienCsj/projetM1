@@ -13,18 +13,22 @@
 				<header>
 					<h2> Draggable Events </h2>
 				</header>
+                    <button id="ajouterPeriode" class="btn btn-primary ui-btn-sm">Ajouter une période</button>
+                    <input type="hidden" name="nbPeriode" id="nbPeriode" value="1" />
 				<div class="well well-sm" id="event-container">
 					<form>
 						<fieldset>
 							<ul id="external-events" class="list-unstyled">
-								<li class="ui-draggable" style="position: relative;">
-									<span class="bg-color-darken txt-color-white external-event" data-description="Période réservée à l'enseignement" data-icon="fa-time">Enseignement</span>
-								</li>
+
 								<li class="ui-draggable" style="position: relative;">
 									<span class="bg-color-blue txt-color-white external-event" data-description="Période réservée aux évaluations" data-icon="fa-pie">Evaluation</span>
 								</li>
                                 <li class="ui-draggable" style="position: relative;">
-                                    <span class="bg-color-blue txt-color-white external-event" data-description="Période réservée aux vacances" data-icon="fa-pie">Vacances</span>
+                                    <span class="bg-color-green txt-color-white external-event" data-description="Période réservée aux vacances" data-icon="fa-pie">Vacances</span>
+                                </li>
+                                
+                                <li class="ui-draggable" style="position: relative;">
+                                    <span class="bg-color-darken txt-color-white external-event" data-description="Période réservée à l'enseignement" data-icon="fa-time">Période #1</span>
                                 </li>
 								<!--<li class="ui-draggable" style="position: relative;">
 									<span class="bg-color-red txt-color-white external-event" data-description="Urgent Tasks" data-icon="fa-alert">URGENT</span>
@@ -88,30 +92,44 @@
 
     $(document).ready(function() {
         pageSetUp();
+
+
+        $("#ajouterPeriode").click(function() {
+            nbPeriode = $("#nbPeriode").val();
+            nbPeriode++;
+            $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"bg-color-darken txt-color-white external-event\" data-description=\"Période réservée à l'enseignement\" data-icon=\"fa-time\">Période #"+nbPeriode+"</span> </li>");
+            makeDraggable();
+            $("#nbPeriode").val(nbPeriode);
+        });
+
+
 	
 		/* initialize the external events
 		-----------------------------------------------------------------*/
-	
-		$('#external-events span.external-event').each(function() {
-		
-			// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-			// it doesn't need to have a start or end
-			var eventObject = {
-				title: $.trim($(this).text()) // use the element's text as the event title
-			};
-			
-			// store the Event Object in the DOM element so we can get to it later
-			$(this).data('eventObject', eventObject);
-			
-			// make the event draggable using jQuery UI
-			$(this).draggable({
-				zIndex: 999,
-				revert: true,      // will cause the event to go back to its
-				revertDuration: 0  //  original position after the drag
-			});
-			
-		});
-	
+
+        function makeDraggable() {
+            $('#external-events span.external-event').each(function () {
+
+                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+                // it doesn't need to have a start or end
+                var eventObject = {
+                    title: $.trim($(this).text()) // use the element's text as the event title
+                };
+
+                // store the Event Object in the DOM element so we can get to it later
+                $(this).data('eventObject', eventObject);
+
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+
+            });
+        }
+
+        makeDraggable();
 	
 		/* initialize the calendar
 		-----------------------------------------------------------------*/
