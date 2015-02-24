@@ -1,4 +1,5 @@
 @include('layout.header')
+
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
@@ -78,12 +79,9 @@
 @include('layout.footer')
 <!-- PAGE RELATED PLUGIN(S) -->
 
-<link href='/js/plugin/fullcalendar-school/fullcalendar.css' rel='stylesheet' />
-<link href='/js/plugin/fullcalendar-school/fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src='/js/plugin/fullcalendar-school/fullcalendar.js'></script>
-
-
-
+<link href='{{asset('js/plugin/fullcalendar-school/fullcalendar.css') }}' rel='stylesheet' />
+<link href='{{asset('js/plugin/fullcalendar-school/fullcalendar.print.css') }}' rel='stylesheet' media='print' />
+<script src='{{asset('js/plugin/fullcalendar-school/fullcalendar.js') }}'></script>
 
 <script type="text/javascript">
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
