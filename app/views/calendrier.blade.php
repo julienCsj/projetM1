@@ -9,7 +9,7 @@
         <!-- NEW WIDGET START -->
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-3">
-                <div>
+                <div class="well">
                     <header>
                         <h2> Draggable Events </h2>
                     </header>
@@ -19,47 +19,31 @@
                         <form>
                             <fieldset>
                                 <ul id="external-events" class="list-unstyled">
-                                    <li class="ui-draggable" style="position: relative;">
-                                        <span class="bg-color-green txt-color-white external-event" data-description="Période réservée aux vacances" data-icon="fa-pie">Vacances</span>
-                                    </li>
 
-                                    <li class="ui-draggable" style="position: relative;">
-                                        <span class="bg-color-darken txt-color-white external-event" data-description="Période réservée à l'enseignement" data-icon="fa-time">Période #1</span>
-                                    </li>
-                                    <!--<li class="ui-draggable" style="position: relative;">
-                                        <span class="bg-color-red txt-color-white external-event" data-description="Urgent Tasks" data-icon="fa-alert">URGENT</span>
-                                    </li>-->
                                 </ul>
                             </fieldset>
                         </form>
 
                     </div>
                 </div>
-
             </div>
             <div class="col-sm-12 col-md-12 col-lg-9">
                 <!-- new widget -->
                 <div>
                     <!-- widget div-->
                     <div>
-
                         <div class="widget-body no-padding">
                             <!-- content goes here -->
                             <br><br>
-
                             <div id='calendar' class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
-
                             <!-- end content -->
                         </div>
-
                     </div>
                     <!-- end widget div -->
                 </div>
                 <!-- end widget -->
-
             </div>
         </div>
-
     </div>
 </section>
 
@@ -70,6 +54,28 @@
 <link href='{{asset('js/plugin/fullcalendar-school/fullcalendar.print.css') }}' rel='stylesheet' media='print' />
 <script src='{{asset('js/plugin/fullcalendar-school/fullcalendar.js') }}'></script>
 
+<!-- #dialog-message -->
+<div id="dialog-message" title="Dialog Simple Title">
+    <form id="form-status-enseignant" class="smart-form" novalidate="novalidate">
+        <fieldset>
+            <section id="section-status-select">
+                <label class="select">Type de status
+                    <select name="status" id="input-type">
+                        <option value="enseignement">Enseignement</option>
+                        <option value="vacance">Vacances / Jour férié</option>
+                    </select>
+                </label>
+            </section>
+            <section id="section-status-input">
+                <label class="input">Nom de la période
+                    <input type="text" name="nom" placeholder="Nom de la période" id="nomPeriode">
+                </label>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<!-- #dialog-message -->
+
 <script type="text/javascript">
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
@@ -78,11 +84,13 @@
 
 
         $("#ajouterPeriode").click(function() {
-            nbPeriode = $("#nbPeriode").val();
+
+            /*nbPeriode = $("#nbPeriode").val();
             nbPeriode++;
             $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"bg-color-darken txt-color-white external-event\" data-description=\"Période réservée à l'enseignement\" data-icon=\"fa-time\">Période #"+nbPeriode+"</span> </li>");
             makeDraggable();
-            $("#nbPeriode").val(nbPeriode);
+            $("#nbPeriode").val(nbPeriode);*/
+            $('#dialog-message').dialog('open');
         });
 
 
@@ -114,6 +122,39 @@
 
         makeDraggable();
 
+
+
+        /* Ajout de période
+        ------------------------------------------------------------------*/
+        $('#dialog-message').dialog({
+            autoOpen: false,
+            modal: true,
+            title: "Ajouter une période",
+            buttons: [{
+                html: "Annuler",
+                "class": "btn btn-default",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            }, {
+                html: "<i class='fa fa-check'></i>&nbsp; OK",
+                "class": "btn btn-primary",
+                click: function () {
+                    var type = $("#input-type").val();
+                    var nom = $("#nomPeriode").val();
+
+                    if(type=="vacance") {
+                        $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"bg-color-red txt-color-white external-event\" data-description=\"Période réservée aux vacance\" data-icon=\"fa-time\" data-attribute=\"vacance\">"+nom+"</span> </li>");
+                        makeDraggable();
+                    } else if(type=="enseignement") {
+                        $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"bg-color-darken txt-color-white external-event\" data-description=\"Période réservée à l'enseignement\" data-icon=\"fa-time\" data-attribute=\"enseignement\">"+nom+"</span> </li>");
+                        makeDraggable();
+                    }
+                    $(this).dialog("close");
+                }
+            }]
+        });
+
         /* initialize the calendar
          -----------------------------------------------------------------*/
 
@@ -136,7 +177,7 @@
                     title: '{{$event->nom}}',
                     start: '{{$event->dateDebut}}',
                     end: '{{$event->dateFin}}',
-                    // description: '{{$event->titre}}',
+                    @if($event->type=='vacance')color:  'red', @endif
                 },
                 @endforeach
                 // more events here
@@ -146,6 +187,8 @@
                 // retrieve the dropped element's stored Event Object
                 var originalEventObject = $(this).data('eventObject');
 
+                var type = $(this).attr('data-attribute');
+                $(this).remove();
                 // we need to copy it, so that multiple events don't have a reference to the same object
                 var copiedEventObject = $.extend({}, originalEventObject);
 
@@ -153,8 +196,6 @@
                 copiedEventObject.start = date;
                 copiedEventObject.allDay = allDay;
 
-                console.log(originalEventObject);
-                console.log(copiedEventObject);
                 // render the event on the calendar
                 // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
                 $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
@@ -164,36 +205,62 @@
                     "dateFin": copiedEventObject.start,
                     "nom": copiedEventObject.title,
                     "idFormation" : '{{$idFormation}}',
+                    "type": type,
                 };
                 $.ajax({
                     url: "{{$idFormation}}/ajouterPeriode",
                     data: from_data,
                     type: "POST"
                 })
-                        .done(function (html) {
-                            $.bigBox({
-                                title: "Modification réalisé",
-                                content: "Le status de l'enseignant a bien été modifié !",
-                                color: "#3276B1",
-                                icon: "fa fa-bell swing animated",
-                                timeout: 2000
-                            });
-                        })
-                        .fail(function (html) {
-                            $.bigBox({
-                                title: "Modification réalisé",
-                                content: "Un problème est survenu !",
-                                color: "#C46A69",
-                                icon: "fa fa-warning swing animated",
-                                timeout: 3000
-                            });
-                        });
+                .done(function (html) {
+                    $.bigBox({
+                        title: "Modification réalisé",
+                        content: "Le status de l'enseignant a bien été modifié !",
+                        color: "#3276B1",
+                        icon: "fa fa-bell swing animated",
+                        timeout: 2000
+                    });
+
+                })
+                .fail(function (html) {
+                    $.bigBox({
+                        title: "Modification réalisé",
+                        content: "Un problème est survenu !",
+                        color: "#C46A69",
+                        icon: "fa fa-warning swing animated",
+                        timeout: 3000
+                    });
+                });
             },
-            eventResizeStop: function (event, jsEvent, ui, view) {
-                //alert(event.title + " end is now " + event.end.format());
-                console.log(event);
-                console.log(event);
-                console.log(event);
+            eventResize: function (event, jsEvent, ui, view) {
+                var from_data = {
+                    "dateFin": event.end,
+                    "nom": event.title,
+                    "idFormation": '{{$idFormation}}',
+                };
+                $.ajax({
+                    url: "{{$idFormation}}/modifierPeriode",
+                    data: from_data,
+                    type: "POST"
+                })
+                .done(function (html) {
+                    $.bigBox({
+                        title: "Modification réalisé",
+                        content: "Le status de l'enseignant a bien été modifié !",
+                        color: "#3276B1",
+                        icon: "fa fa-bell swing animated",
+                        timeout: 2000
+                    });
+                })
+                .fail(function (html) {
+                    $.bigBox({
+                        title: "Modification réalisé",
+                        content: "Un problème est survenu !",
+                        color: "#C46A69",
+                        icon: "fa fa-warning swing animated",
+                        timeout: 3000
+                    });
+                });
 
             }
         });

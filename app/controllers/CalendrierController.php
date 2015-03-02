@@ -29,8 +29,18 @@ class CalendrierController extends BaseController {
         $calendrier->dateDebut = Input::get('dateDebut');
         $calendrier->dateFin = Input::get('dateFin');
         $calendrier->idFormation = Input::get('idFormation');
+        $calendrier->type = Input::get("type");
         $calendrier->save();
+        return "Ok";
+    }
 
+    public function postModifierPeriode() {
+        $idFormation = Input::get('idFormation');
+        $nom = Input::get("nom");
+
+        $calendrier = Calendrier::where('idFormation', '=', $idFormation)->where('nom', '=', $nom)->firstOrFail();
+        $calendrier->dateFin = Input::get('dateFin');
+        $calendrier->save();
         return "Ok";
     }
 
