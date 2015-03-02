@@ -11,7 +11,7 @@
             <div class="col-sm-12 col-md-12 col-lg-3">
                 <div class="well">
                     <header>
-                        <h2> Draggable Events </h2>
+                        <h2> Les périodes </h2>
                     </header>
                     <button id="ajouterPeriode" class="btn btn-primary ui-btn-sm">Ajouter une période</button>
                     <input type="hidden" name="nbPeriode" id="nbPeriode" value="1" />
@@ -166,7 +166,7 @@
                 //right: 'year,month,agendaWeek,agendaDay'
                 right : ''
             },
-            weekends : false,
+            //weekends : false,
             defaultView: 'year',
             firstDay: 1,
             firstMonth: 8,
@@ -182,6 +182,16 @@
                 @endforeach
                 // more events here
             ],
+            eventClick: function(calEvent, jsEvent, view){
+                /**
+                 * calEvent is the event object, so you can access it's properties
+                 */
+                if(confirm("Really delete event " + calEvent.title + " ?")){
+                    console.log("AJAX");
+                }
+                    // delete in frontend
+                $('#calendar').fullCalendar('removeEvents', calEvent._id);
+            },
             droppable: true, // this allows things to be dropped onto the calendar !!!
             drop: function(date, allDay) { // this function is called when something is dropped
                 // retrieve the dropped element's stored Event Object
