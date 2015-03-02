@@ -18,9 +18,20 @@ class CalendrierController extends BaseController {
             'notifications' => array(),
             'breadcrumb' => array('#ApplicationJaneDoe', 'Le calendrier'),
             'formation' => Formation::find($idFormation),
-            'calendrier' => Calendrier::getCalendrierFormation($idFormation));
+            'calendrier' => Calendrier::where('idFormation', '=', $idFormation)->get());
 
         return View::make('calendrier')->with($data);
+    }
+
+    public function postAjouterPeriode() {
+        $calendrier = new Calendrier();
+        $calendrier->nom = Input::get("nom");
+        $calendrier->dateDebut = Input::get('dateDebut');
+        $calendrier->dateFin = Input::get('dateFin');
+        $calendrier->idFormation = Input::get('idFormation');
+        $calendrier->save();
+
+        return "Ok";
     }
 
 }
