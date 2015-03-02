@@ -31,12 +31,7 @@ class DashboardController extends BaseController {
         //
         // if($utilisateur->nombre_kilometre_initial == -1) {
              $data = array(
-               'notifications' => array(
-                 array(
-                   'type' => 'success',
-                   'titre' => 'Félicitations vous êtes inscrit !',
-                   'message' => 'Bienvenue sur #ApplicationSansNom<br/>Vous pouvez maintennant vous connecter'
-                 )),
+               'notifications' => array(),
                  'breadcrumb' => array('#ApplicationJaneDoe', 'Accueil')
                );
         //     $data['premiere_connexion'] = true;
