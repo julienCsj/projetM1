@@ -9572,6 +9572,54 @@ CREATE TABLE IF NOT EXISTS `_typestatusenseignant` (
   `heure_max` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
+--
+-- Structure de la table `enseignant`
+--
+
+CREATE TABLE IF NOT EXISTS `enseignant` (
+  `LOGIN` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `NUM_DOSSIER` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `STATUT` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `CNU` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `SERVICE_STATUTAIRE` float NOT NULL,
+  PRIMARY KEY (`LOGIN`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Contenu de la table `enseignant`
+--
+
+INSERT INTO `enseignant` (`LOGIN`, `NUM_DOSSIER`, `STATUT`, `CNU`, `SERVICE_STATUTAIRE`) VALUES
+('alain.boudou', '10 407', 'MT.CONF.HC', '26', 192),
+('anne-laure.gatignon-turnau', '34 205', 'MT.CONF.CL NORM.', '06', 192),
+('annie.turmo', '12 664', 'Equivalent grade absent dans HARPEGE', '26', 384),
+('brigitte.gracien', '11 675', 'AGREGE HCL', '06', 384),
+('christian.fiori', '10 278', 'AGREGE HCL', '06', 384),
+('christian.pelissier', '6 673', 'CERT. H CL', '06', 384),
+('clement.rau', '40 309', 'MT.CONF.CL NORM.', '26', 192),
+('corinne.chenel', '15 003', 'AGREGE CLN', '06', 384),
+('corinne.lasbouygues', '11 661', 'AGREGE CLN', '27', 384),
+('didier.bede', '89 635', 'MT.CONF.CL NORM.', '06', 192),
+('francoise.raby', '89 629', 'PRF.UNI.2C', '11', 104),
+('joelle.devillard', '1 365', 'MT.CONF.HC', '11', 192),
+('laurent.teresi', '79 673', 'MT.CONF.CL NORM.', '02', 192),
+('marie-andree.rakotovahiny', '12 446', 'MT.CONF.CL NORM.', '01', 192),
+('marie-carmen.trujillo', '20 235', 'CERT. CL N', '71', 384),
+('michel.galindo', '2 429', 'MT.CONF.HC', '27', 192),
+('nicolas.piluso', '74 788', 'MT.CONF.CL NORM.', '05', 192),
+('nicole.bonneville', '13 868', 'MT.CONF.CL NORM.', '16', 96),
+('nicole.brocquevielle', '21 605', 'CERT. CL N', '06', 384),
+('odile.dufour', '11 546', 'CERT. H CL', '11', 384),
+('olivier.catteau', '11 575', 'MT.CONF.CL NORM.', '27', 192),
+('pascale.amans', '26 677', 'MT.CONF.CL NORM.', '06', 192),
+('patrick.chaskiel', '10 422', 'PRF.UNI.1C', '71', 192),
+('sophie.cuq', '40 110', 'CERT. CL N', '01', 384),
+('stephanie.loup', '34 244', 'MT.CONF.CL NORM.', '06', 192),
+('sylvia.rennes', '20 418', 'CERT. CL N', '14', 384),
+('sylvie.cara', '41 671', 'CERT. CL N', '05', 384),
+('youcef.aissani', '20 035', 'MT.CONF.HC', '16', 192),
+('ziad.malas', '74 789', 'MT.CONF.CL NORM.', '06', 192);
 --
 -- Index pour les tables exportées
 --

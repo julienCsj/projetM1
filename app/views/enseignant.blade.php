@@ -152,34 +152,7 @@
 
 
 <script type="text/javascript">
-    // DO NOT REMOVE : GLOBAL FUNCTIONS!
-
-    $(document).ready(function () {
-        pageSetUp();
-        $('#dt_basic_enseignant').DataTable();
-
-        $('#dialog-message').dialog({
-            autoOpen: false,
-            modal: true,
-            title: "Modifier le statut",
-            buttons: [{
-                    html: "Annuler",
-                    "class": "btn btn-default",
-                    click: function () {
-                        $(this).dialog("close");
-                    }
-                }, {
-                    html: "<i class='fa fa-check'></i>&nbsp; OK",
-                    "class": "btn btn-primary",
-                    click: function () {
-                        $(this).dialog("close");
-                        modifier_statut();
-                    }
-                }]
-        });
-        // au click sur le statut d'un enseignant
-        // recupere idStatus et le volume horaire
-        // et ouvre la pop up selon ces vars
+    function bindEnseignantStatus() {
         $(".enseignant-statut").bind('click', function () {
             var idStatus = parseInt($(this).find("span").attr("data-status"));
             var volumeHoraire = parseInt($(this).find("span").attr("data-volumeHoraire"));
@@ -210,15 +183,7 @@
             $('#dialog-message').dialog('open');
             return false;
         })
-        $("#input-choix").bind('change', function() {
-            if ($(this).is(':checked')) {
-                toggleVisibilityFormChoix(true);
-            } else {
-                toggleVisibilityFormChoix(false);
-            }
-        })
-    });
-
+    }
     function modifier_statut() {
         var from_data = {
             "volumeHoraire": $("#input-volumeHoraire").val(),
@@ -265,4 +230,44 @@
             $("#section-status-select").show();
         }
     }
+    $(document).ready(function () {
+        pageSetUp();
+        $('#dt_basic_enseignant').DataTable();
+
+        $('#dialog-message').dialog({
+            autoOpen: false,
+            modal: true,
+            title: "Modifier le statut",
+            buttons: [{
+                    html: "Annuler",
+                    "class": "btn btn-default",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                }, {
+                    html: "<i class='fa fa-check'></i>&nbsp; OK",
+                    "class": "btn btn-primary",
+                    click: function () {
+                        $(this).dialog("close");
+                        modifier_statut();
+                    }
+                }]
+        });
+        bindEnseignantStatus();
+        // au click sur le statut d'un enseignant
+        // recupere idStatus et le volume horaire
+        // et ouvre la pop up selon ces vars
+        
+        $("#input-choix").bind('change', function() {
+            if ($(this).is(':checked')) {
+                toggleVisibilityFormChoix(true);
+            } else {
+                toggleVisibilityFormChoix(false);
+            }
+        })
+
+        $(".pagination a").bind('click', function() {
+            bindEnseignantStatus();
+        });
+    });
 </script>

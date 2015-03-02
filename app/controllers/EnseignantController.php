@@ -9,7 +9,7 @@ class EnseignantController extends BaseController
         foreach($status as $k => $v) {
             $typeStatus[$v["id"]] = $v->toArray();
         }
-        $users = User::getEnseignant();
+        $users = Enseignant::getEnseignantAndStatus();
         $data = array(
             'notifications' => array(),
             'breadcrumb' => array('#ApplicationJaneDoe', 'Les enseignants'),

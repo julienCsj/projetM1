@@ -48,11 +48,4 @@ class User extends Eloquent implements UserInterface {
     {
         return 'remember_token';
     }
-
-    public static function getEnseignant() {
-        return DB::table('user')
-            ->where('ROLES', '=', "ESPE")
-            ->leftJoin("_statusenseignant", 'login_id', '=', 'login')
-            ->get();
-    }
 }
