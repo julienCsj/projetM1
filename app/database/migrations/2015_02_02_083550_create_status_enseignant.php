@@ -16,12 +16,14 @@ class CreateStatusEnseignant extends Migration {
 		Schema::dropIfExists('_typestatusenseignant');
 		Schema::dropIfExists('_financement');
 		Schema::dropIfExists('_groupe');
+        Schema::dropIfExists('_calendrier');
 
 		Schema::create('_groupe', function($table){
 			$table->engine = 'InnoDB';
 			$table->increments('id');
 			$table->string('nom');
 			$table->string('semestre_id', 50);
+            $table->integer("sous_groupe");
 			$table->foreign('semestre_id')->references('id')->on('semestre');
 		});
 		Schema::create('_financement', function($table){
@@ -51,6 +53,15 @@ class CreateStatusEnseignant extends Migration {
 			$table->integer('taux_horaire_specifique');
 			$table->integer('volume_horaire');
 		});
+
+        Schema::create('_calendrier', function($table){
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('idFormation',50);
+            $table->string('dateDebut',255);
+            $table->string('dateFin',255);
+
+        });
 
 	}
 

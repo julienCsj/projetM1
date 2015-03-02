@@ -58,9 +58,15 @@ class MatiereController extends BaseController {
             ->update(array('GROUPE_CM' => Input::get("groupeCM"),
                 'GROUPE_TD' => Input::get("groupeTD"),
                 'GROUPE_TP' => Input::get("groupeTP"),
-                'CM_REEL' => Input::get('heureCM'),
-                'TD_REEL' => Input::get('heureTD'),
-                'TP_REEL' => Input::get('heureTP')));
+                'CM_60' => Input::get('heureCM60'),
+                'CM_90' => Input::get('heureCM90'),
+                'CM_120' => Input::get('heureCM120'),
+                'TD_60' => Input::get('heureTD60'),
+                'TD_90' => Input::get('heureTD90'),
+                'TD_120' => Input::get('heureTD120'),
+                'TP_60' => Input::get('heureTP60'),
+                'TP_90' => Input::get('heureTP90'),
+                'TP_120' => Input::get('heureTP120')));
 
         return Redirect::route('matiere.modifier', array('idFormation' => $idFormation, 'idMatiere' => $idMatiere));
 

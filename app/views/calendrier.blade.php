@@ -19,10 +19,6 @@
 					<form>
 						<fieldset>
 							<ul id="external-events" class="list-unstyled">
-
-								<li class="ui-draggable" style="position: relative;">
-									<span class="bg-color-blue txt-color-white external-event" data-description="Période réservée aux évaluations" data-icon="fa-pie">Evaluation</span>
-								</li>
                                 <li class="ui-draggable" style="position: relative;">
                                     <span class="bg-color-green txt-color-white external-event" data-description="Période réservée aux vacances" data-icon="fa-pie">Vacances</span>
                                 </li>
@@ -149,7 +145,6 @@
 			editable: true,
 			droppable: true, // this allows things to be dropped onto the calendar !!!
 			drop: function(date, allDay) { // this function is called when something is dropped
-			
 				// retrieve the dropped element's stored Event Object
 				var originalEventObject = $(this).data('eventObject');
 				
@@ -159,12 +154,18 @@
 				// assign it the date that was reported
 				copiedEventObject.start = date;
 				copiedEventObject.allDay = allDay;
-				
+
+                console.log(originalEventObject);
+                console.log(copiedEventObject);
 				// render the event on the calendar
 				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
 				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 				
-			}
+			},
+            eventResizeStop: function (event, jsEvent, ui, view) {
+                console.log(event);
+
+            }
 		});
 		
 		

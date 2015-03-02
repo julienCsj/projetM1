@@ -53,7 +53,7 @@
                                 </tbody>
                             </table>
                             <div class="pull-right">
-                                <a class="btn btn-labeled btn-success" data-toggle="modal" data-target="#ajouterFinancement" href="javascript:void(0);"> 
+                                <a class="btn btn-labeled btn-success" data-toggle="modal" data-target="#ajouterFinancement" href="#">
                                     <span class="btn-label">
                                         <i class="glyphicon glyphicon-ok"></i>
                                     </span>Ajouter une source de financement 

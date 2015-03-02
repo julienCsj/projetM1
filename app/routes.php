@@ -42,6 +42,11 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::post('enseignant/status', array('as' => 'enseignant.postModifierStatus', 'uses' => 'StatusEnseignantController@postModifierStatus'));
     
 
+    // Routes module calendrier
+    Route::get('calendrier', array('as' => 'calendrier', 'uses' => 'CalendrierController@getCalendrier'));
+    Route::get('calendrier/{idFormation}', array('as' => 'calendrier.calendrierFormation', 'uses' => 'CalendrierController@getCalendrierFormation'));
+
+
     // Routes à classer
     Route::get('calendrier', array('as' => 'calendrier', 'uses' => 'CalendrierController@getCalendrier'));
     Route::get('affectation', array('as' => 'affectation', 'uses' => 'AffectationController@getAffectation'));

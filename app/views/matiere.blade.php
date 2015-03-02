@@ -78,9 +78,15 @@
                                                                     rel="tooltip" data-placement="bottom" 
                                                                     data-original-title="<h6>Volume horaire</h6>
                                                                     <ul>
-                                                                    <li>CM - {{$module->CM_REEL}}</li>
-                                                                    <li>TD - {{$module->TD_REEL}}</li>
-                                                                    <li>TP - {{$module->TP_REEL}}</li>
+                                                                    <li>CM 1h00 - {{$module->CM_60}}</li>
+                                                                    <li>CM 1h30 - {{$module->CM_90}}</li>
+                                                                    <li>CM 2h00 - {{$module->CM_120}}</li>
+                                                                    <li>TD 1h00 - {{$module->TD_60}}</li>
+                                                                    <li>TD 1h30 - {{$module->TD_90}}</li>
+                                                                    <li>TD 2h00 - {{$module->TD_120}}</li>
+                                                                    <li>TP 1h00 - {{$module->TP_60}}</li>
+                                                                    <li>TP 1h30 - {{$module->TP_90}}</li>
+                                                                    <li>TP 2h00 - {{$module->TP_120}}</li>
                                                                     </ul>" 
                                                                     data-html="true">Volume horaire
                                                             </button>
