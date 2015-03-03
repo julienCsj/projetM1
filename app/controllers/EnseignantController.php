@@ -12,7 +12,7 @@ class EnseignantController extends BaseController
         $users = Enseignant::getEnseignantAndStatus();
         $data = array(
             'notifications' => array(),
-            'breadcrumb' => array('#ApplicationJaneDoe', 'Les enseignants'),
+            'breadcrumb' => array('Scolarel', 'Gestion des enseignants'),
             'enseignant' => $users,
             'typeStatus' => $typeStatus
         );

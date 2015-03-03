@@ -5,7 +5,7 @@ class FinancementController extends BaseController {
     public function getFinancement() {
         $data = array(
             'financements' => Financement::all(),
-            'breadcrumb' => array("#Application sans nom", "Gestion des financements")
+            'breadcrumb' => array("Scolarel", "Gestion des financements")
         );
         return View::make('financement')->with($data);
     }

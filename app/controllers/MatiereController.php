@@ -18,7 +18,7 @@ class MatiereController extends BaseController {
     public function modifierMatiere($idFormation, $idMatiere) {
         $matiere = Module::getModuleWithData($idMatiere);
         $financement = Financement::all();
-        $enseignants = User::getEnseignant();
+        $enseignants = Enseignant::getEnseignantAndStatus();
 
         $data = array(
             'breadcrumb' => array('#ApplicationJaneDoe', 'Matières & UE\'s'),

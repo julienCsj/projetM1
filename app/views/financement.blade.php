@@ -2,7 +2,7 @@
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        <h1>Financement <small>Cette page permet de gérer les financements</small></h1>
+        <h1>Gestion du financement <small>Gestion des sources de financement</small></h1>
         <br/>
         <br/>
         <!-- NEW WIDGET START -->
@@ -55,7 +55,7 @@
                             <div class="pull-right">
                                 <a class="btn btn-labeled btn-success" data-toggle="modal" data-target="#ajouterFinancement" href="#">
                                     <span class="btn-label">
-                                        <i class="glyphicon glyphicon-ok"></i>
+                                        <i class="glyphicon glyphicon-plus"></i>
                                     </span>Ajouter une source de financement 
                                 </a>
                             </div>

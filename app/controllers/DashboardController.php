@@ -32,7 +32,7 @@ class DashboardController extends BaseController {
         // if($utilisateur->nombre_kilometre_initial == -1) {
              $data = array(
                'notifications' => array(),
-                 'breadcrumb' => array('#ApplicationJaneDoe', 'Accueil')
+                 'breadcrumb' => array('Scolarel', 'Accueil')
                );
         //     $data['premiere_connexion'] = true;
         //     return View::make('back.premiere_connexion')->with($data);

@@ -12,12 +12,6 @@ class CreateStatusEnseignant extends Migration {
 	 */
 	public function up()
 	{
-		Schema::dropIfExists('_statusenseignant');
-		Schema::dropIfExists('_typestatusenseignant');
-		Schema::dropIfExists('_financement');
-		Schema::dropIfExists('_groupe');
-        Schema::dropIfExists('_calendrier');
-
 		Schema::create('_groupe', function($table){
 			$table->engine = 'InnoDB';
 			$table->increments('id');

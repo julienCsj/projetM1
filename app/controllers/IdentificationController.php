@@ -30,7 +30,7 @@ class IdentificationController extends BaseController {
                             'titre' => 'Félicitations vous êtes inscrit !',
                             'message' => 'Bienvenue sur Scolarel '.$user->LASTNAME.' '.$user->FIRSTNAME.'.'
                         )),
-                    'breadcrumb' => array('#ApplicationJaneDoe', 'Accueil')
+                    'breadcrumb' => array('Scolarel', 'Accueil')
                 ));
             } else {
                 return View::make('connexion')->with(

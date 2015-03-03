@@ -5,7 +5,7 @@ class CalendrierController extends BaseController {
         $data = array(
             'lesFormations' => Formation::all(),
                'notifications' => array(),
-                 'breadcrumb' => array('#ApplicationJaneDoe', 'Le calendrier')
+                 'breadcrumb' => array('Scolarel', 'Calendriers')
                );
 
 
@@ -14,10 +14,13 @@ class CalendrierController extends BaseController {
     }
 
     public function getCalendrierFormation($idFormation) {
+        $formation = Formation::find($idFormation)
+                ->join('pages', 'pages.id', '=', 'semestre.id')
+                ->select('semestre.id', 'pages.short_title', 'pages.long_title')->firstOrFail();
         $data = array('idFormation' => $idFormation,
             'notifications' => array(),
-            'breadcrumb' => array('#ApplicationJaneDoe', 'Le calendrier'),
-            'formation' => Formation::find($idFormation),
+            'breadcrumb' => array('Scolarel', 'Calendriers', $formation->long_title),
+            'formation' => $formation,
             'calendrier' => Calendrier::where('idFormation', '=', $idFormation)->get());
 
         return View::make('calendrier')->with($data);

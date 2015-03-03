@@ -3,7 +3,7 @@
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        <h1>Calendrier <small>Cette page permet de gérer XX de XX</small></h1>
+        <h1>Calendrier <small>Cette page permet de gérer la formation {{$formation->long_title}}</small></h1>
         <!-- WIDGET END -->
 
         <!-- NEW WIDGET START -->
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-9">
+            <div class="col-sm-12 col-md-9 col-lg-9">
                 <!-- new widget -->
                 <div>
                     <!-- widget div-->

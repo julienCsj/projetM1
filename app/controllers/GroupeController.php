@@ -7,7 +7,7 @@ class GroupeController extends BaseController {
       $data = array(
               'notifications' => array(),
               'lesGroupesParFormation' => $lesGroupesParFormation,
-              'breadcrumb' => array('#ApplicationJaneDoe', 'Groupes')
+              'breadcrumb' => array('Scolarel', 'Groupes')
              );
       //exit(var_dump($lesGroupesParFormation));
 
