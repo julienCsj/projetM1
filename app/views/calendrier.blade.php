@@ -13,7 +13,8 @@
                     <header>
                         <h2> Les périodes </h2>
                     </header>
-                    <button id="ajouterPeriode" class="btn btn-primary ui-btn-sm">Ajouter une période</button>
+                    <button id="ajouterPeriode" class="btn btn-primary ui-btn-sm"><i class="glyphicon glyphicon-plus"></i> Ajouter une nouvelle période</button>
+                    <hr>
                     <input type="hidden" name="nbPeriode" id="nbPeriode" value="1" />
                     <div class="well well-sm" id="event-container">
                         <form>
@@ -80,7 +81,7 @@
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
     $(document).ready(function() {
-        //pageSetUp();
+        pageSetUp();
 
 
         $("#ajouterPeriode").click(function() {
