@@ -103,7 +103,11 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             @foreach($breadcrumb as $b)
+                @if(is_array($b))
+                <li><a href="{{$b["link"]}}">{{$b["label"]}}</a></li>
+                @else
                 <li>{{$b}}</li>
+                @endif
             @endforeach
         </ol>
     </div>

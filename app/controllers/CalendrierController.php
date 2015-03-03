@@ -19,7 +19,7 @@ class CalendrierController extends BaseController {
                 ->select('semestre.id', 'pages.short_title', 'pages.long_title')->firstOrFail();
         $data = array('idFormation' => $idFormation,
             'notifications' => array(),
-            'breadcrumb' => array('Scolarel', 'Calendriers', $formation->long_title),
+            'breadcrumb' => array('Scolarel', array("link"=> URL::route('calendrier'),"label"=>'Calendriers'), $formation->long_title),
             'formation' => $formation,
             'calendrier' => Calendrier::where('idFormation', '=', $idFormation)->get());
 

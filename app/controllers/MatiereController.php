@@ -9,7 +9,7 @@ class MatiereController extends BaseController {
 
         $data = array(
             'notifications' => array(),
-            'breadcrumb' => array('#ApplicationJaneDoe', 'Matières & UE\'s'),
+            'breadcrumb' => array('Scolarel', 'Matières & UE\'s'),
             'lesFormations' => $lesFormations
         );
         return View::make('matiere')->with($data);
@@ -21,7 +21,7 @@ class MatiereController extends BaseController {
         $enseignants = Enseignant::getEnseignantAndStatus();
 
         $data = array(
-            'breadcrumb' => array('#ApplicationJaneDoe', 'Matières & UE\'s'),
+            'breadcrumb' => array('Scolarel', array("link"=> URL::route('matiere'),"label"=>'Matières & UE\'s'), $matiere->LONG_TITLE),
             'matiere' => $matiere,
             'lesFinancements' => $financement,
             'idFormation' => $idFormation,
