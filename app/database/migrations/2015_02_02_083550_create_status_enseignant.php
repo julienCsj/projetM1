@@ -70,6 +70,7 @@ class CreateStatusEnseignant extends Migration {
             $table->engine = 'InnoDB';
             $table->string('module_id',50);
             $table->string('enseignant_id',50);
+			$table->foreign('enseignant_id')->references('login')->on('user');
         });
 		DB::insert("INSERT INTO `_module_enseignant`(`module_id`, `enseignant_id`) VALUES ('mod00001', 'user00012');");
 		DB::insert("INSERT INTO `_module_enseignant`(`module_id`, `enseignant_id`) VALUES ('mod00001', 'user00021');");
@@ -83,6 +84,15 @@ class CreateStatusEnseignant extends Migration {
 		DB::insert("INSERT INTO `_module_financement`(`module_id`, `financement_id`) VALUES ('mod00001', 2);");
 		DB::insert("INSERT INTO `_module_financement`(`module_id`, `financement_id`) VALUES ('mod00001', 4);");
 
+        Schema::create('_enseignant_voeux', function($table){
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('enseignant_id',50);
+			$table->foreign('enseignant_id')->references('login')->on('user');
+            $table->integer('jour');
+            $table->integer('creneau');
+        });
+
 	}
 
 	/**
@@ -92,6 +102,7 @@ class CreateStatusEnseignant extends Migration {
 	 */
 	public function down()
 	{
+		Schema::dropIfExists('_enseignant_voeux');
 		Schema::dropIfExists('_module_financement');
 		Schema::dropIfExists('_module_enseignant');
 		Schema::dropIfExists('_calendrier');
