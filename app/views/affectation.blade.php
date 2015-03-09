@@ -2,7 +2,9 @@
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        	<h1>Affectation</h1>
+    	<h1>Affectation et planification</h1>
+        <br>
+        <br>
         <!-- WIDGET END -->
     </div>
     <div class="row">
@@ -18,71 +20,40 @@
                 </ul>
                 <div id="tabs-a">
                     <div class="row" id="drag">
-                        <div class="col-sm-12 col-md-3 col-lg-3">
-                            <form>
-                                <ul id="external-events" class="list-unstyled">
-                                    <li style="position: relative;">
-                                        <span id="COURS1" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">Cours#1</span>
-                                    </li>
-                                    <li style="position: relative;">
-                                        <span id="COURS2" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">Cours#2</span>
-                                    </li>
-                                </ul>
-                                <ul id="external-events" class="list-unstyled">
-                                    <li style="position: relative;">
-                                        <span id="TD1" class="draggable bg-color-blue txt-color-white external-event" data-icon="fa-pie">TD#1</span>
-                                    </li>
-                                    <li style="position: relative;">
-                                        <span id="TD2" class="draggable bg-color-blue txt-color-white external-event" data-icon="fa-pie">TD#2</span>
-                                    </li>
-                                </ul>
-                                <ul id="external-events" class="list-unstyled">
-                                    <li style="position: relative;">
-                                        <span id="TP1" class="draggable bg-color-red txt-color-white external-event" data-icon="fa-pie">TP#1</span>
-                                    </li>
-                                    <li style="position: relative;">
-                                        <span id="TP2" class="draggable bg-color-red txt-color-white external-event" data-icon="fa-pie">TP#2</span>
-                                    </li>
-                                </ul>
-                            </form>
+                        <div id="groupes" class="col-sm-12">
+                            <h3>Création et affectation des groupes de cours</h3>
+                            <div class="row col-sm-12">
+                                <div class="well">
+                                    TD archi : 6 séances
+                                    <button data-toggle="modal" data-target="#affecter-1" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
+                                    <button data-toggle="modal" data-target="#gerer-1" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-cog"></i> Gestion des séances</button>
+                                </div>
+                            </div>
+                            <div class="row col-sm-12">
+                                <div class="well">
+                                    CM Management : 3 séances
+                                    <button data-toggle="modal" data-target="" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
+                                    <button data-toggle="modal" data-target="" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-cog"></i> Gestion des séances</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-success"><i class="fa fa-plus"></i> Ajouter un groupe</button>
                         </div>
 
-                        <div id="groupes" class="col-sm-12">
-                            <div class="col-sm-12">
-                                <i class="fa fa-cog"></i>
-                                <div class="droppable col-sm-12 well">TD archi</div>
-                                <i class="fa fa-plus-circle"></i>
-                                <i class="fa fa-minus-circle"></i>
-                            </div>
-                        </div>
                     </div>                  
                 </div>
                 <div id="tabs-b">
                     <div class="row" id="drag">
+                        <div class="col-sm-12">
+                            <h3>Planification des cours sur les périodes d'enseignement</h3>
+                        </div>
                         <div class="col-sm-12 col-md-3 col-lg-3">
                             <form>
                                 <ul id="external-events" class="list-unstyled">
                                     <li style="position: relative;">
-                                        <span id="COURS1" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">Cours#1</span>
+                                        <span id="COURS1" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD Archi (6)</span>
                                     </li>
                                     <li style="position: relative;">
-                                        <span id="COURS2" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">Cours#2</span>
-                                    </li>
-                                </ul>
-                                <ul id="external-events" class="list-unstyled">
-                                    <li style="position: relative;">
-                                        <span id="TD1" class="draggable bg-color-blue txt-color-white external-event" data-icon="fa-pie">TD#1</span>
-                                    </li>
-                                    <li style="position: relative;">
-                                        <span id="TD2" class="draggable bg-color-blue txt-color-white external-event" data-icon="fa-pie">TD#2</span>
-                                    </li>
-                                </ul>
-                                <ul id="external-events" class="list-unstyled">
-                                    <li style="position: relative;">
-                                        <span id="TP1" class="draggable bg-color-red txt-color-white external-event" data-icon="fa-pie">TP#1</span>
-                                    </li>
-                                    <li style="position: relative;">
-                                        <span id="TP2" class="draggable bg-color-red txt-color-white external-event" data-icon="fa-pie">TP#2</span>
+                                        <span id="COURS2" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">CM Management (3)</span>
                                     </li>
                                 </ul>
                             </form>
@@ -109,36 +80,95 @@
     </div>
 </section>
 
-<!-- #dialog-message -->
-<div id="dialog-message" title="Affecter">
-    <span>Vous pouvez changer le statut de l'enseignant pour définir le volume horaire, ou le renseigner à la main</span>
-    <form id="form-status-enseignant" class="smart-form" novalidate="novalidate">
-
-        <fieldset>
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" class="checkbox style-3" name="choix" id="input-choix">
-                      <span>Appliquer un volume horaire spécifique</span>
-                    </label>
+<div class="modal fade" id="gerer-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Gestion des séances</h4>
+            </div>
+            {{ Form::open(array('route' => 'groupe.ajouterGroupe')) }}
+            <input type="hidden" name="id" value="" />
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="input">Séances de 1h
+                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
+                            </label>
+                        </div>
+                    </div>  
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="input">Séances de 1h30
+                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group" required>
+                            <label class="input">Séances de 2h
+                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <section id="section-status-select">
-                    <label class="select">Type de status
-                        <select name="status" id="input-status">
-                           
-                        </select> </label>
-                </section>
-                <section id="section-status-input">
-                    <label class="input">Volume horaire
-                        <input type="text" name="volumeHoraire" placeholder="192" id="input-volumeHoraire">
-                    </label>
-                </section>
-
-        </fieldset>
-        <input type="hidden" name="idEnseignant" id="input-idEnseignant">
-        <input type="hidden" name="id" id="input-id-statusenseignant">
-    </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <input type="submit" class="btn btn-primary" value="Valider" />
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
 </div>
-<!-- #dialog-message -->
+
+<div class="modal fade" id="affecter-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Affectation des séances</h4>
+            </div>
+            {{ Form::open(array('route' => 'groupe.ajouterGroupe')) }}
+            <input type="hidden" name="id" value="" />
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="input">Séances de 1h
+                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
+                            </label>
+                        </div>
+                    </div>  
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="input">Séances de 1h30
+                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group" required>
+                            <label class="input">Séances de 2h
+                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <input type="submit" class="btn btn-primary" value="Valider" />
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
 
 @include('layout.footer')
 <!-- PAGE RELATED PLUGIN(S) -->
@@ -167,7 +197,6 @@
                     "class": "btn btn-primary",
                     click: function () {
                         $(this).dialog("close");
-                        //valider_affectation();
                     }
                 }]
         });
