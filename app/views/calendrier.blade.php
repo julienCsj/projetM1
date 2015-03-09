@@ -57,7 +57,7 @@
 
 <!-- #dialog-message -->
 <div id="dialog-message" title="Dialog Simple Title">
-    <form id="form-status-enseignant" class="smart-form" novalidate="novalidate">
+    <form id="form-status-enseignant" class="smart-form" novalidate="novalidate"></form>
         <fieldset>
             <section id="section-status-select">
                 <label class="select">Type de status
@@ -77,6 +77,12 @@
 </div>
 <!-- #dialog-message -->
 
+<div id="dialog_simple" title="Dialog Simple Title">
+    <p>
+        Voulez-vous supprimer cette période ?
+    </p>
+</div>
+
 <script type="text/javascript">
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
@@ -85,12 +91,6 @@
 
 
         $("#ajouterPeriode").click(function() {
-
-            /*nbPeriode = $("#nbPeriode").val();
-            nbPeriode++;
-            $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"bg-color-darken txt-color-white external-event\" data-description=\"Période réservée à l'enseignement\" data-icon=\"fa-time\">Période #"+nbPeriode+"</span> </li>");
-            makeDraggable();
-            $("#nbPeriode").val(nbPeriode);*/
             $('#dialog-message').dialog('open');
         });
 
@@ -181,17 +181,60 @@
                     @if($event->type=='vacance')color:  'red', @endif
                 },
                 @endforeach
-                // more events here
             ],
             eventClick: function(calEvent, jsEvent, view){
-                /**
-                 * calEvent is the event object, so you can access it's properties
-                 */
-                if(confirm("Really delete event " + calEvent.title + " ?")){
-                    console.log("AJAX");
-                }
-                    // delete in frontend
-                $('#calendar').fullCalendar('removeEvents', calEvent._id);
+                console.log("Suppression d'un event DEBUT");
+                $('#dialog_simple').dialog({
+                    autoOpen : false,
+                    width : 600,
+                    resizable : false,
+                    modal : true,
+                    title : "Supprimer la période ?",
+                    buttons : [{
+                        html : "<i class='fa fa-trash-o'></i>&nbsp; Supprimer",
+                        "class" : "btn btn-danger",
+                        click : function() {
+                            $(this).dialog("close");
+                            var from_data = {
+                                "idFormation" : '{{$idFormation}}',
+                                "eventID": calEvent._id,
+                            };
+                            $.ajax({
+                                url: "{{$idFormation}}/supprimerPeriode",
+                                data: from_data,
+                                type: "POST"
+                            })
+                                    .done(function (html) {
+                                        $.bigBox({
+                                            title: "Modification réalisé",
+                                            content: "La période a bien été supprimée.",
+                                            color: "#3276B1",
+                                            icon: "fa fa-bell swing animated",
+                                            timeout: 2000
+                                        });
+
+                                    })
+                                    .fail(function (html) {
+                                        $.bigBox({
+                                            title: "Erreur",
+                                            content: "Un problème est survenu !",
+                                            color: "#C46A69",
+                                            icon: "fa fa-warning swing animated",
+                                            timeout: 3000
+                                        });
+                                    });
+                            $('#calendar').fullCalendar('removeEvents', calEvent._id);
+                        }
+                    }, {
+                        html : "<i class='fa fa-times'></i>&nbsp; Annuler",
+                        "class" : "btn btn-default",
+                        click : function() {
+                            $(this).dialog("close");
+                        }
+                    }]
+                });
+                $('#dialog_simple').dialog('open');
+                console.log("Suppression d'un event FIN");
             },
             droppable: true, // this allows things to be dropped onto the calendar !!!
             drop: function(date, allDay) { // this function is called when something is dropped
@@ -209,6 +252,11 @@
 
                 // render the event on the calendar
                 // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                if(type == "vacance") {
+                    copiedEventObject.backgroundColor = "red";
+                    copiedEventObject.color = "red";
+                }
+
                 $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 
                 var from_data = {
@@ -216,6 +264,7 @@
                     "dateFin": copiedEventObject.start,
                     "nom": copiedEventObject.title,
                     "idFormation" : '{{$idFormation}}',
+                    "eventID": copiedEventObject._id,
                     "type": type,
                 };
                 $.ajax({
@@ -246,8 +295,10 @@
             eventResize: function (event, jsEvent, ui, view) {
                 var from_data = {
                     "dateFin": event.end,
+                    "dateDebut": event.start,
                     "nom": event.title,
                     "idFormation": '{{$idFormation}}',
+                    "eventID" : event._id,
                 };
                 $.ajax({
                     url: "{{$idFormation}}/modifierPeriode",
@@ -272,6 +323,45 @@
                         timeout: 3000
                     });
                 });
+
+            },
+            eventDragStop: function( event, jsEvent, ui, view ) {
+                console.log("Event DRAG : ");
+                var monEvent = event;
+                $('#calendar').fullCalendar('refetchEvents');
+                // Comme le plugin est completement daubé :/ il faut attendre pour que l'event soit refresh !
+                setTimeout(function(){
+                    console.log(monEvent);
+                    var from_data = {
+                        "dateDebut" : monEvent.start,
+                        "dateFin": monEvent.end,
+                        "eventID": monEvent._id,
+                        "idFormation": '{{$idFormation}}',
+                    };
+                    $.ajax({
+                        url: "{{$idFormation}}/modifierPeriode",
+                        data: from_data,
+                        type: "POST"
+                    })
+                            .done(function (html) {
+                                $.bigBox({
+                                    title: "Modification réalisé",
+                                    content: "Le status de l'enseignant a bien été modifié !",
+                                    color: "#3276B1",
+                                    icon: "fa fa-bell swing animated",
+                                    timeout: 2000
+                                });
+                            })
+                            .fail(function (html) {
+                                $.bigBox({
+                                    title: "Modification réalisé",
+                                    content: "Un problème est survenu !",
+                                    color: "#C46A69",
+                                    icon: "fa fa-warning swing animated",
+                                    timeout: 3000
+                                });
+                            });
+                }, 500);
 
             }
         });

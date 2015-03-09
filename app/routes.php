@@ -47,6 +47,8 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::get('calendrier/{idFormation}', array('as' => 'calendrier.calendrierFormation', 'uses' => 'CalendrierController@getCalendrierFormation'));
     Route::post('calendrier/{idFormation}/ajouterPeriode', array('as' => 'calendrier.ajouterPeriode', 'uses' => 'CalendrierController@postAjouterPeriode'));
     Route::post('calendrier/{idFormation}/modifierPeriode', array('as' => 'calendrier.modifierPeriode', 'uses' => 'CalendrierController@postModifierPeriode'));
+    Route::post('calendrier/{idFormation}/supprimerPeriode', array('as' => 'calendrier.supprimerPeriode', 'uses' => 'CalendrierController@postSupprimerPeriode'));
+
 
     // Routes module affectation
     Route::get('affectation', array('as' => 'affectation', 'uses' => 'AffectationController@getAffectation'));
@@ -55,7 +57,6 @@ Route::group(array('before' => 'auth'), function () { // Login required
 
 
     // Routes à classer
-    Route::get('calendrier', array('as' => 'calendrier', 'uses' => 'CalendrierController@getCalendrier'));
     Route::get('voeux', array('as' => 'voeux', 'uses' => 'VoeuxController@getVoeux'));
     Route::get('monservice', array('as' => 'monservice', 'uses' => 'ServiceController@getService'));
     Route::get('heuresexterieures', array('as' => 'heuresexterieures', 'uses' => 'HeuresExternesController@getHeuresExternes'));
