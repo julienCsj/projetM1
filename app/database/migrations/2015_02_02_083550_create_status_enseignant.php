@@ -63,6 +63,7 @@ class CreateStatusEnseignant extends Migration {
             $table->string('dateFin',255);
             $table->string('nom',255);
             $table->string('type',255);
+            $table->string('eventID', 5);
         });
 
         Schema::create('_module_enseignant', function($table){

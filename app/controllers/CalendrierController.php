@@ -33,6 +33,7 @@ class CalendrierController extends BaseController {
         $calendrier->dateFin = Input::get('dateFin');
         $calendrier->idFormation = Input::get('idFormation');
         $calendrier->type = Input::get("type");
+        $calendrier->eventID = Input::get("eventID");
         $calendrier->save();
         return "Ok";
     }
@@ -40,10 +41,20 @@ class CalendrierController extends BaseController {
     public function postModifierPeriode() {
         $idFormation = Input::get('idFormation');
         $nom = Input::get("nom");
+        $eventID = Input::get("eventID");
 
-        $calendrier = Calendrier::where('idFormation', '=', $idFormation)->where('nom', '=', $nom)->firstOrFail();
+        $calendrier = Calendrier::where('idFormation', '=', $idFormation)->where('eventID', '=', $eventID)->firstOrFail();
         $calendrier->dateFin = Input::get('dateFin');
+        $calendrier->dateDebut = Input::get('dateDebut');
         $calendrier->save();
+        return "Ok";
+    }
+
+    public function postSupprimerPeriode() {
+        $idFormation = Input::get('idFormation');
+        $idEvent = Input::get("eventID");
+
+        $calendrier = Calendrier::where('idFormation', '=', $idFormation)->where('eventID', '=', $idEvent)->delete();
         return "Ok";
     }
 

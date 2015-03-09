@@ -2,6 +2,8 @@
 class ServiceController extends BaseController {
 	public function getService()
     {
+
+
         $data = array(
                'notifications' => array(
                  array(
