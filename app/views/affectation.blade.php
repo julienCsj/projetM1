@@ -5,61 +5,108 @@
         	<h1>Affectation</h1>
         <!-- WIDGET END -->
     </div>
-    <div class="row" id="drag">
-    	<div class="col-sm-12 col-md-3 col-lg-3">
-			<form>
-				<ul id="external-events" class="list-unstyled">
-                    <li style="position: relative;">
-                        <span id="COURS1" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">Cours#1</span>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="tabs">
+                <ul>
+                    <li>
+                        <a href="#tabs-a">Affecter</a>
                     </li>
-                    <li style="position: relative;">
-                        <span id="COURS2" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">Cours#2</span>
+                    <li>
+                        <a href="#tabs-b">Planifier</a>
                     </li>
-				</ul>
-				<ul id="external-events" class="list-unstyled">
-                    <li style="position: relative;">
-                        <span id="TD1" class="draggable bg-color-blue txt-color-white external-event" data-icon="fa-pie">TD#1</span>
-                    </li>
-                    <li style="position: relative;">
-                        <span id="TD2" class="draggable bg-color-blue txt-color-white external-event" data-icon="fa-pie">TD#2</span>
-                    </li>
-				</ul>
-				<ul id="external-events" class="list-unstyled">
-                    <li style="position: relative;">
-                        <span id="TP1" class="draggable bg-color-red txt-color-white external-event" data-icon="fa-pie">TP#1</span>
-                    </li>
-                    <li style="position: relative;">
-                        <span id="TP2" class="draggable bg-color-red txt-color-white external-event" data-icon="fa-pie">TP#2</span>
-                    </li>
-				</ul>
-			</form>
-		</div>
+                </ul>
+                <div id="tabs-a">
+                    <div class="row" id="drag">
+                        <div class="col-sm-12 col-md-3 col-lg-3">
+                            <form>
+                                <ul id="external-events" class="list-unstyled">
+                                    <li style="position: relative;">
+                                        <span id="COURS1" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">Cours#1</span>
+                                    </li>
+                                    <li style="position: relative;">
+                                        <span id="COURS2" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">Cours#2</span>
+                                    </li>
+                                </ul>
+                                <ul id="external-events" class="list-unstyled">
+                                    <li style="position: relative;">
+                                        <span id="TD1" class="draggable bg-color-blue txt-color-white external-event" data-icon="fa-pie">TD#1</span>
+                                    </li>
+                                    <li style="position: relative;">
+                                        <span id="TD2" class="draggable bg-color-blue txt-color-white external-event" data-icon="fa-pie">TD#2</span>
+                                    </li>
+                                </ul>
+                                <ul id="external-events" class="list-unstyled">
+                                    <li style="position: relative;">
+                                        <span id="TP1" class="draggable bg-color-red txt-color-white external-event" data-icon="fa-pie">TP#1</span>
+                                    </li>
+                                    <li style="position: relative;">
+                                        <span id="TP2" class="draggable bg-color-red txt-color-white external-event" data-icon="fa-pie">TP#2</span>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
 
-		<div id="periodes" class="col-sm-12 col-md-9 col-lg-9">
-			<div class="row">
-				<div class="col-sm-12">
-					<span>Période du x/x/x au x/x/x : x semaines</span>
-				</div>
-				<div class="col-sm-12">
-					<div class="droppable col-sm-3 well">Semaine</div>
-					<div class="droppable col-sm-3 well">Semaine</div>
-					<div class="droppable col-sm-3 well">Semaine</div>
-					<div class="droppable col-sm-3 well">Semaine</div>
-				</div>
-				<div class="col-sm-12">
-					<span>Période du x/x/x au x/x/x : x semaines</span>
-				</div>
-				<div class="col-sm-12">
-					<div class="droppable col-sm-3 well">Semaine</div>
-					<div class="droppable col-sm-3 well">Semaine</div>
-					<div class="droppable col-sm-3 well">Semaine</div>
-					<div class="droppable col-sm-3 well">Semaine</div>
-					<div class="droppable col-sm-3 well">Semaine</div>
-					<div class="droppable col-sm-3 well">Semaine</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <div id="groupes" class="col-sm-12">
+                            <div class="col-sm-12">
+                                <i class="fa fa-cog"></i>
+                                <div class="droppable col-sm-12 well">TD archi</div>
+                                <i class="fa fa-plus-circle"></i>
+                                <i class="fa fa-minus-circle"></i>
+                            </div>
+                        </div>
+                    </div>                  
+                </div>
+                <div id="tabs-b">
+                    <div class="row" id="drag">
+                        <div class="col-sm-12 col-md-3 col-lg-3">
+                            <form>
+                                <ul id="external-events" class="list-unstyled">
+                                    <li style="position: relative;">
+                                        <span id="COURS1" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">Cours#1</span>
+                                    </li>
+                                    <li style="position: relative;">
+                                        <span id="COURS2" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">Cours#2</span>
+                                    </li>
+                                </ul>
+                                <ul id="external-events" class="list-unstyled">
+                                    <li style="position: relative;">
+                                        <span id="TD1" class="draggable bg-color-blue txt-color-white external-event" data-icon="fa-pie">TD#1</span>
+                                    </li>
+                                    <li style="position: relative;">
+                                        <span id="TD2" class="draggable bg-color-blue txt-color-white external-event" data-icon="fa-pie">TD#2</span>
+                                    </li>
+                                </ul>
+                                <ul id="external-events" class="list-unstyled">
+                                    <li style="position: relative;">
+                                        <span id="TP1" class="draggable bg-color-red txt-color-white external-event" data-icon="fa-pie">TP#1</span>
+                                    </li>
+                                    <li style="position: relative;">
+                                        <span id="TP2" class="draggable bg-color-red txt-color-white external-event" data-icon="fa-pie">TP#2</span>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+
+                        <div id="periodes" class="col-sm-12 col-md-9 col-lg-9">
+                            <div class="col-sm-12">
+                                <span>Période du x/x/x au x/x/x : x semaines</span>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="droppable col-sm-12 well">Déposez les cours ici</div>
+                            </div>
+                            <div class="col-sm-12">
+                                <span>Période du x/x/x au x/x/x : x semaines</span>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="droppable col-sm-12 well">Déposez les cours ici</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- #dialog-message -->
@@ -103,6 +150,8 @@
     $(document).ready(function() {
         pageSetUp();
 
+        $('#tabs').tabs();
+
         $('#dialog-message').dialog({
             autoOpen: false,
             modal: true,
@@ -118,7 +167,7 @@
                     "class": "btn btn-primary",
                     click: function () {
                         $(this).dialog("close");
-                        valider_affectation();
+                        //valider_affectation();
                     }
                 }]
         });
@@ -144,7 +193,7 @@
 
 	function handleDropEvent(event, ui){
 		var draggable = ui.draggable;
-		$('#dialog-message').dialog('open');
+		//$('#dialog-message').dialog('open');
 		draggable.data("draggable").originalPosition = {top:0, left:0};
 		//alert( 'Le cours ayant pour id "' + draggable.attr('id') + '" est tombé sur oim, "'+droppable.attr('id')+'" !' );
 	}
