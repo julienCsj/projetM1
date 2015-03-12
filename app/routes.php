@@ -40,6 +40,10 @@ Route::group(array('before' => 'auth'), function () { // Login required
     // Routes enseignant / status
     Route::get('enseignant', array('as' => 'enseignant', 'uses' => 'EnseignantController@getEnseignants'));
     Route::post('enseignant/status', array('as' => 'enseignant.postModifierStatus', 'uses' => 'StatusEnseignantController@postModifierStatus'));
+
+    // Routes enseignant / voeux
+    Route::get('voeux', array('as' => 'voeux', 'uses' => 'VoeuxController@getVoeux'));
+    Route::post('voeux', array('as' => 'voeux', 'uses' => 'VoeuxController@editVoeux'));
     
     // Routes module calendrier
     Route::get('calendrier', array('as' => 'calendrier', 'uses' => 'CalendrierController@getCalendrier'));
@@ -53,10 +57,9 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::get('affectation/{idFormation}', array('as' => 'affectation.affectationFormation', 'uses' => 'AffectationController@getAffectationFormation'));
 
     // Routes à classer
-    Route::get('voeux', array('as' => 'voeux', 'uses' => 'VoeuxController@getVoeux'));
     Route::get('monservice', array('as' => 'monservice', 'uses' => 'ServiceController@getService'));
     Route::get('heuresexterieures', array('as' => 'heuresexterieures', 'uses' => 'HeuresExternesController@getHeuresExternes'));
-    Route::get('deconnexion', array('as' => 'deconnexion', 'uses' => 'IdentificationController@deconnexion'));
+    Route::get('deconnexion', array('as' => 'deconnexion', 'uses' => 'IdentificationController@deconnexion'));    
 });
 
 

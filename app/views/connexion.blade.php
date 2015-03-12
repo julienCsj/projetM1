@@ -86,7 +86,7 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
+        <div class="col-sm-6 col-md-4 col-md-offset-4  col-sm-offset-3">
             <!-- ALERT BOX -->
             @if(isset($alerts))
                 @foreach($alerts as $alert)
