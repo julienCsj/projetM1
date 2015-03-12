@@ -41,7 +41,6 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::get('enseignant', array('as' => 'enseignant', 'uses' => 'EnseignantController@getEnseignants'));
     Route::post('enseignant/status', array('as' => 'enseignant.postModifierStatus', 'uses' => 'StatusEnseignantController@postModifierStatus'));
     
-
     // Routes module calendrier
     Route::get('calendrier', array('as' => 'calendrier', 'uses' => 'CalendrierController@getCalendrier'));
     Route::get('calendrier/{idFormation}', array('as' => 'calendrier.calendrierFormation', 'uses' => 'CalendrierController@getCalendrierFormation'));
@@ -49,12 +48,9 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::post('calendrier/{idFormation}/modifierPeriode', array('as' => 'calendrier.modifierPeriode', 'uses' => 'CalendrierController@postModifierPeriode'));
     Route::post('calendrier/{idFormation}/supprimerPeriode', array('as' => 'calendrier.supprimerPeriode', 'uses' => 'CalendrierController@postSupprimerPeriode'));
 
-
     // Routes module affectation
     Route::get('affectation', array('as' => 'affectation', 'uses' => 'AffectationController@getAffectation'));
     Route::get('affectation/{idFormation}', array('as' => 'affectation.affectationFormation', 'uses' => 'AffectationController@getAffectationFormation'));
-
-
 
     // Routes à classer
     Route::get('voeux', array('as' => 'voeux', 'uses' => 'VoeuxController@getVoeux'));

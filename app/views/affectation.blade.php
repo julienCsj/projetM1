@@ -22,11 +22,22 @@
                     <div class="row" id="drag">
                         <div id="groupes" class="col-sm-12">
                             <h3>Création et affectation des groupes de cours</h3>
+                            @foreach ($groupesCours as $groupeCours)
                             <div class="row col-sm-12">
                                 <div class="well">
                                     TD archi : 6 séances
-                                    <button data-toggle="modal" data-target="#affecter-1" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
-                                    <button data-toggle="modal" data-target="#gerer-1" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-cog"></i> Gestion des séances</button>
+                                    <button data-toggle="modal" data-target="#gerer-{{$groupeCours->id}}" href="javascript(void);" class="btn btn-xs btn-danger pull-right">Supprimer</button>
+                                    <button data-toggle="modal" data-target="#affecter-{{$groupeCours->id}}" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
+                                    <button data-toggle="modal" data-target="#supprimer-{{$groupeCours->id}}" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-cog"></i> Gestion des séances</button>
+                                </div>
+                            </div>
+                            @endforeach
+                            <div class="row col-sm-12">
+                                <div class="well">
+                                    TD archi : 6 séances
+                                    <button data-toggle="modal" data-target="#gerer-{{$groupeCours->id}}" href="javascript(void);" class="btn btn-xs btn-danger pull-right">Supprimer</button>
+                                    <button data-toggle="modal" data-target="#affecter-{{$groupeCours->id}}" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
+                                    <button data-toggle="modal" data-target="#supprimer-{{$groupeCours->id}}" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-cog"></i> Gestion des séances</button>
                                 </div>
                             </div>
                             <div class="row col-sm-12">

@@ -14,27 +14,32 @@ class AffectationController extends BaseController {
 
     public function getAffectationFormation($idFormation)
     {
-        /*$data = array(
-               'notifications' => array(
-                 array(
-                   'type' => 'success',
-                   'titre' => 'affectation',
-                   'message' => 'Bienvenue sur Scolarel<br/>Vous pouvez maintennant vous connecter'
-                 )),
-                 'breadcrumb' => array('Scolarel', 'Affectation')
-               );
-        return View::make('affectation')->with($data);*/
-
-        $formation = Formation::find($idFormation)
+      $formation = Formation::find($idFormation)
                 ->join('pages', 'pages.id', '=', 'semestre.id')
                 ->select('semestre.id', 'pages.short_title', 'pages.long_title')->firstOrFail();
-        $data = array('idFormation' => $idFormation,
-            'notifications' => array(),
-            'breadcrumb' => array('Scolarel', array("link"=> URL::route('calendrier'),"label"=>'Calendriers'), $formation->long_title),
-            'formation' => $formation,
-            'calendrier' => Calendrier::where('idFormation', '=', $idFormation)->get());
 
-        return View::make('affectation')->with($data);
+      $groupesCours = GroupeCours::getGroupeCoursByFormation($idFormation);
+
+      //$modules = Formation::getGroupeCoursByFormation($idFormation);
+
+      $data = array('idFormation' => $idFormation,
+          'notifications' => array(),
+          'breadcrumb' => array('Scolarel', array("link"=> URL::route('affectation'),"label"=>'Affectation et planification'), $formation->long_title),
+          'formation' => $formation,
+          'groupesCours' => $groupesCours,
+          'calendrier' => Calendrier::where('idFormation', '=', $idFormation)->get());
+
+      return View::make('affectation')->with($data);
+    }
+
+    public function ajouterGroupeCours()
+    {
+
+    }
+
+    public function supprimerGroupeCours()
+    {
+      
     }
     
     // A chaque professeur ont associe une source de financement

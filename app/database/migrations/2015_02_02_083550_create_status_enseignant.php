@@ -83,6 +83,21 @@ class CreateStatusEnseignant extends Migration {
 		DB::insert("INSERT INTO `_module_financement`(`module_id`, `financement_id`) VALUES ('mod00001', 2);");
 		DB::insert("INSERT INTO `_module_financement`(`module_id`, `financement_id`) VALUES ('mod00001', 4);");
 
+		Schema::create('_groupecours', function($table){
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('module_id',50);
+            $table->string('CM_60',50);
+            $table->string('CM_90',50);
+            $table->string('CM_120',50);
+            $table->string('TD_60',50);
+            $table->string('TD_90',50);
+            $table->string('TD_120',50);
+            $table->string('TP_60',50);
+            $table->string('TP_90',50);
+            $table->string('TP_120',50);
+        });
+
 	}
 
 	/**
@@ -99,6 +114,7 @@ class CreateStatusEnseignant extends Migration {
 		Schema::dropIfExists('_typestatusenseignant');
 		Schema::dropIfExists('_financement');
 		Schema::dropIfExists('_groupe');
+		Schema::dropIfExists('_groupecours');
 		// FAIRE les autres tables
 	}
 

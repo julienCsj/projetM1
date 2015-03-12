@@ -81,7 +81,6 @@ class Module extends Eloquent {
             . 'and links.id_dst = "'.$ue.'"'));
     }
 
-
     public static function getModuleWithData($idMatiere) {
         $module = (array) Module::get($idMatiere);
         $module = $module[0];
