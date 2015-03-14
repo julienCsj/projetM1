@@ -212,7 +212,7 @@
                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="Valider" />
                 </div>
                 @else
-                    <p class="text-center">Veuillez selectionner un module...</p>
+                    <p class="text-center well">Veuillez selectionner un module...</p>
                 @endif
             </div>
         </div>

@@ -66,7 +66,7 @@
                     </div>
                     <br />
                 @else
-                    <p class="text-center">Veuillez selectionner une formation...</p>
+                    <p class="text-center well">Veuillez selectionner une formation...</p>
                 @endif
             </div>
         </div>

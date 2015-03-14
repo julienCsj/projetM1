@@ -31,8 +31,12 @@ class CreateStatusEnseignant extends Migration {
 			$table->engine = 'InnoDB';
 			$table->increments('id');
 			$table->string('libelle');
-			$table->integer('montant');
 		});
+
+        DB::insert("INSERT INTO `_financement`(`libelle`) VALUES ('MFCA');");
+        DB::insert("INSERT INTO `_financement`(`libelle`) VALUES ('IUT');");
+        DB::insert("INSERT INTO `_financement`(`libelle`) VALUES ('Autre');");
+
 		Schema::create('_typestatusenseignant', function($table){
 			$table->engine = 'InnoDB';
 			$table->increments('id');
@@ -72,8 +76,7 @@ class CreateStatusEnseignant extends Migration {
             $table->string('enseignant_id',50);
 			$table->foreign('enseignant_id')->references('login')->on('user');
         });
-		DB::insert("INSERT INTO `_module_enseignant`(`module_id`, `enseignant_id`) VALUES ('mod00001', 'user00012');");
-		DB::insert("INSERT INTO `_module_enseignant`(`module_id`, `enseignant_id`) VALUES ('mod00001', 'user00021');");
+
 		
 
         Schema::create('_module_financement', function($table){
@@ -81,8 +84,6 @@ class CreateStatusEnseignant extends Migration {
             $table->string('module_id',50);
             $table->string('financement_id',50);
         });
-		DB::insert("INSERT INTO `_module_financement`(`module_id`, `financement_id`) VALUES ('mod00001', 2);");
-		DB::insert("INSERT INTO `_module_financement`(`module_id`, `financement_id`) VALUES ('mod00001', 4);");
 
 		Schema::create('_groupecours', function($table){
             $table->engine = 'InnoDB';
@@ -118,7 +119,17 @@ class CreateStatusEnseignant extends Migration {
             $table->integer('duree');
         });
 
-	}
+        Schema::create('_heuresexternes', function($table){
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('libelle');
+            $table->string('nbHeure');
+            $table->string('enseignantID');
+            $table->string('type');
+        });
+
+
+    }
 
 	/**
 	 * Reverse the migrations.
@@ -138,7 +149,6 @@ class CreateStatusEnseignant extends Migration {
 		Schema::dropIfExists('_groupecours');
 		Schema::dropIfExists('_enseignant_voeux');
         Schema::dropIfExists('_cours');
-		// FAIRE les autres tables
 	}
 
 }

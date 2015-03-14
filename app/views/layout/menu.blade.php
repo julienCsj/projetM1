@@ -55,6 +55,9 @@
             <li class="{{ URL::route('affectation') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('affectation')}}" title="Affectation"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Affecter et planifier</span></a>
             </li>
+            <li class="{{ URL::route('voeuxenseignant') === URL::current() ? 'active' : '' }}">
+                <a href="{{URL::route('voeuxenseignant')}}" title="Voeux enseignants"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Voeux enseignants</span></a>
+            </li>
             @elseif(strpos($user->ROLES,'MEMBRE_DU_PERSONNEL') !== false || strpos($user->ROLES,'ESPE') !== false)
             <li class="{{ URL::route('voeux') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('voeux')}}" title="Adresses"><i class="fa fa-lg fa-fw fa-location-arrow "></i> <span class="menu-item-parent">Voeux</span></a>

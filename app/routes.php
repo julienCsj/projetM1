@@ -48,6 +48,10 @@ Route::group(array('before' => 'auth'), function () { // Login required
     // Routes enseignant / voeux
     Route::get('voeux', array('as' => 'voeux', 'uses' => 'VoeuxController@getVoeux'));
     Route::post('voeux', array('as' => 'voeux', 'uses' => 'VoeuxController@editVoeux'));
+
+    // Visualisation des voeux par le responsable de la plannification
+    Route::get('voeuxEnseignant', array('as' => 'voeuxenseignant', 'uses' => 'VoeuxController@showVoeux'));
+    Route::get('voeuxEnseignant/{idEnseignant}', array('as' => 'voeuxenseignant.voir', 'uses' => 'VoeuxController@showVoeux'));
     
     // Routes module calendrier
     Route::get('calendrier', array('as' => 'calendrier', 'uses' => 'CalendrierController@getCalendrier'));
