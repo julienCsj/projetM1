@@ -108,6 +108,16 @@ class CreateStatusEnseignant extends Migration {
             $table->integer('creneau');
         });
 
+        Schema::create('_cours', function($table){
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('formationID');
+            $table->string('ueID');
+            $table->string('moduleID');
+            $table->string('type');
+            $table->integer('duree');
+        });
+
 	}
 
 	/**
@@ -125,8 +135,12 @@ class CreateStatusEnseignant extends Migration {
 		Schema::dropIfExists('_typestatusenseignant');
 		Schema::dropIfExists('_financement');
 		Schema::dropIfExists('_groupe');
+<<<<<<< Updated upstream
 		Schema::dropIfExists('_groupecours');
 		Schema::dropIfExists('_enseignant_voeux');
+=======
+        Schema::dropIfExists('_cours');
+>>>>>>> Stashed changes
 		// FAIRE les autres tables
 	}
 

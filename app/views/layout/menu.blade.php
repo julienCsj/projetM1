@@ -43,8 +43,8 @@
             <li class="{{ URL::route('groupe') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('groupe')}}" class="" title="Groupe"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Groupes</span></a>
             </li>
-            <li class="{{ URL::route('matiere') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('matiere')}}" class=""><i class="fa fa-lg fa-fw fa-road"></i> <span class="menu-item-parent">UEs / Matières</span></a>
+            <li class="{{ URL::route('module') === URL::current() ? 'active' : '' }}">
+                <a href="{{URL::route('module')}}" class=""><i class="fa fa-lg fa-fw fa-road"></i> <span class="menu-item-parent">UEs / Modules</span></a>
             </li>
             <li class="{{ URL::route('enseignant') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('enseignant')}}" class=""><i class="fa fa-lg fa-fw fa-users "></i> <span class="menu-item-parent">Enseignants</span></a>

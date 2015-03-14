@@ -31,11 +31,13 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::post('groupe/modifier', array('as' => 'groupe.modifierGroupe', 'uses' => 'GroupeController@modifierGroupe'));
 
     // Route module Formation / UE / Matières
-    Route::get('matiere', array('as' => 'matiere', 'uses' => 'MatiereController@getMatieres'));
-    Route::get('matiere/modifier/{idFormation}/{idMatiere}', array('as' => 'matiere.modifier', 'uses' => 'MatiereController@modifierMatiere'));
-    Route::post('matiere/modifier/', array('as' => 'matiere.postModifierMatiere', 'uses' => 'MatiereController@postModifierMatiere'));
-    Route::get('formation/{idFormation}/matiere/{idMatiere}/enseignant/{idEnseignant}/supprimer/', array('as' => 'matiere.supprimerEnseignant', 'uses' => 'MatiereController@supprimerEnseignantMatiere'));
-    Route::get('formation/{idFormation}/matiere/{idMatiere}/financement/{idFinancement}/supprimer/', array('as' => 'matiere.supprimerFinancement', 'uses' => 'MatiereController@supprimerFinancementMatiere'));
+    Route::get('module', array('as' => 'module', 'uses' => 'ModuleController@getModules'));
+    Route::get('module/{idFormation}/{idUe}/{idModule}', array('as' => 'moduleModification', 'uses' => 'ModuleController@getModules'));
+    Route::post('module/modifier/', array('as' => 'module.postModifierModule', 'uses' => 'ModuleController@postModifierModule'));
+    Route::get('formation/{idFormation}/ue/{idUe}/module/{idModule}/enseignant/{idEnseignant}/supprimer/', array('as' => 'module.supprimerEnseignant', 'uses' => 'ModuleController@supprimerEnseignantModule'));
+    Route::get('formation/{idFormation}/ue/{idUe}/module/{idModule}/financement/{idFinancement}/supprimer/', array('as' => 'module.supprimerFinancement', 'uses' => 'ModuleController@supprimerFinancementModule'));
+    Route::get('formation/{idFormation}/ue/{idUe}/module/{idModule}/cours/{idCours}/supprimer/', array('as' => 'module.supprimerCours', 'uses' => 'ModuleController@supprimerCours'));
+
 
     // Routes enseignant / status
     Route::get('enseignant', array('as' => 'enseignant', 'uses' => 'EnseignantController@getEnseignants'));

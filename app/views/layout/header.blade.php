@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-    <title>#ApplicationSansNom - @if(isset($titre)) {{$titre}} @else Titre par défaut @endif</title>
+    <title>Scolarel - @if(isset($titre)) {{$titre}} @else IUT GEAP @endif</title>
     <meta name="description" content="">
     <meta name="author" content="Nil Software">
 

@@ -432,7 +432,7 @@ return array(
     'Jeremeamia\\SuperClosure\\Visitor\\ClosureFinderVisitor' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/ClosureFinderVisitor.php',
     'Jeremeamia\\SuperClosure\\Visitor\\MagicConstantVisitor' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/MagicConstantVisitor.php',
     'Math_BigInteger' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Math/BigInteger.php',
-    'MatiereController' => $baseDir . '/app/controllers/MatiereController.php',
+    'MatiereController' => $baseDir . '/app/controllers/ModuleController.php',
     'MigrationCreateStatus' => $baseDir . '/app/database/migrations/2015_02_02_000001_migration_create_status.php',
     'Module' => $baseDir . '/app/models/Module.php',
     'Monolog\\ErrorHandler' => $vendorDir . '/monolog/monolog/src/Monolog/ErrorHandler.php',

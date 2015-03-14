@@ -34,40 +34,40 @@ class Module extends Eloquent {
             ->get();
     }
 
-    public static function get($idMatiere) {
+    public static function get($idModule) {
         return DB::table('module')
             ->join('pages', 'pages.id', '=', 'module.id')
-            ->where('module.id', '=', $idMatiere)
+            ->where('module.id', '=', $idModule)
             ->select('*')
             ->get();
     }
 
-    public static function supprimerFinancement($idMatiere) {
-        return DB::table('_module_financement')->where('module_id', '=', $idMatiere)->delete();
+    public static function supprimerFinancement($idModule) {
+        return DB::table('_module_financement')->where('module_id', '=', $idModule)->delete();
     }
 
-    public static function supprimerEnseignant($idMatiere) {
-        return DB::table('_module_enseignant')->where('module_id', '=', $idMatiere)->delete();
+    public static function supprimerEnseignant($idModule) {
+        return DB::table('_module_enseignant')->where('module_id', '=', $idModule)->delete();
     }
 
-    public static function supprimerUnFinancement($idMatiere, $idFinancement) {
-        return DB::table('_module_financement')->where('module_id', '=', $idMatiere)->where('financement_id', '=', $idFinancement)->delete();
+    public static function supprimerUnFinancement($idModule, $idFinancement) {
+        return DB::table('_module_financement')->where('module_id', '=', $idModule)->where('financement_id', '=', $idFinancement)->delete();
     }
 
-    public static function supprimerUnEnseignant($idMatiere, $idEnseignant) {
-        return DB::table('_module_enseignant')->where('module_id', '=', $idMatiere)->where('enseignant_id', '=', $idEnseignant)->delete();
+    public static function supprimerUnEnseignant($idModule, $idEnseignant) {
+        return DB::table('_module_enseignant')->where('module_id', '=', $idModule)->where('enseignant_id', '=', $idEnseignant)->delete();
     }
 
-    public static function ajouterFinancement($financement, $idMatiere) {
+    public static function ajouterFinancement($financement, $idModule) {
         return DB::table('_module_financement')->insert(
-            array('module_id' => $idMatiere,
+            array('module_id' => $idModule,
                   'financement_id' => $financement)
         );
     }
 
-    public static function ajouterEnseignant($enseignant, $idMatiere) {
+    public static function ajouterEnseignant($enseignant, $idModule) {
         return DB::table('_module_enseignant')->insert(
-            array('module_id' => $idMatiere,
+            array('module_id' => $idModule,
                 'enseignant_id' => $enseignant)
         );
     }
@@ -81,22 +81,45 @@ class Module extends Eloquent {
             . 'and links.id_dst = "'.$ue.'"'));
     }
 
+<<<<<<< Updated upstream
     public static function getModuleWithData($idMatiere) {
         $module = (array) Module::get($idMatiere);
+=======
+
+
+    public static function getModuleWithData($idModule) {
+        $module = (array) Module::get($idModule);
+>>>>>>> Stashed changes
         $module = $module[0];
 
         $module->lesFinancements = DB::select(DB::raw(''
             . 'select _financement.id, _financement.libelle '
             . 'from _financement, _module_financement '
-            . 'where _module_financement.module_id = "'.$idMatiere.'" '
+            . 'where _module_financement.module_id = "'.$idModule.'" '
             . 'and _module_financement.financement_id = _financement.id'));
 
         $module->lesEnseignants = DB::select(DB::raw(''
             . 'select user.login, user.lastname, user.firstname '
             . 'from user, _module_enseignant '
-            . 'where _module_enseignant.module_id = "'.$idMatiere.'" '
+            . 'where _module_enseignant.module_id = "'.$idModule.'" '
             . 'and _module_enseignant.enseignant_id = user.login'));
 
         return $module;
+    }
+
+    public static function getCm($idModule) {
+        return null;
+    }
+
+    public static function getTd($idModule) {
+        return null;
+    }
+
+    public static function getTp($idModule) {
+        return null;
+    }
+
+    public static function getAllCours($idModule) {
+        return null;
     }
 }
