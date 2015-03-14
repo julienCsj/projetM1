@@ -80,16 +80,9 @@ class Module extends Eloquent {
             . 'and links.id_src = module.id '
             . 'and links.id_dst = "'.$ue.'"'));
     }
-
-<<<<<<< Updated upstream
-    public static function getModuleWithData($idMatiere) {
-        $module = (array) Module::get($idMatiere);
-=======
-
-
+    
     public static function getModuleWithData($idModule) {
         $module = (array) Module::get($idModule);
->>>>>>> Stashed changes
         $module = $module[0];
 
         $module->lesFinancements = DB::select(DB::raw(''
