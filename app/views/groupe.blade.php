@@ -188,10 +188,3 @@ $(document).ready(function() {
 })
 </script>
 
-<script type="text/javascript">
-    // DO NOT REMOVE : GLOBAL FUNCTIONS!
-
-    $(document).ready(function() {
-        pageSetUp();
-    });
-</script>

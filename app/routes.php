@@ -26,7 +26,9 @@ Route::group(array('before' => 'auth'), function () { // Login required
 
     // Routes module groupe
     Route::get('groupe', array('as' => 'groupe', 'uses' => 'GroupeController@getGroupes'));
-    Route::get('groupe/supprimer/{id}', array('as' => 'groupe.supprimerGroupe', 'uses' => 'GroupeController@supprimerGroupe'));
+    Route::get('groupe/{idFormation}', array('as' => 'groupeModification', 'uses' => 'GroupeController@getGroupes'));
+
+    Route::get('groupe/supprimer/{idFormation}/{idGroupe}', array('as' => 'groupe.supprimerGroupe', 'uses' => 'GroupeController@supprimerGroupe'));
     Route::post('groupe/ajouter', array('as' => 'groupe.ajouterGroupe', 'uses' => 'GroupeController@ajouterGroupe'));
     Route::post('groupe/modifier', array('as' => 'groupe.modifierGroupe', 'uses' => 'GroupeController@modifierGroupe'));
 

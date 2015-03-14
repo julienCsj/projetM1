@@ -31,7 +31,14 @@ class UE extends Eloquent {
                         ->get();
     }
 
-    
+    public static function getUeSimple($id) {
+        return DB::table('ue')
+            ->where('ue.id', '=', $id)
+            ->join('pages', 'pages.id', '=', 'ue.id')
+            ->select('ue.id', 'pages.short_title', 'pages.long_title')
+            ->get()[0];
+    }
+
     /*
      * TO DO : Ecrire la requete avec le query builder
      */

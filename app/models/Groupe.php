@@ -8,18 +8,18 @@
 
 class Groupe extends Eloquent {
 
-	
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = '_groupe';
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = '_groupe';
     //protected $fillable = array('libelle', 'montant');
     public $timestamps = false;
-    
+
     public static function getGroupeModule() {
-        $lesFormations = (array) Formation::all();       
+        $lesFormations = (array) Formation::all();
 
         foreach ($lesFormations as $f) {
             $f->lesGroupes = Groupe::getGroupesByFormation($f->id);
@@ -27,11 +27,12 @@ class Groupe extends Eloquent {
         return $lesFormations;
     }
 
+
     public static function getGroupesByFormation($id) {
         return DB::select(DB::raw(''
-                    . 'select id, nom, sous_groupe '
-                    . 'from _groupe '
-                    . 'where _groupe.semestre_id = "'.$id.'"'
-                    . ''));  
+            . 'select id, nom, sous_groupe '
+            . 'from _groupe '
+            . 'where _groupe.semestre_id = "'.$id.'"'
+            . ''));
     }
 }

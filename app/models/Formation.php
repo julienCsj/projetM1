@@ -34,6 +34,14 @@ class Formation extends Eloquent {
         ->select('semestre.id', 'pages.short_title', 'pages.long_title')
         ->get();
     }
+
+    public static function getFormationSimple($id) {
+        return DB::table('semestre')
+            ->where('semestre.id', '=', $id)
+            ->join('pages', 'pages.id', '=', 'semestre.id')
+            ->select('semestre.id', 'pages.short_title', 'pages.long_title')
+            ->get()[0];
+    }
     
     public static function getFormationUeModule() {
         $lesFormations = (array) Formation::all();

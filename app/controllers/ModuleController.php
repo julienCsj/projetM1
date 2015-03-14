@@ -8,19 +8,27 @@ class ModuleController extends BaseController {
 
         $data = array(
             'notifications' => array(),
-            'breadcrumb' => array('Scolarel', 'Matières & UE\'s'),
             'lesFormations' => $lesFormations,
             'idModule' => $idModule,
             'idFormation' => $idFormation,
-            'idUe' => $idUe
+            'idUe' => $idUe,
+            'breadcrumb' => array('Scolarel', 'Formations, Ue\'s & modules')
         );
 
         // Si un module a été selectionner par l'utilisateur, alors on récupère ses informations
         if($idModule != -1) {
-            $data['module'] = Module::getModuleWithData($idModule);
+            $module = Module::getModuleWithData($idModule);
+            $ue = Ue::getUeSimple($idUe);
+            $formation = Formation::getFormationSimple($idFormation);
+
+            //exit(var_dump($formation));
+            $data['module'] = $module;
+            $data['formation'] = $formation;
+            $data['ue'] = $ue;
             $data['lesFinancements'] = Financement::all();
             $data['lesEnseignants'] = Enseignant::getEnseignantAndStatus();
             $data['lesCours'] = Cours::where('moduleID', '=', $idModule)->get();
+            $data['breadcrumb'] = array('Scolarel', 'Formations, Ue\'s & modules', $formation->long_title, $ue->long_title, $module->LONG_TITLE);
 
             $heureCM = 0;
             $heureTD = 0;
@@ -39,7 +47,7 @@ class ModuleController extends BaseController {
                 }
             }
             // Calcul des totaux pour les CM, TD, TP
-            $data['totalCM'] =  floor($heureCM / 60)."h".$heureCM % 60;
+            $data['totalCM'] = floor($heureCM / 60)."h".$heureCM % 60;
             $data['totalTD'] = floor($heureTD / 60)."h".$heureTD % 60;
             $data['totalTP'] = floor($heureTP / 60)."h".$heureTP % 60;
         }

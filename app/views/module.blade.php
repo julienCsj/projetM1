@@ -3,7 +3,7 @@
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        <h1>Gestion des modules <small>@if(isset($module)){{$module->LONG_TITLE}}@endif</small></h1>
+        <h1>Gestion des modules <small>@if(isset($module)){{$formation->long_title}} > {{$ue->long_title}} > {{$module->LONG_TITLE}}@endif</small></h1>
         <br/>
         <br/>
         <!-- NEW WIDGET START -->
@@ -81,7 +81,7 @@
                                     <div class="col-xs-3 col-sm-3">
                                     </div>
                                 </div>
-                                <table class="table table-bordered">
+                                <table class="table table-bordered padding-top-10">
                                     <thead>
                                     <tr>
                                         <th>Type</th>
