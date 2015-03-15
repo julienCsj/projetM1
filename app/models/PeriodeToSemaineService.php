@@ -34,6 +34,10 @@ class PeriodeToSemaineService {
 			"12" => "déc"
 		);
 		$result = array();
+		$result["id"] = $v->id;
+		$result["idFormation"] = $v->idFormation;
+		$result["nom"] = $v->nom;
+		$result["sem"] = array();
 		$deb = strtotime($v->dateDebut) + 7200;
 		$fin = strtotime($v->dateFin) + 7200;
 		while ($deb < $fin) {
@@ -67,7 +71,7 @@ class PeriodeToSemaineService {
 			} else {
 				$fin_result = $fin; // fini avec le dernier jour de la periode
 			}
-			$result[] = array(
+			$result["sem"][] = array(
 				"deb" => $deb, //1 er jour de la nouvelle periode
 				"fin" => $fin_result, // dimanche soir
 				"semaine" => date("W", $deb),
