@@ -105,25 +105,25 @@
             <input type="hidden" name="id" value="" />
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6 col-md-offset-3">
                         <div class="form-group">
                             <label class="input">Séances de 1h
-                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
                             </label>
+                            <input class="form-control spinner-both" type="number" name="groupeCM" value="7">
                         </div>
                     </div>  
-                    <div class="col-md-12">
+                    <div class="col-md-6 col-md-offset-3">
                         <div class="form-group">
                             <label class="input">Séances de 1h30
-                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
                             </label>
+                            <input class="form-control spinner-both" type="number" name="groupeCM" value="7">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6 col-md-offset-3">
                         <div class="form-group" required>
                             <label class="input">Séances de 2h
-                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
                             </label>
+                            <input class="form-control spinner-both" type="number" name="groupeCM" value="7">
                         </div>
                     </div>
                 </div>
@@ -153,22 +153,22 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="input">Séances de 1h
-                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
                             </label>
+                            <input class="form-control spinner-both" type="number" name="groupeCM" value="7">
                         </div>
                     </div>  
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="input">Séances de 1h30
-                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
                             </label>
+                            <input class="form-control spinner-both" type="number" name="groupeCM" value="7">
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group" required>
                             <label class="input">Séances de 2h
-                                <input class="form-control ui-spinner-input" id="spinner-decimal" name="spinner-decimal" value="7.99" aria-valuenow="7.99" autocomplete="off" role="spinbutton">
                             </label>
+                            <input class="form-control spinner-both" type="number" name="groupeCM" value="7">
                         </div>
                     </div>
                 </div>

@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="col-sm-12 col-md-12 col-lg-9">
                 <!-- new widget -->
                 <div>
                     <!-- widget div-->
@@ -59,19 +59,17 @@
 <div id="dialog-message" title="Dialog Simple Title">
     <form id="form-status-enseignant" class="smart-form" novalidate="novalidate"></form>
         <fieldset>
-            <section id="section-status-select">
-                <label class="select">Type de status
-                    <select name="status" id="input-type">
+            <div class="form-group">
+                <label for="input-type"> Type de status</label>
+                <select class="form-control select" name="status" id="input-type">
                         <option value="enseignement">Enseignement</option>
                         <option value="vacance">Vacances / Jour férié</option>
-                    </select>
-                </label>
-            </section>
-            <section id="section-status-input">
-                <label class="input">Nom de la période
-                    <input type="text" name="nom" placeholder="Nom de la période" id="nomPeriode">
-                </label>
-            </section>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nom de la période</label>
+                <input class="form-control" type="text" name="nom" placeholder="Nom de la période" id="nomPeriode">
+            </div>
         </fieldset>
     </form>
 </div>
@@ -145,10 +143,10 @@
                     var nom = $("#nomPeriode").val();
 
                     if(type=="vacance") {
-                        $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"bg-color-red txt-color-white external-event\" data-description=\"Période réservée aux vacance\" data-icon=\"fa-time\" data-attribute=\"vacance\">"+nom+"</span> </li>");
+                        $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"bg-color-red txt-color-white external-event\" data-description=\"Périodes de vacances\" data-icon=\"fa-time\" data-attribute=\"vacance\">"+nom+"</span> </li>");
                         makeDraggable();
                     } else if(type=="enseignement") {
-                        $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"bg-color-darken txt-color-white external-event\" data-description=\"Période réservée à l'enseignement\" data-icon=\"fa-time\" data-attribute=\"enseignement\">"+nom+"</span> </li>");
+                        $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"txt-color-white external-event\" style='background-color:#3a87ad;' data-description=\"Période d'enseignement\" data-icon=\"fa-time\" data-attribute=\"enseignement\">"+nom+"</span> </li>");
                         makeDraggable();
                     }
                     $(this).dialog("close");
@@ -178,7 +176,7 @@
                     title: '{{$event->nom}}',
                     start: '{{$event->dateDebut}}',
                     end: '{{$event->dateFin}}',
-                    @if($event->type=='vacance')color:  'red', @endif
+                    @if($event->type=='vacance')color:  '#a90329', @endif
                 },
                 @endforeach
             ],
@@ -253,8 +251,8 @@
                 // render the event on the calendar
                 // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
                 if(type == "vacance") {
-                    copiedEventObject.backgroundColor = "red";
-                    copiedEventObject.color = "red";
+                    copiedEventObject.backgroundColor = "#a90329";
+                    copiedEventObject.color = "#a90329";
                 }
 
                 $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);

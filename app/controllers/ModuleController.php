@@ -103,9 +103,6 @@ class ModuleController extends BaseController {
     }
 
     public function supprimerEnseignantModule($idFormation, $idUe,  $idModule, $idEnseignant) {
-        $idFormation = Input::get('idFormation');
-        $idModule = Input::get('idModule');
-        $idUe = Input::get('idUe');
         Module::supprimerUnEnseignant($idModule, $idEnseignant);
         return Redirect::route('moduleModification', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
     }
