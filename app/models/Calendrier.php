@@ -19,4 +19,8 @@ class Calendrier extends Eloquent {
     public $timestamps = false;
 
 
+    public static function getPeriodesEnseignement($idFormation) {
+        $lesPeriodes = Calendrier::where('idFormation', '=', $idFormation)->where('type', '=', 'enseignement')->get();
+        return PeriodeToSemaineService::extractWeeks($lesPeriodes);
+    }
 }

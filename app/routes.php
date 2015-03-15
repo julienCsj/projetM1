@@ -70,5 +70,10 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::get('deconnexion', array('as' => 'deconnexion', 'uses' => 'IdentificationController@deconnexion'));    
 });
 
+Route::get('/test', function()
+{
+    exit(var_dump(Calendrier::getPeriodesEnseignement("sem00001")));
+});
+
 
 
