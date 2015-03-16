@@ -31,13 +31,15 @@ class IdentificationController extends BaseController {
                         $user->isResponsable = false;
                     }
                     $user->isEnseignant = true;
+                    $to = 'dashboard';
                 } else {
+                    $to = "etudiant";
                     $user->isEnseignant = false;
                     $user->isResponsable = false;
                 }
                 Auth::login($user);
                 Session::put('user', $user);
-                return Redirect::to('dashboard')->with( array(
+                return Redirect::to($to)->with( array(
                     'notifications' => array(
                         array(
                             'type' => 'success',

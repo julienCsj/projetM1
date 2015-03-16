@@ -47,9 +47,9 @@ class ModuleController extends BaseController {
                 }
             }
             // Calcul des totaux pour les CM, TD, TP
-            $data['totalCM'] = floor($heureCM / 60)."h".$heureCM % 60;
-            $data['totalTD'] = floor($heureTD / 60)."h".$heureTD % 60;
-            $data['totalTP'] = floor($heureTP / 60)."h".$heureTP % 60;
+            $data['totalCM'] = floor($heureCM / 60)."h".$heureCM % 60 ."0";
+            $data['totalTD'] = floor($heureTD / 60)."h".$heureTD % 60 ."0";
+            $data['totalTP'] = floor($heureTP / 60)."h".$heureTP % 60 ."0";
         }
 
         //exit(var_dump($data['module']->lesFinancements));

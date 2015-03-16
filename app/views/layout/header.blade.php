@@ -73,13 +73,6 @@
         </div>
         <!-- end collapse menu -->
 
-
-        <!-- logout button -->
-        <div id="logout" class="btn-header transparent pull-right">
-            <span> <a href="{{URL::route('deconnexion')}}" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
-        </div>
-        <!-- end logout button -->
-
         <!-- fullscreen button -->
         <div id="fullscreen" class="btn-header transparent pull-right">
             <span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>

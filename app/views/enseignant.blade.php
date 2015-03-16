@@ -63,8 +63,7 @@
                                         <td>{{ $e->LASTNAME }}</td>
                                         <td>{{ $e->FIRSTNAME }}</td>
                                         <td>
-
-                                            <a id="enseignant-statut-{{ $e->LOGIN }}" class="enseignant-statut" href="#" data-taux-horaire-specifique="{{$e->taux_horaire_specifique}}" data-idEnseignant="{{ $e->LOGIN }}">
+                                            <a id="enseignant-statut-{{ str_replace('.', '', $e->LOGIN) }}" class="enseignant-statut" href="#" onclick="handleEnseignantStatus(this);return false;" data-taux-horaire-specifique="{{$e->taux_horaire_specifique}}" data-idEnseignant="{{ $e->LOGIN }}">
                                             @if(!empty($typeStatus) && $e->id != NULL)
                                                 @if($e->taux_horaire_specifique == 0)
                                                     <span data-status="{{ intval($e->typestatus_id) }}" data-volumeHoraire="{{ intval($e->volume_horaire) }}">
@@ -154,37 +153,35 @@
 
 
 <script type="text/javascript">
-    function bindEnseignantStatus() {
-        $(".enseignant-statut").bind('click', function () {
-            var idStatus = parseInt($(this).find("span").attr("data-status"));
-            var volumeHoraire = parseInt($(this).find("span").attr("data-volumeHoraire"));
-            var idEnseignant = $(this).attr("data-idEnseignant");
-            var tauxHoraireSpecifique = $(this).attr("data-taux-horaire-specifique");
+    function handleEnseignantStatus(el) {
+        var idStatus = parseInt($(el).find("span").attr("data-status"));
+        var volumeHoraire = parseInt($(el).find("span").attr("data-volumeHoraire"));
+        var idEnseignant = $(el).attr("data-idEnseignant");
+        var tauxHoraireSpecifique = $(el).attr("data-taux-horaire-specifique");
 
-            $("#input-idEnseignant").val(idEnseignant);
+        $("#input-idEnseignant").val(idEnseignant);
 
-            if (idStatus <= 1) { // cet enseignant n'a pas de status
-                $("#input-status").val(-1);
-                if (tauxHoraireSpecifique == 0) {
-                    // nouvel enseignant ?
-                    $("#input-volumeHoraire").val("");
-                    $("#input-choix").prop("checked", false);
-                    toggleVisibilityFormChoix(false);
-                } else {
-                    // il a un volume horaire spécifique
-                    $("#input-volumeHoraire").val(volumeHoraire);
-                    $("#input-choix").prop("checked", true);
-                    toggleVisibilityFormChoix(true);
-                }
-            } else {
+        if (idStatus <= 1) { // cet enseignant n'a pas de status
+            $("#input-status").val(-1);
+            if (tauxHoraireSpecifique == 0) {
+                // nouvel enseignant ?
                 $("#input-volumeHoraire").val("");
-                $("#input-status").val(idStatus);
                 $("#input-choix").prop("checked", false);
                 toggleVisibilityFormChoix(false);
+            } else {
+                // il a un volume horaire spécifique
+                $("#input-volumeHoraire").val(volumeHoraire);
+                $("#input-choix").prop("checked", true);
+                toggleVisibilityFormChoix(true);
             }
-            $('#dialog-message').dialog('open');
-            return false;
-        })
+        } else {
+            $("#input-volumeHoraire").val("");
+            $("#input-status").val(idStatus);
+            $("#input-choix").prop("checked", false);
+            toggleVisibilityFormChoix(false);
+        }
+        $('#dialog-message').dialog('open');
+        return false;
     }
     function modifier_statut() {
         var from_data = {
@@ -208,9 +205,9 @@
             });
             // modifie la valeur dans le tableau
             if (from_data["choix"] == "0") {
-                $("#enseignant-statut-"+from_data["idEnseignant"]).html($("#input-status > option[value="+from_data["status"]+"]").html())
+                $("#enseignant-statut-"+from_data["idEnseignant"].replace(/\./g,'')).html($("#input-status > option[value="+from_data["status"]+"]").html())
             } else {
-                $("#enseignant-statut-"+from_data["idEnseignant"]).html(from_data["volumeHoraire"]+"h")
+                $("#enseignant-statut-"+from_data["idEnseignant"].replace(/\./g,'')).html(from_data["volumeHoraire"]+"h")
             }
         })
         .fail(function (html) {
@@ -255,7 +252,6 @@
                     }
                 }]
         });
-        bindEnseignantStatus();
         // au click sur le statut d'un enseignant
         // recupere idStatus et le volume horaire
         // et ouvre la pop up selon ces vars
@@ -267,9 +263,5 @@
                 toggleVisibilityFormChoix(false);
             }
         })
-
-        $(".pagination a").bind('click', function() {
-            bindEnseignantStatus();
-        });
     });
 </script>

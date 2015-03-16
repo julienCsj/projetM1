@@ -71,7 +71,8 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::post('heuresexterieures', array('as' => 'heuresexterieures.ajouter', 'uses' => 'HeuresExternesController@postAjouterHeure'));
     Route::get('heuresexterieures/{idHeure}', array('as' => 'heuresexterieures.supprimer', 'uses' => 'HeuresExternesController@getSupprimerHeure'));
 
-
+    Route::get('etudiant', array('as' => 'etudiant', 'uses' => 'EtudiantController@getListeFormation'));
+    Route::get('etudiant/calendrier/{idFormation}/ue/{idUe}', array('as' => 'etudiant.calendrierFormation', 'uses' => 'EtudiantController@getHeuresFormation'));
 
     // Routes à classer
     Route::get('monservice', array('as' => 'monservice', 'uses' => 'ServiceController@getService'));
