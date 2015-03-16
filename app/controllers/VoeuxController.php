@@ -30,4 +30,13 @@ class VoeuxController extends BaseController {
         }
         return "Ok";
 	}
+    public function getVoeuxProfesseur($idProfesseur) {
+        $voeux = Voeux::getVoeux($idProfesseur);
+        $data = array(
+            'notifications' => array(),
+            'breadcrumb' => array('Scolarel', array("label"=> 'Gestion des enseignants',"link"=>"/enseignant"),'Voeux enseignant'),
+            'voeux' => $voeux,
+         );
+        return View::make('voeux_professeur')->with($data);
+    }
 }

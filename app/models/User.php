@@ -36,16 +36,23 @@ class User extends Eloquent implements UserInterface {
 
     public function getRememberToken()
     {
-        return $this->remember_token;
     }
 
     public function setRememberToken($value)
     {
-        $this->remember_token = $value;
     }
 
     public function getRememberTokenName()
     {
         return 'remember_token';
     }
+
+    public function isEnseignant() {
+        return Session::get("user")["isEnseignant"] == true;
+    }
+
+    public function isResponsable() {
+        return Session::get("user")["isEnseignant"] == true && Session::get("user")["isResponsable"] == true;
+    }
+
 }

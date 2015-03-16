@@ -12,23 +12,37 @@ class IdentificationController extends BaseController {
     public function getFormulaireConnexion() {
         return View::make('connexion');
     }
+    // La liste des comptes enseignant qui quand ils se connectent ont le privilege d'être responsable formation
+    public static $listeResponsable = array("olivier.catteau", "resp");
 
     public function postFormulaireConnexion() {
         $login = Input::get("login");
         $password = Input::get("password");
 
+        $enseignant =  Enseignant::where('login', '=', $login)->first();
         $user =  User::where('login', '=', $login)->first();
         //exit(var_dump($user));
         if(!empty($user)) {
             if(md5($password) == $user->PASSWORD) {
+                if (!empty($enseignant)) {
+                    if (in_array($enseignant->LOGIN, IdentificationController::$listeResponsable)) {
+                        $user->isResponsable = true;
+                    } else {
+                        $user->isResponsable = false;
+                    }
+                    $user->isEnseignant = true;
+                } else {
+                    $user->isEnseignant = false;
+                    $user->isResponsable = false;
+                }
                 Auth::login($user);
                 Session::put('user', $user);
                 return Redirect::to('dashboard')->with( array(
                     'notifications' => array(
                         array(
                             'type' => 'success',
-                            'titre' => 'Félicitations vous êtes inscrit !',
-                            'message' => 'Bienvenue sur Scolarel '.$user->LASTNAME.' '.$user->FIRSTNAME.'.'
+                            'titre' => 'Bonjour '.$user->LASTNAME.' '.$user->FIRSTNAME,
+                            'message' => 'La connexion a réussie'
                         )),
                     'breadcrumb' => array('Scolarel', 'Accueil')
                 ));

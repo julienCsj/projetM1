@@ -33,7 +33,7 @@
     traditional href="" links. See documentation for details.
     -->
         <ul>
-            @if(strpos($user->ROLES,'RESPONSABLE_PLANIFICATION') !== false)
+            @if($user->isResponsable())
             <li class="{{ URL::route('dashboard') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('dashboard')}}" class="" title="Dashboard"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
@@ -58,7 +58,9 @@
             <li class="{{ URL::route('voeuxenseignant') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('voeuxenseignant')}}" title="Voeux enseignants"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Voeux enseignants</span></a>
             </li>
-            @elseif(strpos($user->ROLES,'MEMBRE_DU_PERSONNEL') !== false || strpos($user->ROLES,'ESPE') !== false)
+            <hr>
+            @endif
+            @if($user->isEnseignant())
             <li class="{{ URL::route('voeux') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('voeux')}}" title="Adresses"><i class="fa fa-lg fa-fw fa-location-arrow "></i> <span class="menu-item-parent">Voeux</span></a>
             </li>
@@ -69,9 +71,6 @@
                 <a href="{{URL::route('heuresexterieures')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-send-o"></i> <span class="menu-item-parent">Heures exterieures</span></a>
             </li>
             @else
-            <li class="{{ URL::route('etudiant') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('etudiant')}}" title="Dashboard etudiant"><i class="fa fa-lg fa-fw fa-send-o"></i> <span class="menu-item-parent">Espace étudiant</span></a>
-            </li>
             @endif
 
             <li class="{{ URL::route('deconnexion') === URL::current() ? 'active' : '' }}">

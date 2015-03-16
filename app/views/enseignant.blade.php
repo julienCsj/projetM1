@@ -52,6 +52,7 @@
                                         <th>Statut horaire </th>
                                         <th>Pourcentage </th>
                                         <th>Voir attribution heure</th>
+                                        <th>Voeux enseignant</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,6 +86,7 @@
                                             % heures planifiées
                                         </td>
                                         <td></td>
+                                        <td><a href="/enseignant/{{$e->LOGIN}}/voeux">Voir voeux</a></td>
                                     </tr>
                                     @endforeach
                                 @else
