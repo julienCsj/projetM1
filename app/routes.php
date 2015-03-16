@@ -65,6 +65,8 @@ Route::group(array('before' => 'auth'), function () { // Login required
     // Routes module affectation
     Route::get('affectation', array('as' => 'affectation', 'uses' => 'AffectationController@getAffectation'));
     Route::get('affectation/{idFormation}', array('as' => 'affectation.affectationFormation', 'uses' => 'AffectationController@getAffectationFormation'));
+    Route::post('affectation/ajouter', array('as' => 'affectation.ajouterGroupeCours', 'uses' => 'AffectationController@ajouterGroupeCours'));
+    Route::get('affectation/supprimer/{idGroupeCours}', array('as' => 'affectation.supprimerGroupeCours', 'uses' => 'AffectationController@supprimerGroupeCours'));
 
     // Routes module heures externe
     Route::get('heuresexterieures', array('as' => 'heuresexterieures', 'uses' => 'HeuresExternesController@getHeuresExternes'));

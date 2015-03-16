@@ -88,16 +88,14 @@ class CreateStatusEnseignant extends Migration {
 		Schema::create('_groupecours', function($table){
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('module_id',50);
-            $table->string('CM_60',50);
-            $table->string('CM_90',50);
-            $table->string('CM_120',50);
-            $table->string('TD_60',50);
-            $table->string('TD_90',50);
-            $table->string('TD_120',50);
-            $table->string('TP_60',50);
-            $table->string('TP_90',50);
-            $table->string('TP_120',50);
+            $table->string('moduleID');
+            $table->string('formationID');
+        });
+
+        Schema::create('_groupecours_cours', function($table){
+            $table->engine = 'InnoDB';
+            $table->increments('coursID');
+            $table->string('groupecoursID');
         });
 
         Schema::create('_enseignant_voeux', function($table){
@@ -147,6 +145,7 @@ class CreateStatusEnseignant extends Migration {
 		Schema::dropIfExists('_financement');
 		Schema::dropIfExists('_groupe');
 		Schema::dropIfExists('_groupecours');
+		Schema::dropIfExists('_groupecours_cours');
 		Schema::dropIfExists('_enseignant_voeux');
         Schema::dropIfExists('_cours');
 	}

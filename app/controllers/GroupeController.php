@@ -39,7 +39,8 @@ class GroupeController extends BaseController {
         $groupe->sous_groupe = Input::get('sous_groupe');
         $groupe->semestre_id = $idFormation;
         $groupe->save();
-        return Redirect::route('groupeModification', array('idFormation' => $idFormation));    }
+        return Redirect::route('groupeModification', array('idFormation' => $idFormation));
+    }
 
     public function modifierGroupe()
     {

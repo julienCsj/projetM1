@@ -25,30 +25,14 @@
                             @foreach ($groupesCours as $groupeCours)
                             <div class="row col-sm-12">
                                 <div class="well">
-                                    TD archi : 6 séances
-                                    <button data-toggle="modal" data-target="#supprimer-{{$groupeCours->id}}" href="javascript(void);" class="btn btn-xs btn-danger pull-right">Supprimer</button>
+                                    TD {{$groupeCours->short_title}} : 6 séances
+                                    <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($groupeCours->id)); }}">Supprimer</a>
                                     <button data-toggle="modal" data-target="#affecter-{{$groupeCours->id}}" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
                                     <button data-toggle="modal" data-target="#gerer-{{$groupeCours->id}}" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-cog"></i> Gestion des séances</button>
                                 </div>
                             </div>
                             @endforeach
-                            <div class="row col-sm-12">
-                                <div class="well">
-                                    TD archi : 6 séances
-                                    <button data-toggle="modal" data-target="#supprimer-1" href="javascript(void);" class="btn btn-xs btn-danger pull-right">Supprimer</button>
-                                    <button data-toggle="modal" data-target="#affecter-1" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
-                                    <button data-toggle="modal" data-target="#gerer-1" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-cog"></i> Gestion des séances</button>
-                                </div>
-                            </div>
-                            <div class="row col-sm-12">
-                                <div class="well">
-                                    CM Management : 3 séances
-                                    <button data-toggle="modal" data-target="#supprimer-1" href="javascript(void);" class="btn btn-xs btn-danger pull-right">Supprimer</button>
-                                    <button data-toggle="modal" data-target="" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
-                                    <button data-toggle="modal" data-target="" href="javascript(void);" class="btn btn-xs btn-default pull-right"><i class="fa fa-cog"></i> Gestion des séances</button>
-                                </div>
-                            </div>
-                            <button class="btn btn-success"><i class="fa fa-plus"></i> Ajouter un groupe</button>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#ajouter" href="javascript(void);"><i class="fa fa-plus"></i> Ajouter un groupe</button>
                         </div>
 
                     </div>                  
@@ -91,6 +75,40 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="ajouter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Ajout d'un groupe de cours</h4>
+            </div>
+            {{ Form::open(array('route' => 'affectation.ajouterGroupeCours')) }}
+            <input type="hidden" name="formation" value="{{$formation->id}}" />
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="form-group">
+                            <label class="input">Module</label>
+                            <select name="module" class="form-control" required/>
+                                @foreach ($modules[0] as $module)
+                                <option value="{{$module->id}}">{{$module->short_title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <input type="submit" class="btn btn-primary" value="Valider" />
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="gerer-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

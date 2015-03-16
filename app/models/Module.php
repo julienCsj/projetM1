@@ -81,6 +81,15 @@ class Module extends Eloquent {
             . 'and links.id_dst = "'.$ue.'"'));
     }
 
+    public static function getModuleByUEWithTitle($ue) {
+        return DB::select(DB::raw(''
+            . 'select module.id, pages.short_title '
+            . 'from module, pages, links '
+            . 'where module.id = pages.id '
+            . 'and links.id_src = module.id '
+            . 'and links.id_dst = "'.$ue.'"'));
+    }
+
     public static function getModuleWithData($idModule) {
         $module = (array) Module::get($idModule);
         $module = $module[0];
@@ -98,6 +107,17 @@ class Module extends Eloquent {
             . 'and _module_enseignant.enseignant_id = user.login'));
 
         return $module;
+    }
+
+    public static function getModulesByFormation($idFormation) {
+        $lesUEs = (array) UE::getUeByFormation($idFormation);
+
+        $lesModules = array();
+        foreach($lesUEs as $ue) {
+            array_push($lesModules,Module::getModuleByUeWithTitle($ue->id));
+        }
+        //exit(var_dump($lesModules));
+        return $lesModules;
     }
 
     public static function getCm($idModule) {
