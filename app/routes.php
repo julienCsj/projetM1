@@ -68,7 +68,7 @@ Route::group(array('before' => 'auth'), function () { // Login required
 
     // Routes module heures externe
     Route::get('heuresexterieures', array('as' => 'heuresexterieures', 'uses' => 'HeuresExternesController@getHeuresExternes'));
-    Route::post('heuresexterieures', array('as' => 'heuresexterieures.ajouter', 'uses' => 'CalendrierController@postAjouterHeure'));
+    Route::post('heuresexterieures', array('as' => 'heuresexterieures.ajouter', 'uses' => 'HeuresExternesController@postAjouterHeure'));
     Route::get('heuresexterieures/{idHeure}', array('as' => 'heuresexterieures.supprimer', 'uses' => 'HeuresExternesController@getSupprimerHeure'));
 
 

@@ -3,7 +3,7 @@ class HeuresExternesController extends BaseController {
     public function getHeuresExternes()
     {
         // Récuperer les heures externes d'un enseignant
-        $lesHeures = HeureExterne::where('enseignantID', '=', Session::get("user")->login)->get();
+        $lesHeures = HeureExterne::where('enseignantID', '=', Session::get("user")->LOGIN)->get();
         $data = array(
             'lesHeures' => $lesHeures,
             'breadcrumb' => array("Scolarel", "Heures exterieures")
