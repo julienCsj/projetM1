@@ -28,3 +28,6 @@ INSERT INTO `user` (`LOGIN`, `PASSWORD`, `FIRSTNAME`, `LASTNAME`) VALUES
 ('sylvie.cara',                 '81dc9bdb52d04dc20036dbd8313ed055','sylvie','cara'),
 ('youcef.aissani',              '81dc9bdb52d04dc20036dbd8313ed055','youcef','aissani'),
 ('ziad.malas',                  '81dc9bdb52d04dc20036dbd8313ed055','ziad','malas');
+
+INSERT INTO `enseignant` (`LOGIN`, `NUM_DOSSIER`, `STATUT`, `CNU`, `SERVICE_STATUTAIRE`) VALUES
+('resp', '10 407', 'MT.CONF.HC', '26', 192),
