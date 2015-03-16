@@ -6,6 +6,22 @@
         @foreach ($lesFormations as $f)
             <a href="{{ route('calendrier.calendrierFormation', array($f->id))}}" class="btn btn-primary">{{$f->short_title}}</a><br />
         @endforeach
+
+        {{ Form::open(array('route' => 'calendrier.copierCalendrier')) }}
+        <label>Copier le calendrier de </label>
+        <select name="idFormationSrc">
+            @foreach ($lesFormations as $f2)
+                <option value="{{$f2->id}}">{{$f2->short_title}}</option>
+            @endforeach
+        </select>
+        <label> dans </label>
+        <select name="idFormationDst">
+            @foreach ($lesFormations as $f3)
+                <option value="{{$f3->id}}">{{$f3->short_title}}</option>
+            @endforeach
+        </select>
+        <input type="submit" value="Valider" />
+        {{ Form::close() }}
         <!-- WIDGET END -->
     </div>
 </section>

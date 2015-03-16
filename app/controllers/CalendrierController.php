@@ -1,12 +1,12 @@
 <?php
 class CalendrierController extends BaseController {
-	public function getCalendrier()
+    public function getCalendrier()
     {
         $data = array(
             'lesFormations' => Formation::all(),
-               'notifications' => array(),
-                 'breadcrumb' => array('Scolarel', 'Calendriers')
-               );
+            'notifications' => array(),
+            'breadcrumb' => array('Scolarel', 'Calendriers')
+        );
 
 
         //exit(var_dump($data));
@@ -15,8 +15,8 @@ class CalendrierController extends BaseController {
 
     public function getCalendrierFormation($idFormation) {
         $formation = Formation::find($idFormation)
-                ->join('pages', 'pages.id', '=', 'semestre.id')
-                ->select('semestre.id', 'pages.short_title', 'pages.long_title')->firstOrFail();
+            ->join('pages', 'pages.id', '=', 'semestre.id')
+            ->select('semestre.id', 'pages.short_title', 'pages.long_title')->firstOrFail();
         $data = array('idFormation' => $idFormation,
             'notifications' => array(),
             'breadcrumb' => array('Scolarel', array("link"=> URL::route('calendrier'),"label"=>'Calendriers'), $formation->long_title),
@@ -58,4 +58,30 @@ class CalendrierController extends BaseController {
         return "Ok";
     }
 
+    public function postCopierCalendrier()
+    {
+        $idFormationDst = Input::get('idFormationDst');
+        $idFormationSrc = Input::get('idFormationSrc');
+
+
+        // Supprimer les event du calendrier destination
+        Calendrier::where("idFormation", '=', $idFormationDst)->delete();
+
+        // Recuperer les events du calendrier source
+        $lesPeriodesSources = Calendrier::where("idFormation", '=', $idFormationSrc)->get();
+
+        // Pour chaque event, le copier dans le nouveau calendrier
+        foreach($lesPeriodesSources as $p) {
+            $periode = new Calendrier;
+            $periode->idFormation = $idFormationDst;
+            $periode->dateDebut = $p->dateDebut;
+            $periode->dateFin = $p->dateFin;
+            $periode->nom = $p->nom;
+            $periode->type = $p->type;
+            $periode->eventID = $p->eventID;
+            $periode->save();
+        }
+        // Rediriger vers le nouveau calendrier
+        return Redirect::route('calendrier.calendrierFormation', array('idFormation' => $idFormationDst));
+    }
 }
