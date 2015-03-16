@@ -25,20 +25,10 @@ class DashboardController extends BaseController {
 
     public function getIndex()
     {
-        // $data = array();
-        // $utilisateur_id = Session::get('utilisateur')->id_utilisateur;
-        // $utilisateur = User::find($utilisateur_id);
-        //
-        // if($utilisateur->nombre_kilometre_initial == -1) {
-             $data = array(
-               'notifications' => array(),
-                 'breadcrumb' => array('Scolarel', 'Accueil')
-               );
-        //     $data['premiere_connexion'] = true;
-        //     return View::make('back.premiere_connexion')->with($data);
-        // } else {
-        //     $data['breadcrumb'] = array('Suivi-AAC.fr', 'Tableau de bord');
-        //     $data['premiere_connexion'] = false;
-            return View::make('dashboard')->with($data);
+        $data = array(
+            'notifications' => array(),
+            'breadcrumb' => array('Scolarel', 'Accueil')
+        );
+        return View::make('dashboard')->with($data);
     }
 }

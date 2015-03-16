@@ -8,8 +8,6 @@ class CalendrierController extends BaseController {
             'breadcrumb' => array('Scolarel', 'Calendriers')
         );
 
-
-        //exit(var_dump($data));
         return View::make('calendrier_choix_formation')->with($data);
     }
 
@@ -35,6 +33,7 @@ class CalendrierController extends BaseController {
         $calendrier->type = Input::get("type");
         $calendrier->eventID = Input::get("eventID");
         $calendrier->save();
+
         return "Ok";
     }
 
@@ -47,13 +46,13 @@ class CalendrierController extends BaseController {
         $calendrier->dateFin = Input::get('dateFin');
         $calendrier->dateDebut = Input::get('dateDebut');
         $calendrier->save();
+
         return "Ok";
     }
 
     public function postSupprimerPeriode() {
         $idFormation = Input::get('idFormation');
         $idEvent = Input::get("eventID");
-
         $calendrier = Calendrier::where('idFormation', '=', $idFormation)->where('eventID', '=', $idEvent)->delete();
         return "Ok";
     }
@@ -62,7 +61,6 @@ class CalendrierController extends BaseController {
     {
         $idFormationDst = Input::get('idFormationDst');
         $idFormationSrc = Input::get('idFormationSrc');
-
 
         // Supprimer les event du calendrier destination
         Calendrier::where("idFormation", '=', $idFormationDst)->delete();

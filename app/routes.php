@@ -66,10 +66,16 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::get('affectation', array('as' => 'affectation', 'uses' => 'AffectationController@getAffectation'));
     Route::get('affectation/{idFormation}', array('as' => 'affectation.affectationFormation', 'uses' => 'AffectationController@getAffectationFormation'));
 
+    // Routes module heures externe
+    Route::get('heuresexterieures', array('as' => 'heuresexterieures', 'uses' => 'HeuresExternesController@getHeuresExternes'));
+    Route::post('heuresexterieures', array('as' => 'heuresexterieures.ajouter', 'uses' => 'CalendrierController@postAjouterHeure'));
+    Route::get('heuresexterieures/{idHeure}', array('as' => 'heuresexterieures.supprimer', 'uses' => 'HeuresExternesController@getSupprimerHeure'));
+
+
+
     // Routes à classer
     Route::get('monservice', array('as' => 'monservice', 'uses' => 'ServiceController@getService'));
-    Route::get('heuresexterieures', array('as' => 'heuresexterieures', 'uses' => 'HeuresExternesController@getHeuresExternes'));
-    Route::get('deconnexion', array('as' => 'deconnexion', 'uses' => 'IdentificationController@deconnexion'));    
+    Route::get('deconnexion', array('as' => 'deconnexion', 'uses' => 'IdentificationController@deconnexion'));
 });
 
 Route::get('/test', function()
