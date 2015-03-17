@@ -198,7 +198,7 @@
                                 "eventID": calEvent._id,
                             };
                             $.ajax({
-                                url: "{{$idFormation->id}}/ajouterPlanification",
+                                url: "{{$idFormation}}/supprimerPeriode",
                                 data: from_data,
                                 type: "POST"
                             })

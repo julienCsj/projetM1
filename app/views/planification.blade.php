@@ -10,13 +10,15 @@
         <div class="col-sm-12 col-md-3 col-lg-3">
             <h3>Groupe de cours à planifier</h3>
             <form>
-                <ul id="external-events" class="list-unstyled">
-                    @foreach ($groupesCoursLibres as $groupeCours)
-                    <li style="position: relative;">
-                        <span id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
-                    </li>
-                    @endforeach
-                </ul>
+                <div id="supprimer" class="droppable col-sm-12 well">
+                    <ul id="external-events" class="list-unstyled">
+                        @foreach ($groupesCoursLibres as $groupeCours)
+                        <li style="position: relative;">
+                            <span id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
             </form>
         </div>
 
@@ -79,7 +81,7 @@
     function init() {
 	    $('.draggable').draggable({
 	    	containment: '#drag',
-	    	stack: '.droppable',
+	    	zIndex: 1000,
 	    	cursor: 'move',
 	    	revert: 'invalid',
 		    helper: 'original'
