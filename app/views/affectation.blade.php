@@ -45,29 +45,24 @@
                         <div class="col-sm-12 col-md-3 col-lg-3">
                             <form>
                                 <ul id="external-events" class="list-unstyled">
+                                    @foreach ($groupesCours as $groupeCours)
                                     <li style="position: relative;">
-                                        <span id="COURS1" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD Archi (6)</span>
+                                        <span id="groupecours_{{$groupeCours->id}}" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
                                     </li>
-                                    <li style="position: relative;">
-                                        <span id="COURS2" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">CM Management (3)</span>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </form>
                         </div>
 
                         <div id="periodes" class="col-sm-12 col-md-9 col-lg-9">
+                            @foreach ($periodes as $periode)
                             <div class="col-sm-12">
-                                <span>Période du x/x/x au x/x/x : x semaines</span>
+                                <span>Période du {{$periode->dateDebut}} au {{$periode->dateFin}} : x semaines</span>
                             </div>
                             <div class="col-sm-12">
                                 <div class="droppable col-sm-12 well">Déposez les cours ici</div>
                             </div>
-                            <div class="col-sm-12">
-                                <span>Période du x/x/x au x/x/x : x semaines</span>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="droppable col-sm-12 well">Déposez les cours ici</div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

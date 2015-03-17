@@ -115,6 +115,7 @@ class CreateStatusEnseignant extends Migration {
             $table->string('moduleID');
             $table->string('type');
             $table->integer('duree');
+            $table->integer('reserve');
         });
 
         Schema::create('_heuresexternes', function($table){
