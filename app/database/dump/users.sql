@@ -5,7 +5,7 @@ INSERT INTO `user` (`LOGIN`, `PASSWORD`, `FIRSTNAME`, `LASTNAME`) VALUES
 ('brigitte.gracien',            '81dc9bdb52d04dc20036dbd8313ed055','brigitte','gracien'),
 ('christian.fiori',             '81dc9bdb52d04dc20036dbd8313ed055','christian','fiori'),
 ('christian.pelissier',         '81dc9bdb52d04dc20036dbd8313ed055','christian','pelissier'),
-('clement.rau',                 '81dc9bd407b52d04dc20036dbd8313ed055','clement','rau'),
+('clement.rau',                 '81dc9bdb52d04dc20036dbd8313ed055','clement','rau'),
 ('corinne.chenel',              '81dc9bdb52d04dc20036dbd8313ed055','corinne','chenel'),
 ('corinne.lasbouygues',         '81dc9bdb52d04dc20036dbd8313ed055','corinne','lasbouygues'),
 ('didier.bede',                 '81dc9bdb52d04dc20036dbd8313ed055','didier','bede'),

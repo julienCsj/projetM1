@@ -61,7 +61,10 @@
                     <li>
                         <a href="{{URL::route('planification')}}" title="Planification"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Planifier</span></a>
                     </li>
-                <ul>
+                </ul>
+            </li>
+            <li class="{{ URL::route('generationFiche') === URL::current() ? 'active' : '' }}">
+                <a href="{{URL::route('generationFiche')}}" title="Génération des fiches"><i class="fa fa-lg fa-fw fa-cloud-download"></i> <span class="menu-item-parent">Génération des fiches</span></a>
             </li>
             <hr>
             @endif
