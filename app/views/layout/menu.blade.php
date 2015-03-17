@@ -53,7 +53,15 @@
                 <a href="{{URL::route('calendrier')}}" title="Calendrier"><i class="fa fa-lg fa-fw fa-cloud-download"></i> <span class="menu-item-parent">Calendrier</span></a>
             </li>
             <li class="{{ URL::route('affectation') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('affectation')}}" title="Affectation"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Affecter et planifier</span></a>
+                <a href="#"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Affecter et planifier</span></a>
+                <ul>
+                    <li>
+                        <a href="{{URL::route('affectation')}}" title=""><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Affecter</span></a>
+                    </li>
+                    <li>
+                        <a href="{{URL::route('planification')}}" title="Affectation"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Planifier</span></a>
+                    </li>
+                <ul>
             </li>
             <hr>
             @endif

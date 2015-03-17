@@ -79,6 +79,7 @@ Route::group(array('before' => 'auth'), function () { // Login required
     // Routes à classer
     Route::get('monservice', array('as' => 'monservice', 'uses' => 'ServiceController@getService'));
     Route::get('deconnexion', array('as' => 'deconnexion', 'uses' => 'IdentificationController@deconnexion'));
+    Route::get('planifier', array('as' => 'planification', 'uses' => 'PlanificationController@getPlanification'));
 });
 
 Route::get('/test', function()
