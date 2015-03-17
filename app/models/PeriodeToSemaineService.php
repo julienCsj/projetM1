@@ -40,6 +40,7 @@ class PeriodeToSemaineService {
 		$result["dateDebut"] = $v->dateDebut;
 		$result["dateFin"] = $v->dateFin;
 		$result["sem"] = array();
+		$result["groupesCours"] = GroupeCours::getGroupesCoursByPeriode($v->id);
 		$deb = strtotime($v->dateDebut) + 7200;
 		$fin = strtotime($v->dateFin) + 7200;
 		while ($deb < $fin) {

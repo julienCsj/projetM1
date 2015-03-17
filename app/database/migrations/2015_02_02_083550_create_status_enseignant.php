@@ -98,6 +98,12 @@ class CreateStatusEnseignant extends Migration {
             $table->string('groupecoursID');
         });
 
+        Schema::create('_planification', function($table){
+            $table->engine = 'InnoDB';
+            $table->string('groupecoursID');
+            $table->string('calendrierID');
+        });
+
         Schema::create('_enseignant_voeux', function($table){
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -150,6 +156,7 @@ class CreateStatusEnseignant extends Migration {
 		Schema::dropIfExists('_enseignant_voeux');
         Schema::dropIfExists('_cours');
         Schema::dropIfExists('_heuresexternes');
+        Schema::dropIfExists('_planification');
         
 	}
 

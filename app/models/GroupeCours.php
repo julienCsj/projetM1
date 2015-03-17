@@ -30,4 +30,25 @@ class GroupeCours extends Eloquent {
             . ''));
     }
 
+    public static function getGroupeCoursLibresByFormation($idFormation) {
+        return DB::select(DB::raw(''
+            . 'select _groupecours.id, _groupecours.formationID, _groupecours.moduleID, pages.short_title '
+            . 'from _groupecours, pages '
+            . 'where _groupecours.formationID = "'.$idFormation.'" '
+            . 'and pages.id = _groupecours.moduleID '
+            . 'and _groupecours.id not in(select groupecoursID from _planification) '
+            . ''));
+    }
+
+    public static function getGroupesCoursByPeriode($idCalendrier) {
+        return DB::select(DB::raw(''
+            . 'select _groupecours.id, pages.short_title '
+            . 'from _groupecours, _calendrier, _planification, pages '
+            . 'where _calendrier.id = _planification.calendrierID '
+            . 'and _planification.groupecoursID = _groupecours.id '
+            . 'and pages.id = _groupecours.moduleID '
+            . 'and _calendrier.id = "'.$idCalendrier.'" '
+            . ''));
+    }
+
 }

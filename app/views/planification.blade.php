@@ -3,41 +3,42 @@
     <div class="row">
         <!-- NEW WIDGET START -->
     	<h1>Planification</h1>
-        <br>
-        <br>
         <!-- WIDGET END -->
     </div>
                     
     <div class="row" id="drag">
-        <div class="col-sm-12">
-            <h3>Planification des cours sur les périodes d'enseignement</h3>
-        </div>
         <div class="col-sm-12 col-md-3 col-lg-3">
+            <h3>Groupe de cours à planifier</h3>
             <form>
                 <ul id="external-events" class="list-unstyled">
+                    @foreach ($groupesCoursLibres as $groupeCours)
                     <li style="position: relative;">
-                        <span id="COURS1" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD Archi (6)</span>
+                        <span id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
                     </li>
-                    <li style="position: relative;">
-                        <span id="COURS2" class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">CM Management (3)</span>
-                    </li>
+                    @endforeach
                 </ul>
             </form>
         </div>
 
         <div id="periodes" class="col-sm-12 col-md-9 col-lg-9">
+            <h3>Périodes d'enseignements</h3>
+            @foreach ($periodes as $periode)
             <div class="col-sm-12">
-                <span>Période du x/x/x au x/x/x : x semaines</span>
+                <span>Période du {{$periode["dateDebut"]}} au {{$periode["dateFin"]}} : x semaines</span>
             </div>
             <div class="col-sm-12">
-                <div class="droppable col-sm-12 well">Déposez les cours ici</div>
+                <div id="{{$periode["id"]}}" class="droppable col-sm-12 well">
+                    Déposez les cours ici
+                    <ul id="external-events" class="list-unstyled">
+                        @foreach ($periode["groupesCours"] as $groupeCours)
+                        <li style="position: relative;">
+                            <span id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
-            <div class="col-sm-12">
-                <span>Période du x/x/x au x/x/x : x semaines</span>
-            </div>
-            <div class="col-sm-12">
-                <div class="droppable col-sm-12 well">Déposez les cours ici</div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -93,8 +94,39 @@
 
 	function handleDropEvent(event, ui){
 		var draggable = ui.draggable;
-		//$('#dialog-message').dialog('open');
-		draggable.data("draggable").originalPosition = {top:0, left:0};
-		//alert( 'Le cours ayant pour id "' + draggable.attr('id') + '" est tombé sur oim, "'+droppable.attr('id')+'" !' );
+        var droppable = $(this);
+
+        var groupecoursID = draggable.attr('id');
+        var calendrierID = droppable.attr('id');
+        alert( 'Le cours ayant pour id "' + draggable.attr('id') + '" est tombé sur oim, "'+droppable.attr('id')+'" !' );
+
+        var from_data = {
+            "groupecoursID" : groupecoursID,
+            "calendrierID": calendrierID,
+        };
+        $.ajax({
+            url: "{{$formation->id}}/ajouterPlanification",
+            data: from_data,
+            type: "POST"
+        })
+                .done(function (html) {
+                    $.bigBox({
+                        title: "Planification réussie",
+                        content: "La groupe de cours a été affecté à la période choisie.",
+                        color: "#3276B1",
+                        icon: "fa fa-bell swing animated",
+                        timeout: 2000
+                    });
+
+                })
+                .fail(function (html) {
+                    $.bigBox({
+                        title: "Erreur",
+                        content: "Un problème est survenu !",
+                        color: "#C46A69",
+                        icon: "fa fa-warning swing animated",
+                        timeout: 3000
+                    });
+                });
 	}
 </script>
