@@ -90,6 +90,7 @@ class CreateStatusEnseignant extends Migration {
             $table->increments('id');
             $table->string('moduleID');
             $table->string('formationID');
+            $table->string('libelle');
         });
 
         Schema::create('_groupecours_cours', function($table){

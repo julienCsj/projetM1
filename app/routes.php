@@ -66,7 +66,7 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::get('affectation', array('as' => 'affectation', 'uses' => 'AffectationController@getAffectationFormation'));
     Route::get('affectation/{idFormation}/{idUe}/{idModule}', array('as' => 'affectation.affectationFormation', 'uses' => 'AffectationController@getAffectationFormation'));
     Route::post('affectation/ajouter', array('as' => 'affectation.ajouterGroupeCours', 'uses' => 'AffectationController@ajouterGroupeCours'));
-    Route::get('affectation/supprimer/{idGroupeCours}', array('as' => 'affectation.supprimerGroupeCours', 'uses' => 'AffectationController@supprimerGroupeCours'));
+    Route::get('affectation/supprimer/{idFormation}/{idUe}/{idModule}/{idGroupeCours}', array('as' => 'affectation.supprimerGroupeCours', 'uses' => 'AffectationController@supprimerGroupeCours'));
 
     // Routes module planification
     Route::get('planification', array('as' => 'planification', 'uses' => 'PlanificationController@getPlanification'));

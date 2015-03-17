@@ -50,13 +50,12 @@
                         <div class="row padding-10">
                             <div id="groupes" class="col-sm-12">
                                 <h3>Création et affectation des groupes de cours pour {{$module->LONG_TITLE}}</h3>
-                                @foreach ($groupesCours as $groupeCours)
+                                @foreach ($groupesCours as $gc)
                                     <div class="row col-sm-12">
                                         <div class="well">
-                                            TD {{$groupeCours->short_title}} : 6 séances
-                                            <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($groupeCours->id)); }}">Supprimer</a>
-                                            <button data-toggle="modal" data-target="#affecter-{{$groupeCours->id}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
-                                            <button data-toggle="modal" data-target="#gerer-{{$groupeCours->id}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-cog"></i> Gestion des séances</button>
+                                            {{$gc->libelle}} : séances
+                                            <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($formation->id, $ue->id, $module->ID,$gc->id)); }}">Supprimer</a>
+                                            <button data-toggle="modal" data-target="#affecter-{{$gc->id}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
                                         </div>
                                     </div>
                                 @endforeach
@@ -116,6 +115,12 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <div class="form-group">
+                            <div class="form-group">
+                                <label class="input">Libellé</label>
+                                <input type="text" name="libelle" class="form-control" required/>
+
+                                </select>
+                            </div>
                             <label class="input">Type de séances</label>
                             <select name="type" id="selectType" class="form-control" required/>
                             <option value="-1">Selectionner un type ...</option>
@@ -141,39 +146,6 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="gerer-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Gestion des séances</h4>
-            </div>
-            {{ Form::open(array('route' => 'groupe.ajouterGroupe')) }}
-            <input type="hidden" name="id" value="" />
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                        <div class="form-group">
-                            <label class="input">Type de séances</label>
-                            <select name="type">
-
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                <input type="submit" class="btn btn-primary" value="Valider" />
-            </div>
-            {{ Form::close() }}
-        </div>
-    </div>
-</div>
-
 <div class="modal fade" id="affecter-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -184,28 +156,24 @@
                 <h4 class="modal-title" id="myModalLabel">Affectation des séances</h4>
             </div>
             {{ Form::open(array('route' => 'groupe.ajouterGroupe')) }}
-            <input type="hidden" name="id" value="" />
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="input">Séances de 1h
-                            </label>
-                            <input class="form-control spinner-both" type="number" name="groupeCM" value="7">
+                <div id="tabs2">
+                    <ul>
+                        <li>
+                            <a href="#tabs-1">Enseignant <> Groupe</a>
+                        </li>
+                        <li>
+                            <a href="#tabs-2">Financement <> Groupe de cours</a>
+                        </li>
+                    </ul>
+                    <div id="tabs-1">
+                        <div class="row padding-10">
+
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="input">Séances de 1h30
-                            </label>
-                            <input class="form-control spinner-both" type="number" name="groupeCM" value="7">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group" required>
-                            <label class="input">Séances de 2h
-                            </label>
-                            <input class="form-control spinner-both" type="number" name="groupeCM" value="7">
+                    <div id="tabs-2">
+                        <div class="row padding-10">
+
                         </div>
                     </div>
                 </div>
@@ -236,6 +204,7 @@ foreach($typeCoursMap as $k => $v) {
 
         $("#menu").menu();
         $('#tabs').tabs();
+        $('#tabs2').tabs();
 
 
         @if($idFormation != -1)

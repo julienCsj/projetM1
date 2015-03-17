@@ -21,7 +21,7 @@ class GroupeCours extends Eloquent {
 
     public static function getGroupeCoursByFormation($idFormation) {
         return DB::select(DB::raw(''
-            . 'select _groupecours.id, _groupecours.formationID, _groupecours.moduleID, pages.short_title '
+            . 'select _groupecours.id, _groupecours.formationID, _groupecours.moduleID, pages.short_title, libelle '
             . 'from _groupecours, pages '
             . 'where _groupecours.formationID = "'.$idFormation.'" '
             . 'and pages.id = _groupecours.moduleID '

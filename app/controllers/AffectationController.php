@@ -67,11 +67,13 @@ class AffectationController extends BaseController {
 
         $type_duree = Input::get('type');
         $nb = Input::get('nb');
+        $libelle = Input::get('libelle');
 
         // Creation du groupe de cours
         $groupeCours = new GroupeCours();
         $groupeCours->moduleID = $idModule;
         $groupeCours->formationID = $idFormation;
+        $groupeCours->libelle = $libelle;
         $groupeCours->save();
 
         // Recuperation de $nb Cours qui correspondent a ces critère
@@ -94,15 +96,22 @@ class AffectationController extends BaseController {
         return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
     }
 
-    public function supprimerGroupeCours($idGroupeCours)
+    public function supprimerGroupeCours($idFormation = -1, $idUe = -1, $idModule = -1, $idGroupeCours)
     {
         // De-valider les cours qui appartienne a ce groupe de cours
+        $cours = DB::table('_groupecours_cours')->where('groupecoursID', '=', $idGroupeCours)->get();
 
+        foreach($cours as $c) {
+            $unCours = Cours::find($c->coursID);
+            $unCours->dansGroupe = 0;
+            $unCours->save();
+            DB::table('_groupecours_cours')->where('groupecoursID', '=', $idGroupeCours)->where('coursID', '=', $unCours->id)->delete();
+        }
         // Supprimer le groupe de cours
         $groupeCours = GroupeCours::find($idGroupeCours);
         $idFormation = $groupeCours->formationID;
         $groupeCours->delete();
 
-        return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation));
+        return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
     }
 }
