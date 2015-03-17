@@ -112,10 +112,9 @@
             type: "POST"
         })
         .done(function (html) {
-            var idTest = idGroupeCours;
             $.bigBox({
                 title: "Planification réussie",
-                content: 'La groupe de cours a été affecté à la période choisie"'+idTest+'".',
+                content: 'La groupe de cours a été affecté à la période choisie.',
                 color: "#3276B1",
                 icon: "fa fa-bell swing animated",
                 timeout: 2000
