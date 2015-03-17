@@ -38,7 +38,7 @@ class PlanificationController extends BaseController {
         $idGroupeCours = Input::get("groupecoursID");
 
         $clean = Planification::nettoyerPlanificationExistante($idGroupeCours);
-        
+
         if($idGroupeCours != "supprimer") {
             $planification = new Planification();
             $planification->groupecoursID = $idGroupeCours;
@@ -46,6 +46,6 @@ class PlanificationController extends BaseController {
             $planification->save();
         }
 
-        return "Ok";
+        return $idGroupeCours;
     }
 }

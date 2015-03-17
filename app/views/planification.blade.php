@@ -103,7 +103,7 @@
         alert( '"'+droppable.attr('id')+'" !' );
 
         var from_data = {
-            "groupecoursID" : groupecoursID,
+            "groupecoursID": groupecoursID,
             "calendrierID": calendrierID,
         };
         $.ajax({
@@ -111,24 +111,25 @@
             data: from_data,
             type: "POST"
         })
-                .done(function (html) {
-                    $.bigBox({
-                        title: "Planification réussie",
-                        content: "La groupe de cours a été affecté à la période choisie.",
-                        color: "#3276B1",
-                        icon: "fa fa-bell swing animated",
-                        timeout: 2000
-                    });
+        .done(function (html) {
+            var idTest = idGroupeCours;
+            $.bigBox({
+                title: "Planification réussie",
+                content: 'La groupe de cours a été affecté à la période choisie"'+idTest+'".',
+                color: "#3276B1",
+                icon: "fa fa-bell swing animated",
+                timeout: 2000
+            });
 
-                })
-                .fail(function (html) {
-                    $.bigBox({
-                        title: "Erreur",
-                        content: "Un problème est survenu !",
-                        color: "#C46A69",
-                        icon: "fa fa-warning swing animated",
-                        timeout: 3000
-                    });
-                });
+        })
+        .fail(function (html) {
+            $.bigBox({
+                title: "Erreur",
+                content: "Un problème est survenu !",
+                color: "#C46A69",
+                icon: "fa fa-warning swing animated",
+                timeout: 3000
+            });
+        });
 	}
 </script>
