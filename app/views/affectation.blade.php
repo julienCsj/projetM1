@@ -10,17 +10,17 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
             <ul id="menu" style="width: 100%">
-                @foreach ($lesFormations as $formation)
+                @foreach ($lesFormations as $f1)
                     <li>
-                        <a href="#">{{$formation->short_title}}</a>
+                        <a href="#">{{$f1->short_title}}</a>
                         <ul>
-                            @foreach($formation->lesUE as $ue)
+                            @foreach($f1->lesUE as $ue)
                                 <li>
                                     <a href="#">{{$ue->short_title}}</a>
                                     <ul>
                                         @foreach($ue->lesModules as $mod)
                                             <li>
-                                                <a href="{{ route('affectation.affectationFormation', array($formation->id, $ue->id, $mod->ID))}}">{{$mod->SHORT_TITLE}}</a>
+                                                <a href="{{ route('affectation.affectationFormation', array($f1->id, $ue->id, $mod->ID))}}">{{$mod->SHORT_TITLE}}</a>
                                             </li>
                                         @endforeach
                                     </ul>
