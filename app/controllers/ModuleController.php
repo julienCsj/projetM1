@@ -95,6 +95,8 @@ class ModuleController extends BaseController {
             $cours->moduleID = $idModule;
             $cours->formationID = $idFormation;
             $cours->ueID = $idUe;
+            $cours->dansGroupe = 0;
+            $cours->planifier = 0;
             $cours->save();
         }
 

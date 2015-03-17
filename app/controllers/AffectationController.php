@@ -4,56 +4,105 @@ class AffectationController extends BaseController {
     public function getAffectation()
     {
         $data = array(
-          'lesFormations' => Formation::all(),
-             'notifications' => array(),
-             'breadcrumb' => array('Scolarel', 'Affectation')
-          );
+            'lesFormations' => Formation::all(),
+            'notifications' => array(),
+            'breadcrumb' => array('Scolarel', 'Affectation',)
+        );
 
         return View::make('affectation_choix_formation')->with($data);
     }
 
-    public function getAffectationFormation($idFormation)
+    public function getAffectationFormation($idFormation = -1, $idUe = -1, $idModule = -1)
     {
-      $formation = Formation::find($idFormation)
-                ->join('pages', 'pages.id', '=', 'semestre.id')
-                ->select('semestre.id', 'pages.short_title', 'pages.long_title')->firstOrFail();
+        // Pour remplir le menu dynamique
+        $lesFormations = Formation::getFormationUeModule();
+        $data = array("lesFormations" => $lesFormations,
+            'breadcrumb' => array('Scolarel', 'Affectation'),
+            'idFormation' => $idFormation);
 
-      $groupesCours = GroupeCours::getGroupeCoursByFormation($idFormation);
+        if($idFormation != -1) {
+            $module = Module::getModuleWithData($idModule);
+            $ue = Ue::getUeSimple($idUe);
+            $formation = Formation::getFormationSimple($idFormation);
 
-      $modules = Module::getModulesByFormation($idFormation);
 
-      $periodes = Calendrier::getPeriodesEnseignement($idFormation);
-      //exit(var_dump($periodes));
-      $data = array('idFormation' => $idFormation,
-          'notifications' => array(),
-          'breadcrumb' => array('Scolarel', array("link"=> URL::route('affectation'),"label"=>'Affectation et planification'), $formation->long_title),
-          'formation' => $formation,
-          'modules' => $modules,
-          'periodes' => $periodes,
-          'groupesCours' => $groupesCours,
-          'calendrier' => Calendrier::where('idFormation', '=', $idFormation)->get());
+            $groupesCours = GroupeCours::getGroupeCoursByFormation($idFormation);
+            $modules = Module::getModulesByFormation($idFormation);
+            $periodes = Calendrier::getPeriodesEnseignement($idFormation);
+            $cours = Cours::where('moduleID', '=', $idModule)->orderBy('type')->get();
+            $typeCours = Cours::select(DB::raw('count(*) as nb, type, duree'))->where('moduleID', '=', $idModule)->where("dansGroupe", '=', 0)->groupBy('type', 'duree')->get();
+            $typeCoursDansGroupe = Cours::select(DB::raw('count(*) as nb, type, duree'))->where('moduleID', '=', $idModule)->where('dansGroupe', '=', 1)->groupBy('type', 'duree')->get();
 
-      return View::make('affectation')->with($data);
+
+            $typeCoursMap = array();
+            foreach($typeCours as $tc) {
+                echo $tc->type.'-'.$tc->duree;
+                echo '<br>';
+                $typeCoursMap[$tc->type.'-'.$tc->duree] = $tc->nb;
+            }
+
+
+            $data['idFormation'] = $idFormation;
+            $data['module'] = $module;
+            $data['formation'] = $formation;
+            $data['ue'] = $ue;
+            $data['modules'] = $modules;
+            $data['periodes'] = $periodes;
+            $data['lesCours'] = $cours;
+            $data['typeCours'] = $typeCours;
+            $data['typeCoursDansGroupe'] = $typeCoursDansGroupe;
+            $data['typeCoursMap'] = $typeCoursMap;
+            $data['groupesCours'] = $groupesCours;
+            $data['calendrier'] = Calendrier::where('idFormation', '=', $idFormation)->get();
+        }
+
+        return View::make('affectation')->with($data);
     }
 
     public function ajouterGroupeCours()
     {
-      $idFormation = Input::get('formation');
-      $groupeCours = new GroupeCours();
-      $groupeCours->moduleID = Input::get('module');
-      $groupeCours->formationID = $idFormation;
-      $groupeCours->save();
-      return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation));
+        $idFormation = Input::get('idFormation');
+        $idModule = Input::get('idModule');
+        $idUe = Input::get('idUe');
+
+        $type_duree = Input::get('type');
+        $nb = Input::get('nb');
+
+        // Creation du groupe de cours
+        $groupeCours = new GroupeCours();
+        $groupeCours->moduleID = $idModule;
+        $groupeCours->formationID = $idFormation;
+        $groupeCours->save();
+
+        // Recuperation de $nb Cours qui correspondent a ces critère
+        $type = substr($type_duree,0, 2);
+        $duree = substr($type_duree, 3);
+
+
+        $lesCours = Cours::where('type', '=', $type)->where('duree', '=', $duree)->where('dansGroupe', "=", 0)->take($nb)->get();
+        foreach($lesCours as $cours) {
+            $cours->dansGroupe = 1;
+            $cours->save();
+
+            DB::table('_groupecours_cours')->insert(
+                array('coursID' => $cours->id,
+                      'groupecoursID' => $groupeCours->id)
+            );
+        }
+
+
+        return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
     }
 
     public function supprimerGroupeCours($idGroupeCours)
     {
-      $groupeCours = GroupeCours::find($idGroupeCours);
-      $idFormation = $groupeCours->formationID;
-      $groupeCours->delete();
-      return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation));
-    }
-    
-    // A chaque professeur ont associe une source de financement
+        // De-valider les cours qui appartienne a ce groupe de cours
 
+        // Supprimer le groupe de cours
+        $groupeCours = GroupeCours::find($idGroupeCours);
+        $idFormation = $groupeCours->formationID;
+        $groupeCours->delete();
+
+        return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation));
+    }
 }
