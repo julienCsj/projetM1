@@ -115,6 +115,7 @@ class CreateStatusEnseignant extends Migration {
             $table->string('moduleID');
             $table->string('type');
             $table->integer('duree');
+            $table->integer('reserve');
         });
 
         Schema::create('_heuresexternes', function($table){
@@ -148,6 +149,8 @@ class CreateStatusEnseignant extends Migration {
 		Schema::dropIfExists('_groupecours_cours');
 		Schema::dropIfExists('_enseignant_voeux');
         Schema::dropIfExists('_cours');
+        Schema::dropIfExists('_heuresexternes');
+        
 	}
 
 }
