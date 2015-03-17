@@ -68,6 +68,12 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::post('affectation/ajouter', array('as' => 'affectation.ajouterGroupeCours', 'uses' => 'AffectationController@ajouterGroupeCours'));
     Route::get('affectation/supprimer/{idGroupeCours}', array('as' => 'affectation.supprimerGroupeCours', 'uses' => 'AffectationController@supprimerGroupeCours'));
 
+    // Routes module planification
+    Route::get('planification', array('as' => 'planification', 'uses' => 'PlanificationController@getPlanification'));
+    Route::get('planification/{idFormation}', array('as' => 'planification.planificationFormation', 'uses' => 'PlanificationController@getPlanificationFormation'));
+    Route::post('planification/{idFormation}/ajouterPlanification', array('as' => 'planification.ajouterPlanification', 'uses' => 'PlanificationController@postAjouterPlanification'));
+
+
     // Routes module heures externe
     Route::get('heuresexterieures', array('as' => 'heuresexterieures', 'uses' => 'HeuresExternesController@getHeuresExternes'));
     Route::post('heuresexterieures', array('as' => 'heuresexterieures.ajouter', 'uses' => 'HeuresExternesController@postAjouterHeure'));
@@ -79,7 +85,6 @@ Route::group(array('before' => 'auth'), function () { // Login required
     // Routes à classer
     Route::get('monservice', array('as' => 'monservice', 'uses' => 'ServiceController@getService'));
     Route::get('deconnexion', array('as' => 'deconnexion', 'uses' => 'IdentificationController@deconnexion'));
-    Route::get('planifier', array('as' => 'planification', 'uses' => 'PlanificationController@getPlanification'));
 });
 
 Route::get('/test', function()
