@@ -100,7 +100,7 @@
 
         var groupecoursID = draggable.attr('id');
         var calendrierID = droppable.attr('id');
-        alert( 'Le cours ayant pour id "' + draggable.attr('id') + '" est tombé sur oim, "'+droppable.attr('id')+'" !' );
+        alert( '"'+droppable.attr('id')+'" !' );
 
         var from_data = {
             "groupecoursID" : groupecoursID,

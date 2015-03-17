@@ -33,7 +33,7 @@ class PlanificationController extends BaseController {
       return View::make('planification')->with($data);
     }
 
-    public function postAjouterPlanification($idFormation)
+    public function postAjouterPlanification()
     {
         $idGroupeCours = Input::get("groupecoursID");
 
