@@ -37,6 +37,8 @@ class PeriodeToSemaineService {
 		$result["id"] = $v->id;
 		$result["idFormation"] = $v->idFormation;
 		$result["nom"] = $v->nom;
+		$result["dateDebut"] = $v->dateDebut;
+		$result["dateFin"] = $v->dateFin;
 		$result["sem"] = array();
 		$deb = strtotime($v->dateDebut) + 7200;
 		$fin = strtotime($v->dateFin) + 7200;

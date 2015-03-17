@@ -22,14 +22,17 @@ class AffectationController extends BaseController {
 
       $modules = Module::getModulesByFormation($idFormation);
 
+      $periodes = Calendrier::getPeriodesEnseignement($idFormation);
+      //exit(var_dump($periodes));
       $data = array('idFormation' => $idFormation,
           'notifications' => array(),
           'breadcrumb' => array('Scolarel', array("link"=> URL::route('affectation'),"label"=>'Affectation et planification'), $formation->long_title),
           'formation' => $formation,
           'modules' => $modules,
+          'periodes' => $periodes,
           'groupesCours' => $groupesCours,
           'calendrier' => Calendrier::where('idFormation', '=', $idFormation)->get());
-      //exit(var_dump($groupesCours));
+
       return View::make('affectation')->with($data);
     }
 
