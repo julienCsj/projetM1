@@ -35,17 +35,18 @@ class PlanificationController extends BaseController {
 
     public function postAjouterPlanification()
     {
-        $idGroupeCours = Input::get("groupecoursID");
+        $idGroupeCours = Input::get('groupecoursID');
+        $idCalendrier = Input::get('calendrierID');
 
         $clean = Planification::nettoyerPlanificationExistante($idGroupeCours);
 
-        if($idGroupeCours != "supprimer") {
+        if($idCalendrier != "supprimer") {
             $planification = new Planification();
             $planification->groupecoursID = $idGroupeCours;
-            $planification->calendrierID = Input::get('calendrierID');
+            $planification->calendrierID = $idCalendrier;
             $planification->save();
         }
 
-        return $idGroupeCours;
+        return "Ok";
     }
 }

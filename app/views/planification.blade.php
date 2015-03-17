@@ -10,11 +10,11 @@
         <div class="col-sm-12 col-md-3 col-lg-3">
             <h3>Groupe de cours à planifier</h3>
             <form>
-                <div id="supprimer" class="droppable col-sm-12 well">
+                <div data-id="supprimer" class="droppable col-sm-12 well">
                     <ul id="external-events" class="list-unstyled">
                         @foreach ($groupesCoursLibres as $groupeCours)
                         <li style="position: relative;">
-                            <span id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
+                            <span data-id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
                         </li>
                         @endforeach
                     </ul>
@@ -29,12 +29,12 @@
                 <span>Période du {{$periode["dateDebut"]}} au {{$periode["dateFin"]}} : x semaines</span>
             </div>
             <div class="col-sm-12">
-                <div id="{{$periode["id"]}}" class="droppable col-sm-12 well">
+                <div data-id="{{$periode["id"]}}" class="droppable col-sm-12 well">
                     Déposez les cours ici
                     <ul id="external-events" class="list-unstyled">
                         @foreach ($periode["groupesCours"] as $groupeCours)
                         <li style="position: relative;">
-                            <span id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
+                            <span data-id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
                         </li>
                         @endforeach
                     </ul>
@@ -98,9 +98,9 @@
 		var draggable = ui.draggable;
         var droppable = $(this);
 
-        var groupecoursID = draggable.attr('id');
-        var calendrierID = droppable.attr('id');
-        alert( '"'+droppable.attr('id')+'" !' );
+        var groupecoursID = draggable.attr('data-id');
+        var calendrierID = droppable.attr('data-id');;
+        alert( '"'+droppable.attr('data-id')+'" !' );
 
         var from_data = {
             "groupecoursID": groupecoursID,
