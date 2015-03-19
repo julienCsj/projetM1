@@ -13,8 +13,8 @@
                 <div data-id="supprimer" class="droppable col-sm-12 well">
                     <ul id="external-events" class="list-unstyled">
                         @foreach ($groupesCoursLibres as $groupeCours)
-                        <li style="position: relative;">
-                            <span data-id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
+                        <li>
+                            <span data-id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white " data-icon="fa-pie">{{$groupeCours->libelle}} ({{$groupeCours->nbcours}})</span>
                         </li>
                         @endforeach
                     </ul>
@@ -33,8 +33,8 @@
                     Déposez les cours ici
                     <ul id="external-events" class="list-unstyled">
                         @foreach ($periode["groupesCours"] as $groupeCours)
-                        <li style="position: relative;">
-                            <span data-id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white external-event" data-icon="fa-pie">TD {{$groupeCours->short_title}} (6)</span>
+                        <li>
+                            <span data-id="{{$groupeCours->id}}"  class="draggable bg-color-green txt-color-white" data-icon="fa-pie">{{$groupeCours->libelle}} ({{$groupeCours->nbcours}})</span>
                         </li>
                         @endforeach
                     </ul>
@@ -98,10 +98,17 @@
 		var draggable = ui.draggable;
         var droppable = $(this);
 
-        var groupecoursID = draggable.attr('data-id');
-        var calendrierID = droppable.attr('data-id');;
-        alert( '"'+droppable.attr('data-id')+'" !' );
+        //var groupeCours = draggable.parent().parent();
 
+        //var liste = droppable.find("#liste");
+
+        //alert( '"'+draggable.parent().html()+'" !' );
+
+        //liste.append(groupeCours.html());
+        //groupeCours.remove();
+
+        var groupecoursID = draggable.attr('data-id');
+        var calendrierID = droppable.attr('data-id');
         var from_data = {
             "groupecoursID": groupecoursID,
             "calendrierID": calendrierID,
@@ -114,7 +121,7 @@
         .done(function (html) {
             $.bigBox({
                 title: "Planification réussie",
-                content: 'La groupe de cours a été affecté à la période choisie.',
+                content: 'Le groupe de cours a été affecté à la période choisie.',
                 color: "#3276B1",
                 icon: "fa fa-bell swing animated",
                 timeout: 2000
