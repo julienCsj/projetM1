@@ -42,20 +42,42 @@
                         <li>
                             <a href="#tabs-b">Les périodes</a>
                         </li>
-                        <li>
-                            <a href="#tabs-c">Les cours</a>
-                        </li>
                     </ul>
                     <div id="tabs-a">
                         <div class="row padding-10">
                             <div id="groupes" class="col-sm-12">
                                 <h3>Création et affectation des groupes de cours pour {{$module->LONG_TITLE}}</h3>
-                                @foreach ($groupesCours as $gc)
+                                <ul>
+                                    <h6>Cours pas encore affecté :</h6>
+                                    @foreach($typeCours as $type)
+                                        <li>{{$type->nb}} {{strtoupper($type->type)}} de ({{$type->duree}} min)</li>
+                                    @endforeach
+                                </ul>
+                                <ul>
+                                    <h6>Cours déja affecté :</h6>
+                                    @foreach($typeCoursDansGroupe as $typeCoursGroupe)
+                                        <li>{{$typeCoursGroupe->nb}} {{strtoupper($typeCoursGroupe->type)}} de ({{$typeCoursGroupe->duree}} min)</li>
+                                    @endforeach
+                                </ul>
+                                @foreach ($groupesCours as $groupeCours)
+                                    <?php
+                                    switch ($groupeCours->type) {
+                                        case 'cm':
+                                        $nbGroupe = $groupeCours->groupe_cm;
+                                            break;
+                                        case 'td':
+                                        $nbGroupe = $groupeCours->groupe_td;
+                                            break;
+                                        case 'tp':
+                                        $nbGroupe = $groupeCours->groupe_tp;
+                                            break;
+                                    }
+                                    ?>
                                     <div class="row col-sm-12">
                                         <div class="well">
-                                            {{$gc->libelle}} : séances
-                                            <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($formation->id, $ue->id, $module->ID,$gc->id)); }}">Supprimer</a>
-                                            <button data-toggle="modal" data-target="#affecter-{{$gc->id}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Affectation</button>
+                                            [{{strtoupper($groupeCours->type)}}] Groupe de cours de {{$groupeCours->duree}} min
+                                            <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($groupeCours->id)); }}">Supprimer</a>
+                                            <button onclick="affecterAUnEnseignant({{$nbGroupe}}, '{{$groupeCours->type}}', [])" data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Modifier Affectation</button>
                                         </div>
                                     </div>
                                 @endforeach
@@ -69,22 +91,6 @@
                             @foreach($periodes as $p1)
                                 <li>{{$p1['nom']}} - Du {{$p1['dateDebut']}} au {{$p1['dateFin']}} ({{count($p1['sem'])}} semaines)</li>
                             @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="tabs-c">
-                        <div class="row padding-10">
-                            <ul>
-                                <h6>Cours pas encore affecté :</h6>
-                                @foreach($typeCours as $type)
-                                    <li>{{$type->nb}} {{strtoupper($type->type)}} de ({{$type->duree}} min)</li>
-                                @endforeach
-                            </ul>
-                            <ul>
-                                <h6>Cours déja affecté :</h6>
-                                @foreach($typeCoursDansGroupe as $typeCoursDansGroupe)
-                                    <li>{{$typeCoursDansGroupe->nb}} {{strtoupper($typeCoursDansGroupe->type)}} de ({{$typeCoursDansGroupe->duree}} min)</li>
-                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -146,35 +152,20 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="affecter-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="affecter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Affectation des séances</h4>
+                <h4 class="modal-title" id="myModalLabel">Affectation des séances à des enseignants</h4>
             </div>
             {{ Form::open(array('route' => 'groupe.ajouterGroupe')) }}
             <div class="modal-body">
-                <div id="tabs2">
-                    <ul>
-                        <li>
-                            <a href="#tabs-1">Enseignant <> Groupe</a>
-                        </li>
-                        <li>
-                            <a href="#tabs-2">Financement <> Groupe de cours</a>
-                        </li>
-                    </ul>
-                    <div id="tabs-1">
-                        <div class="row padding-10">
-
-                        </div>
-                    </div>
-                    <div id="tabs-2">
-                        <div class="row padding-10">
-
-                        </div>
+                <div class="row form-horizontal">
+                    <div id="affectation-formulaire" class="col-md-12">
+                        
                     </div>
                 </div>
             </div>
@@ -198,6 +189,25 @@ foreach($typeCoursMap as $k => $v) {
 
 <script type="text/javascript">
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
+    @if($idFormation != -1)
+    function affecterAUnEnseignant(nbGroupe, type, precendenteValeur) {
+        var el = $("#affectation-formulaire");
+        $("#affectation-formulaire .form-group").remove();
+        var data = {
+            "enseignant": {{json_encode($enseignants)}},
+            "nb" : nbGroupe,
+            "type" : type,
+            "valeur" : []
+        }
+        var listeEnseignant = "";
+        for (var i = data["enseignant"].length - 1; i >= 0; i--) {
+            listeEnseignant += "<option value='"+data["enseignant"][i]["enseignant_id"]+"'>"+data["enseignant"][i]["LASTNAME"]+" " +data["enseignant"][i]["FIRSTNAME"]+"</option>";
+        };
+        for (var i = 0; i < data["nb"]; i++) {
+            el.append('<div class="form-group"><label class="col-md-2 control-label">Groupe #'+(i+1)+'</label> <div class="col-md-10"><select name="enseignant-groupe-'+(i+1)+'" class="form-control" required="">'+listeEnseignant+'</select></div></div>');
+        }
+    }
+    @endif
 
     $(document).ready(function() {
         pageSetUp();
@@ -218,7 +228,6 @@ foreach($typeCoursMap as $k => $v) {
 
             $('#selectNb').find('option').remove()
             for(i=1; i<=nbSeance; i++) {
-                console.log("<option value=\""+i+"\">"+i+"</option>");
                 $('#selectNb').append(new Option(i, i));
             }
         });

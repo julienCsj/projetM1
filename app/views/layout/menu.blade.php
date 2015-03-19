@@ -40,17 +40,17 @@
             <li class="{{ URL::route('financement') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('financement')}}" class="" title="Financement"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Financement</span></a>
             </li>
-            <li class="{{ URL::route('groupe') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('groupe')}}" class="" title="Groupe"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Groupes</span></a>
-            </li>
-            <li class="{{ URL::route('module') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('module')}}" class=""><i class="fa fa-lg fa-fw fa-road"></i> <span class="menu-item-parent">UEs / Modules</span></a>
-            </li>
             <li class="{{ URL::route('enseignant') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('enseignant')}}" class=""><i class="fa fa-lg fa-fw fa-users "></i> <span class="menu-item-parent">Enseignants</span></a>
             </li>
             <li class="{{ URL::route('calendrier') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('calendrier')}}" title="Calendrier"><i class="fa fa-lg fa-fw fa-cloud-download"></i> <span class="menu-item-parent">Calendrier</span></a>
+            </li>
+            <li class="{{ URL::route('groupe') === URL::current() ? 'active' : '' }}">
+                <a href="{{URL::route('groupe')}}" class="" title="Groupe"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Groupes</span></a>
+            </li>
+            <li class="{{ URL::route('module') === URL::current() ? 'active' : '' }}">
+                <a href="{{URL::route('module')}}" class=""><i class="fa fa-lg fa-fw fa-road"></i> <span class="menu-item-parent">UEs / Modules</span></a>
             </li>
             <li class="{{ URL::route('affectation') === URL::current() ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Affecter et planifier</span></a>

@@ -26,7 +26,7 @@ class PeriodeToSemaineService {
 			"4" => "avr",
 			"5" => "mai",
 			"6" => "juin",
-			"7" => "juillet",
+			"7" => "juil",
 			"8" => "août",
 			"9" => "sept",
 			"10" => "oct",

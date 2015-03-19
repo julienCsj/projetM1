@@ -32,7 +32,8 @@ class AffectationController extends BaseController {
             $cours = Cours::where('moduleID', '=', $idModule)->orderBy('type')->get();
             $typeCours = Cours::select(DB::raw('count(*) as nb, type, duree'))->where('moduleID', '=', $idModule)->where("dansGroupe", '=', 0)->groupBy('type', 'duree')->get();
             $typeCoursDansGroupe = Cours::select(DB::raw('count(*) as nb, type, duree'))->where('moduleID', '=', $idModule)->where('dansGroupe', '=', 1)->groupBy('type', 'duree')->get();
-
+            $enseignants = ModuleEnseignant::getEnseignants($idModule);
+            
 
             $typeCoursMap = array();
             foreach($typeCours as $tc) {
@@ -54,6 +55,7 @@ class AffectationController extends BaseController {
             $data['typeCoursMap'] = $typeCoursMap;
             $data['groupesCours'] = $groupesCours;
             $data['calendrier'] = Calendrier::where('idFormation', '=', $idFormation)->get();
+            $data['enseignants'] = $enseignants;
         }
 
         return View::make('affectation')->with($data);
