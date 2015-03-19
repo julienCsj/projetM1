@@ -76,7 +76,7 @@
                                     <div class="row col-sm-12">
                                         <div class="well">
                                             [{{strtoupper($groupeCours->type)}}] Groupe de cours de {{$groupeCours->duree}} min
-                                            <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($groupeCours->id)); }}">Supprimer</a>
+                                            <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($idFormation, $ue->id, $module->ID, $groupeCours->id)); }}">Supprimer</a>
                                             <button onclick="affecterAUnEnseignant({{$nbGroupe}}, '{{$groupeCours->type}}', [])" data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Modifier Affectation</button>
                                         </div>
                                     </div>

@@ -44,7 +44,7 @@
                 <a href="{{URL::route('enseignant')}}" class=""><i class="fa fa-lg fa-fw fa-users "></i> <span class="menu-item-parent">Enseignants</span></a>
             </li>
             <li class="{{ URL::route('calendrier') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('calendrier')}}" title="Calendrier"><i class="fa fa-lg fa-fw fa-cloud-download"></i> <span class="menu-item-parent">Calendrier</span></a>
+                <a href="{{URL::route('calendrier')}}" title="Calendrier"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">Calendrier</span></a>
             </li>
             <li class="{{ URL::route('groupe') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('groupe')}}" class="" title="Groupe"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Groupes</span></a>
@@ -64,7 +64,7 @@
                 </ul>
             </li>
             <li class="{{ URL::route('generationFiche') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('generationFiche')}}" title="Génération des fiches"><i class="fa fa-lg fa-fw fa-cloud-download"></i> <span class="menu-item-parent">Génération des fiches</span></a>
+                <a href="{{URL::route('generationFiche')}}" title="Génération des fiches"><i class="fa fa-lg fa-fw fa-building"></i> <span class="menu-item-parent">Génération des fiches</span></a>
             </li>
             <hr>
             @endif

@@ -19,15 +19,17 @@ class GroupeCours extends Eloquent {
 
     public $timestamps = false;
 
-    public static function getGroupeCoursByFormation($idFormation) {
+    public static function getGroupeCoursByFormation($idFormation, $idModule) {
         return DB::select(DB::raw(''
             . 'select _groupecours.id, _groupecours.formationID, _groupecours.moduleID, pages.short_title, _cours.type , _cours.duree, module.groupe_cm, module.groupe_td, module.groupe_tp '
             . 'from _groupecours, pages, _cours, _groupecours_cours, module '
             . 'where _groupecours.formationID = "'.$idFormation.'" '
+            . 'and _groupecours.moduleID = "'.$idModule.'" '
             . 'and pages.id = _groupecours.moduleID '
             . 'and _groupecours_cours.groupecoursID = _groupecours.id '
             . 'and _cours.id = _groupecours_cours.coursID '
             . 'and module.id = _groupecours.moduleID '
+            . 'GROUP BY _groupecours.id '
             . 'ORDER BY _cours.type ASC'));
     }
 

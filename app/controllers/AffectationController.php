@@ -26,7 +26,7 @@ class AffectationController extends BaseController {
             $formation = Formation::getFormationSimple($idFormation);
 
 
-            $groupesCours = GroupeCours::getGroupeCoursByFormation($idFormation);
+            $groupesCours = GroupeCours::getGroupeCoursByFormation($idFormation, $idModule);
             $modules = Module::getModulesByFormation($idFormation);
             $periodes = Calendrier::getPeriodesEnseignement($idFormation);
             $cours = Cours::where('moduleID', '=', $idModule)->orderBy('type')->get();
@@ -93,8 +93,6 @@ class AffectationController extends BaseController {
                       'groupecoursID' => $groupeCours->id)
             );
         }
-
-
         return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
     }
 
