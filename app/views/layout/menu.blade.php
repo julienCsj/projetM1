@@ -38,28 +38,28 @@
                 <a href="{{URL::route('dashboard')}}" class="" title="Dashboard"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
             <li class="{{ URL::route('financement') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('financement')}}" class="" title="Financement"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Financement</span></a>
+                <a href="{{URL::route('financement')}}" class="" title="Financement"><i class="fa fa-lg fa-fw fa-money "></i> <span class="menu-item-parent">Financement</span></a>
             </li>
             <li class="{{ URL::route('enseignant') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('enseignant')}}" class=""><i class="fa fa-lg fa-fw fa-users "></i> <span class="menu-item-parent">Enseignants</span></a>
+                <a href="{{URL::route('enseignant')}}" class=""><i class="fa fa-lg fa-fw fa-graduation-cap"></i> <span class="menu-item-parent">Enseignants</span></a>
             </li>
             <li class="{{ URL::route('calendrier') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('calendrier')}}" title="Calendrier"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">Calendrier</span></a>
             </li>
             <li class="{{ URL::route('groupe') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('groupe')}}" class="" title="Groupe"><i class="fa fa-lg fa-fw fa-dashboard "></i> <span class="menu-item-parent">Groupes</span></a>
+                <a href="{{URL::route('groupe')}}" class="" title="Groupe"><i class="fa fa-lg fa-fw fa-users "></i> <span class="menu-item-parent">Groupes</span></a>
             </li>
             <li class="{{ URL::route('module') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('module')}}" class=""><i class="fa fa-lg fa-fw fa-road"></i> <span class="menu-item-parent">UEs / Modules</span></a>
+                <a href="{{URL::route('module')}}" class=""><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">UEs / Modules</span></a>
             </li>
             <li class="{{ URL::route('affectation') === URL::current() ? 'active' : '' }}">
-                <a href="#"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Affecter et planifier</span></a>
+                <a href="#"><i class="fa fa-lg fa-fw fa-cog  "></i> <span class="menu-item-parent">Affecter et planifier</span></a>
                 <ul>
                     <li>
-                        <a href="{{URL::route('affectation')}}" title=""><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Affecter</span></a>
+                        <a href="{{URL::route('affectation')}}" title=""><i class="fa fa-lg fa-fw fa-cog  "></i> <span class="menu-item-parent">Affecter</span></a>
                     </li>
                     <li>
-                        <a href="{{URL::route('planification')}}" title="Planification"><i class="fa fa-lg fa-fw fa-cogs  "></i> <span class="menu-item-parent">Planifier</span></a>
+                        <a href="{{URL::route('planification')}}" title="Planification"><i class="fa fa-lg fa-fw fa-cog  "></i> <span class="menu-item-parent">Planifier</span></a>
                     </li>
                 </ul>
             </li>
@@ -70,13 +70,13 @@
             @endif
             @if($user->isEnseignant())
             <li class="{{ URL::route('voeux') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('voeux')}}" title="Adresses"><i class="fa fa-lg fa-fw fa-location-arrow "></i> <span class="menu-item-parent">Voeux</span></a>
-            </li>
-            <li class="{{ URL::route('monservice') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('monservice')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-send-o"></i> <span class="menu-item-parent">Mon service</span></a>
+                <a href="{{URL::route('voeux')}}" title="Adresses"><i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent">Voeux</span></a>
             </li>
             <li class="{{ URL::route('heuresexterieures') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('heuresexterieures')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-send-o"></i> <span class="menu-item-parent">Heures exterieures</span></a>
+                <a href="{{URL::route('heuresexterieures')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent">Heures exterieures</span></a>
+            </li>
+            <li class="{{ URL::route('monservice') === URL::current() ? 'active' : '' }}">
+                <a href="{{URL::route('monservice')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-eye"></i> <span class="menu-item-parent">Mon service</span></a>
             </li>
             @else
             <li class="{{ URL::route('etudiant') === URL::current() ? 'active' : '' }}">
@@ -85,7 +85,7 @@
             @endif
 
             <li class="{{ URL::route('deconnexion') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('deconnexion')}}" title="Déconnexion"><i class="fa fa-lg fa-fw fa-external-link-square"></i> <span class="menu-item-parent">Déconnexion</span></a>
+                <a href="{{URL::route('deconnexion')}}" title="Déconnexion"><i class="fa fa-lg fa-fw fa-sign-out"></i> <span class="menu-item-parent">Déconnexion</span></a>
             </li>
         </ul>
     </nav>
