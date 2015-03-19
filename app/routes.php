@@ -73,7 +73,9 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::get('planification/{idFormation}', array('as' => 'planification.planificationFormation', 'uses' => 'PlanificationController@getPlanificationFormation'));
     Route::post('planification/{idFormation}/ajouterPlanification', array('as' => 'planification.ajouterPlanification', 'uses' => 'PlanificationController@postAjouterPlanification'));
 
-    Route::get('fiche', array('as' => 'generationFiche', 'uses' => 'GenerationFicheController@getFiche'));
+    // Module Aide génération des fiches enseignants
+    Route::get('fiche/', array('as' => 'generationFiche', 'uses' => 'GenerationFicheController@getFiche'));
+    Route::get('fiche/{idEnseignant}', array('as' => 'generationFicheProf', 'uses' => 'GenerationFicheController@getFiche'));
 
     // Routes module heures externe
     Route::get('heuresexterieures', array('as' => 'heuresexterieures', 'uses' => 'HeuresExternesController@getHeuresExternes'));

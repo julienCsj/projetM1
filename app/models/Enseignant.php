@@ -11,4 +11,10 @@ class Enseignant extends Eloquent
             ->leftJoin("_statusenseignant", '_statusenseignant.login_id', '=', 'enseignant.login')
             ->get();
     }
+
+    public static function getEnseignantsWithPageData(){
+        return DB::table('enseignant')
+            ->join('user', 'user.login', '=', 'enseignant.login')
+            ->get();
+    }
 }
