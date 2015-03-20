@@ -26,7 +26,7 @@
             <h3>Périodes d'enseignements</h3>
             @foreach ($periodes as $periode)
             <div class="col-sm-12">
-                <span>Période du {{$periode["dateDebut"]}} au {{$periode["dateFin"]}} : x semaines</span>
+                <span>Période du {{$periode["dateDebut"]}} au {{$periode["dateFin"]}} : {{count($periode['sem'])}} semaines</span>
             </div>
             <div class="col-sm-12">
                 <div data-id="{{$periode["id"]}}" class="droppable col-sm-12 well">
