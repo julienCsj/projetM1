@@ -56,9 +56,9 @@
                                 @foreach($UElist as $ue)
                                     <tr>
                                 <td>{{$ue["module"]->LONG_TITLE}}</td>
-                                <td>{{$ue["totalCM"]}} ({{$ue["module"]->CM_PPN}} dans le PPN)</td>
-                                <td>{{$ue["totalTD"]}} ({{$ue["module"]->TD_PPN}} dans le PPN)</td>
-                                <td>{{$ue["totalTP"]}} ({{$ue["module"]->TP_PPN}} dans le PPN)</td>
+                                <td>{{$ue["totalCM"]}}</td>
+                                <td>{{$ue["totalTD"]}}</td>
+                                <td>{{$ue["totalTP"]}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

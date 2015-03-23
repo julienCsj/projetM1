@@ -130,9 +130,10 @@
                         </div>
                 <h3>Pour les tests</h3>
                 <pre>
-Compte resp. planification : resp - 1234
+                           |    Login    |  mdp
+Compte resp. planification : resp        - 1234
 Compte enseignant          : didier.bede - 1234
-Compte etudiant            : etud - 1234
+Compte etudiant            : 20102772    - 1234
                 </pre>
 
         </div>
