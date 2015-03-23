@@ -8,6 +8,12 @@
         <!-- WIDGET END -->
     </div>
     <div class="row">
+        @if($idFormation != -1)
+            <div class="row pull-right margin-right-5 padding-10">
+                <a href="{{ route('planification.planificationFormation', array($formation->id))}}" class="btn btn-primary">Aller à la planification</a>
+                <a href="{{ route('moduleModification', array($formation->id, $ue->id, $module->ID))}}" class="btn btn-primary">Aller à la configuration</a>
+            </div>
+        @endif
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
             <ul id="menu" style="width: 100%">
                 @foreach ($lesFormations as $f1)
@@ -35,10 +41,6 @@
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
             @if($idFormation != -1)
                 <div id="tabs">
-                    <div class="row pull-right margin-right-5">
-                        <a href="{{ route('planification.planificationFormation', array($formation->id))}}" class="btn btn-primary">Aller à la planification</a>
-                        <a href="{{ route('moduleModification', array($formation->id, $ue->id, $module->ID))}}" class="btn btn-primary">Aller à la configuration</a>
-                    </div>
                     <ul>
                         <li>
                             <a href="#tabs-a">Les groupes de cours</a>
