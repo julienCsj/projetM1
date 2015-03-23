@@ -72,12 +72,17 @@
                                         $nbGroupe = $groupeCours->groupe_tp;
                                             break;
                                     }
+                                    $precendenteValeur = array();
+                                    foreach ($groupesCoursEnseignantModule as $key => $v) {
+                                        if ($v->groupecours_id == $groupeCours->id)
+                                            $precendenteValeur[] = $v;
+                                    }
                                     ?>
                                     <div class="row col-sm-12">
                                         <div class="well">
                                             [{{strtoupper($groupeCours->type)}}] {{$nbGroupe}} Groupe de cours de {{$groupeCours->duree}} min
                                             <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($idFormation, $ue->id, $module->ID, $groupeCours->id)); }}">Supprimer</a>
-                                            <button onclick="affecterAUnEnseignant({{$groupeCours->id}},{{$nbGroupe}}, '{{$groupeCours->type}}', [])" data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Modifier Affectation</button>
+                                            <button onclick='affecterAUnEnseignant({{$groupeCours->id}},{{$nbGroupe}}, "{{$groupeCours->type}}", {{json_encode($precendenteValeur)}})' data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Modifier Affectation</button>
                                         </div>
                                     </div>
                                 @endforeach
@@ -161,7 +166,7 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Affectation des séances à des enseignants</h4>
             </div>
-            {{ Form::open(array('route' => array('affectation.ajouterLienGroupeCoursModuleEnseignant', $idFormation, $ue->id, $mod->ID))) }}
+            {{ Form::open(array('route' => array('affectation.ajouterLienGroupeCoursModuleEnseignant', $idFormation, $ue->id, $module->ID))) }}
             <div class="modal-body">
                 <div class="row form-horizontal">
                     <div id="affectation-formulaire" class="col-md-12">
@@ -202,16 +207,24 @@ foreach($typeCoursMap as $k => $v) {
             "type" : type,
             "precendenteValeur" : precendenteValeur
         }
-        var listeEnseignant = "";
-        for (var i = data["enseignant"].length - 1; i >= 0; i--) {
-            listeEnseignant += "<option value='"+data["enseignant"][i]["enseignant_id"]+"'>"+data["enseignant"][i]["LASTNAME"]+" " +data["enseignant"][i]["FIRSTNAME"]+"</option>";
-        };
-        var listeFinancement = "";
-        for (var i = data["financement"].length - 1; i >= 0; i--) {
-            listeFinancement += "<option value='"+data["financement"][i]["id"]+"'>"+data["financement"][i]["libelle"]+"</option>";
-        };
 
         for (var i = 0; i < data["nb"]; i++) {
+            var listeEnseignant = "";
+            for (var j = data["enseignant"].length - 1; j >= 0; j--) {
+                listeEnseignant += "<option value='"+data["enseignant"][j]["enseignant_id"]+"' ";
+                if (precendenteValeur[i]["enseignant_id"] == data["enseignant"][j]["enseignant_id"]) {
+                    listeEnseignant += "selected ";
+                }
+                listeEnseignant += ">"+data["enseignant"][j]["LASTNAME"]+" " +data["enseignant"][j]["FIRSTNAME"]+"</option>";
+            };
+            var listeFinancement = "";
+            for (var j = data["financement"].length - 1; j >= 0; j--) {
+                listeFinancement += "<option value='"+data["financement"][j]["id"]+"' ";
+                if (precendenteValeur[i]["financement_id"] == data["financement"][j]["id"]) {
+                    listeFinancement += "selected ";
+                }
+                listeFinancement += ">"+data["financement"][j]["libelle"]+"</option>";
+            };
             el.append('<div class="form-group"><label class="col-md-2 control-label">Groupe #'+(i+1)+'</label> <div class="col-md-5"><select name="enseignant-groupe[]" class="form-control" required="">'+listeEnseignant+'</select></div><div class="col-md-5"><select name="financement-groupe[]" class="form-control" required="">'+listeFinancement+'</select></div></div>');
         }
         $("#affecter_groupe_cours_id").val(data["groupeCoursId"]);

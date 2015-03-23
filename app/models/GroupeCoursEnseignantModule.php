@@ -18,5 +18,11 @@ class GroupeCoursEnseignantModule extends Eloquent {
 
     public $timestamps = false;
 
-
+    public static function get($idModule) {
+        return DB::select(DB::raw(''
+            . 'select * '
+            . 'from _groupecours_module_enseignant '
+            . 'where module_id = "'.$idModule.'" '
+            . 'ORDER BY id_groupe ASC'));
+    }
 }

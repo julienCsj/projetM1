@@ -27,6 +27,7 @@ class AffectationController extends BaseController {
 
 
             $groupesCours = GroupeCours::getGroupeCoursByFormation($idFormation, $idModule);
+            $groupesCoursEnseignantModule = GroupeCoursEnseignantModule::get($idModule);
             $modules = Module::getModulesByFormation($idFormation);
             $periodes = Calendrier::getPeriodesEnseignement($idFormation);
             $cours = Cours::where('moduleID', '=', $idModule)->orderBy('type')->get();
@@ -43,7 +44,6 @@ class AffectationController extends BaseController {
                 $typeCoursMap[$tc->type.'-'.$tc->duree] = $tc->nb;
             }
 
-
             $data['idFormation'] = $idFormation;
             $data['module'] = $module;
             $data['formation'] = $formation;
@@ -58,6 +58,7 @@ class AffectationController extends BaseController {
             $data['calendrier'] = Calendrier::where('idFormation', '=', $idFormation)->get();
             $data['enseignants'] = $enseignants;
             $data['financements'] = $financements;
+            $data['groupesCoursEnseignantModule'] = $groupesCoursEnseignantModule;
         }
 
         return View::make('affectation')->with($data);
@@ -124,6 +125,10 @@ class AffectationController extends BaseController {
         $enseignantGroupe = Input::get('enseignant-groupe');
         $financementGroupe = Input::get('financement-groupe');
         $idGroupeCours = Input::get('groupe_cours_id');
+
+        // Supprime toutes les anciennes entrées de ce groupecours
+        GroupeCoursEnseignantModule::where("groupecours_id", "=",$idGroupeCours)->delete();
+
         for ($i=0; $i < count($enseignantGroupe); $i++) { 
             $groupeCoursEnseignantModule = new GroupeCoursEnseignantModule();
             $groupeCoursEnseignantModule->groupecours_id = $idGroupeCours;
@@ -133,9 +138,7 @@ class AffectationController extends BaseController {
             $groupeCoursEnseignantModule->financement_id = $financementGroupe[$i];
             $groupeCoursEnseignantModule->save();
         }
-        //var_dump(expression)
 
-        //return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
-        return "OK";
+        return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
     }
 }
