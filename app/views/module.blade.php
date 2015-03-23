@@ -18,6 +18,12 @@
                     <strong>A propos de cette page.</strong> {{TipsService::getTip("uemodule")}}
                 </div>
             </div>
+            @if($idModule != -1)
+            <div class="row pull-right padding-10 margin-right-5">
+                <a href="{{ route('affectation.affectationFormation', array($formation->id, $ue->id, $module->ID))}}" class="btn btn-primary">Aller à l'affectation</a>
+                <a href="{{ route('planification.planificationFormation', array($formation->id))}}" class="btn btn-primary">Aller à la planification</a>
+            </div>
+            @endif
             <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                 <ul id="menu" style="width: 100%">
                     @foreach ($lesFormations as $formation)

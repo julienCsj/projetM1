@@ -21,7 +21,7 @@ class PlanificationController extends BaseController {
       $groupesCoursLibres = GroupeCours::getGroupeCoursLibresByFormation($idFormation);
 
       $periodes = Calendrier::getPeriodesEnseignement($idFormation);
-      //exit(var_dump($periodes));
+      //exit(var_dump(strtotime($periodes[1]['dateDebut'])));
       $data = array('idFormation' => $idFormation,
           'notifications' => array(),
           'breadcrumb' => array('Scolarel', array("link"=> URL::route('affectation'),"label"=>'Affectation et planification'), $formation->long_title),
@@ -44,6 +44,7 @@ class PlanificationController extends BaseController {
             $planification = new Planification();
             $planification->groupecoursID = $idGroupeCours;
             $planification->calendrierID = $idCalendrier;
+            $planification->semaine = 0;
             $planification->save();
         }
 
