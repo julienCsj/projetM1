@@ -165,6 +165,7 @@
                 //right: 'year,month,agendaWeek,agendaDay'
                 right : ''
             },
+            timezone: "Europe/Paris",
             //weekends : false,
             defaultView: 'year',
             firstDay: 1,

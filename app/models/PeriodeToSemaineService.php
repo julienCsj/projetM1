@@ -37,12 +37,12 @@ class PeriodeToSemaineService {
 		$result["id"] = $v->id;
 		$result["idFormation"] = $v->idFormation;
 		$result["nom"] = $v->nom;
-		$result["dateDebut"] = date('D j F Y',strtotime($v->dateDebut) + 7200);
-		$result["dateFin"] = date('D j F Y',strtotime($v->dateFin) + 7200);
-		$result["sem"] = array();
-		$result["groupesCours"] = GroupeCours::getGroupesCoursByPeriode($v->id);
 		$deb = strtotime($v->dateDebut) + 7200;
 		$fin = strtotime($v->dateFin) + 7200;
+		$result["dateDebut"] = date('D j F Y',$deb);
+		$result["dateFin"] = date('D j F Y',$fin);
+		$result["sem"] = array();
+		$result["groupesCours"] = GroupeCours::getGroupesCoursByPeriode($v->id);
 		while ($deb < $fin) {
 			$d1 = date("N", $deb);
 			$fin_semaine = $deb; 
