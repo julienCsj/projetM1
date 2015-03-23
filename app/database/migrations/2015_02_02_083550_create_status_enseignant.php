@@ -103,6 +103,7 @@ class CreateStatusEnseignant extends Migration {
             $table->engine = 'InnoDB';
             $table->string('groupecoursID');
             $table->string('calendrierID');
+            $table->integer('semaine');
         });
 
         Schema::create('_enseignant_voeux', function($table){
