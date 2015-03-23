@@ -13,6 +13,11 @@
         <input type="hidden" name="idUe" value="{{$idUe}}">
 
         <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="alert alert-info fade in">
+                    <strong>A propos de cette page.</strong> {{TipsService::getTip("uemodule")}}
+                </div>
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                 <ul id="menu" style="width: 100%">
                     @foreach ($lesFormations as $formation)

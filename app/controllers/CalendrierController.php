@@ -12,9 +12,8 @@ class CalendrierController extends BaseController {
     }
 
     public function getCalendrierFormation($idFormation) {
-        $formation = Formation::find($idFormation)
-            ->join('pages', 'pages.id', '=', 'semestre.id')
-            ->select('semestre.id', 'pages.short_title', 'pages.long_title')->firstOrFail();
+        $formation = Formation::getFormationSimple($idFormation);
+
         $data = array('idFormation' => $idFormation,
             'notifications' => array(),
             'breadcrumb' => array('Scolarel', array("link"=> URL::route('calendrier'),"label"=>'Calendriers'), $formation->long_title),

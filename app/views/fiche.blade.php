@@ -6,6 +6,11 @@
         <h1>Aide Génération fiche <small></small></h1>
         <br/>
         <br/>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="alert alert-info fade in">
+                <strong>A propos de cette page.</strong> {{TipsService::getTip("generationFiche")}}
+            </div>
+        </div>
         <!-- NEW WIDGET START -->
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
@@ -28,7 +33,7 @@
                             <a href="#tabs-b">Heures extérieures</a>
                         </li>
                         <li>
-                            <a href="#tabs-c">Calendrier</a>
+                            <a href="#tabs-c">Service de l'enseignant</a>
                         </li>
                     </ul>
                     <div id="tabs-a">

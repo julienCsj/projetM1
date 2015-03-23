@@ -8,9 +8,13 @@
         <!-- NEW WIDGET START -->
         <div class="row">
 
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="alert alert-info fade in">
+                    <strong>A propos de cette page.</strong> {{TipsService::getTip("enseignant")}}
+                </div>
+            </div>
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
                 <!-- Widget ID (each widget will need unique ID)-->
                 <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
                     <!-- widget options:

@@ -1,6 +1,11 @@
 @include('layout.header')
 <section id="widget-grid" class="">
     <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="alert alert-info fade in">
+                <strong>A propos de cette page.</strong> {{TipsService::getTip("calendrier")}}
+            </div>
+        </div>
         <!-- NEW WIDGET START -->
         <h1>Calendrier de formation</h1>
         <div id="tabs">
@@ -15,9 +20,9 @@
             <div id="tabs-a">
                 <div class="row padding-10">
                     @foreach ($lesFormations as $f)
-                        <a href="{{ route('calendrier.calendrierFormation', array($f->id))}}" class="btn btn-primary">{{$f->short_title}}</a><br />
+                        <a href="{{ route('calendrier.calendrierFormation', array($f->id))}}" class="btn btn-primary" style="width: 600px">{{$f->long_title}}</a><br />
+                        <br />
                     @endforeach
-                        <span class="simple_tag">Collapse menu</span>
                 </div>
             </div>
 

@@ -10,7 +10,13 @@
         {{ Form::open(array('route' => 'module.postModifierModule')) }}
 
         <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="alert alert-info fade in">
+                    <strong>A propos de cette page.</strong> {{TipsService::getTip("groupe")}}
+                </div>
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
                 <ul id="menu" style="width: 100%">
                     @foreach ($lesFormations as $f)
                         <li>

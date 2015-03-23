@@ -66,6 +66,9 @@
             <li class="{{ URL::route('generationFiche') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('generationFiche')}}" title="Génération des fiches"><i class="fa fa-lg fa-fw fa-building"></i> <span class="menu-item-parent">Génération des fiches</span></a>
             </li>
+                <li class="{{ URL::route('config') === URL::current() ? 'active' : '' }}">
+                    <a href="{{URL::route('config')}}" title="Configuration"><i class="fa fa-lg fa-fw fa-wrench"></i> <span class="menu-item-parent">Configuration</span></a>
+                </li>
             <hr>
             @endif
             @if($user->isEnseignant())

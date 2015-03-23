@@ -82,8 +82,13 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::post('heuresexterieures', array('as' => 'heuresexterieures.ajouter', 'uses' => 'HeuresExternesController@postAjouterHeure'));
     Route::get('heuresexterieures/{idHeure}', array('as' => 'heuresexterieures.supprimer', 'uses' => 'HeuresExternesController@getSupprimerHeure'));
 
+    // Routes étudiants
     Route::get('etudiant', array('as' => 'etudiant', 'uses' => 'EtudiantController@getListeFormation'));
     Route::get('etudiant/calendrier/{idFormation}/ue/{idUe}', array('as' => 'etudiant.calendrierFormation', 'uses' => 'EtudiantController@getHeuresFormation'));
+
+
+    // Routes pour la Configuration
+    Route::get('config', array('as' => 'config', 'uses' => 'ConfigController@getConfig'));
 
     // Routes à classer
     Route::get('monservice', array('as' => 'monservice', 'uses' => 'ServiceController@getService'));

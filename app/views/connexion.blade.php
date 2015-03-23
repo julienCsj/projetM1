@@ -130,9 +130,9 @@
                         </div>
                 <h3>Pour les tests</h3>
                 <pre>
-Compte responsable planification : resp - 1234
-Compte enseignant     : christian.fiori - 1234
-Compte etudiant                  : etud - 1234
+Compte resp. planification : resp - 1234
+Compte enseignant          : didier.bede - 1234
+Compte etudiant            : etud - 1234
                 </pre>
 
         </div>
