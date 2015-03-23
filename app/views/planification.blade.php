@@ -1,3 +1,6 @@
+//FIXER LA TAILLE DES GROUPESCOURS
+// FAIRE MARCHER LA MODALE
+
 @include('layout.header')
 <section id="widget-grid" class="">
     <div class="row">
@@ -226,7 +229,7 @@
     }
 
     function planificationImpossible(groupecours, calendrier) {
-                $('#modaledecalage').modal('toggle');
+        //$('#modaledecalage').modal('toggle');
 
         $.bigBox({
             title: "Erreur",
