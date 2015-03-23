@@ -33,6 +33,7 @@ class AffectationController extends BaseController {
             $typeCours = Cours::select(DB::raw('count(*) as nb, type, duree'))->where('moduleID', '=', $idModule)->where("dansGroupe", '=', 0)->groupBy('type', 'duree')->get();
             $typeCoursDansGroupe = Cours::select(DB::raw('count(*) as nb, type, duree'))->where('moduleID', '=', $idModule)->where('dansGroupe', '=', 1)->groupBy('type', 'duree')->get();
             $enseignants = ModuleEnseignant::getEnseignants($idModule);
+            $financements = Financement::all();
             
 
             $typeCoursMap = array();
@@ -56,6 +57,7 @@ class AffectationController extends BaseController {
             $data['groupesCours'] = $groupesCours;
             $data['calendrier'] = Calendrier::where('idFormation', '=', $idFormation)->get();
             $data['enseignants'] = $enseignants;
+            $data['financements'] = $financements;
         }
 
         return View::make('affectation')->with($data);
@@ -113,5 +115,27 @@ class AffectationController extends BaseController {
         $groupeCours->delete();
 
         return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
+    }
+
+
+
+    public function ajouterLienGroupeCoursModuleEnseignant($idFormation = -1, $idUe = -1, $idModule = -1)
+    {
+        $enseignantGroupe = Input::get('enseignant-groupe');
+        $financementGroupe = Input::get('financement-groupe');
+        $idGroupeCours = Input::get('groupe_cours_id');
+        for ($i=0; $i < count($enseignantGroupe); $i++) { 
+            $groupeCoursEnseignantModule = new GroupeCoursEnseignantModule();
+            $groupeCoursEnseignantModule->groupecours_id = $idGroupeCours;
+            $groupeCoursEnseignantModule->module_id = $idModule;
+            $groupeCoursEnseignantModule->id_groupe = $i;
+            $groupeCoursEnseignantModule->enseignant_id = $enseignantGroupe[$i];
+            $groupeCoursEnseignantModule->financement_id = $financementGroupe[$i];
+            $groupeCoursEnseignantModule->save();
+        }
+        //var_dump(expression)
+
+        //return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
+        return "OK";
     }
 }

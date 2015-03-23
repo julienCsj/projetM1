@@ -140,8 +140,9 @@ class CreateStatusEnseignant extends Migration {
             $table->increments('id');
             $table->string('groupecours_id');
             $table->string('module_id');
-            $table->string('nb_groupe');
+            $table->string('id_groupe');
             $table->string('enseignant_id');
+            $table->string('financement_id');
         });
 
     }
