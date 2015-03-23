@@ -14,13 +14,13 @@
                     <li>
                         <a href="#">{{$f1->short_title}}</a>
                         <ul>
-                            @foreach($f1->lesUE as $ue)
+                            @foreach($f1->lesUE as $ue1)
                                 <li>
-                                    <a href="#">{{$ue->short_title}}</a>
+                                    <a href="#">{{$ue1->short_title}}</a>
                                     <ul>
-                                        @foreach($ue->lesModules as $mod)
+                                        @foreach($ue1->lesModules as $mod1)
                                             <li>
-                                                <a href="{{ route('affectation.affectationFormation', array($f1->id, $ue->id, $mod->ID))}}">{{$mod->SHORT_TITLE}}</a>
+                                                <a href="{{ route('affectation.affectationFormation', array($f1->id, $ue1->id, $mod1->ID))}}">{{$mod1->SHORT_TITLE}}</a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -35,6 +35,10 @@
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
             @if($idFormation != -1)
                 <div id="tabs">
+                    <div class="row pull-right margin-right-5">
+                        <a href="{{ route('planification.planificationFormation', array($formation->id))}}" class="btn btn-primary">Aller à la planification</a>
+                        <a href="{{ route('moduleModification', array($formation->id, $ue->id, $module->ID))}}" class="btn btn-primary">Aller à la configuration</a>
+                    </div>
                     <ul>
                         <li>
                             <a href="#tabs-a">Les groupes de cours</a>

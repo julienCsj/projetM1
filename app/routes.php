@@ -98,7 +98,7 @@ Route::group(array('before' => 'auth'), function () { // Login required
 
 Route::get('/test', function()
 {
-    exit(var_dump(Calendrier::getPeriodesEnseignement("sem00001")));
+    exit(var_dump(CalculerChargeService::calculerServiceEnseignantGlobal("olivier.catteau")));
 });
 
 

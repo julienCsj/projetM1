@@ -1,6 +1,6 @@
 @include('layout.header')
 <section id="widget-grid" class="">
-    <div class="row">
+    <div class="row padding-10">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="alert alert-info fade in">
                 <strong>A propos de cette page.</strong> {{TipsService::getTip("config")}}
@@ -8,7 +8,7 @@
         </div>
         <!-- NEW WIDGET START -->
         <h1>Configuration de l'application</h1>
-        <div id="tabs">
+        <div id="tabs" class="">
             <ul>
                 <li>
                     <a href="#tabs-a">Configuration</a>
