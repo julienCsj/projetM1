@@ -48,7 +48,7 @@
     </div>
 </section>
 
-<div class="modal fade" id="modaledecalage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modaldecalage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -69,7 +69,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                <input type="submit" class="btn btn-primary" value="Valider" />
+                <input id="validerdecalage" type="submit" class="btn btn-primary" value="Valider" />
             </div>
         </div>
     </div>
@@ -85,26 +85,6 @@
         pageSetUp();
 
         $('#tabs').tabs();
-
-        $('#dialog-message').dialog({
-            autoOpen: false,
-            modal: true,
-            title: "Planifier un cours",
-            buttons: [{
-                    html: "Annuler",
-                    "class": "btn btn-default",
-                    click: function () {
-                        $(this).dialog("close");
-                    }
-                }, {
-                    html: "<i class='fa fa-check'></i>&nbsp; Valider",
-                    "class": "btn btn-primary",
-                    click: function () {
-                        $(this).dialog("close");
-                        //affec
-                    }
-                }]
-        });
     });
 
     $(init);
@@ -151,6 +131,7 @@
         var from_data = {
             "groupecoursID": groupecours.attr('data-id'),
             "calendrierID": calendrier.attr('data-id'),
+            "semaine": 0,
         };
         $.ajax({
             url: "{{$formation->id}}/ajouterPlanification",
@@ -186,50 +167,8 @@
         });
 	}
 
-    function planificationDecalage(groupecours, calendrier) {
-        $('#modaledecalage').modal('toggle');
-
-        var from_data = {
-            "groupecoursID": groupecours.attr('data-id'),
-            "calendrierID": calendrier.attr('data-id'),
-           // "decalage": 
-        };
-        $.ajax({
-            url: "{{$formation->id}}/ajouterPlanification",
-            data: from_data,
-            type: "POST"
-        })
-        .done(function (html) {
-            $.bigBox({
-                title: "Planification réussie",
-                content: 'Le groupe de cours a été affecté à la période choisie.',
-                color: "#3276B1",
-                icon: "fa fa-bell swing animated",
-                timeout: 2000
-            });
-            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';   
-
-            var elem = groupecours.parent();
-            var liste = calendrier.find('#liste');
-            liste.append(html_element);
-            elem.remove();
-
-            $(init);
-
-        })
-        .fail(function (html) {
-            $.bigBox({
-                title: "Erreur",
-                content: "Un problème est survenu !",
-                color: "#C46A69",
-                icon: "fa fa-warning swing animated",
-                timeout: 3000
-            });
-        });
-    }
-
     function planificationImpossible(groupecours, calendrier) {
-        //$('#modaledecalage').modal('toggle');
+        $('#modaldecalage').modal('toggle');
 
         $.bigBox({
             title: "Erreur",
@@ -248,4 +187,62 @@
 
         $(init);
     }
+
+    var dernierGroupeCours;
+    var dernierCalendrier;
+
+    function planificationDecalage(groupecours, calendrier) {
+        dernierCalendrier = calendrier;
+        dernierGroupeCours = groupecours;
+
+        $('#decalage').empty();
+        var limite = calendrier.attr('data-size')-groupecours.attr('data-size');
+        for(var i = 1; i<=limite; i++){
+            $('#decalage').append("<option value='"+i+"'>"+i+"</option>");
+        }
+
+        $('#modaldecalage').modal('toggle');
+    }
+
+    $('#validerdecalage').click(function(){
+        var from_data = {
+            "groupecoursID": dernierGroupeCours.attr('data-id'),
+            "calendrierID": dernierCalendrier.attr('data-id'),
+            "semaine": $('#decalage').val(),
+        };
+        $.ajax({
+            url: "{{$formation->id}}/ajouterPlanification",
+            data: from_data,
+            type: "POST"
+        })
+        .done(function (html) {
+            $.bigBox({
+                title: "Planification réussie",
+                content: 'Le groupe de cours a été affecté à la période choisie.',
+                color: "#3276B1",
+                icon: "fa fa-bell swing animated",
+                timeout: 2000
+            });
+            // Placement graphique du groupe de cours
+            var html_element='<li><div data-id="'+dernierGroupeCours.attr('data-id')+'" data-size="'+dernierGroupeCours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+dernierGroupeCours.text()+'</div></li>';   
+
+            var elem = dernierGroupeCours.parent();
+            var liste = dernierCalendrier.find('#liste');
+            liste.append(html_element);
+            elem.remove();
+
+            $('#modaldecalage').modal('toggle');
+            $(init);
+
+        })
+        .fail(function (html) {
+            $.bigBox({
+                title: "Erreur",
+                content: "Un problème est survenu !",
+                color: "#C46A69",
+                icon: "fa fa-warning swing animated",
+                timeout: 3000
+            });
+        });
+    });
 </script>
