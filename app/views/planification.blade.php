@@ -131,7 +131,7 @@
         var from_data = {
             "groupecoursID": groupecours.attr('data-id'),
             "calendrierID": calendrier.attr('data-id'),
-            "semaine": 0,
+            "semaine": 1,
         };
         $.ajax({
             url: "{{$formation->id}}/ajouterPlanification",
@@ -197,7 +197,7 @@
 
         $('#decalage').empty();
         var limite = calendrier.attr('data-size')-groupecours.attr('data-size');
-        for(var i = 1; i<=limite; i++){
+        for(var i = 1; i<=limite+1; i++){
             $('#decalage').append("<option value='"+i+"'>"+i+"</option>");
         }
 

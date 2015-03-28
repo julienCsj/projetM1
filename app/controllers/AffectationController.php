@@ -39,8 +39,6 @@ class AffectationController extends BaseController {
 
             $typeCoursMap = array();
             foreach($typeCours as $tc) {
-                echo $tc->type.'-'.$tc->duree;
-                echo '<br>';
                 $typeCoursMap[$tc->type.'-'.$tc->duree] = $tc->nb;
             }
 

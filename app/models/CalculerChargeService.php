@@ -8,8 +8,6 @@
 
 class CalculerChargeService {
 
-   /* const SEC_PER_DAY = 60 * 60 * 24;
-    const SEC_PER_WEEK = 60 * 60 * 24 * 7;*/
 
     public static function calculerServiceEnseignantGlobal($idEnseignant) {
         $resultEnHeure = array(
@@ -43,9 +41,83 @@ class CalculerChargeService {
     }
 
     public static function calculerServiceEnseignantParSemaine($idEnseignant) {
-        // Recuperer tous les cours d'un prof
+        // Récuperation de l'array contenant les 52 semaines
+        $arraySemaine = CalculerChargeService::getArrayWith52Weeks();
 
-        return array();
+        // ETAPE 1 : RECUPERER L'ENSEMBLE DES GROUPE_COURS DANS LESQUELS L'ENSEIGNANT INTERVIENT
+        $lesIdGroupesCoursOuLenseignantIntervient = DB::table('_groupecours_module_enseignant')
+            ->select(DB::raw('distinct(groupecours_id) as groupecours_id'))
+            ->where('enseignant_id', '=', $idEnseignant)
+            ->get();
+
+        // ETAPE 2 : POUR CHAQUE GROUPE DE COURS
+        foreach($lesIdGroupesCoursOuLenseignantIntervient as $idGroupeCours) {
+
+            $estPlanifier = DB::table('_planification')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->count();
+
+            // Si le groupe de cours a été planifié
+            if($estPlanifier > 0)
+            {
+                // Récuperer la période qui correspond au groupe_cours
+                $idPeriode = DB::table('_planification')
+                    ->select(DB::raw('calendrierID'))
+                    ->where('groupecoursID', '=', $idGroupeCours->groupecours_id)
+                    ->first();
+
+                $periode = Calendrier::find($idPeriode->calendrierID);
+
+                // Réupérer la date de début période sous forme de timestamp (pour faciliter les calculs)
+                $dateDebutPeriode = strtotime($periode->dateDebut);
+
+                // ETAPE 3 : Deux cas possible, soit le nombre de cours de la période = nombre de semaine (un cours par semaine)
+                //           soit le nombre de cours est inferieur au nombre de semaine (il y a un décalage)
+                $extractWeek = PeriodeToSemaineService::extractWeeksFromPeriod($periode);
+                $extractWeek = $extractWeek["sem"];
+                $nbSemainePeriode = count($extractWeek);
+
+                $nbCoursDansGroupeCours = DB::table('_groupecours_cours')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->count();
+
+                // Calculer le numéro de la premiere semaine
+                $nbSemaine = CalculerChargeService::timestampToWeek($dateDebutPeriode);
+
+                // RECUPERER LA DUREE ET LE TYPE DES COURS DE CE GC
+                $unCoursDuGroupe = DB::table('_groupecours_cours')->select('coursID')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->first();
+
+                $duree = Cours::find($unCoursDuGroupe->coursID)->duree;
+                $type = Cours::find($unCoursDuGroupe->coursID)->type;
+                $nbCoursDansGroupeCours = DB::table('_groupecours_cours')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->count();
+
+                // RECUPERER LE NOMBRE DE GROUPE QUE L'ENSEIGNANT A A SA CHARGE
+                $nbGroupeAssigneALenseignant = GroupeCoursEnseignantModule::where("enseignant_id" ,"=", $idEnseignant)
+                    ->where("groupecours_id", '=', $idGroupeCours->groupecours_id)->count();
+
+                if ($nbCoursDansGroupeCours == $nbSemainePeriode) {
+                    // Attribuer un cours a chaque semaine
+                    for($i=1; $i <=$nbCoursDansGroupeCours; $i++) {
+                        $arraySemaine[$nbSemaine+$i][$type] += $duree * $nbGroupeAssigneALenseignant;
+                        echo "Semaine $i : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
+                    }
+
+                } else {
+                    // Récuperer le décallage de début de période
+                    $decalage = DB::table('_planification')->select('semaine')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->first();
+                    $decalage = intval($decalage->semaine);
+
+                    // Attribuer un cours par semaine a partir du décallage
+                    // Attribuer un cours a chaque semaine
+                    for($i=$decalage; $i <=$nbCoursDansGroupeCours+($decalage-1); $i++) {
+                        echo "Semaine $i ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
+                        $arraySemaine[$nbSemaine+$i][$type] += $duree * $nbGroupeAssigneALenseignant;
+                    }
+
+                }
+            }
+        }
+        return $arraySemaine;
+    }
+
+    public static function timestampToWeek($t) {
+        return date("W", $t);
     }
 
     public static function calculerServiceFormationGlobal($idFormation) {
@@ -59,7 +131,10 @@ class CalculerChargeService {
     public static function getArrayWith52Weeks() {
         $weeks = array();
         for($i = 1; $i<=52; $i++) {
-            $weeks[$i] = 0;
+            $weeks[$i] = array(
+                'cm' => 0,
+                'td' => 0,
+                'tp' => 0);
         }
         return $weeks;
     }
