@@ -150,8 +150,10 @@ class CreateStatusEnseignant extends Migration {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('annee');
+            $table->string('dateRentree');
+            $table->string('dateFin');
         });
-        DB::insert("INSERT INTO `_config`(`id`, `annee`) VALUES (1,'2014');");
+        DB::insert("INSERT INTO `_config`(`id`, `annee`) VALUES (1,'2014', '03/09/2014', '12/07/2015');");
 
     }
 
@@ -161,24 +163,22 @@ class CreateStatusEnseignant extends Migration {
 	 * @return void
 	 */
 	public function down()
-	{
-		Schema::dropIfExists('_enseignant_voeux');
-		Schema::dropIfExists('_module_financement');
-		Schema::dropIfExists('_module_enseignant');
-		Schema::dropIfExists('_calendrier');
-		Schema::dropIfExists('_statusenseignant');
-		Schema::dropIfExists('_typestatusenseignant');
-		Schema::dropIfExists('_financement');
-		Schema::dropIfExists('_groupe');
-		Schema::dropIfExists('_groupecours');
-		Schema::dropIfExists('_groupecours_cours');
-		Schema::dropIfExists('_enseignant_voeux');
+    {
+        Schema::dropIfExists('_enseignant_voeux');
+        Schema::dropIfExists('_module_financement');
+        Schema::dropIfExists('_module_enseignant');
+        Schema::dropIfExists('_calendrier');
+        Schema::dropIfExists('_statusenseignant');
+        Schema::dropIfExists('_typestatusenseignant');
+        Schema::dropIfExists('_financement');
+        Schema::dropIfExists('_groupe');
+        Schema::dropIfExists('_groupecours');
+        Schema::dropIfExists('_groupecours_cours');
+        Schema::dropIfExists('_enseignant_voeux');
         Schema::dropIfExists('_cours');
         Schema::dropIfExists('_heuresexternes');
         Schema::dropIfExists('_planification');
         Schema::dropIfExists('_groupecours_module_enseignant');
         Schema::dropIfExists('_config');
-        
-	}
-
+    }
 }
