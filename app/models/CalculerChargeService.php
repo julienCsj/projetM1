@@ -95,7 +95,7 @@ class CalculerChargeService {
                     // Attribuer un cours a chaque semaine
                     for($i=1; $i <=$nbCoursDansGroupeCours; $i++) {
                         $arraySemaine[intval($i+$numeroSemaine-1)][$type] += $duree * $nbGroupeAssigneALenseignant;
-                        echo "Semaine ".intval($i+$numeroSemaine-1)." : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
+                        //echo "Semaine ".intval($i+$numeroSemaine-1)." : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
                     }
 
                 } else {
@@ -105,7 +105,7 @@ class CalculerChargeService {
 
                     // Attribuer un cours par semaine a partir du décallage
                     for($i=$decalage; $i <=$nbCoursDansGroupeCours+($decalage-1); $i++) {
-                        echo "Semaine ".intval($i+$numeroSemaine-1)." ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
+                        //echo "Semaine ".intval($i+$numeroSemaine-1)." ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
                         $arraySemaine[intval($i+$numeroSemaine-1)][$type] += $duree * $nbGroupeAssigneALenseignant;
                     }
 
@@ -128,12 +128,20 @@ class CalculerChargeService {
     }
 
     public static function getArrayWith52Weeks() {
+
+        $annee = new Calendrier();
+        $annee->nom = "Annee scolaire";
+        $annee->dateDebut = Configuration::find(1)->dateRentree;
+        $annee->dateFin = Configuration::find(1)->dateFin;
+
+        $sem = PeriodeToSemaineService::extractWeeksFromPeriod($annee)['sem'];
+        $nbSem = count($sem);
+
         $weeks = array();
-        for($i = 1; $i<=52; $i++) {
-            $weeks[$i] = array(
-                'numSemaine' => $i,
-                'dateDebut' => 0,
-                'dateFin' => 0,
+        for($i=0; $i<$nbSem; $i++){
+            $weeks[intval($sem[$i]['semaine'])] = array(
+                'numSemaine' => $sem[$i]['semaine'],
+                'label' => $sem[$i]['label'],
                 'cm' => 0,
                 'td' => 0,
                 'tp' => 0);
@@ -142,13 +150,13 @@ class CalculerChargeService {
     }
 
     public static function minuteToHourInArray($array) {
-        for($i = 1; $i<=52; $i++) {
-            $minCM = $array[$i]['cm'];
-            $array[$i]['cm'] = array('h' => floor($minCM / 60), 'm' => $minCM%60);
-            $minTD = $array[$i]['td'];
-            $array[$i]['td'] = array('h' => floor($minTD / 60), 'm' => $minTD%60);
-            $minTP = $array[$i]['tp'];
-            $array[$i]['tp'] = array('h' => floor($minTP / 60), 'm' => $minTP%60);
+        foreach($array as $s) {
+            $minCM = $s['cm'];
+            $s['cm'] = array('h' => floor($minCM / 60), 'm' => $minCM%60);
+            $minTD = $s['td'];
+            $s['td'] = array('h' => floor($minTD / 60), 'm' => $minTD%60);
+            $minTP = $s['tp'];
+            $s['tp'] = array('h' => floor($minTP / 60), 'm' => $minTP%60);
         }
         return $array;
     }

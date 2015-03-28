@@ -12,9 +12,13 @@ class ConfigController extends BaseController {
 
     public function postConfig() {
         $annee = Input::get("annee");
+        $rentree = Input("dateRentree");
+        $fin = Input('dateFin');
 
         $conf =  Configuration::where('id', 1)->first();
         $conf->annee = $annee;
+        $conf->dateRentree = $rentree;
+        $conf->dateFin = $fin;
         $conf->save();
 
         return Redirect::route('config');
