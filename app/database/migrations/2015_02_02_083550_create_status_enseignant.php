@@ -146,6 +146,13 @@ class CreateStatusEnseignant extends Migration {
             $table->string('financement_id');
         });
 
+        Schema::create('_config', function($table){
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('annee');
+        });
+        DB::insert("INSERT INTO `_config`(`id`, `annee`) VALUES (1,'2014');");
+
     }
 
 	/**

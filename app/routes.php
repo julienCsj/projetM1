@@ -90,6 +90,7 @@ Route::group(array('before' => 'auth'), function () { // Login required
 
     // Routes pour la Configuration
     Route::get('config', array('as' => 'config', 'uses' => 'ConfigController@getConfig'));
+    Route::post('config', array('as' => 'config.postConfig', 'uses' => 'ConfigController@postConfig'));
 
     // Routes à classer
     Route::get('monservice', array('as' => 'monservice', 'uses' => 'ServiceController@getService'));

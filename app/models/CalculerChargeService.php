@@ -112,7 +112,7 @@ class CalculerChargeService {
                 }
             }
         }
-        return $arraySemaine;
+        return CalculerChargeService::minuteToHourInArray($arraySemaine);
     }
 
     public static function timestampToWeek($t) {
@@ -131,6 +131,9 @@ class CalculerChargeService {
         $weeks = array();
         for($i = 1; $i<=52; $i++) {
             $weeks[$i] = array(
+                'numSemaine' => $i,
+                'dateDebut' => 0,
+                'dateFin' => 0,
                 'cm' => 0,
                 'td' => 0,
                 'tp' => 0);
@@ -139,6 +142,25 @@ class CalculerChargeService {
     }
 
     public static function minuteToHourInArray($array) {
+        for($i = 1; $i<=52; $i++) {
+            $minCM = $array[$i]['cm'];
+            $array[$i]['cm'] = array('h' => floor($minCM / 60), 'm' => $minCM%60);
+            $minTD = $array[$i]['td'];
+            $array[$i]['td'] = array('h' => floor($minTD / 60), 'm' => $minTD%60);
+            $minTP = $array[$i]['tp'];
+            $array[$i]['tp'] = array('h' => floor($minTP / 60), 'm' => $minTP%60);
+        }
+        return $array;
+    }
 
+    public static function convertToHoursMins($time, $format = '%d:%d') {
+        settype($time, 'integer');
+        if ($time < 1) {
+            return;
+        }
+        $ret = array();
+        $ret['h'] = floor($time / 60);
+        $ret['m'] = ($time % 60);
+        return $ret;
     }
 }
