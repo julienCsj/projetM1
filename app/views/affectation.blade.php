@@ -214,23 +214,21 @@ foreach($typeCoursMap as $k => $v) {
             "precendenteValeur" : precendenteValeur
         }
 
-        console.log(data);
-
         for (var i = 0; i < data["nb"]; i++) {
             var listeEnseignant = "";
             for (var j = data["enseignant"].length - 1; j >= 0; j--) {
                 listeEnseignant += "<option value='"+data["enseignant"][j]["enseignant_id"]+"' ";
-                /*if (precendenteValeur[i]["enseignant_id"] == data["enseignant"][j]["enseignant_id"]) {
+                if (precendenteValeur[i] != null && precendenteValeur[i]["enseignant_id"] == data["enseignant"][j]["enseignant_id"]) {
                     listeEnseignant += "selected ";
-                }*/
+                }
                 listeEnseignant += ">"+data["enseignant"][j]["LASTNAME"]+" " +data["enseignant"][j]["FIRSTNAME"]+"</option>";
             };
             var listeFinancement = "";
             for (var j = data["financement"].length - 1; j >= 0; j--) {
                 listeFinancement += "<option value='"+data["financement"][j]["id"]+"' ";
-                /*if (precendenteValeur[i]["financement_id"] == data["financement"][j]["id"]) {
+                if (precendenteValeur[i] != null && precendenteValeur[i]["financement_id"] == data["financement"][j]["id"]) {
                     listeFinancement += "selected ";
-                }*/
+                }
                 listeFinancement += ">"+data["financement"][j]["libelle"]+"</option>";
             };
             el.append('<div class="form-group"><label class="col-md-2 control-label">Groupe #'+(i+1)+'</label> <div class="col-md-5"><select name="enseignant-groupe[]" class="form-control" required="">'+listeEnseignant+'</select></div><div class="col-md-5"><select name="financement-groupe[]" class="form-control" required="">'+listeFinancement+'</select></div></div>');

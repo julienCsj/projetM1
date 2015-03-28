@@ -177,6 +177,7 @@ class CreateStatusEnseignant extends Migration {
         Schema::dropIfExists('_heuresexternes');
         Schema::dropIfExists('_planification');
         Schema::dropIfExists('_groupecours_module_enseignant');
+        Schema::dropIfExists('_config');
         
 	}
 
