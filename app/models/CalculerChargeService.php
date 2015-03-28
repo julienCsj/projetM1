@@ -78,7 +78,7 @@ class CalculerChargeService {
                 $nbCoursDansGroupeCours = DB::table('_groupecours_cours')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->count();
 
                 // Calculer le numéro de la premiere semaine
-                $nbSemaine = CalculerChargeService::timestampToWeek($dateDebutPeriode);
+                $numeroSemaine = CalculerChargeService::timestampToWeek($dateDebutPeriode);
 
                 // RECUPERER LA DUREE ET LE TYPE DES COURS DE CE GC
                 $unCoursDuGroupe = DB::table('_groupecours_cours')->select('coursID')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->first();
@@ -94,8 +94,8 @@ class CalculerChargeService {
                 if ($nbCoursDansGroupeCours == $nbSemainePeriode) {
                     // Attribuer un cours a chaque semaine
                     for($i=1; $i <=$nbCoursDansGroupeCours; $i++) {
-                        $arraySemaine[$nbSemaine+$i][$type] += $duree * $nbGroupeAssigneALenseignant;
-                        echo "Semaine $i : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
+                        $arraySemaine[intval($i+$numeroSemaine-1)][$type] += $duree * $nbGroupeAssigneALenseignant;
+                        echo "Semaine ".intval($i+$numeroSemaine-1)." : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
                     }
 
                 } else {
@@ -104,10 +104,9 @@ class CalculerChargeService {
                     $decalage = intval($decalage->semaine);
 
                     // Attribuer un cours par semaine a partir du décallage
-                    // Attribuer un cours a chaque semaine
                     for($i=$decalage; $i <=$nbCoursDansGroupeCours+($decalage-1); $i++) {
-                        echo "Semaine $i ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
-                        $arraySemaine[$nbSemaine+$i][$type] += $duree * $nbGroupeAssigneALenseignant;
+                        echo "Semaine ".intval($i+$numeroSemaine-1)." ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
+                        $arraySemaine[intval($i+$numeroSemaine-1)][$type] += $duree * $nbGroupeAssigneALenseignant;
                     }
 
                 }
@@ -117,7 +116,7 @@ class CalculerChargeService {
     }
 
     public static function timestampToWeek($t) {
-        return date("W", $t);
+        return date("W", $t+7200);
     }
 
     public static function calculerServiceFormationGlobal($idFormation) {
@@ -137,5 +136,9 @@ class CalculerChargeService {
                 'tp' => 0);
         }
         return $weeks;
+    }
+
+    public static function minuteToHourInArray($array) {
+
     }
 }
