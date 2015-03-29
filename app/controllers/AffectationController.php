@@ -42,8 +42,8 @@ class AffectationController extends BaseController {
              * il faut un peu tweeker pour retouver certaines infos.
              * Ici, plutot que d'essayer de récuperer l'id d'une formation et l'id d'une UE d'un
              * module, je vais directement chercher les informations dans la table cours.
-             * Il s'agit donc de faire 3 sous requete pour recuperer les 3 id puis de récupérer
-             * l'ensemble des couple (type, durée) qui sont en commun avec un autre module pour un module donnée.
+             * Il s'agit donc de faire 3 sous requetes pour recuperer les 3 id puis de récupérer
+             * l'ensemble des couples (type, durée) qui sont en commun avec un autre module pour un module donné.
              *
              * Tout ceci dans le but de proposer un lien qui menera a l'affectation du groupe source.
              */
