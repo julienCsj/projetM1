@@ -17,7 +17,9 @@
                     <ul id="liste" class="list-unstyled">
                         @foreach ($groupesCoursLibres as $groupeCours)
                         <li>
-                            <div data-id="{{$groupeCours->id}}" data-size="{{$groupeCours->nbcours}}" class="draggable bg-color-green txt-color-white">{{$groupeCours->libelle}} ({{$groupeCours->nbcours}})</div>
+                            <div data-id="{{$groupeCours->id}}" data-size="{{$groupeCours->nbcours}}" class="draggable bg-color-green txt-color-white">
+                                {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séances)
+                            </div>
                         </li>
                         @endforeach
                     </ul>
@@ -37,7 +39,12 @@
                     <ul id="liste" class="list-unstyled">
                         @foreach ($periode["groupesCours"] as $groupeCours)
                         <li>
-                            <div data-id="{{$groupeCours->id}}" data-size="{{$groupeCours->nbcours}}" class="draggable bg-color-green txt-color-white">{{$groupeCours->libelle}} ({{$groupeCours->nbcours}})</div>
+                            <div data-id="{{$groupeCours->id}}" data-size="{{$groupeCours->nbcours}}" class="draggable bg-color-green txt-color-white" style="width: 50%;">
+                                {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séances)
+                                @if ($groupeCours->semaine != 0)
+                                    &nbsp;Semaine {{$groupeCours->semaine}}
+                                @endif
+                            </div>
                         </li>
                         @endforeach
                     </ul>
@@ -68,7 +75,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <button id="annuler" type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                 <input id="validerdecalage" type="submit" class="btn btn-primary" value="Valider" />
             </div>
         </div>
@@ -145,11 +152,14 @@
                 color: "#3276B1",
                 icon: "fa fa-bell swing animated",
                 timeout: 2000
-            });
-            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';
-            
+            });           
             var elem = groupecours.parent();
             var liste = calendrier.find('#liste');
+            if(liste.parent().attr('data-size') == 1000) {
+                var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';   
+            } else {
+                var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+groupecours.text()+'</div></li>';
+            }
             liste.append(html_element);
             elem.remove();
 
@@ -168,8 +178,6 @@
 	}
 
     function planificationImpossible(groupecours, calendrier) {
-        $('#modaldecalage').modal('toggle');
-
         $.bigBox({
             title: "Erreur",
             content: "Il y a trop de cours pour affecter ce groupe à cette période.",
@@ -178,10 +186,13 @@
             timeout: 3000
         });
 
-        var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';
-
         var elem = groupecours.parent();
         var liste = elem.parent();
+        if(liste.parent().attr('data-size') == 1000) {
+            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';   
+        } else {
+            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+groupecours.text()+'</div></li>';
+        }
         liste.append(html_element);
         elem.remove();
 
@@ -223,11 +234,13 @@
                 icon: "fa fa-bell swing animated",
                 timeout: 2000
             });
-            // Placement graphique du groupe de cours
-            var html_element='<li><div data-id="'+dernierGroupeCours.attr('data-id')+'" data-size="'+dernierGroupeCours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+dernierGroupeCours.text()+'</div></li>';   
-
             var elem = dernierGroupeCours.parent();
             var liste = dernierCalendrier.find('#liste');
+            if(liste.parent().attr('data-size') == 1000) {
+                var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';   
+            } else {
+                var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+groupecours.text()+'</div></li>';
+            }
             liste.append(html_element);
             elem.remove();
 
@@ -244,5 +257,20 @@
                 timeout: 3000
             });
         });
+    });
+
+    $('#annuler').click(function(){
+        var elem = dernierGroupeCours.parent();
+        var liste = elem.parent();
+        if(liste.parent().attr('data-size') == 1000) {
+            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';   
+        } else {
+            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+groupecours.text()+'</div></li>';
+        }
+        liste.append(html_element);
+        elem.remove();
+
+        $('#modaldecalage').modal('toggle');
+        $(init);
     });
 </script>

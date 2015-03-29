@@ -44,7 +44,7 @@ class GroupeCours extends Eloquent {
 
     public static function getGroupesCoursByPeriode($idCalendrier) {
         return DB::select(DB::raw(''
-            . 'select gc.id, gc.libelle, (select count(*) from _groupecours_cours gcc where gcc.groupecoursID = gc.id) as nbcours '
+            . 'select gc.id, gc.libelle, _planification.semaine, (select count(*) from _groupecours_cours gcc where gcc.groupecoursID = gc.id) as nbcours '
             . 'from _groupecours gc, _calendrier, _planification '
             . 'where _calendrier.id = _planification.calendrierID '
             . 'and _planification.groupecoursID = gc.id '
