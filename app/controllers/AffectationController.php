@@ -32,7 +32,39 @@ class AffectationController extends BaseController {
             $periodes = Calendrier::getPeriodesEnseignement($idFormation);
             $cours = Cours::where('moduleID', '=', $idModule)->orderBy('type')->get();
             $typeCours = Cours::select(DB::raw('count(*) as nb, type, duree'))->where('moduleID', '=', $idModule)->where("dansGroupe", '=', 0)->groupBy('type', 'duree')->get();
-            $typeCoursDansGroupe = Cours::select(DB::raw('count(*) as nb, type, duree'))->where('moduleID', '=', $idModule)->where('dansGroupe', '=', 1)->groupBy('type', 'duree')->get();
+            $typeCoursDansGroupe = Cours::select(DB::raw('count(*) as nb, type, duree'))->where('moduleID', '=', $idModule)->where('dansGroupe', '=', 1)->where('dansGroupeCommun','!=', 1)->groupBy('type', 'duree')->get();
+            //$typeCoursDansGroupeCommun = Cours::select(DB::raw('count(*) as nb, type, duree, formationID, moduleID, ueID'))->where('moduleID', '=', $idModule)->where('dansGroupe', '=', 1)->where('dansGroupeCommun','=', 1)->groupBy('type', 'duree')->get();
+
+
+            $typeCoursDansGroupeCommun = DB::select(DB::raw("
+            select count(*) as nb, type, duree,
+            (select c2.formationID
+            from _cours c1, _cours c2, _groupecours_cours_encommun
+            where c1.id = _groupecours_cours_encommun.coursID
+            and c1.moduleID = '".$idModule."'
+            and _groupecours_cours_encommun.moduleDst = c1.moduleID
+            and _groupecours_cours_encommun.moduleSce = c2.moduleID
+            limit 0,1) as formationID,
+            (select c2.ueID
+            from _cours c1, _cours c2, _groupecours_cours_encommun
+            where c1.id = _groupecours_cours_encommun.coursID
+            and c1.moduleID = '".$idModule."'
+            and _groupecours_cours_encommun.moduleDst = c1.moduleID
+            and _groupecours_cours_encommun.moduleSce = c2.moduleID
+            limit 0,1) as ueID,
+            (select c2.moduleID
+            from _cours c1, _cours c2, _groupecours_cours_encommun
+            where c1.id = _groupecours_cours_encommun.coursID
+            and c1.moduleID = '".$idModule."'
+            and _groupecours_cours_encommun.moduleDst = c1.moduleID
+            and _groupecours_cours_encommun.moduleSce = c2.moduleID
+            limit 0,1) as moduleID
+            from _cours
+            where moduleID = '".$idModule."'
+            and dansGroupe = 1
+            and dansGroupeCommun = 1
+            group by type, duree "));
+
             $enseignants = ModuleEnseignant::getEnseignants($idModule);
             $financements = Financement::all();
             
@@ -51,6 +83,7 @@ class AffectationController extends BaseController {
             $data['lesCours'] = $cours;
             $data['typeCours'] = $typeCours;
             $data['typeCoursDansGroupe'] = $typeCoursDansGroupe;
+            $data['typeCoursDansGroupeCommun'] = $typeCoursDansGroupeCommun;
             $data['typeCoursMap'] = $typeCoursMap;
             $data['groupesCours'] = $groupesCours;
             $data['calendrier'] = Calendrier::where('idFormation', '=', $idFormation)->get();
@@ -71,6 +104,7 @@ class AffectationController extends BaseController {
         $type_duree = Input::get('type');
         $nb = Input::get('nb');
         $libelle = Input::get('libelle');
+        $enCommun = Input::get("enCommun");
 
         // Creation du groupe de cours
         $groupeCours = new GroupeCours();
@@ -83,17 +117,40 @@ class AffectationController extends BaseController {
         $type = substr($type_duree,0, 2);
         $duree = substr($type_duree, 3);
 
+        if($enCommun == "on") {
+            $lesModules = Input::get('lesModulesEnCommun');
+            // pour chaque module selectionné, mettre les flags dansGroupe et enCommun a 1
+            foreach($lesModules as $module) {
+                $lesCours = Cours::where('type', '=', $type)->where('duree', '=', $duree)->where('dansGroupe', "=", 0)->where("dansGroupeCommun", '=', 0)->where('moduleID', '=', "$module")->take($nb)->get();
+                foreach($lesCours as $cours) {
+                    $cours->dansGroupe = 1;
+                    $cours->dansGroupeCommun = 1;
+                    $cours->save();
 
-        $lesCours = Cours::where('type', '=', $type)->where('duree', '=', $duree)->where('dansGroupe', "=", 0)->take($nb)->get();
+                    DB::table('_groupecours_cours_encommun')->insert(
+                        array('coursID' => $cours->id,
+                            'groupecoursID' => $groupeCours->id,
+                            'moduleSce' => $idModule,
+                            'moduleDst' => $module)
+                    );
+                }
+            }
+            // Remplir la table des cours en commun
+
+        }
+
+        $lesCours = Cours::where('type', '=', $type)->where('duree', '=', $duree)->where('dansGroupe', "=", 0)->where('moduleID', '=', "$idModule")->take($nb)->get();
         foreach($lesCours as $cours) {
             $cours->dansGroupe = 1;
+            $cours->dansGroupeCommun = 0;
             $cours->save();
 
             DB::table('_groupecours_cours')->insert(
                 array('coursID' => $cours->id,
-                      'groupecoursID' => $groupeCours->id)
+                    'groupecoursID' => $groupeCours->id)
             );
         }
+
         return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
     }
 
@@ -112,6 +169,10 @@ class AffectationController extends BaseController {
         $groupeCours = GroupeCours::find($idGroupeCours);
         $idFormation = $groupeCours->formationID;
         $groupeCours->delete();
+
+        // Supprimer le groupe de cours de la planification
+        DB::table('_planification')->where('groupecoursID', '=', $idGroupeCours)->delete();
+
 
         return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
     }
@@ -138,5 +199,43 @@ class AffectationController extends BaseController {
         }
 
         return Redirect::route('affectation.affectationFormation', array('idFormation' => $idFormation, 'idUe' => $idUe, 'idModule' => $idModule));
+    }
+
+    public function postAjaxCoursCommun() {
+        $type_duree= Input::get("type");
+        $nb = Input::get("nb");
+        $idModuleAppelant = Input::get('idModule');
+
+        $type = substr($type_duree,0, 2);
+        $duree = substr($type_duree, 3);
+
+        // Rechercher toutes les formations qui posséde des cours qui correspondent
+
+        $idModulePossible = DB::table('_cours')
+            ->select(DB::raw('count(id) as nbCours, moduleID'))
+            ->where('moduleID', '!=', $idModuleAppelant)
+            ->where('duree', '=', "$duree")
+            ->where('type', '=', "$type")
+            ->groupBy("moduleID")
+            ->having('nbCours', '>=', $nb)
+            ->get();
+
+        /*
+         *  select count(id) as nbCours, moduleID
+            from `_cours`
+            where `moduleID` != "mod00001"
+            and `duree` = 60
+            and `type` = "cm"
+            group by moduleID
+            having `nbCours` >= 2
+         */
+        /*var_dump($idModulePossible);
+        exit();*/
+        $lesModules = array();
+        foreach($idModulePossible as $idMod) {
+            $lesModules[] = Module::getModuleWithData($idMod->moduleID);
+        }
+
+        return $lesModules;
     }
 }

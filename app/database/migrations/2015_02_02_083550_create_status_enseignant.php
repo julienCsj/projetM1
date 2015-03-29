@@ -124,6 +124,7 @@ class CreateStatusEnseignant extends Migration {
             $table->string('type');
             $table->integer('duree');
             $table->integer('dansGroupe');
+            $table->integer('dansGroupeCommun');
             $table->integer('planifier');
         });
 
@@ -153,7 +154,16 @@ class CreateStatusEnseignant extends Migration {
             $table->string('dateRentree');
             $table->string('dateFin');
         });
-        DB::insert("INSERT INTO `_config`(`id`, `annee`) VALUES (1,'2014', '03/09/2014', '12/07/2015');");
+        DB::insert("INSERT INTO `_config`(`id`, `annee`, `dateRentree`, `dateFin`) VALUES (1,'2014', '03/09/2014', '12/07/2015');");
+
+        Schema::create('_groupecours_cours_encommun', function($table){
+            $table->engine = 'InnoDB';
+            $table->string('coursID');
+            $table->string('groupecoursID');
+            $table->string('moduleDst');
+            $table->string('moduleSce');
+        });
+
 
     }
 

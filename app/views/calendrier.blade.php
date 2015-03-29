@@ -203,25 +203,26 @@
                                 data: from_data,
                                 type: "POST"
                             })
-                                    .done(function (html) {
-                                        $.bigBox({
-                                            title: "Modification réalisé",
-                                            content: "La période a bien été supprimée.",
-                                            color: "#3276B1",
-                                            icon: "fa fa-bell swing animated",
-                                            timeout: 2000
-                                        });
+                            .done(function (html) {
+                                console.log(html);
+                                $.bigBox({
+                                    title: "Modification réalisé",
+                                    content: "La période a bien été supprimée.",
+                                    color: "#3276B1",
+                                    icon: "fa fa-bell swing animated",
+                                    timeout: 2000
+                                });
 
-                                    })
-                                    .fail(function (html) {
-                                        $.bigBox({
-                                            title: "Erreur",
-                                            content: "Un problème est survenu !",
-                                            color: "#C46A69",
-                                            icon: "fa fa-warning swing animated",
-                                            timeout: 3000
-                                        });
-                                    });
+                            })
+                            .fail(function (html) {
+                                $.bigBox({
+                                    title: "Erreur",
+                                    content: "Un problème est survenu !",
+                                    color: "#C46A69",
+                                    icon: "fa fa-warning swing animated",
+                                    timeout: 3000
+                                });
+                            });
                             $('#calendar').fullCalendar('removeEvents', calEvent._id);
                         }
                     }, {

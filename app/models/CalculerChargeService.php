@@ -120,6 +120,10 @@ class CalculerChargeService {
     }
 
     public static function calculerServiceFormationGlobal($idFormation) {
+        // Recuperer tous les groupes de cours d'une formation
+
+        // Pour chaque groupe de cours ajouter un couple type duree
+
         return array();
     }
 

@@ -65,6 +65,16 @@
                                         <li>{{$typeCoursGroupe->nb}} {{strtoupper($typeCoursGroupe->type)}} de ({{$typeCoursGroupe->duree}} min)</li>
                                     @endforeach
                                 </ul>
+                                <ul>
+                                    <h6>Cours en commun avec un autre module :</h6>
+                                    @foreach($typeCoursDansGroupeCommun as $typeCoursGroupeCommun)
+                                        <li>{{$typeCoursGroupeCommun->nb}} {{strtoupper($typeCoursGroupeCommun->type)}} de ({{$typeCoursGroupeCommun->duree}} min)
+                                            <a href="{{ route('affectation.affectationFormation', array($typeCoursGroupeCommun->formationID, $typeCoursGroupeCommun->ueID, $typeCoursGroupeCommun->moduleID))}}">Gérer la matière source</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+                                <h6>Liste des groupes de cours :</h6>
                                 @foreach ($groupesCours as $groupeCours)
                                     <?php
                                     switch ($groupeCours->type) {
@@ -86,7 +96,7 @@
                                     ?>
                                     <div class="row col-sm-12">
                                         <div class="well">
-                                            [{{strtoupper($groupeCours->type)}}] {{$nbGroupe}} Groupe de cours de {{$groupeCours->duree}} min - {{$groupeCours->libelle}}
+                                            [{{strtoupper($groupeCours->type)}}] Groupe de cours de {{$groupeCours->duree}} min ({{$nbGroupe}} groupe de {{strtoupper($groupeCours->type)}})- {{$groupeCours->libelle}}
                                             <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($idFormation, $ue->id, $module->ID, $groupeCours->id)); }}">Supprimer</a>
                                             <button onclick='affecterAUnEnseignant({{$groupeCours->id}},{{$nbGroupe}}, "{{$groupeCours->type}}", {{json_encode($precendenteValeur)}})' data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Modifier Affectation</button>
                                         </div>
@@ -132,6 +142,9 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <div class="form-group">
+                            <div id="alerts">
+
+                            </div>
                             <div class="form-group">
                                 <label class="input">Libellé</label>
                                 <input type="text" name="libelle" class="form-control" required/>
@@ -149,6 +162,18 @@
                         <div class="form-group">
                             <label class="input">Nombre de séances</label>
                             <select name="nb" id="selectNb" class="form-control" required/>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="divEnCommun">
+                            <label class="input">Il s'agit d'un groupe de cours en commun</label>
+                            <input name="enCommun" id="enCommun" class="form-control" type="checkbox" />
+                        </div>
+
+                        <div class="form-group" id="choixModuleCommun">
+                            <label>Avec quel(s) module(s) ces cours sont-ils en commun ?</label>
+                            <select multiple style="width:100%" id="modulePossible" name="lesModulesEnCommun[]" class="select2">
 
                             </select>
                         </div>
@@ -202,6 +227,9 @@ foreach($typeCoursMap as $k => $v) {
 <script type="text/javascript">
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
     @if($idFormation != -1)
+
+    $('#choixModuleCommun').hide();
+
     function affecterAUnEnseignant(groupeCoursId, nbGroupe, type, precendenteValeur) {
         var el = $("#affectation-formulaire");
         $("#affectation-formulaire .form-group").remove();
@@ -238,7 +266,7 @@ foreach($typeCoursMap as $k => $v) {
     @endif
 
     $(document).ready(function() {
-        pageSetUp();
+       // pageSetUp();
 
         $("#menu").menu();
         $('#tabs').tabs();
@@ -257,6 +285,58 @@ foreach($typeCoursMap as $k => $v) {
             $('#selectNb').find('option').remove()
             for(i=1; i<=nbSeance; i++) {
                 $('#selectNb').append(new Option(i, i));
+            }
+        });
+
+
+        $('#enCommun').change(function() {
+            if($(this).is(":checked")) {
+                type = $('#selectType').find(":selected").val();
+                nbSeance =  $('#selectNb').find(":selected").val();
+                nbSeance = parseInt(nbSeance);
+
+                if(type == -1 || isNaN(nbSeance)) {
+                    $('#alerts').html("<div class=\"alert alert-warning fade in\">" +
+                    "<button class=\"close\" data-dismiss=\"alert\">×</button>" +
+                    "<strong>Attention</strong> Veuillez choisir un type et un nombre de séances pour continuer." +
+                    "</div>");
+                } else {
+                    $('#alerts').html();
+                    // Envoyer l'AJAX
+
+                    var from_data = {
+                        "type" : type,
+                        "nb": nbSeance,
+                        "idModule": "{{$module->ID}}",
+                    };
+
+                    $.ajax({
+                        url: "/affectation/{{$formation->id}}/{{$ue->id}}/{{$module->ID}}/enCommun",
+                        data: from_data,
+                        type: "POST"
+                    })
+                    .done(function (html) {
+                        console.log(html);
+                        $('#choixModuleCommun').show();
+                        $('#modulePossible').find('option').remove()
+                        $.each(html, function(index, value) {
+                            $('#modulePossible').append(new Option(value.LONG_TITLE, value.ID));
+                        });
+
+                    })
+                    .fail(function (html) {
+                        $.bigBox({
+                            title: "Erreur",
+                            content: "Erreur de communication avec le serveur",
+                            color: "#C46A69",
+                            icon: "fa fa-warning swing animated",
+                            timeout: 3000
+                        });
+                    });
+                }
+                console.log("La box est check");
+                console.log("Type : : "+type);
+                console.log("Nombre : "+nbSeance);
             }
         });
 

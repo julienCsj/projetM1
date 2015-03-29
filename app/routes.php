@@ -65,6 +65,7 @@ Route::group(array('before' => 'auth'), function () { // Login required
     // Routes module affectation
     Route::get('affectation', array('as' => 'affectation', 'uses' => 'AffectationController@getAffectationFormation'));
     Route::get('affectation/{idFormation}/{idUe}/{idModule}', array('as' => 'affectation.affectationFormation', 'uses' => 'AffectationController@getAffectationFormation'));
+    Route::post('affectation/{idFormation}/{idUe}/{idModule}/enCommun', array('as' => 'affectation.ajaxEnCommun', 'uses' => 'AffectationController@postAjaxCoursCommun'));
     Route::post('affectation/ajouter', array('as' => 'affectation.ajouterGroupeCours', 'uses' => 'AffectationController@ajouterGroupeCours'));
     Route::get('affectation/supprimer/{idFormation}/{idUe}/{idModule}/{idGroupeCours}', array('as' => 'affectation.supprimerGroupeCours', 'uses' => 'AffectationController@supprimerGroupeCours'));
     Route::post('affectation/lien/{idFormation}/{idUe}/{idModule}', array('as' => 'affectation.ajouterLienGroupeCoursModuleEnseignant', 'uses' => 'AffectationController@ajouterLienGroupeCoursModuleEnseignant'));
