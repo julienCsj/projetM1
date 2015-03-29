@@ -2,16 +2,16 @@
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        	<h1>Service</h1>
-        	<br/>
+        <h1>Service</h1>
+        <br/>
     </div>
     <div class="row">
-    	<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" role="widget">
-				<header>
-					<h2> Paliers </h2>
-				</header>
-				<div class="well well-sm" id="event-container">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" role="widget">
+                <header>
+                    <h2> Paliers </h2>
+                </header>
+                <div class="well well-sm" id="event-container">
 
 			    		<span class="text">
 			    			Service minimal
@@ -19,63 +19,65 @@
 			    				130/200 heures
 			    			</span>
 			    		</span>
-						<div class="progress">
-							<div class="progress-bar bg-color-greenLight" style="width: 65%;"></div>
-						</div>
+                    <div class="progress">
+                        <div class="progress-bar bg-color-greenLight" style="width: 65%;"></div>
+                    </div>
 			    		<span class="text">
 			    			Service maximal
 			    			<span class="pull-right">
 			    				130/400 heures
 			    			</span>
 			    		</span>
-						<div class="progress">
-							<div class="progress-bar bg-color-blue" style="width: 32%;"></div>
-						</div>
+                    <div class="progress">
+                        <div class="progress-bar bg-color-blue" style="width: 32%;"></div>
+                    </div>
 
-				</div>
-			</div>
-		</article>
-	</div>
+                </div>
+            </div>
+        </article>
+    </div>
 
-	<div class="row">
-		<div class="col-sm-12 col-md-12 col-lg-12">
-			<!-- new widget -->
-			<div class="jarviswidget jarviswidget-color-blueDark"
-	            data-widget-colorbutton="false"
-				data-widget-editbutton="false"
-				data-widget-togglebutton="false"
-				data-widget-deletebutton="false"
-				data-widget-fullscreenbutton="false"
-				data-widget-custombutton="false"
-				data-widget-collapsed="false"
-				data-widget-sortable="false">
-				<header>
-					<span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
-					<h2> My Events </h2>
-				</header>
+    <div class="row">
+        <?php $i = 0; ?>
 
-				<!-- widget div-->
-				<div>
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-editbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false"
+                     data-widget-collapsed="false"
+                     data-widget-sortable="false"
+                        >
+                    <header>
+                        <h2>Répartition de la charge par semaine</h2>
+                    </header>
 
-					<div class="widget-body no-padding">
-						<!-- content goes here -->
-			<br><br>
-
-						<div id='calendar' class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
-
-						<!-- end content -->
-					</div>
-
-				</div>
-				<!-- end widget div -->
-			</div>
-			<!-- end widget -->
-
-		</div>
-	</div>
-
-
-    
+                    <!-- widget div-->
+                    <div>
+                        <div class="widget-body">
+                            <ul>
+                            @foreach($service as $s)
+                                <label>Semaine #{{$s['numSemaine']}} - {{$s['label']}}</label>
+                                <ul>
+                                    <li>CM : {{$s['cm']}}</li>
+                                    <li>TD : {{$s['td']}}</li>
+                                    <li>TP : {{$s['tp']}}</li>
+                                    <li>Total : {{intval($s['cm'] + $s['td'] + $s['tp'])}}</li>
+                                </ul>
+                            @endforeach
+                            </ul>
+                        </div>
+                        <!-- end widget div -->
+                    </div>
+                    <!-- end widget -->
+            </article>
+                    <!-- WIDGET END -->
+    </div>
 </section>
 
 @include('layout.footer')
@@ -97,39 +99,39 @@
         pageSetUp();
 
         /* initialize the calendar
-		-----------------------------------------------------------------*/
-		
-		$('#calendar').fullCalendar({
-			header: {
-				//left: 'prev,next today',
+         -----------------------------------------------------------------*/
+
+        $('#calendar').fullCalendar({
+            header: {
+                //left: 'prev,next today',
                 left : '',
-				center: 'title',
-				//right: 'year,month,agendaWeek,agendaDay'
+                center: 'title',
+                //right: 'year,month,agendaWeek,agendaDay'
                 right : ''
-			},
+            },
             weekends : false,
-			defaultView: 'year',
+            defaultView: 'year',
             firstDay: 1,
             firstMonth: 8,
-			editable: true,
-			droppable: true, // this allows things to be dropped onto the calendar !!!
-			drop: function(date, allDay) { // this function is called when something is dropped
-			
-				// retrieve the dropped element's stored Event Object
-				var originalEventObject = $(this).data('eventObject');
-				
-				// we need to copy it, so that multiple events don't have a reference to the same object
-				var copiedEventObject = $.extend({}, originalEventObject);
-				
-				// assign it the date that was reported
-				copiedEventObject.start = date;
-				copiedEventObject.allDay = allDay;
-				
-				// render the event on the calendar
-				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-				
-			}
-		});
+            editable: true,
+            droppable: true, // this allows things to be dropped onto the calendar !!!
+            drop: function(date, allDay) { // this function is called when something is dropped
+
+                // retrieve the dropped element's stored Event Object
+                var originalEventObject = $(this).data('eventObject');
+
+                // we need to copy it, so that multiple events don't have a reference to the same object
+                var copiedEventObject = $.extend({}, originalEventObject);
+
+                // assign it the date that was reported
+                copiedEventObject.start = date;
+                copiedEventObject.allDay = allDay;
+
+                // render the event on the calendar
+                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+            }
+        });
     });
 </script>

@@ -29,6 +29,7 @@ class DashboardController extends BaseController {
             'notifications' => array(),
             'breadcrumb' => array('Scolarel', 'Accueil')
         );
+
         return View::make('dashboard')->with($data);
     }
 }

@@ -154,7 +154,7 @@ class CreateStatusEnseignant extends Migration {
             $table->string('dateRentree');
             $table->string('dateFin');
         });
-        DB::insert("INSERT INTO `_config`(`id`, `annee`, `dateRentree`, `dateFin`) VALUES (1,'2014', '03/09/2014', '12/07/2015');");
+        DB::insert("INSERT INTO `_config`(`id`, `annee`, `dateRentree`, `dateFin`) VALUES (1,'2014', '09/03/2014', '07/12/2015');");
 
         Schema::create('_groupecours_cours_encommun', function($table){
             $table->engine = 'InnoDB';
