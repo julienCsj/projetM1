@@ -36,6 +36,17 @@ class AffectationController extends BaseController {
             //$typeCoursDansGroupeCommun = Cours::select(DB::raw('count(*) as nb, type, duree, formationID, moduleID, ueID'))->where('moduleID', '=', $idModule)->where('dansGroupe', '=', 1)->where('dansGroupeCommun','=', 1)->groupBy('type', 'duree')->get();
 
 
+            /*
+             * La requete est longue mais elle est enf ait assez simple.
+             * Comme les relations ne sont pas normalisées dans la BD existante,
+             * il faut un peu tweeker pour retouver certaines infos.
+             * Ici, plutot que d'essayer de récuperer l'id d'une formation et l'id d'une UE d'un
+             * module, je vais directement chercher les informations dans la table cours.
+             * Il s'agit donc de faire 3 sous requete pour recuperer les 3 id puis de récupérer
+             * l'ensemble des couple (type, durée) qui sont en commun avec un autre module pour un module donnée.
+             *
+             * Tout ceci dans le but de proposer un lien qui menera a l'affectation du groupe source.
+             */
             $typeCoursDansGroupeCommun = DB::select(DB::raw("
             select count(*) as nb, type, duree,
             (select c2.formationID
@@ -162,13 +173,27 @@ class AffectationController extends BaseController {
         foreach($cours as $c) {
             $unCours = Cours::find($c->coursID);
             $unCours->dansGroupe = 0;
+            $unCours->dansGroupeCommun = 0;
             $unCours->save();
             DB::table('_groupecours_cours')->where('groupecoursID', '=', $idGroupeCours)->where('coursID', '=', $unCours->id)->delete();
         }
+
+        // Cas des cours en commun
+        $coursEnCommun = DB::table('_groupecours_cours_encommun')->where('groupecoursID', '=', $idGroupeCours)->get();
+        foreach($coursEnCommun as $coursC) {
+            $unCours = Cours::find($coursC->coursID);
+            $unCours->dansGroupe = 0;
+            $unCours->dansGroupeCommun = 0;
+            $unCours->save();
+            DB::table('_groupecours_cours_encommun')->where('groupecoursID', '=', $idGroupeCours)->where('coursID', '=', $unCours->id)->delete();
+        }
+
         // Supprimer le groupe de cours
         $groupeCours = GroupeCours::find($idGroupeCours);
         $idFormation = $groupeCours->formationID;
         $groupeCours->delete();
+
+
 
         // Supprimer le groupe de cours de la planification
         DB::table('_planification')->where('groupecoursID', '=', $idGroupeCours)->delete();
