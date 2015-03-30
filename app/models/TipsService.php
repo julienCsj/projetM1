@@ -17,6 +17,7 @@ class TipsService {
             "calendrier" => "Pour supprimer une période, il faut cliquer dessus, puis valider la suppression.",
             "affecter" => "",
             "planification" => "Sur cette page, vous pouvez affecter des cours à des périodes en glissant-déposant les groupes de cours.",
+            "planification_choix" => "Choisissez une formation pour commencer à planifier les cours.",
             "generationFiche" => "",
             "voeux" => "En tant qu'ensiengnant, cette page vous permet de faire des voeux sur votre présence ou non a l'IUT. Ces voeux seront ensuite consultable par le responsable de la planification.",
             "monService" => "En tant qu'enseignant, cette page vous permet de visualiser votre charge de travail par semaine.",

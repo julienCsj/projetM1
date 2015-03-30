@@ -4,6 +4,11 @@
     <div class="row">
         <!-- NEW WIDGET START -->
         <h1>Calendrier <small>Cette page permet de gérer la formation {{$formation->long_title}}</small></h1>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="alert alert-info fade in">
+                <strong>A propos de cette page.</strong> {{TipsService::getTip("calendrier")}}
+            </div>
+        </div>
         <!-- WIDGET END -->
 
         <!-- NEW WIDGET START -->
