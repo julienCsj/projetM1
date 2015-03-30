@@ -28,7 +28,7 @@ $arrayMonthTotext = array(
                     <h2> Paliers </h2>
                 </header>
                 <?php
-                    $hGlobal = $service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"];
+                    $hGlobal = ($service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"]) / 60;
                     $nbHeures = 200;
                     $pourcentServiceMinimal = $hGlobal / $nbHeures;
                     if ($pourcentServiceMinimal > 1) {
@@ -54,7 +54,7 @@ $arrayMonthTotext = array(
 			    			</span>
 			    		</span>
                     <div class="progress">
-                        <div class="progress-bar bg-color-blue" style="width: {{$pourcentServiceMaxi*100}}%;"></div>
+                        <div class="progress-bar bg-color-greenLight" style="width: {{$pourcentServiceMaxi*100}}%;"></div>
                     </div>
 
                 </div>
@@ -124,11 +124,17 @@ $arrayMonthTotext = array(
                                                 <td>Semaine #{{$s['numSemaine']}} - {{$s['label']}}</td>
                                                 <td>
                                                     @if(intval($s['cm'] + $s['td'] + $s['tp']) != 0)
-                                                    CM : {{$s['cm']}}m<br>
-                                                    TD : {{$s['td']}}m<br>
-                                                    TP : {{$s['tp']}}m<br>
-                                                    Total service : {{intval($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp'])}}m<br/>
-                                                    Total heures placées : {{intval($s['cm'] + $s['td'] + $s['tp'])}}m<br>
+                                                    @if ($s['cm'] != 0)
+                                                    CM : {{$s['cm'] / 60}}h<br>
+                                                    @endif
+                                                    @if ($s['td'] != 0)
+                                                    TD : {{$s['td'] / 60}}h<br>
+                                                    @endif
+                                                    @if ($s['tp'] != 0)
+                                                    TP : {{$s['tp'] / 60}}h<br>
+                                                    @endif
+                                                    Total service : {{intval(($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp']) / 60)}}h<br/>
+                                                    Total heures placées : {{intval(($s['cm'] + $s['td'] + $s['tp'])/60)}}h<br>
                                                     @else
                                                     Pas de cours assigné
                                                     @endif
