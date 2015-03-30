@@ -102,7 +102,7 @@ $arrayMonthTotext = array(
                                             $precedentMonth = -1;
                                         ?>
                                         @foreach($service as $s)
-                                            <tr class="@if(intval($s['cm'] + $s['td'] + $s['tp']) == 0)
+                                            <tr class="@if($s['cm'] + $s['td'] + $s['tp'] == 0)
                                                     info
                                                     @else
                                                     success
@@ -125,7 +125,7 @@ $arrayMonthTotext = array(
                                                 </td>
                                                 <td>Semaine #{{$s['numSemaine']}} - {{$s['label']}}</td>
                                                 <td>
-                                                    @if(intval($s['cm'] + $s['td'] + $s['tp']) != 0)
+                                                    @if($s['cm'] + $s['td'] + $s['tp'] != 0)
                                                     @if ($s['cm'] != 0)
                                                     CM : {{$s['cm'] / 60}}h<br>
                                                     @endif
@@ -135,8 +135,8 @@ $arrayMonthTotext = array(
                                                     @if ($s['tp'] != 0)
                                                     TP : {{$s['tp'] / 60}}h<br>
                                                     @endif
-                                                    Total service : {{intval(($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp']) / 60)}}h<br/>
-                                                    Total heures placées : {{intval(($s['cm'] + $s['td'] + $s['tp'])/60)}}h<br>
+                                                    Total service : {{($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp']) / 60}}h<br/>
+                                                    Total heures placées : {{($s['cm'] + $s['td'] + $s['tp'])/60}}h<br>
                                                     @else
                                                     Pas de cours assigné
                                                     @endif

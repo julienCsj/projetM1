@@ -157,7 +157,7 @@ $arrayMonthTotext = array(
                                         $precedentMonth = -1;
                                     ?>
                                     @foreach($service as $s)
-                                        <tr class="@if(intval($s['cm'] + $s['td'] + $s['tp']) == 0)
+                                        <tr class="@if($s['cm'] + $s['td'] + $s['tp'] == 0)
                                                 info
                                                 @else
                                                 success
@@ -180,7 +180,7 @@ $arrayMonthTotext = array(
                                             </td>
                                             <td>Semaine #{{$s['numSemaine']}} - {{$s['label']}}</td>
                                             <td>
-                                                @if(intval($s['cm'] + $s['td'] + $s['tp']) != 0)
+                                                @if($s['cm'] + $s['td'] + $s['tp'] != 0)
                                                 @if ($s['cm'] != 0)
                                                 CM : {{$s['cm'] / 60}}h<br>
                                                 @endif
@@ -190,8 +190,8 @@ $arrayMonthTotext = array(
                                                 @if ($s['tp'] != 0)
                                                 TP : {{$s['tp'] / 60}}h<br>
                                                 @endif
-                                                Total service : {{intval(($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp']) / 60)}}h<br/>
-                                                Total heures placées : {{intval(($s['cm'] + $s['td'] + $s['tp'])/60)}}h<br>
+                                                Total service : {{($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp']) / 60}}h<br/>
+                                                Total heures placées : {{($s['cm'] + $s['td'] + $s['tp'])/60}}h<br>
                                                 @else
                                                 Pas de cours assigné
                                                 @endif
@@ -217,7 +217,7 @@ $arrayMonthTotext = array(
                                 $hccTD = $service_global["hcc_td"];
                                 $hccTP = $service_global["hcc_tp"];
                             ?>
-                            @if(intval($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP) > 0)
+                            @if($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP > 0)
                             <table class="table table-bordered table-striped table-condensed table-hover">
                                 <tr>
                                     <th></th>
@@ -270,8 +270,12 @@ $arrayMonthTotext = array(
                                     <td>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}h</td>
                                 </tr>
                                 <tr>
-                                    <td>Service dû effectué</td>
-                                    <td>@if(intval($serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP) > intval($statut->SERVICE_STATUTAIRE)) OUI @else NON @endif</td>
+                                    <th>Service dû effectué</th>
+                                    <th>@if($serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP > $statut->SERVICE_STATUTAIRE)
+                                     OUI 
+                                     @else 
+                                     NON 
+                                     @endif</th>
                                 </tr>
                             </table>
 
