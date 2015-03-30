@@ -6,12 +6,7 @@ class ServiceController extends BaseController {
 
         //exit(var_dump(CalculerChargeService::calculerServiceEnseignantParSemaine(Session::get("user")->id)));
         $data = array(
-            'notifications' => array(
-                array(
-                    'type' => 'success',
-                    'titre' => 'Le service',
-                    'message' => 'Bienvenue sur #ApplicationSansNom<br/>Vous pouvez maintennant vous connecter',
-                )),
+            'notifications' => array(),
             'breadcrumb' => array('#ApplicationJaneDoe', 'le service'),
             'service' => CalculerChargeService::calculerServiceEnseignantParSemaine(Session::get("user")->id),
         );

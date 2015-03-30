@@ -24,28 +24,31 @@ class CalendrierController extends BaseController {
     }
 
     public function postAjouterPeriode() {
+        $dateDeb = explode("(", Input::get('dateDebut'))[0];
+        $dateFin = explode("(", Input::get('dateFin'))[0];
         $calendrier = new Calendrier();
         $calendrier->nom = Input::get("nom");
-        $calendrier->dateDebut = Input::get('dateDebut');
-        $calendrier->dateFin = Input::get('dateFin');
+        $calendrier->dateDebut = $dateDeb;
+        $calendrier->dateFin = $dateFin;
         $calendrier->idFormation = Input::get('idFormation');
         $calendrier->type = Input::get("type");
         $calendrier->eventID = Input::get("eventID");
         $calendrier->save();
-
         return "Ok";
     }
 
     public function postModifierPeriode() {
+        $dateDeb = explode("(", Input::get('dateDebut'))[0];
+        $dateFin = explode("(", Input::get('dateFin'))[0];
         $idFormation = Input::get('idFormation');
         $nom = Input::get("nom");
         $eventID = Input::get("eventID");
 
         $calendrier = Calendrier::where('idFormation', '=', $idFormation)->where('eventID', '=', $eventID)->firstOrFail();
-        $calendrier->dateFin = Input::get('dateFin');
-        $calendrier->dateDebut = Input::get('dateDebut');
+        
+        $calendrier->dateDebut = $dateDeb;
+        $calendrier->dateFin = $dateFin;
         $calendrier->save();
-
         return "Ok";
     }
 
