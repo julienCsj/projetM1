@@ -68,23 +68,23 @@
                             <div class="row padding-10">
                                 <p class="alert alert-info">Valeur du PPN : CM : {{$module->CM_PPN}}h -  TD : {{$module->TD_PPN}}h -  TP : {{$module->TP_PPN}}h</p>
 
-                                <div class="col-centered">
+                                <div class="col-centered" style="height: 120px;">
                                     <div class="col-xs-3 col-sm-3">
                                     </div>
                                     <div class="col-xs-2 col-sm-2 ">
-                                        <time datetime="" class="icon">
+                                        <time datetime="" class="icon" style="width: 100%">
                                             <strong>CM</strong>
                                             <span>{{$totalCM}}</span>
                                         </time>
                                     </div>
                                     <div class="col-xs-2 col-sm-2">
-                                        <time datetime="" class="icon">
+                                        <time datetime="" class="icon" style="width: 100%;">
                                             <strong>TD</strong>
                                             <span>{{$totalTD}}</span>
                                         </time>
                                     </div>
                                     <div class="col-xs-2 col-sm-2">
-                                        <time datetime="" class="icon">
+                                        <time datetime="" class="icon" style="width: 100%">
                                             <strong>TP</strong>
                                             <span>{{$totalTP}}</span>
                                         </time>
@@ -201,7 +201,7 @@
                                     <tbody>
                                     @foreach($module->lesEnseignants as $e)
                                         <tr>
-                                            <td>{{$e->lastname}} {{$e->firstname}}</td>
+                                            <td>{{ucfirst($e->firstname)}} {{ucfirst($e->lastname)}}</td>
                                             <td><a class="btn btn-xs btn-danger" href="{{ route('module.supprimerEnseignant', array($idFormation, $idUe, $idModule, $e->login)); }}"> <i class="glyphicon glyphicon-trash"></i></a></td>
                                         </tr>
                                     @endforeach
@@ -211,7 +211,7 @@
                                     <label>Ajouter des enseignants :</label>
                                     <select multiple style="width:100%" name="lesEnseignants[]" class="select2">
                                         @foreach($lesEnseignants as $enseignant)
-                                            <option value="{{$enseignant->LOGIN}}">{{$enseignant->LASTNAME}} {{$enseignant->FIRSTNAME}}</option>
+                                            <option value="{{$enseignant->LOGIN}}">{{ucfirst($enseignant->FIRSTNAME)}} {{ucfirst($enseignant->LASTNAME)}}</option>
                                         @endforeach
                                     </select>
                                 </div>

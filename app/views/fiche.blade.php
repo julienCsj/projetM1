@@ -33,7 +33,10 @@
                             <a href="#tabs-b">Heures extérieures</a>
                         </li>
                         <li>
-                            <a href="#tabs-c">Service de l'enseignant</a>
+                            <a href="#tabs-c">Service de l'enseignant par semaine</a>
+                        </li>
+                        <li>
+                            <a href="#tabs-d">Service de l'enseignant global</a>
                         </li>
                     </ul>
                     <div id="tabs-a">
@@ -122,6 +125,105 @@
                     <div id="tabs-c">
                         <div class="row padding-10">
                             Calendrier
+                        </div>
+                    </div>
+                    <div id="tabs-d">
+                        <div class="row padding-10">
+                            <?php
+                                $serviceCM = 16.5;
+                                $serviceTD = 326.5;
+                                $serviceTP = 14;
+
+                                $specifiqueCM = 0;
+                                $specifiqueTD = 3;
+                                $specifiqueTP = 0;
+
+                                $hccCM = 7.2;
+                                $hccTD = 143.4;
+                                $hccTP = 6.1;
+
+                            ?>
+
+                            <table class="table table-bordered table-striped table-condensed table-hover">
+                                <tr>
+                                    <th></th>
+                                    <th>Cours</th>
+                                    <th>TD</th>
+                                    <th>TP</th>
+                                    <th>Calcul TD = TP</th>
+                                </tr>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>{{$serviceCM}}</th>
+                                    <th>{{$serviceTD}}</th>
+                                    <th>{{$serviceTP}}</th>
+                                    <th>{{$serviceCM + $serviceTD + $serviceTP}}</th>
+                                </tr>
+                                <tr>
+                                    <th>Spécifique</th>
+                                    <th>{{$specifiqueCM}}</th>
+                                    <th>{{$specifiqueTD}}</th>
+                                    <th>{{$specifiqueTP}}</th>
+                                    <th>{{$specifiqueCM + $specifiqueTD + $specifiqueTP}}</th>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <th><strong>{{$serviceCM + $specifiqueCM}}</strong></th>
+                                    <th><strong>{{$serviceTD + $specifiqueTD}}</strong></th>
+                                    <th><strong>{{$serviceTP + $specifiqueTP}}</strong></th>
+                                    <th><strong>{{$serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}</strong></th>
+                                </tr>
+                                <tr>
+                                    <th>Pourcentage</th>
+                                    <th>{{round((($serviceCM*1.5 + $specifiqueCM) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</th>
+                                    <th>{{round((($serviceTD + $specifiqueTD) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</th>
+                                    <th>{{round((($serviceTP + $specifiqueTP) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</th>
+                                    <th></th>
+                                </tr>
+                            </table>
+
+                            <table class="table table-bordered table-striped table-condensed table-hover">
+                                <tr>
+                                    <th>Service statutaire</th>
+                                    <th>{{$statut->SERVICE_STATUTAIRE}}h</th>
+                                </tr>
+                                <tr>
+                                    <th>Service dû</th>
+                                    <th>{{$statut->SERVICE_STATUTAIRE}}h</th>
+                                </tr>
+                                <tr>
+                                    <th>Service en TD = TP</th>
+                                    <th>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}h</th>
+                                </tr>
+                                <tr>
+                                    <th>Service dû effectué</th>
+                                    <th>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}h</th>
+                                </tr>
+                            </table>
+
+                            <table class="table table-bordered table-striped table-condensed table-hover">
+                                <tr>
+                                    <th>Repartition</th>
+                                    <th>Cours</th>
+                                    <th>TD</th>
+                                    <th>TP</th>
+                                    <th>Total en eq. TD</th>
+                                </tr>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>{{($serviceCM + $specifiqueCM) - $hccCM}}</th>
+                                    <th>{{($serviceTD + $specifiqueTD) - $hccTD}}</th>
+                                    <th>{{($serviceTP + $specifiqueTP) - $hccTP}}</th>
+                                    <th><strong>{{(($serviceCM + $specifiqueCM) - $hccCM)*1.5 + (($serviceTD + $specifiqueTD) - $hccTD) + (($serviceTP + $specifiqueTP) - $hccTP)}}</strong></th>
+                                </tr>
+                                <tr>
+                                    <th>HCC</th>
+                                    <th>{{$hccCM}}</th>
+                                    <th>{{$hccTD}}</th>
+                                    <th>{{$hccTP}}</th>
+                                    <th><strong>{{round($hccCM*1.5 + $hccTD + $hccTP*(2/3),2)}}</strong></th>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>

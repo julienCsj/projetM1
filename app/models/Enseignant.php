@@ -12,6 +12,14 @@ class Enseignant extends Eloquent
             ->get();
     }
 
+    public static function getOneEnseignantAndStatus($login) {
+        return DB::table('enseignant')
+            ->join('user', 'user.login', '=', 'enseignant.login')
+            ->leftJoin("_statusenseignant", '_statusenseignant.login_id', '=', 'enseignant.login')
+            ->where('user.login', '=', $login)
+            ->first();
+    }
+
     public static function getEnseignantsWithPageData(){
         return DB::table('enseignant')
             ->join('user', 'user.login', '=', 'enseignant.login')

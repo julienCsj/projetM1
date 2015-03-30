@@ -56,19 +56,19 @@
                                 <ul>
                                     <h6>Cours pas encore affecté :</h6>
                                     @foreach($typeCours as $type)
-                                        <li>{{$type->nb}} {{strtoupper($type->type)}} de ({{$type->duree}} min)</li>
+                                        <li>{{$type->nb}} {{strtoupper($type->type)}} de {{$type->duree}} min</li>
                                     @endforeach
                                 </ul>
                                 <ul>
                                     <h6>Cours déja affecté :</h6>
                                     @foreach($typeCoursDansGroupe as $typeCoursGroupe)
-                                        <li>{{$typeCoursGroupe->nb}} {{strtoupper($typeCoursGroupe->type)}} de ({{$typeCoursGroupe->duree}} min)</li>
+                                        <li>{{$typeCoursGroupe->nb}} {{strtoupper($typeCoursGroupe->type)}} de {{$typeCoursGroupe->duree}} min</li>
                                     @endforeach
                                 </ul>
                                 <ul>
                                     <h6>Cours en commun avec un autre module :</h6>
                                     @foreach($typeCoursDansGroupeCommun as $typeCoursGroupeCommun)
-                                        <li>{{$typeCoursGroupeCommun->nb}} {{strtoupper($typeCoursGroupeCommun->type)}} de ({{$typeCoursGroupeCommun->duree}} min)
+                                        <li>{{$typeCoursGroupeCommun->nb}} {{strtoupper($typeCoursGroupeCommun->type)}} de {{$typeCoursGroupeCommun->duree}} min
                                             <a href="{{ route('affectation.affectationFormation', array($typeCoursGroupeCommun->formationID, $typeCoursGroupeCommun->ueID, $typeCoursGroupeCommun->moduleID))}}">Gérer la matière source</a>
                                         </li>
                                     @endforeach
@@ -96,7 +96,7 @@
                                     ?>
                                     <div class="row col-sm-12">
                                         <div class="well">
-                                            [{{strtoupper($groupeCours->type)}}] Groupe de cours de {{$groupeCours->duree}} min ({{$nbGroupe}} groupe de {{strtoupper($groupeCours->type)}})- {{$groupeCours->libelle}}
+                                            [{{strtoupper($groupeCours->type)}}] Groupe de cours de {{$groupeCours->duree}} min ({{$nbGroupe}} groupe de {{strtoupper($groupeCours->type)}}) - {{$groupeCours->libelle}}
                                             <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($idFormation, $ue->id, $module->ID, $groupeCours->id)); }}">Supprimer</a>
                                             <button onclick='affecterAUnEnseignant({{$groupeCours->id}},{{$nbGroupe}}, "{{$groupeCours->type}}", {{json_encode($precendenteValeur)}})' data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Modifier Affectation</button>
                                         </div>

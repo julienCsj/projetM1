@@ -64,8 +64,8 @@
                                     @if (!empty($enseignant))
                                     @foreach ($enseignant as $e)
                                     <tr>
-                                        <td>{{ $e->LASTNAME }}</td>
-                                        <td>{{ $e->FIRSTNAME }}</td>
+                                        <td>{{ ucfirst($e->LASTNAME) }}</td>
+                                        <td>{{ ucfirst($e->FIRSTNAME) }}</td>
                                         <td>
                                             <a id="enseignant-statut-{{ str_replace('.', '', $e->LOGIN) }}" class="enseignant-statut" href="#" onclick="handleEnseignantStatus(this);return false;" data-taux-horaire-specifique="{{$e->taux_horaire_specifique}}" data-idEnseignant="{{ $e->LOGIN }}">
                                             @if(!empty($typeStatus) && $e->id != NULL)
