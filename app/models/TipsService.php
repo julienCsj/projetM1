@@ -16,7 +16,7 @@ class TipsService {
             "enseignant" => "Cette page vous permet de visualiser la liste des enseignants et de mettre a jour leur statut.",
             "calendrier" => "Pour supprimer une période, il faut cliquer dessus, puis valider la suppression.",
             "affecter" => "",
-            "plainifier" => "",
+            "planification" => "Sur cette page, vous pouvez affecter des cours à des périodes en glissant-déposant les groupes de cours.",
             "generationFiche" => "",
             "voeux" => "En tant qu'ensiengnant, cette page vous permet de faire des voeux sur votre présence ou non a l'IUT. Ces voeux seront ensuite consultable par le responsable de la planification.",
             "monService" => "En tant qu'enseignant, cette page vous permet de visualiser votre charge de travail par semaine.",

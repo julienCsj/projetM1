@@ -4,6 +4,11 @@
         <!-- NEW WIDGET START -->
     	<h1>Planification</h1>
         <!-- WIDGET END -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="alert alert-info fade in">
+                <strong>A propos de cette page.</strong> {{TipsService::getTip("planification")}}
+            </div>
+        </div>
     </div>
                     
     <div class="row" id="drag">
@@ -37,7 +42,10 @@
                         @foreach ($periode["groupesCours"] as $groupeCours)
                         <li>
                             <div data-id="{{$groupeCours->id}}" data-size="{{$groupeCours->nbcours}}" class="draggable bg-color-green txt-color-white" style="width: 50%;">
-                                {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séances) Semaine {{$groupeCours->semaine}}
+                                {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séances)
+                                @if ($groupeCours->nbcours != count($periode['sem']))
+                                &nbsp;Semaine {{$groupeCours->semaine}}
+                                @endif
                             </div>
                         </li>
                         @endforeach
@@ -102,11 +110,7 @@
 			drop: handleDropEvent,
 			activeClass: "well-light",
 			hoverClass: "bg-color-teal",
-    		accept: ".draggable"/*function(elem) { 
-                if(elem.attr('data-size') <= $(this).parent().attr('data-size')){
-                    return true;
-                }
-            }*/
+    		accept: ".draggable"
 		});
 	}
 
@@ -119,56 +123,18 @@
         var sizeGroupeCours = parseInt(draggable.attr('data-size')); 
         var sizeCalendrier = parseInt(droppable.attr('data-size'));
 
-        if(sizeGroupeCours < sizeCalendrier) {
-            planificationDecalage(draggable, droppable);
-        } else if(sizeGroupeCours == sizeCalendrier || calendrierID == "supprimer") {
+        if(sizeGroupeCours == sizeCalendrier || calendrierID == "supprimer") {
             planificationSimple(draggable, droppable);
+        } else if(sizeGroupeCours < sizeCalendrier) {
+            planificationDecalage(draggable, droppable);
         } else {
             planificationImpossible(draggable, droppable);
         }
     }
 
     function planificationSimple(groupecours, calendrier) {
-        var from_data = {
-            "groupecoursID": groupecours.attr('data-id'),
-            "calendrierID": calendrier.attr('data-id'),
-            "semaine": 1,
-        };
-        $.ajax({
-            url: "{{$formation->id}}/ajouterPlanification",
-            data: from_data,
-            type: "POST"
-        })
-        .done(function (html) {
-            $.bigBox({
-                title: "Planification réussie",
-                content: 'Le groupe de cours a été affecté à la période choisie.',
-                color: "#3276B1",
-                icon: "fa fa-bell swing animated",
-                timeout: 2000
-            });           
-            var elem = groupecours.parent();
-            var liste = calendrier.find('#liste');
-            if(liste.parent().attr('data-size') == 1000) {
-                var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';   
-            } else {
-                var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+groupecours.text()+'</div></li>';
-            }
-            liste.append(html_element);
-            elem.remove();
-
-            $(init);
-
-        })
-        .fail(function (html) {
-            $.bigBox({
-                title: "Erreur",
-                content: "Un problème est survenu !",
-                color: "#C46A69",
-                icon: "fa fa-warning swing animated",
-                timeout: 3000
-            });
-        });
+        envoyerPlanification(groupecours, calendrier, 1, "simple");
+        
 	}
 
     function planificationImpossible(groupecours, calendrier) {
@@ -180,17 +146,7 @@
             timeout: 3000
         });
 
-        var elem = groupecours.parent();
-        var liste = elem.parent();
-        if(liste.parent().attr('data-size') == 1000) {
-            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';   
-        } else {
-            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+groupecours.text()+'</div></li>';
-        }
-        liste.append(html_element);
-        elem.remove();
-
-        $(init);
+        mettreAJourAffichageRevert(groupecours);
     }
 
     var dernierGroupeCours;
@@ -211,10 +167,19 @@
 
     $('#validerdecalage').click(function(){
         $('#modaldecalage').modal('toggle');
+        envoyerPlanification(dernierGroupeCours, dernierCalendrier, $('#decalage').val(), "decalage");
+    });
+
+    $('#annuler').click(function(){
+        $('#modaldecalage').modal('toggle');
+        mettreAJourAffichageRevert(dernierGroupeCours);
+    });
+
+    function envoyerPlanification(groupecours, calendrier, semaine, type) {
         var from_data = {
-            "groupecoursID": dernierGroupeCours.attr('data-id'),
-            "calendrierID": dernierCalendrier.attr('data-id'),
-            "semaine": $('#decalage').val(),
+            "groupecoursID": groupecours.attr('data-id'),
+            "calendrierID": calendrier.attr('data-id'),
+            "semaine": semaine,
         };
         $.ajax({
             url: "{{$formation->id}}/ajouterPlanification",
@@ -229,18 +194,8 @@
                 icon: "fa fa-bell swing animated",
                 timeout: 2000
             });
-            var elem = dernierGroupeCours.parent();
-            var liste = dernierCalendrier.find('#liste');
-            if(liste.parent().attr('data-size') == 1000) {
-                var html_element='<li><div data-id="'+dernierGroupeCours.attr('data-id')+'" data-size="'+dernierGroupeCours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+dernierGroupeCours.text()+'</div></li>';   
-            } else {
-                var html_element='<li><div data-id="'+dernierGroupeCours.attr('data-id')+'" data-size="'+dernierGroupeCours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+dernierGroupeCours.text()+'</div></li>';
-            }
-            liste.append(html_element);
-            elem.remove();
 
-            $(init);
-
+            mettreAJourAffichage(groupecours, calendrier, type);
         })
         .fail(function (html) {
             $.bigBox({
@@ -251,20 +206,44 @@
                 timeout: 3000
             });
         });
-    });
+    }
 
-    $('#annuler').click(function(){
-        $('#modaldecalage').modal('toggle');
-        var elem = dernierGroupeCours.parent();
-        var liste = elem.parent();
-        if(liste.parent().attr('data-size') == 1000) {
-            var html_element='<li><div data-id="'+dernierGroupeCours.attr('data-id')+'" data-size="'+dernierGroupeCours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+dernierGroupeCours.text()+'</div></li>';   
+    function mettreAJourAffichage(groupecours, calendrier, type) {
+        var elem = groupecours.parent();
+        var liste = calendrier.find('#liste');
+        var texte = groupecours.text();
+        if(texte.substr(0,texte.indexOf("Semaine")) != "") {
+            texte = texte.substr(0,texte.indexOf("Semaine"));
+        }
+
+        if(liste.parent().attr('data-size') == "1000") {
+            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+texte+'</div></li>';   
         } else {
-            var html_element='<li><div data-id="'+dernierGroupeCours.attr('data-id')+'" data-size="'+dernierGroupeCours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+dernierGroupeCours.text()+'</div></li>';
+            if(type=="simple") {
+                var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+texte+'</div></li>';
+            } else {
+                var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+texte+' Semaine '+$('#decalage').val()+'</div></li>';
+            } 
         }
         liste.append(html_element);
         elem.remove();
 
         $(init);
-    });
+    }
+
+    function mettreAJourAffichageRevert(groupecours) {
+        var elem = groupecours.parent();
+        var liste = elem.parent();
+        var texte = groupecours.text();
+
+        if(liste.parent().attr('data-size') == "1000") {
+            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+texte+'</div></li>';   
+        } else {
+            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+texte+'</div></li>';
+        }
+        liste.append(html_element);
+        elem.remove();
+
+        $(init);
+    }
 </script>
