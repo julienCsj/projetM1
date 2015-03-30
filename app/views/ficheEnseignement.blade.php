@@ -81,6 +81,13 @@ $arrayMonthTotext = array(
                     <div id="tabs-b">
                         <div class="row padding-10">
                             <table class="table table-bordered table-striped table-condensed table-hover">
+                                <tr>
+                                    <td></td>
+                                    <td>CM</td>
+                                    <td>TD</td>
+                                    <td>TP</td>
+                                    <td>TOTAL</td>
+                                </tr>
                                 @foreach($lesFormations as $f)
                                     <tr>
                                         <th colspan="5" class="text-align-center">{{$f->long_title}}</th>
