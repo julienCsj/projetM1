@@ -1,7 +1,5 @@
 @include('layout.header')
 <section id="widget-grid" class="">
-    <div class="row">
-        <!-- NEW WIDGET START -->
         <?php
 			$user = Session::get('user');
             $nom = $user->LASTNAME;
@@ -9,9 +7,22 @@
         ?>
                     
         <!-- NEW WIDGET START -->
-        <div class="col-sm-12 col-md-12 col-lg-12">
-                <div class="jumbotron" style="padding-bottom: 200px;">
-                    <h1>Bonjour, @if(!empty($nom) && !empty($prenom)) {{ucfirst($prenom)}} {{ucfirst($nom)}} @endif</h1>
+        <div class="">
+            <div role="content">
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body">
+                    
+                    <h2>Bonjour, @if(!empty($nom) && !empty($prenom)) {{ucfirst($prenom)}} {{ucfirst($nom)}} @endif</h2>
+                    <br>
+                    <br>
                     <p>
                         Bienvenue sur Scolarel. Cette application a été développé dans le cadre des projets tutorés du
                         Master 1 Développement Logiciel de l'Université Paul Sabatier.<br />
@@ -20,10 +31,19 @@
                         pas un certain seuil.<br />
                         Cette application permet également d'aider la génération des fiches.
 
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     </p>
+                    <!-- end widget content -->
+
                 </div>
+            </div>
         </div>
-    </div>
     <div class="row">
         <div class="col-sm-4">
             <div class="well well-sm bg-color-darken txt-color-white text-center">

@@ -1,5 +1,21 @@
 
 @include('layout.header')
+<?php
+$arrayMonthTotext = array(
+    "1" => "jan",
+    "2" => "fév",
+    "3" => "mars",
+    "4" => "avr",
+    "5" => "mai",
+    "6" => "juin",
+    "7" => "juil",
+    "8" => "août",
+    "9" => "sept",
+    "10" => "oct",
+    "11" => "nov",
+    "12" => "déc"
+);
+?>
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
@@ -124,26 +140,82 @@
                     </div>
                     <div id="tabs-c">
                         <div class="row padding-10">
-                            Calendrier
+                            <?php $i = 0; ?>
+                            <!-- NEW WIDGET START -->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Mois</th>
+                                        <th><i class="fa fa-calendar"></i> N° Semaine</th>
+                                        <th>Charge de travail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $printMonth = true;
+                                        $precedentMonth = -1;
+                                    ?>
+                                    @foreach($service as $s)
+                                        <tr class="@if(intval($s['cm'] + $s['td'] + $s['tp']) == 0)
+                                                info
+                                                @else
+                                                success
+                                                @endif
+                                        ">
+                                            <td>
+                                                <?php
+                                                    $d = new DateTime();
+                                                    $d->setISODate($s['annee'],$s['numSemaine'],1);    
+                                                    $mois = date("n", $d->getTimestamp());
+                                                    if ($mois != $precedentMonth) {
+                                                        $printMonth = true;
+                                                    }
+                                                    $precedentMonth = $mois;
+                                                ?>
+                                                @if($printMonth)
+                                                    {{$arrayMonthTotext[$mois]}}
+                                                    <?php $printMonth = false; ?>
+                                                @endif
+                                            </td>
+                                            <td>Semaine #{{$s['numSemaine']}} - {{$s['label']}}</td>
+                                            <td>
+                                                @if(intval($s['cm'] + $s['td'] + $s['tp']) != 0)
+                                                @if ($s['cm'] != 0)
+                                                CM : {{$s['cm'] / 60}}h<br>
+                                                @endif
+                                                @if ($s['td'] != 0)
+                                                TD : {{$s['td'] / 60}}h<br>
+                                                @endif
+                                                @if ($s['tp'] != 0)
+                                                TP : {{$s['tp'] / 60}}h<br>
+                                                @endif
+                                                Total service : {{intval(($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp']) / 60)}}h<br/>
+                                                Total heures placées : {{intval(($s['cm'] + $s['td'] + $s['tp'])/60)}}h<br>
+                                                @else
+                                                Pas de cours assigné
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div id="tabs-d">
                         <div class="row padding-10">
                             <?php
-                                $serviceCM = 16.5;
-                                $serviceTD = 326.5;
-                                $serviceTP = 14;
+                                $serviceCM = $service_global["cm"];
+                                $serviceTD = $service_global["td"];
+                                $serviceTP = $service_global["tp"];
 
                                 $specifiqueCM = 0;
-                                $specifiqueTD = 3;
+                                $specifiqueTD = 0;
                                 $specifiqueTP = 0;
 
-                                $hccCM = 7.2;
-                                $hccTD = 143.4;
-                                $hccTP = 6.1;
-
+                                $hccCM = $service_global["hcc_cm"];
+                                $hccTD = $service_global["hcc_td"];
+                                $hccTP = $service_global["hcc_tp"];
                             ?>
-
                             <table class="table table-bordered table-striped table-condensed table-hover">
                                 <tr>
                                     <th></th>

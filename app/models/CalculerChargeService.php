@@ -16,35 +16,70 @@ class CalculerChargeService {
             return $indice;
     }
 
-    public static function calculerServiceEnseignantGlobal($idEnseignant) {
-        $resultEnHeure = array(
+    public static function calculerServiceEnseignantGlobal($idEnseignant, $config, $palierEnseignantHeure) {
+        $palierEnseignant = $palierEnseignantHeure*60;
+        $resultEnMin = array(
             "cm" => 0,
             "td" => 0,
             "tp" => 0,
+            "hcc_cm" => 0,
+            "hcc_td" => 0,
+            "hcc_tp" => 0,
         );
 
-        // ETAPE 1 : RECUPERER L'ENSEMBLE DES GROUPE_COURS DANS LESQUELS L'ENSEIGNANT INTERVIENT
-        $lesIdGroupesCoursOuLenseignantIntervient = DB::table('_groupecours_module_enseignant')
-            ->select(DB::raw('distinct(groupecours_id) as groupecours_id'))
-            ->where('enseignant_id', '=', $idEnseignant)
-            ->get();
+        // ETAPE 1 : RECUPERER LE RESULTAT PAR TYPE PAR SEMAINE
+        $serviceParSemaine = CalculerChargeService::calculerServiceEnseignantParSemaine($idEnseignant);
 
         // ETAPE 2 : POUR CHAQUE GROUPE DE COURS
-        foreach($lesIdGroupesCoursOuLenseignantIntervient as $idGroupeCours) {
-            // RECUPERER LA DUREE ET LE TYPE DES COURS DE CE GC
-            $unCoursDuGroupe = DB::table('_groupecours_cours')->select('coursID')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->first();
-
-            $duree = Cours::find($unCoursDuGroupe->coursID)->duree;
-            $type = Cours::find($unCoursDuGroupe->coursID)->type;
-            $nbCoursDansGroupeCours = DB::table('_groupecours_cours')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->count();
-
-            // RECUPERER LE NOMBRE DE GROUPE QUE L'ENSEIGNANT A A SA CHARGE
-            $nbGroupeAssigneALenseignant = GroupeCoursEnseignantModule::where("enseignant_id" ,"=", $idEnseignant)
-            ->where("groupecours_id", '=', $idGroupeCours->groupecours_id)->count();
-            $resultEnHeure[$type] += $duree * $nbGroupeAssigneALenseignant * $nbCoursDansGroupeCours;
+        $estSupperieurAuServiceStatuaire = false;
+        foreach($serviceParSemaine as $sem) {
+            // itere sur les types de cours
+            $types = array("cm", "td", "tp");
+            foreach ($types as $type) {
+                if ($sem[$type] != 0) {
+                    // Gere le nombre d'heure en HCC et le total des heures par type
+                    if ($estSupperieurAuServiceStatuaire) {
+                        $resultEnMin["hcc_".$type] += $sem[$type];
+                    } else {
+                        $currentNbHeure = $resultEnMin["cm"]*floatval($config->valeurCMEnHService) + $resultEnMin["td"]*floatval($config->valeurTDEnHService) + $resultEnMin["tp"]*floatval($config->valeurTPEnHService);
+                        // Genere le volume horaire du prochain cours
+                        if ($type == "cm") {
+                            $nouveauVolume = $sem[$type] * floatval($config->valeurCMEnHService);
+                        } else {
+                            if ($type == "td") {
+                                $nouveauVolume = $sem[$type]*floatval($config->valeurTDEnHService);
+                            } else {
+                                if ($type == "tp") {
+                                    $nouveauVolume = $sem[$type]*floatval($config->valeurTPEnHService);
+                                }
+                            }
+                        }
+                        if ($estSupperieurAuServiceStatuaire == false && $currentNbHeure + $nouveauVolume >= $palierEnseignant) {
+                            $nbHeureCoursAAjoute = ($currentNbHeure + $nouveauVolume) - $palierEnseignant;
+                            //Ajoute la bonne valeur de hcc
+                            if ($type == "cm") {
+                                $nbHeureCoursAAjoute = $nbHeureCoursAAjoute / floatval($config->valeurCMEnHService);
+                            } else {
+                                if ($type == "td") {
+                                    $nbHeureCoursAAjoute = $nbHeureCoursAAjoute/floatval($config->valeurTDEnHService);
+                                } else {
+                                    if ($type == "tp") {
+                                        $nbHeureCoursAAjoute = $nbHeureCoursAAjoute/floatval($config->valeurTPEnHService);
+                                    }
+                                }
+                            }
+                            $resultEnMin["hcc_".$type] += $nbHeureCoursAAjoute;
+                            $estSupperieurAuServiceStatuaire = true;
+                        }
+                    }
+                    $resultEnMin[$type] += $sem[$type];
+                }
+            }
         }
-
-        return $resultEnHeure;
+        foreach($resultEnMin as $k => $v) {
+            $resultEnMin[$k] = $v / 60;
+        }
+        return $resultEnMin;
     }
 
     public static function calculerServiceEnseignantParSemaine($idEnseignant) {

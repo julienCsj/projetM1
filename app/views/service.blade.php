@@ -28,20 +28,21 @@ $arrayMonthTotext = array(
                     <h2> Paliers </h2>
                 </header>
                 <?php
-                    $hGlobal = ($service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"]) / 60;
-                    $nbHeures = 200;
-                    $pourcentServiceMinimal = $hGlobal / $nbHeures;
+                    $hGlobal = $service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"];
+                    $hGlobalWithHcc = $service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"] *$VALEUR_TP_HSERVICE
+                        + $service_global["hcc_cm"]*$VALEUR_CM_HSERVICE_HCC + $service_global["hcc_td"]*$VALEUR_TD_HSERVICE_HCC + $service_global["hcc_tp"]*$VALEUR_TP_HSERVICE_HCC;
+                    $pourcentServiceMinimal = $hGlobal / $palier;
                     if ($pourcentServiceMinimal > 1) {
                         $pourcentServiceMinimal = 1;
                     }
-                    $nbHeuresMaxi = $nbHeures * 2;
-                    $pourcentServiceMaxi = $hGlobal / $nbHeuresMaxi;
+                    $nbHeuresMaxi = $palier * 2;
+                    $pourcentServiceMaxi = $hGlobalWithHcc / $nbHeuresMaxi;
                 ?>
                 <div class="well well-sm" id="event-container">
 			    		<span class="text">
 			    			Service minimal
 			    			<span class="pull-right">
-			    				{{$hGlobal}}/{{$nbHeures}} heures
+			    				{{$hGlobal}}/{{$palier}} heures
 			    			</span>
 			    		</span>
                     <div class="progress">
