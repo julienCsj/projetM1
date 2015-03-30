@@ -1,6 +1,3 @@
-//FIXER LA TAILLE DES GROUPESCOURS
-// FAIRE MARCHER LA MODALE
-
 @include('layout.header')
 <section id="widget-grid" class="">
     <div class="row">
@@ -40,10 +37,7 @@
                         @foreach ($periode["groupesCours"] as $groupeCours)
                         <li>
                             <div data-id="{{$groupeCours->id}}" data-size="{{$groupeCours->nbcours}}" class="draggable bg-color-green txt-color-white" style="width: 50%;">
-                                {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séances)
-                                @if ($groupeCours->semaine != 0)
-                                    &nbsp;Semaine {{$groupeCours->semaine}}
-                                @endif
+                                {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séances) Semaine {{$groupeCours->semaine}}
                             </div>
                         </li>
                         @endforeach
@@ -216,6 +210,8 @@
     }
 
     $('#validerdecalage').click(function(){
+        $('#modaldecalage').modal('toggle');
+        
         var from_data = {
             "groupecoursID": dernierGroupeCours.attr('data-id'),
             "calendrierID": dernierCalendrier.attr('data-id'),
@@ -237,16 +233,14 @@
             var elem = dernierGroupeCours.parent();
             var liste = dernierCalendrier.find('#liste');
             if(liste.parent().attr('data-size') == 1000) {
-                var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';   
+                var html_element='<li><div data-id="'+dernierGroupeCours.attr('data-id')+'" data-size="'+dernierGroupeCours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+dernierGroupeCours.text()+'</div></li>';   
             } else {
-                var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+groupecours.text()+'</div></li>';
+                var html_element='<li><div data-id="'+dernierGroupeCours.attr('data-id')+'" data-size="'+dernierGroupeCours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+dernierGroupeCours.text()+'</div></li>';
             }
             liste.append(html_element);
             elem.remove();
 
-            $('#modaldecalage').modal('toggle');
             $(init);
-
         })
         .fail(function (html) {
             $.bigBox({
@@ -263,9 +257,9 @@
         var elem = dernierGroupeCours.parent();
         var liste = elem.parent();
         if(liste.parent().attr('data-size') == 1000) {
-            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+groupecours.text()+'</div></li>';   
+            var html_element='<li><div data-id="'+dernierGroupeCours.attr('data-id')+'" data-size="'+dernierGroupeCours.attr('data-size')+'" class="draggable bg-color-green txt-color-white">'+dernierGroupeCours.text()+'</div></li>';   
         } else {
-            var html_element='<li><div data-id="'+groupecours.attr('data-id')+'" data-size="'+groupecours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+groupecours.text()+'</div></li>';
+            var html_element='<li><div data-id="'+dernierGroupeCours.attr('data-id')+'" data-size="'+dernierGroupeCours.attr('data-size')+'" class="draggable bg-color-green txt-color-white" style="width: 50%;">'+dernierGroupeCours.text()+'</div></li>';
         }
         liste.append(html_element);
         elem.remove();
