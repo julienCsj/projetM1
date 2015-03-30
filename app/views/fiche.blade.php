@@ -20,10 +20,9 @@ $arrayMonthTotext = array(
     <div class="row">
         <!-- NEW WIDGET START -->
         <h1>Aide Génération fiche <small></small></h1>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="alert alert-info fade in">
-                <strong>A propos de cette page.</strong> {{TipsService::getTip("generationFiche")}}
-            </div>
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("generationFiche")}}
         </div>
         <!-- NEW WIDGET START -->
         <div class="row">

@@ -17,54 +17,55 @@ $arrayMonthTotext = array(
 ?>
 <section id="widget-grid" class="">
     <div class="row">
-        <!-- NEW WIDGET START -->
         <h1>Service</h1>
-        <br/>
-    </div>
-    <div class="row">
-        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" role="widget">
-                <header>
-                    <h2> Paliers </h2>
-                </header>
-                <?php
-                    $hGlobal = $service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"];
-                    $hGlobalWithHcc = $service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"] *$VALEUR_TP_HSERVICE
-                        + $service_global["hcc_cm"]*$VALEUR_CM_HSERVICE_HCC + $service_global["hcc_td"]*$VALEUR_TD_HSERVICE_HCC + $service_global["hcc_tp"]*$VALEUR_TP_HSERVICE_HCC;
-                    $pourcentServiceMinimal = $hGlobal / $palier;
-                    if ($pourcentServiceMinimal > 1) {
-                        $pourcentServiceMinimal = 1;
-                    }
-                    $nbHeuresMaxi = $palier * 2;
-                    $pourcentServiceMaxi = $hGlobalWithHcc / $nbHeuresMaxi;
-                ?>
-                <div class="well well-sm" id="event-container">
-			    		<span class="text">
-			    			Service minimal
-			    			<span class="pull-right">
-			    				{{$hGlobal}}/{{$palier}} heures
-			    			</span>
-			    		</span>
-                    <div class="progress">
-                        <div class="progress-bar bg-color-greenLight" style="width: {{$pourcentServiceMinimal*100}}%;"></div>
-                    </div>
-			    		<span class="text">
-			    			Service maximal
-			    			<span class="pull-right">
-			    				{{$hGlobal}}/{{$nbHeuresMaxi}} heures
-			    			</span>
-			    		</span>
-                    <div class="progress">
-                        <div class="progress-bar bg-color-greenLight" style="width: {{$pourcentServiceMaxi*100}}%;"></div>
-                    </div>
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("monService")}}
+        </div>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" role="widget">
+                    <header>
+                        <h2> Paliers </h2>
+                    </header>
+                    <?php
+                        $hGlobal = $service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"];
+                        $hGlobalWithHcc = $service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"] *$VALEUR_TP_HSERVICE
+                            + $service_global["hcc_cm"]*$VALEUR_CM_HSERVICE_HCC + $service_global["hcc_td"]*$VALEUR_TD_HSERVICE_HCC + $service_global["hcc_tp"]*$VALEUR_TP_HSERVICE_HCC;
+                        $pourcentServiceMinimal = $hGlobal / $palier;
+                        if ($pourcentServiceMinimal > 1) {
+                            $pourcentServiceMinimal = 1;
+                        }
+                        $nbHeuresMaxi = $palier * 2;
+                        $pourcentServiceMaxi = $hGlobalWithHcc / $nbHeuresMaxi;
+                    ?>
+                    <div class="well well-sm" id="event-container">
+    			    		<span class="text">
+    			    			Service minimal
+    			    			<span class="pull-right">
+    			    				{{$hGlobal}}/{{$palier}} heures
+    			    			</span>
+    			    		</span>
+                        <div class="progress">
+                            <div class="progress-bar bg-color-greenLight" style="width: {{$pourcentServiceMinimal*100}}%;"></div>
+                        </div>
+    			    		<span class="text">
+    			    			Service maximal
+    			    			<span class="pull-right">
+    			    				{{$hGlobal}}/{{$nbHeuresMaxi}} heures
+    			    			</span>
+    			    		</span>
+                        <div class="progress">
+                            <div class="progress-bar bg-color-greenLight" style="width: {{$pourcentServiceMaxi*100}}%;"></div>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
-        </article>
-    </div>
+            </article>
+        </div>
 
-    <div class="row">
-        <?php $i = 0; ?>
+        <div class="row">
+            <?php $i = 0; ?>
 
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -147,11 +148,9 @@ $arrayMonthTotext = array(
                                 
                             </div>
                         </div>
-                        <!-- end widget div -->
                     </div>
-                    <!-- end widget -->
             </article>
-                    <!-- WIDGET END -->
+        </div>
     </div>
 </section>
 
