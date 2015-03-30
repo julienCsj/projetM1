@@ -129,9 +129,13 @@ $arrayMonthTotext = array(
                     <div id="tabs-b">
                         <div class="row padding-10">
                             <ul>
-                            @foreach($heuresexternes as $h)
-                                <li>{{$h->libelle}} ({{$h->nbHeure}} heures) de type {{$h->type}}. </li>
-                            @endforeach
+                            @if(count($heuresexternes) == 0)
+                                    <p class="text-center">Aucune heure externe déclarée.</p>
+                            @else
+                                @foreach($heuresexternes as $h)
+                                    <li>{{$h->libelle}} ({{$h->nbHeure}} heures) de type {{$h->type}}. </li>
+                                @endforeach
+                            @endif
                             </ul>
                         </div>
                     </div>
@@ -213,6 +217,7 @@ $arrayMonthTotext = array(
                                 $hccTD = $service_global["hcc_td"];
                                 $hccTP = $service_global["hcc_tp"];
                             ?>
+                            @if(intval($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP) > 0)
                             <table class="table table-bordered table-striped table-condensed table-hover">
                                 <tr>
                                     <th></th>
@@ -293,6 +298,9 @@ $arrayMonthTotext = array(
                                     <th><strong>{{round($hccCM*1.5 + $hccTD + $hccTP*(2/3),2)}}</strong></th>
                                 </tr>
                             </table>
+                            @else
+                                    <p class="text-center">Aucune heure attribuée à cet enseignant.</p>
+                            @endif
                         </div>
                     </div>
                 </div>
