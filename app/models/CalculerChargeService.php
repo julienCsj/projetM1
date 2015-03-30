@@ -168,13 +168,34 @@ class CalculerChargeService {
             "tp" => 0,
         );
 
-        // ETAPE 1 : RECUPERER L'ENSEMBLE DES GROUPE_COURS DANS LESQUELS POUR UNE FORMATION
+        $lesFormations = Formation::getFormationUeModule();
+        foreach($lesFormations as $f) {
+            if($f->id == $idFormation) {
+                foreach($f->lesUE as $ue) {
+                    foreach($ue->lesModules as $mod) {
+                        $serviceModule = CalculerChargeService::calculerServiceModuleGlobal($mod->ID);
+                        $resultEnHeure['cm'] += $serviceModule['cm'];
+                        $resultEnHeure['td'] += $serviceModule['td'];
+                        $resultEnHeure['tp'] += $serviceModule['tp'];
+                    }
+                }
+            }
+        }
+        return $resultEnHeure;
+    }
+
+    public static function calculerServiceModuleGlobal($idModule) {
+        $resultEnHeure = array(
+            "cm" => 0,
+            "td" => 0,
+            "tp" => 0,
+        );
+
+        // ETAPE 1 : RECUPERER L'ENSEMBLE DES GROUPE_COURS POUR UNE FORMATION
         $lesIdGroupesCoursDeLaFormation = DB::table('_groupecours')
             ->select(DB::raw('id as groupecours_id'))
-            ->where('formationID', '=', $idFormation)
+            ->where('moduleID', '=', $idModule)
             ->get();
-
-        //exit(var_dump($lesIdGroupesCoursDeLaFormation));
 
         // ETAPE 2 : POUR CHAQUE GROUPE DE COURS
         foreach($lesIdGroupesCoursDeLaFormation as $idGroupeCours) {
@@ -186,11 +207,16 @@ class CalculerChargeService {
             $nbCoursDansGroupeCours = DB::table('_groupecours_cours')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->count();
 
             $resultEnHeure[$type] += $duree * $nbCoursDansGroupeCours;
+
         }
 
         // Recuperer les eventuels cours en commun
-
-        // Pour chaque groupe de cours ajouter un couple type duree
+        $lesIdCoursEnCommun = DB::table('_groupecours_cours_encommun')->where('moduleDst', '=', $idModule)->get();
+        foreach($lesIdCoursEnCommun as $c) {
+            $duree = Cours::find($c->coursID)->duree;
+            $type = Cours::find($c->coursID)->type;
+            $resultEnHeure[$type] += $duree;
+        }
 
         return $resultEnHeure;
     }

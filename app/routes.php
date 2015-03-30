@@ -79,6 +79,11 @@ Route::group(array('before' => 'auth'), function () { // Login required
     Route::get('fiche/', array('as' => 'generationFiche', 'uses' => 'GenerationFicheController@getFiche'));
     Route::get('fiche/{idEnseignant}', array('as' => 'generationFicheProf', 'uses' => 'GenerationFicheController@getFiche'));
 
+    // Module génération fiches enseignement
+    Route::get('ficheEnseignement/', array('as' => 'generationFicheEnseignement', 'uses' => 'GenerationFicheController@getFicheEnseignement'));
+
+
+
     // Routes module heures externe
     Route::get('heuresexterieures', array('as' => 'heuresexterieures', 'uses' => 'HeuresExternesController@getHeuresExternes'));
     Route::post('heuresexterieures', array('as' => 'heuresexterieures.ajouter', 'uses' => 'HeuresExternesController@postAjouterHeure'));

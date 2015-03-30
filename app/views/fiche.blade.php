@@ -227,51 +227,51 @@ $arrayMonthTotext = array(
                                     <th>Calcul TD = TP</th>
                                 </tr>
                                 <tr>
-                                    <th>Service</th>
-                                    <th>{{$serviceCM}}</th>
-                                    <th>{{$serviceTD}}</th>
-                                    <th>{{$serviceTP}}</th>
-                                    <th>{{$serviceCM + $serviceTD + $serviceTP}}</th>
+                                    <td>Service</td>
+                                    <td>{{$serviceCM}}</td>
+                                    <td>{{$serviceTD}}</td>
+                                    <td>{{$serviceTP}}</td>
+                                    <td>{{$serviceCM + $serviceTD + $serviceTP}}</td>
                                 </tr>
                                 <tr>
-                                    <th>Spécifique</th>
-                                    <th>{{$specifiqueCM}}</th>
-                                    <th>{{$specifiqueTD}}</th>
-                                    <th>{{$specifiqueTP}}</th>
-                                    <th>{{$specifiqueCM + $specifiqueTD + $specifiqueTP}}</th>
+                                    <td>Spécifique</td>
+                                    <td>{{$specifiqueCM}}</td>
+                                    <td>{{$specifiqueTD}}</td>
+                                    <td>{{$specifiqueTP}}</td>
+                                    <td>{{$specifiqueCM + $specifiqueTD + $specifiqueTP}}</td>
                                 </tr>
                                 <tr>
-                                    <th>Total</th>
-                                    <th><strong>{{$serviceCM + $specifiqueCM}}</strong></th>
-                                    <th><strong>{{$serviceTD + $specifiqueTD}}</strong></th>
-                                    <th><strong>{{$serviceTP + $specifiqueTP}}</strong></th>
-                                    <th><strong>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}</strong></th>
+                                    <td>Total</td>
+                                    <td><strong>{{$serviceCM + $specifiqueCM}}</strong></td>
+                                    <td><strong>{{$serviceTD + $specifiqueTD}}</strong></td>
+                                    <td><strong>{{$serviceTP + $specifiqueTP}}</strong></td>
+                                    <td><strong>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}</strong></td>
                                 </tr>
                                 <tr>
-                                    <th>Pourcentage</th>
-                                    <th>{{round((($serviceCM*1.5 + $specifiqueCM) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</th>
-                                    <th>{{round((($serviceTD + $specifiqueTD) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</th>
-                                    <th>{{round((($serviceTP + $specifiqueTP) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</th>
-                                    <th></th>
+                                    <td>Pourcentage</td>
+                                    <td>{{round((($serviceCM*1.5 + $specifiqueCM) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</td>
+                                    <td>{{round((($serviceTD + $specifiqueTD) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</td>
+                                    <td>{{round((($serviceTP + $specifiqueTP) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</td>
+                                    <td></td>
                                 </tr>
                             </table>
 
                             <table class="table table-bordered table-striped table-condensed table-hover">
                                 <tr>
-                                    <th>Service statutaire</th>
-                                    <th>{{$statut->SERVICE_STATUTAIRE}}h</th>
+                                    <td>Service statutaire</td>
+                                    <td>{{$statut->SERVICE_STATUTAIRE}}h</td>
                                 </tr>
                                 <tr>
-                                    <th>Service dû</th>
-                                    <th>{{$statut->SERVICE_STATUTAIRE}}h</th>
+                                    <td>Service dû</td>
+                                    <td>{{$statut->SERVICE_STATUTAIRE}}h</td>
                                 </tr>
                                 <tr>
-                                    <th>Service en TD = TP</th>
-                                    <th>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}h</th>
+                                    <td>Service en TD = TP</td>
+                                    <td>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}h</td>
                                 </tr>
                                 <tr>
-                                    <th>Service dû effectué</th>
-                                    <th>@if(intval($serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP) > intval($statut->SERVICE_STATUTAIRE)) OUI @else NON @endif</th>
+                                    <td>Service dû effectué</td>
+                                    <td>@if(intval($serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP) > intval($statut->SERVICE_STATUTAIRE)) OUI @else NON @endif</td>
                                 </tr>
                             </table>
 
@@ -284,18 +284,18 @@ $arrayMonthTotext = array(
                                     <th>Total en eq. TD</th>
                                 </tr>
                                 <tr>
-                                    <th>Service</th>
-                                    <th>{{($serviceCM + $specifiqueCM) - $hccCM}}</th>
-                                    <th>{{($serviceTD + $specifiqueTD) - $hccTD}}</th>
-                                    <th>{{($serviceTP + $specifiqueTP) - $hccTP}}</th>
-                                    <th><strong>{{(($serviceCM + $specifiqueCM) - $hccCM)*1.5 + (($serviceTD + $specifiqueTD) - $hccTD) + (($serviceTP + $specifiqueTP) - $hccTP)}}</strong></th>
+                                    <td>Service</td>
+                                    <td>{{($serviceCM + $specifiqueCM) - $hccCM}}</td>
+                                    <td>{{($serviceTD + $specifiqueTD) - $hccTD}}</td>
+                                    <td>{{($serviceTP + $specifiqueTP) - $hccTP}}</td>
+                                    <td><strong>{{(($serviceCM + $specifiqueCM) - $hccCM)*1.5 + (($serviceTD + $specifiqueTD) - $hccTD) + (($serviceTP + $specifiqueTP) - $hccTP)}}</strong></td>
                                 </tr>
                                 <tr>
-                                    <th>HCC</th>
-                                    <th>{{$hccCM}}</th>
-                                    <th>{{$hccTD}}</th>
-                                    <th>{{$hccTP}}</th>
-                                    <th><strong>{{round($hccCM*1.5 + $hccTD + $hccTP*(2/3),2)}}</strong></th>
+                                    <td>HCC</td>
+                                    <td>{{$hccCM}}</td>
+                                    <td>{{$hccTD}}</td>
+                                    <td>{{$hccTP}}</td>
+                                    <td><strong>{{round($hccCM*1.5 + $hccTD + $hccTP*(2/3),2)}}</strong></td>
                                 </tr>
                             </table>
                             @else

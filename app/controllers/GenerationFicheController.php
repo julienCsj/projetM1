@@ -32,4 +32,14 @@ class GenerationFicheController extends BaseController {
 
         return View::make('fiche')->with($data);
     }
+
+    public function getFicheEnseignement() {
+        $data = array(
+            'breadcrumb' => array("Scolarel", "Fiche"),
+        );
+
+        $data['lesFormations'] = Formation::getFormationUeModule();
+        return View::make('ficheEnseignement')->with($data);
+
+    }
 }
