@@ -8,6 +8,13 @@
 
 class CalculerChargeService {
 
+    public static function computeNumeroSemaine($i, $numeroSemaine) {
+        $indice = intval(($i+$numeroSemaine-1)%52);
+        if($indice == 0)
+            return 52;
+        else
+            return $indice;
+    }
 
     public static function calculerServiceEnseignantGlobal($idEnseignant) {
         $resultEnHeure = array(
@@ -94,7 +101,7 @@ class CalculerChargeService {
                 if ($nbCoursDansGroupeCours == $nbSemainePeriode) {
                     // Attribuer un cours a chaque semaine
                     for($i=1; $i <=$nbCoursDansGroupeCours; $i++) {
-                        $arraySemaine[intval(($i+$numeroSemaine-1)%52)][$type] += $duree * $nbGroupeAssigneALenseignant;
+                        $arraySemaine[CalculerChargeService::computeNumeroSemaine($i, $numeroSemaine)][$type] += $duree * $nbGroupeAssigneALenseignant;
                         //echo "Semaine ".intval($i+$numeroSemaine-1)." : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
                     }
 
@@ -106,7 +113,7 @@ class CalculerChargeService {
                     // Attribuer un cours par semaine a partir du décallage
                     for($i=$decalage; $i <=$nbCoursDansGroupeCours+($decalage-1); $i++) {
                         //echo "Semaine ".intval($i+$numeroSemaine-1)." ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
-                        $arraySemaine[intval(($i+$numeroSemaine-1)%52)][$type] += $duree * $nbGroupeAssigneALenseignant;
+                        $arraySemaine[CalculerChargeService::computeNumeroSemaine($i, $numeroSemaine)][$type] += $duree * $nbGroupeAssigneALenseignant;
                     }
 
                 }
@@ -204,7 +211,7 @@ class CalculerChargeService {
                 if ($nbCoursDansGroupeCours == $nbSemainePeriode) {
                     // Attribuer un cours a chaque semaine
                     for($i=1; $i <=$nbCoursDansGroupeCours; $i++) {
-                        $arraySemaine[intval(($i+$numeroSemaine-1)%52)][$type] += $duree;
+                        $arraySemaine[CalculerChargeService::computeNumeroSemaine($i, $numeroSemaine)][$type] += $duree;
                         //echo "Semaine ".intval($i+$numeroSemaine-1)." : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
                     }
 
@@ -216,9 +223,8 @@ class CalculerChargeService {
                     // Attribuer un cours par semaine a partir du décallage
                     for($i=$decalage; $i <=$nbCoursDansGroupeCours+($decalage-1); $i++) {
                         //echo "Semaine ".intval($i+$numeroSemaine-1)." ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
-                        $arraySemaine[intval(($i+$numeroSemaine-1)%52)][$type] += $duree;
+                        $arraySemaine[CalculerChargeService::computeNumeroSemaine($i, $numeroSemaine)][$type] += $duree;
                     }
-
                 }
             }
         }
