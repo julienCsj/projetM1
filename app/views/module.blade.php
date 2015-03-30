@@ -2,22 +2,17 @@
 @include('layout.header')
 <section id="widget-grid" class="">
     <div class="row">
-        <!-- NEW WIDGET START -->
         <h1>Gestion des modules <small>@if(isset($module)){{$formation->long_title}} > {{$ue->long_title}} > {{$module->LONG_TITLE}}@endif</small></h1>
-        <br/>
-        <br/>
-        <!-- NEW WIDGET START -->
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("uemodule")}}
+        </div>
         {{ Form::open(array('route' => 'module.postModifierModule')) }}
         <input type="hidden" name="idModule" value="{{$idModule}}" />
         <input type="hidden" name="idFormation" value="{{$idFormation}}">
         <input type="hidden" name="idUe" value="{{$idUe}}">
 
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="alert alert-info fade in">
-                    <strong>A propos de cette page.</strong> {{TipsService::getTip("uemodule")}}
-                </div>
-            </div>
             @if($idModule != -1)
             <div class="row pull-right padding-10 margin-right-5">
                 <a href="{{ route('affectation.affectationFormation', array($formation->id, $ue->id, $module->ID))}}" class="btn btn-primary">Aller à l'affectation</a>

@@ -1,126 +1,125 @@
 @include('layout.header')
 <section id="widget-grid" class="">
     <div class="row">
-        <!-- NEW WIDGET START -->
         <h1>Affectation <small>@if(isset($module)){{$formation->long_title}} > {{$ue->long_title}} > {{$module->LONG_TITLE}}@endif</small></h1>
-        <br>
-        <br>
-        <!-- WIDGET END -->
-    </div>
-    <div class="row">
-        @if($idFormation != -1)
-            <div class="row pull-right margin-right-5 padding-10">
-                <a href="{{ route('planification.planificationFormation', array($formation->id))}}" class="btn btn-primary">Aller à la planification</a>
-                <a href="{{ route('moduleModification', array($formation->id, $ue->id, $module->ID))}}" class="btn btn-primary">Aller à la configuration</a>
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("affecter")}}
+        </div>
+        <div class="row">
+            @if($idFormation != -1)
+                <div class="row pull-right margin-right-5 padding-10">
+                    <a href="{{ route('planification.planificationFormation', array($formation->id))}}" class="btn btn-primary">Aller à la planification</a>
+                    <a href="{{ route('moduleModification', array($formation->id, $ue->id, $module->ID))}}" class="btn btn-primary">Aller à la configuration</a>
+                </div>
+            @endif
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                <ul id="menu" style="width: 100%">
+                    @foreach ($lesFormations as $f1)
+                        <li>
+                            <a href="#">{{$f1->short_title}}</a>
+                            <ul>
+                                @foreach($f1->lesUE as $ue1)
+                                    <li>
+                                        <a href="#">{{$ue1->short_title}}</a>
+                                        <ul>
+                                            @foreach($ue1->lesModules as $mod1)
+                                                <li>
+                                                    <a href="{{ route('affectation.affectationFormation', array($f1->id, $ue1->id, $mod1->ID))}}">{{$mod1->SHORT_TITLE}}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-        @endif
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-            <ul id="menu" style="width: 100%">
-                @foreach ($lesFormations as $f1)
-                    <li>
-                        <a href="#">{{$f1->short_title}}</a>
+
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                @if($idFormation != -1)
+                    <div id="tabs">
                         <ul>
-                            @foreach($f1->lesUE as $ue1)
-                                <li>
-                                    <a href="#">{{$ue1->short_title}}</a>
+                            <li>
+                                <a href="#tabs-a">Les groupes de cours</a>
+                            </li>
+                            <li>
+                                <a href="#tabs-b">Les périodes</a>
+                            </li>
+                        </ul>
+                        <div id="tabs-a">
+                            <div class="row padding-10">
+                                <div id="groupes" class="col-sm-12">
+                                    <h3>Création et affectation des groupes de cours pour {{$module->LONG_TITLE}}</h3>
                                     <ul>
-                                        @foreach($ue1->lesModules as $mod1)
-                                            <li>
-                                                <a href="{{ route('affectation.affectationFormation', array($f1->id, $ue1->id, $mod1->ID))}}">{{$mod1->SHORT_TITLE}}</a>
+                                        <h6>Cours pas encore affecté :</h6>
+                                        @foreach($typeCours as $type)
+                                            <li>{{$type->nb}} {{strtoupper($type->type)}} de {{$type->duree}} min</li>
+                                        @endforeach
+                                    </ul>
+                                    <ul>
+                                        <h6>Cours déja affecté :</h6>
+                                        @foreach($typeCoursDansGroupe as $typeCoursGroupe)
+                                            <li>{{$typeCoursGroupe->nb}} {{strtoupper($typeCoursGroupe->type)}} de {{$typeCoursGroupe->duree}} min</li>
+                                        @endforeach
+                                    </ul>
+                                    <ul>
+                                        <h6>Cours en commun avec un autre module :</h6>
+                                        @foreach($typeCoursDansGroupeCommun as $typeCoursGroupeCommun)
+                                            <li>{{$typeCoursGroupeCommun->nb}} {{strtoupper($typeCoursGroupeCommun->type)}} de {{$typeCoursGroupeCommun->duree}} min
+                                                <a href="{{ route('affectation.affectationFormation', array($typeCoursGroupeCommun->formationID, $typeCoursGroupeCommun->ueID, $typeCoursGroupeCommun->moduleID))}}">Gérer la matière source</a>
                                             </li>
                                         @endforeach
                                     </ul>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-            @if($idFormation != -1)
-                <div id="tabs">
-                    <ul>
-                        <li>
-                            <a href="#tabs-a">Les groupes de cours</a>
-                        </li>
-                        <li>
-                            <a href="#tabs-b">Les périodes</a>
-                        </li>
-                    </ul>
-                    <div id="tabs-a">
-                        <div class="row padding-10">
-                            <div id="groupes" class="col-sm-12">
-                                <h3>Création et affectation des groupes de cours pour {{$module->LONG_TITLE}}</h3>
-                                <ul>
-                                    <h6>Cours pas encore affecté :</h6>
-                                    @foreach($typeCours as $type)
-                                        <li>{{$type->nb}} {{strtoupper($type->type)}} de {{$type->duree}} min</li>
-                                    @endforeach
-                                </ul>
-                                <ul>
-                                    <h6>Cours déja affecté :</h6>
-                                    @foreach($typeCoursDansGroupe as $typeCoursGroupe)
-                                        <li>{{$typeCoursGroupe->nb}} {{strtoupper($typeCoursGroupe->type)}} de {{$typeCoursGroupe->duree}} min</li>
-                                    @endforeach
-                                </ul>
-                                <ul>
-                                    <h6>Cours en commun avec un autre module :</h6>
-                                    @foreach($typeCoursDansGroupeCommun as $typeCoursGroupeCommun)
-                                        <li>{{$typeCoursGroupeCommun->nb}} {{strtoupper($typeCoursGroupeCommun->type)}} de {{$typeCoursGroupeCommun->duree}} min
-                                            <a href="{{ route('affectation.affectationFormation', array($typeCoursGroupeCommun->formationID, $typeCoursGroupeCommun->ueID, $typeCoursGroupeCommun->moduleID))}}">Gérer la matière source</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-
-                                <h6>Liste des groupes de cours :</h6>
-                                @foreach ($groupesCours as $groupeCours)
-                                    <?php
-                                    switch ($groupeCours->type) {
-                                        case 'cm':
-                                        $nbGroupe = $groupeCours->groupe_cm;
-                                            break;
-                                        case 'td':
-                                        $nbGroupe = $groupeCours->groupe_td;
-                                            break;
-                                        case 'tp':
-                                        $nbGroupe = $groupeCours->groupe_tp;
-                                            break;
-                                    }
-                                    $precendenteValeur = array();
-                                    foreach ($groupesCoursEnseignantModule as $key => $v) {
-                                        if ($v->groupecours_id == $groupeCours->id)
-                                            $precendenteValeur[] = $v;
-                                    }
-                                    ?>
-                                    <div class="row col-sm-12">
-                                        <div class="well">
-                                            [{{strtoupper($groupeCours->type)}}] Groupe de cours de {{$groupeCours->duree}} min ({{$nbGroupe}} groupe de {{strtoupper($groupeCours->type)}}) - {{$groupeCours->libelle}}
-                                            <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($idFormation, $ue->id, $module->ID, $groupeCours->id)); }}">Supprimer</a>
-                                            <button onclick='affecterAUnEnseignant({{$groupeCours->id}},{{$nbGroupe}}, "{{$groupeCours->type}}", {{json_encode($precendenteValeur)}})' data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Modifier Affectation</button>
+                                    <h6>Liste des groupes de cours :</h6>
+                                    @foreach ($groupesCours as $groupeCours)
+                                        <?php
+                                        switch ($groupeCours->type) {
+                                            case 'cm':
+                                            $nbGroupe = $groupeCours->groupe_cm;
+                                                break;
+                                            case 'td':
+                                            $nbGroupe = $groupeCours->groupe_td;
+                                                break;
+                                            case 'tp':
+                                            $nbGroupe = $groupeCours->groupe_tp;
+                                                break;
+                                        }
+                                        $precendenteValeur = array();
+                                        foreach ($groupesCoursEnseignantModule as $key => $v) {
+                                            if ($v->groupecours_id == $groupeCours->id)
+                                                $precendenteValeur[] = $v;
+                                        }
+                                        ?>
+                                        <div class="row col-sm-12">
+                                            <div class="well">
+                                                [{{strtoupper($groupeCours->type)}}] Groupe de cours de {{$groupeCours->duree}} min ({{$nbGroupe}} groupe de {{strtoupper($groupeCours->type)}}) - {{$groupeCours->libelle}}
+                                                <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($idFormation, $ue->id, $module->ID, $groupeCours->id)); }}">Supprimer</a>
+                                                <button onclick='affecterAUnEnseignant({{$groupeCours->id}},{{$nbGroupe}}, "{{$groupeCours->type}}", {{json_encode($precendenteValeur)}})' data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Modifier Affectation</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+                                    <button class="btn btn-success" data-toggle="modal" data-target="#ajouter" href="#"><i class="fa fa-plus"></i> Ajouter un groupe</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tabs-b">
+                            <div class="row padding-10">
+                                <ul>
+                                @foreach($periodes as $p1)
+                                    <li>{{$p1['nom']}} - Du {{$p1['dateDebut']}} au {{$p1['dateFin']}} ({{count($p1['sem'])}} semaines)</li>
                                 @endforeach
-                                <button class="btn btn-success" data-toggle="modal" data-target="#ajouter" href="#"><i class="fa fa-plus"></i> Ajouter un groupe</button>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div id="tabs-b">
-                        <div class="row padding-10">
-                            <ul>
-                            @foreach($periodes as $p1)
-                                <li>{{$p1['nom']}} - Du {{$p1['dateDebut']}} au {{$p1['dateFin']}} ({{count($p1['sem'])}} semaines)</li>
-                            @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            @else
-                <p class="text-center well">Veuillez selectionner un module...</p>
-            @endif
+                @else
+                    <p class="text-center well">Veuillez selectionner un module...</p>
+                @endif
+            </div>
         </div>
-
     </div>
 </section>
 

@@ -1,128 +1,83 @@
 @include('layout.header')
 <section id="widget-grid" class="">
     <div class="row">
-        <!-- NEW WIDGET START -->
-        	<h1>Voeux  <small>Cette page permet de gerer vos indisponibilités à être à l'IUT</small></h1>
-        <br/>
-        <br/>
-        <!-- NEW WIDGET START -->
-        <div class="row">
-
-            <!-- NEW WIDGET START -->
-            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-                <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
-                    <!-- widget options:
-                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-                    data-widget-colorbutton="false"
-                    data-widget-editbutton="false"
-                    data-widget-togglebutton="false"
-                    data-widget-deletebutton="false"
-                    data-widget-fullscreenbutton="false"
-                    data-widget-custombutton="false"
-                    data-widget-collapsed="true"
-                    data-widget-sortable="false"
-
-                    -->
-                    <header>
-                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>Voeux </h2>
-
-                    </header>
-
-                    <!-- widget div-->
-                    <div>
-
-                        <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                            <!-- This area used as dropdown edit box -->
-
-                        </div>
-                        <!-- end widget edit box -->
-
-                        <!-- widget content -->
-                        <div class="widget-body no-padding">
-                            <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Lundi</th>
-                                        <th>Mardi</th>
-                                        <th>Mercredi</th>
-                                        <th>Jeudi</th>
-                                        <th>Vendredi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tab_voeux">
-                                	<tr>
-                                        <th>8h - 9h30</th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                    </tr>
-                                	<tr>
-                                        <th>9h30 - 11h</th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                    </tr>
-                                	<tr>
-                                        <th>11h - 12h30</th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                    </tr>
-                                	<tr>
-                                        <th>12h30 - 13h30</th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                    </tr>
-                                	<tr>
-                                        <th>13h30 - 15h</th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                    </tr>
-                                	<tr>
-                                        <th>15h - 16h30</th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                    </tr>
-                                	<tr>
-                                        <th>16h30 - 18h</th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                        <th><button class="btn"></button></th>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                        <!-- end widget div -->
-                    </div>
-                    <!-- end widget -->
-            </article>
-            <!-- WIDGET END -->
+        <h1>Voeux <small>Cette page permet de gerer vos indisponibilités dans la semaine</small></h1>
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("voeux")}}
         </div>
-        <!-- WIDGET END -->
+    </div>
+    <div class="row">
+        <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Lundi</th>
+                    <th>Mardi</th>
+                    <th>Mercredi</th>
+                    <th>Jeudi</th>
+                    <th>Vendredi</th>
+                </tr>
+            </thead>
+            <tbody id="tab_voeux">
+            	<tr>
+                    <th>8h - 9h30</th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                </tr>
+            	<tr>
+                    <th>9h30 - 11h</th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                </tr>
+            	<tr>
+                    <th>11h - 12h30</th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                </tr>
+            	<tr>
+                    <th>12h30 - 13h30</th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                </tr>
+            	<tr>
+                    <th>13h30 - 15h</th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                </tr>
+            	<tr>
+                    <th>15h - 16h30</th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                </tr>
+            	<tr>
+                    <th>16h30 - 18h</th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </section>
 

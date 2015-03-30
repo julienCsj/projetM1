@@ -2,53 +2,49 @@
 
 <section id="widget-grid" class="">
     <div class="row">
-        <!-- NEW WIDGET START -->
         <h1>Calendrier <small>Cette page permet de gérer la formation {{$formation->long_title}}</small></h1>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="alert alert-info fade in">
-                <strong>A propos de cette page.</strong> {{TipsService::getTip("calendrier")}}
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("calendrier")}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-3">
+            <div class="row well">
+                <header>
+                    <h2> Les périodes </h2>
+                </header>
+                <button id="ajouterPeriode" class="btn btn-primary ui-btn-sm"><i class="glyphicon glyphicon-plus"></i> Ajouter une nouvelle période</button>
+                <hr>
+                <input type="hidden" name="nbPeriode" id="nbPeriode" value="1" />
+                <div class="well well-sm" id="event-container">
+                    <form>
+                        <fieldset>
+                            <ul id="external-events" class="list-unstyled">
+
+                            </ul>
+                        </fieldset>
+                    </form>
+
+                </div>
             </div>
         </div>
-        <!-- WIDGET END -->
-
-        <!-- NEW WIDGET START -->
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-3">
-                <div class="well">
-                    <header>
-                        <h2> Les périodes </h2>
-                    </header>
-                    <button id="ajouterPeriode" class="btn btn-primary ui-btn-sm"><i class="glyphicon glyphicon-plus"></i> Ajouter une nouvelle période</button>
-                    <hr>
-                    <input type="hidden" name="nbPeriode" id="nbPeriode" value="1" />
-                    <div class="well well-sm" id="event-container">
-                        <form>
-                            <fieldset>
-                                <ul id="external-events" class="list-unstyled">
-
-                                </ul>
-                            </fieldset>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-9">
-                <!-- new widget -->
+        <div class="col-sm-12 col-md-12 col-lg-9">
+            <!-- new widget -->
+            <div>
+                <!-- widget div-->
                 <div>
-                    <!-- widget div-->
-                    <div>
-                        <div class="widget-body no-padding">
-                            <!-- content goes here -->
-                            <br><br>
-                            <div id='calendar' class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
-                            <!-- end content -->
-                        </div>
+                    <div class="widget-body no-padding">
+                        <!-- content goes here -->
+                        <br><br>
+                        <div id='calendar' class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+                        <!-- end content -->
                     </div>
-                    <!-- end widget div -->
                 </div>
-                <!-- end widget -->
+                <!-- end widget div -->
             </div>
+            <!-- end widget -->
         </div>
     </div>
 </section>

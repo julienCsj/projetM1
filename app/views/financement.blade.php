@@ -1,74 +1,42 @@
 @include('layout.header')
 <section id="widget-grid" class="">
     <div class="row">
-        <!-- NEW WIDGET START -->
         <h1>Gestion du financement <small>Gestion des sources de financement</small></h1>
-        <br/>
-        <br/>
-        <!-- NEW WIDGET START -->
-        <div class="row">
-            <!-- NEW WIDGET START -->
-            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="alert alert-info fade in">
-                    <strong>A propos de cette page.</strong> {{TipsService::getTip("financement")}}
-                </div>
-
-                <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" 
-                     data-widget-colorbutton="false"
-                     data-widget-editbutton="false"
-                     data-widget-togglebutton="false"
-                     data-widget-deletebutton="false"
-                     data-widget-fullscreenbutton="false"
-                     data-widget-custombutton="false"
-                     data-widget-collapsed="false"
-                     data-widget-sortable="false">
-
-                    <header>
-                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>Liste des financements existants </h2>
-
-                    </header>
-                    <!-- widget div-->
-                    <div>
-                        <!-- widget content -->
-                        <div class="widget-body no-padding">
-                            <table id="dt_basic_financement" class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>#ID</th>
-                                        <th>Libellé</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($financements as $f)
-                                    <tr>
-                                        <td>{{ $f['id'] }}</td>
-                                        <td>{{ $f['libelle'] }}</td>
-                                        <td>
-                                            <a class="btn btn-xs btn-danger" href="{{ route('financement.supprimerFinancement', array($f['id'])); }}"> <i class="glyphicon glyphicon-trash"></i></a>
-                                            <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modifierFinancement-{{$f['id']}}" href="javascript:void(0);"> <i class="glyphicon glyphicon-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <div class="pull-right">
-                                <a class="btn btn-labeled btn-success" data-toggle="modal" data-target="#ajouterFinancement" href="#">
-                                    <span class="btn-label">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                    </span>Ajouter une source de financement 
-                                </a>
-                            </div>
-                        </div> 
-                        <!-- end widget div -->
-                    </div>
-                </div>
-                <!-- end widget -->
-            </article>
-            <!-- WIDGET END -->
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("financement")}}
         </div>
+    </div>
+    <div class="row">     
+        <table id="dt_basic_financement" class="table table-striped table-bordered table-hover" width="100%">
+            <thead>
+                <tr>
+                    <th>#ID</th>
+                    <th>Libellé</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($financements as $f)
+                <tr>
+                    <td>{{ $f['id'] }}</td>
+                    <td>{{ $f['libelle'] }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-danger" href="{{ route('financement.supprimerFinancement', array($f['id'])); }}"> <i class="glyphicon glyphicon-trash"></i></a>
+                        <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modifierFinancement-{{$f['id']}}" href="javascript:void(0);"> <i class="glyphicon glyphicon-pencil"></i></a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="pull-right">
+            <a class="btn btn-labeled btn-success" data-toggle="modal" data-target="#ajouterFinancement" href="#">
+                <span class="btn-label">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </span>Ajouter une source de financement 
+            </a>
+        </div>
+    </div>
 </section>
 
 @include('layout.footer')

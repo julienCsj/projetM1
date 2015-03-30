@@ -1,22 +1,21 @@
 @include('layout.header')
 <section id="widget-grid" class="">
-    <div class="row">
+    <div class="row" id="drag">
         <!-- NEW WIDGET START -->
     	<h1>Planification <small>{{$formation->long_title}}</small></h1>
         <!-- WIDGET END -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="alert alert-info fade in">
-                <strong>A propos de cette page.</strong> {{TipsService::getTip("planification")}}
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("planification")}}
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                <a href="{{ route('module')}}" class="btn btn-primary pull-right" style="margin-left:3px;">Aller à la configuration</a>
+                <a href="{{ route('affectation')}}" class="btn btn-primary pull-right">Aller à l'affectation</a>
             </div>
-        </div>
-
-        <div class="col-sm-12">
-            <a href="{{ route('module')}}" class="btn btn-primary pull-right" style="margin-left:3px;">Aller à la configuration</a>
-            <a href="{{ route('affectation')}}" class="btn btn-primary pull-right">Aller à l'affectation</a>
-        </div>
-                    
-        <div class="row" id="drag">
-
+                        
             <div class="col-sm-12 col-md-3 col-lg-3">
                 <h3>Groupe de cours à planifier</h3>
                 <form>
@@ -36,28 +35,30 @@
 
             <div id="periodes" class="col-sm-12 col-md-9 col-lg-9">
                 <h3>Périodes d'enseignements</h3>
-                @foreach ($periodes as $periode)
-                <div class="col-sm-12">
-                    <span>Période du {{$periode["dateDebut"]}} au {{$periode["dateFin"]}} : {{count($periode['sem'])}} semaines</span>
-                </div>
-                <div class="col-sm-12">
-                    <div data-id="{{$periode["id"]}}" data-size="{{count($periode['sem'])}}" class="droppable col-sm-12 well">
-                        Déposez les cours ici
-                        <ul id="liste" class="list-unstyled">
-                            @foreach ($periode["groupesCours"] as $groupeCours)
-                            <li>
-                                <div data-id="{{$groupeCours->id}}" data-size="{{$groupeCours->nbcours}}" class="draggable bg-color-green txt-color-white" style="width: 50%;">
-                                    {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séances)
-                                    @if ($groupeCours->nbcours != count($periode['sem']))
-                                    &nbsp;Semaine {{$groupeCours->semaine}}
-                                    @endif
-                                </div>
-                            </li>
-                            @endforeach
-                        </ul>
+                <div class="row">
+                    @foreach ($periodes as $periode)
+                    <div class="col-sm-12">
+                        <span>Période du {{$periode["dateDebut"]}} au {{$periode["dateFin"]}} : {{count($periode['sem'])}} semaines</span>
                     </div>
+                    <div class="col-sm-12">
+                        <div data-id="{{$periode["id"]}}" data-size="{{count($periode['sem'])}}" class="droppable col-sm-12 well">
+                            Déposez les cours ici
+                            <ul id="liste" class="list-unstyled">
+                                @foreach ($periode["groupesCours"] as $groupeCours)
+                                <li>
+                                    <div data-id="{{$groupeCours->id}}" data-size="{{$groupeCours->nbcours}}" class="draggable bg-color-green txt-color-white" style="width: 50%;">
+                                        {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séances)
+                                        @if ($groupeCours->nbcours != count($periode['sem']))
+                                        &nbsp;Semaine {{$groupeCours->semaine}}
+                                        @endif
+                                    </div>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
         </div>
     </div>

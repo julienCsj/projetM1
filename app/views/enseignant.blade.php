@@ -2,109 +2,64 @@
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        <h1>Enseignant <small>Cette page permet de gérer les enseignants</small></h1>
-        <br/>
-        <br/>
+        <h1>Enseignants <small>Cette page permet de gérer les enseignants</small></h1>
         <!-- NEW WIDGET START -->
-        <div class="row">
-
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="alert alert-info fade in">
-                    <strong>A propos de cette page.</strong> {{TipsService::getTip("enseignant")}}
-                </div>
-            </div>
-            <!-- NEW WIDGET START -->
-            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-                    <!-- widget options:
-                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-                    data-widget-colorbutton="false"
-                    data-widget-editbutton="false"
-                    data-widget-togglebutton="false"
-                    data-widget-deletebutton="false"
-                    data-widget-fullscreenbutton="false"
-                    data-widget-custombutton="false"
-                    data-widget-collapsed="true"
-                    data-widget-sortable="false"
-
-                    -->
-                    <header>
-                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>Liste des enseignants </h2>
-
-                    </header>
-
-                    <!-- widget div-->
-                    <div>
-
-                        <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                            <!-- This area used as dropdown edit box -->
-
-                        </div>
-                        <!-- end widget edit box -->
-
-                        <!-- widget content -->
-                        <div class="widget-body no-padding">
-                            <table id="dt_basic_enseignant" class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Statut horaire </th>
-                                        <th>Pourcentage </th>
-                                        <th>Voir attribution heure</th>
-                                        <th>Voeux enseignant</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                    @if (!empty($enseignant))
-                                    @foreach ($enseignant as $e)
-                                    <tr>
-                                        <td>{{ ucfirst($e->LASTNAME) }}</td>
-                                        <td>{{ ucfirst($e->FIRSTNAME) }}</td>
-                                        <td>
-                                            <a id="enseignant-statut-{{ str_replace('.', '', $e->LOGIN) }}" class="enseignant-statut" href="#" onclick="handleEnseignantStatus(this);return false;" data-taux-horaire-specifique="{{$e->taux_horaire_specifique}}" data-idEnseignant="{{ $e->LOGIN }}">
-                                            @if(!empty($typeStatus) && $e->id != NULL)
-                                                @if($e->taux_horaire_specifique == 0)
-                                                    <span data-status="{{ intval($e->typestatus_id) }}" data-volumeHoraire="{{ intval($e->volume_horaire) }}">
-                                                    {{ $typeStatus[intval($e->typestatus_id)]["label"] }} -
-                                                    {{ $typeStatus[intval($e->typestatus_id)]["heure"] }} h</span>
-                                                @else
-                                                    <span data-status="{{ intval($e->typestatus_id) }}" data-volumeHoraire="{{ intval($e->volume_horaire) }}">
-                                                    {{ $e->volume_horaire }} h</span>
-                                                @endif
-                                            @else
-                                            <span data-id="-1" data-status="0" data-volumeHoraire="-1">Statut non renseigné</span>
-                                            @endif
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <div class="easy-pie-chart text-danger easyPieChart" data-percent="0" data-pie-size="25" data-pie-track-color="rgba(169, 3, 41,0.07)" style="width: 30px; height: 30px; line-height: 30px;">
-                                                <span class="percent txt-color-red">0</span>
-                                            </div>
-                                            % heures planifiées
-                                        </td>
-                                        <td></td>
-                                        <td><a href="/enseignant/{{$e->LOGIN}}/voeux">Voir voeux</a></td>
-                                    </tr>
-                                    @endforeach
-                                @else
-                                <p>Aucun enseignant à afficher</p>
-                                @endif
-                                </tbody>
-                            </table>
-
-                        </div>
-                        <!-- end widget div -->
-                    </div>
-                    <!-- end widget -->
-            </article>
-            <!-- WIDGET END -->
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("enseignant")}}
         </div>
+    </div>
+    <div class="row">
+        <table id="dt_basic_enseignant" class="table table-striped table-bordered table-hover" width="100%">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Statut horaire </th>
+                    <th>Pourcentage </th>
+                    <th>Voir attribution heure</th>
+                    <th>Voeux enseignant</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @if (!empty($enseignant))
+                @foreach ($enseignant as $e)
+                <tr>
+                    <td>{{ ucfirst($e->LASTNAME) }}</td>
+                    <td>{{ ucfirst($e->FIRSTNAME) }}</td>
+                    <td>
+                        <a id="enseignant-statut-{{ str_replace('.', '', $e->LOGIN) }}" class="enseignant-statut" href="#" onclick="handleEnseignantStatus(this);return false;" data-taux-horaire-specifique="{{$e->taux_horaire_specifique}}" data-idEnseignant="{{ $e->LOGIN }}">
+                        @if(!empty($typeStatus) && $e->id != NULL)
+                            @if($e->taux_horaire_specifique == 0)
+                                <span data-status="{{ intval($e->typestatus_id) }}" data-volumeHoraire="{{ intval($e->volume_horaire) }}">
+                                {{ $typeStatus[intval($e->typestatus_id)]["label"] }} -
+                                {{ $typeStatus[intval($e->typestatus_id)]["heure"] }} h</span>
+                            @else
+                                <span data-status="{{ intval($e->typestatus_id) }}" data-volumeHoraire="{{ intval($e->volume_horaire) }}">
+                                {{ $e->volume_horaire }} h</span>
+                            @endif
+                        @else
+                        <span data-id="-1" data-status="0" data-volumeHoraire="-1">Statut non renseigné</span>
+                        @endif
+                        </a>
+                    </td>
+                    <td>
+                        <div class="easy-pie-chart text-danger easyPieChart" data-percent="0" data-pie-size="25" data-pie-track-color="rgba(169, 3, 41,0.07)" style="width: 30px; height: 30px; line-height: 30px;">
+                            <span class="percent txt-color-red">0</span>
+                        </div>
+                        % heures planifiées
+                    </td>
+                    <td></td>
+                    <td><a href="/enseignant/{{$e->LOGIN}}/voeux">Voir voeux</a></td>
+                </tr>
+                @endforeach
+            @else
+            <p>Aucun enseignant à afficher</p>
+            @endif
+            </tbody>
+        </table>
+    </div>
 </section>
 
 <!-- #dialog-message -->
