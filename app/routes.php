@@ -101,8 +101,8 @@ Route::group(array('before' => 'auth'), function () { // Login required
 Route::get('/test', function()
 {
     //exit(var_dump(CalculerChargeService::calculerServiceEnseignantGlobal("olivier.catteau")));
-    //exit(var_dump(CalculerChargeService::calculerServiceEnseignantParSemaine("olivier.catteau")));
-    exit(var_dump(CalculerChargeService::calculerServiceFormationGlobal("sem00001")));
+    exit(var_dump(CalculerChargeService::calculerServiceEnseignantParSemaine("olivier.catteau")));
+    //exit(var_dump(CalculerChargeService::calculerServiceFormationGlobal("sem00001")));
 
 });
 

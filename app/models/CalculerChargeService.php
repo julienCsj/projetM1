@@ -94,7 +94,7 @@ class CalculerChargeService {
                 if ($nbCoursDansGroupeCours == $nbSemainePeriode) {
                     // Attribuer un cours a chaque semaine
                     for($i=1; $i <=$nbCoursDansGroupeCours; $i++) {
-                        $arraySemaine[intval($i+$numeroSemaine-1)][$type] += $duree * $nbGroupeAssigneALenseignant;
+                        $arraySemaine[intval(($i+$numeroSemaine-1)%52)][$type] += $duree * $nbGroupeAssigneALenseignant;
                         //echo "Semaine ".intval($i+$numeroSemaine-1)." : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
                     }
 
@@ -106,7 +106,7 @@ class CalculerChargeService {
                     // Attribuer un cours par semaine a partir du décallage
                     for($i=$decalage; $i <=$nbCoursDansGroupeCours+($decalage-1); $i++) {
                         //echo "Semaine ".intval($i+$numeroSemaine-1)." ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
-                        $arraySemaine[intval($i+$numeroSemaine-1)][$type] += $duree * $nbGroupeAssigneALenseignant;
+                        $arraySemaine[intval(($i+$numeroSemaine-1)%52)][$type] += $duree * $nbGroupeAssigneALenseignant;
                     }
 
                 }
@@ -204,7 +204,7 @@ class CalculerChargeService {
                 if ($nbCoursDansGroupeCours == $nbSemainePeriode) {
                     // Attribuer un cours a chaque semaine
                     for($i=1; $i <=$nbCoursDansGroupeCours; $i++) {
-                        $arraySemaine[intval($i+$numeroSemaine-1)][$type] += $duree;
+                        $arraySemaine[intval(($i+$numeroSemaine-1)%52)][$type] += $duree;
                         //echo "Semaine ".intval($i+$numeroSemaine-1)." : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
                     }
 
@@ -216,7 +216,7 @@ class CalculerChargeService {
                     // Attribuer un cours par semaine a partir du décallage
                     for($i=$decalage; $i <=$nbCoursDansGroupeCours+($decalage-1); $i++) {
                         //echo "Semaine ".intval($i+$numeroSemaine-1)." ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
-                        $arraySemaine[intval($i+$numeroSemaine-1)][$type] += $duree;
+                        $arraySemaine[intval(($i+$numeroSemaine-1)%52)][$type] += $duree;
                     }
 
                 }
