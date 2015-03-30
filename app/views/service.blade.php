@@ -1,4 +1,20 @@
 @include('layout.header')
+<?php
+$arrayMonthTotext = array(
+    "1" => "jan",
+    "2" => "fév",
+    "3" => "mars",
+    "4" => "avr",
+    "5" => "mai",
+    "6" => "juin",
+    "7" => "juil",
+    "8" => "août",
+    "9" => "sept",
+    "10" => "oct",
+    "11" => "nov",
+    "12" => "déc"
+);
+?>
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
@@ -11,25 +27,34 @@
                 <header>
                     <h2> Paliers </h2>
                 </header>
+                <?php
+                    $hGlobal = $service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"];
+                    $nbHeures = 200;
+                    $pourcentServiceMinimal = $hGlobal / $nbHeures;
+                    if ($pourcentServiceMinimal > 1) {
+                        $pourcentServiceMinimal = 1;
+                    }
+                    $nbHeuresMaxi = $nbHeures * 2;
+                    $pourcentServiceMaxi = $hGlobal / $nbHeuresMaxi;
+                ?>
                 <div class="well well-sm" id="event-container">
-
 			    		<span class="text">
 			    			Service minimal
 			    			<span class="pull-right">
-			    				130/200 heures
+			    				{{$hGlobal}}/{{$nbHeures}} heures
 			    			</span>
 			    		</span>
                     <div class="progress">
-                        <div class="progress-bar bg-color-greenLight" style="width: 65%;"></div>
+                        <div class="progress-bar bg-color-greenLight" style="width: {{$pourcentServiceMinimal*100}}%;"></div>
                     </div>
 			    		<span class="text">
 			    			Service maximal
 			    			<span class="pull-right">
-			    				130/400 heures
+			    				{{$hGlobal}}/{{$nbHeuresMaxi}} heures
 			    			</span>
 			    		</span>
                     <div class="progress">
-                        <div class="progress-bar bg-color-blue" style="width: 32%;"></div>
+                        <div class="progress-bar bg-color-blue" style="width: {{$pourcentServiceMaxi*100}}%;"></div>
                     </div>
 
                 </div>
@@ -60,17 +85,60 @@
                     <!-- widget div-->
                     <div>
                         <div class="widget-body">
-                            <ul>
-                            @foreach($service as $s)
-                                <label>Semaine #{{$s['numSemaine']}} - {{$s['label']}}</label>
-                                <ul>
-                                    <li>CM : {{$s['cm']}}</li>
-                                    <li>TD : {{$s['td']}}</li>
-                                    <li>TP : {{$s['tp']}}</li>
-                                    <li>Total : {{intval($s['cm'] + $s['td'] + $s['tp'])}}</li>
-                                </ul>
-                            @endforeach
-                            </ul>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mois</th>
+                                            <th><i class="fa fa-calendar"></i> N° Semaine</th>
+                                            <th>Charge de travail</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            $printMonth = true;
+                                            $precedentMonth = -1;
+                                        ?>
+                                        @foreach($service as $s)
+                                            <tr class="@if(intval($s['cm'] + $s['td'] + $s['tp']) == 0)
+                                                    info
+                                                    @else
+                                                    success
+                                                    @endif
+                                            ">
+                                                <td>
+                                                    <?php
+                                                        $d = new DateTime();
+                                                        $d->setISODate($s['annee'],$s['numSemaine'],1);    
+                                                        $mois = date("n", $d->getTimestamp());
+                                                        if ($mois != $precedentMonth) {
+                                                            $printMonth = true;
+                                                        }
+                                                        $precedentMonth = $mois;
+                                                    ?>
+                                                    @if($printMonth)
+                                                        {{$arrayMonthTotext[$mois]}}
+                                                        <?php $printMonth = false; ?>
+                                                    @endif
+                                                </td>
+                                                <td>Semaine #{{$s['numSemaine']}} - {{$s['label']}}</td>
+                                                <td>
+                                                    @if(intval($s['cm'] + $s['td'] + $s['tp']) != 0)
+                                                    CM : {{$s['cm']}}m<br>
+                                                    TD : {{$s['td']}}m<br>
+                                                    TP : {{$s['tp']}}m<br>
+                                                    Total service : {{intval($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp'])}}m<br/>
+                                                    Total heures placées : {{intval($s['cm'] + $s['td'] + $s['tp'])}}m<br>
+                                                    @else
+                                                    Pas de cours assigné
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                
+                            </div>
                         </div>
                         <!-- end widget div -->
                     </div>

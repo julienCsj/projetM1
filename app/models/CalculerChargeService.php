@@ -245,6 +245,7 @@ class CalculerChargeService {
         for($i=0; $i<$nbSem; $i++){
             $weeks[intval($sem[$i]['semaine'])] = array(
                 'numSemaine' => $sem[$i]['semaine'],
+                'annee' => $sem[$i]['annee'],
                 'label' => $sem[$i]['label'],
                 'cm' => 0,
                 'td' => 0,

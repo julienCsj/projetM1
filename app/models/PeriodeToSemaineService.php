@@ -78,6 +78,7 @@ class PeriodeToSemaineService {
 				"deb" => $deb, //1 er jour de la nouvelle periode
 				"fin" => $fin_result, // dimanche soir
 				"semaine" => date("W", $deb),
+				"annee" => date("Y", $deb),
 				"label" => "Semaine #".date("W", $deb)." du ". $jour[date("N", $deb)]." " . date("d ", $deb) . $mois[date("n", $deb)]. date(" Y", $deb)." au " . $jour[date("N", $fin_result)]." " . date("d ", $fin_result) . $mois[date("n", $fin_result)]
 			);
 			$deb = $fin_semaine;
