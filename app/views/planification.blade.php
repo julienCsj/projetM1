@@ -116,8 +116,8 @@
 
         var groupecoursID = draggable.attr('data-id');
         var calendrierID = droppable.attr('data-id');
-        var sizeGroupeCours = draggable.attr('data-size'); 
-        var sizeCalendrier = droppable.attr('data-size');
+        var sizeGroupeCours = parseInt(draggable.attr('data-size')); 
+        var sizeCalendrier = parseInt(droppable.attr('data-size'));
 
         if(sizeGroupeCours < sizeCalendrier) {
             planificationDecalage(draggable, droppable);
