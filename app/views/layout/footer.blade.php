@@ -10,8 +10,7 @@
 <div class="page-footer">
     <div class="row">
         <div class="col-xs-12 col-sm-12">
-            <span class="txt-color-white">Application développée par Julien Custoja, Elliot Felgines & Léo Mieulet. NIL SOFTWARE</span>
-            <span class="txt-color-white"><a href="">Mentions légales</a> - <a href="">Conditions d'utilisation</a></span>
+            <span class="txt-color-white">Application développée par Julien Custoja, Elliot Felgines & Léo Mieulet.</span>
         </div>
     </div>
 </div>
