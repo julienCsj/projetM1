@@ -50,7 +50,7 @@
                         </div>
                         % heures planifiées
                     </td>
-                    <td></td>
+                    <td><a href="/fiche/{{$e->LOGIN}}">Voir fiche enseignant</a></td>
                     <td><a href="/enseignant/{{$e->LOGIN}}/voeux">Voir voeux</a></td>
                 </tr>
                 @endforeach
