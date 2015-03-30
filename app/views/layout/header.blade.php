@@ -66,7 +66,6 @@
 
     <!-- pulled right: nav area -->
     <div class="pull-right">
-
         <!-- collapse menu button -->
         <div id="hide-menu" class="btn-header pull-right">
             <span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
@@ -78,9 +77,6 @@
             <span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
         </div>
         <!-- end fullscreen button -->
-
-
-
     </div>
     <!-- end pulled right: nav area -->
 
@@ -103,8 +99,39 @@
                 @endif
             @endforeach
         </ol>
+        <span class="ribbon-button-alignment pull-right"> 
+            <span id="signalerbug" class="btn btn-ribbon"><i class="fa fa-life-bouy"> Signaler un bug</i></span> 
+        </span>
     </div>
     <!-- END RIBBON -->
+
+    <div class="modal fade" id="modalbug" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Signaler un bug</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Nous avons mis en place un Trello pour vous permettre de nous remonter des bugs ou problèmes.
+                    <br>
+                    <div style=" text-align:center">
+                        <a href="https://trello.com/b/7AM3JLAk/scolarel-bug-tracker" class="btn btn-primary ui-btn-lg" target="_blank" style="align:center;">Le Trello</a>
+                        <br><br>
+                    </div>
+                    Pour nous faire parvenir un bug, il suffit d'ajouter une carte dans la colonne "Signaler un bug" en cliquant sur "Add a card".<br>
+                    Vous avez ensuite la possibilité de donner un titre a votre carte. Appuyer sur entrer pour valider.
+                    Une fois la carte ajoutée, vous pouvez ajouter une description, une image, un fichier, etc... en cliquant
+                    sur la carte.<br><br>
+                </div>
+                <div class="modal-footer">
+                    <input id="retourbug" type="submit" class="btn btn-primary" value="Retour" />
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- MAIN CONTENT -->
     <div id="content">
@@ -141,3 +168,4 @@
                         @endforeach
                     @endif
                     <!-- FIN ALERT BOX -->
+

@@ -140,6 +140,13 @@ you can add as many as you like
         @endif
     })
 
+    $('#signalerbug').click(function(){
+        $('#modalbug').modal('toggle');
+    });
+
+    $('#retourbug').click(function(){
+        $('#modalbug').modal('toggle');
+    });
 </script>
 
 <!-- Your GOOGLE ANALYTICS CODE Below -->
