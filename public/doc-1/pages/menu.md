@@ -1,4 +1,3 @@
 <ul>
-	<li><a href="?page=page2">une autre page</a></li>
-	<li><a href="#Credits">Credits</a></li>
+	<li><a href="?page=Processus">Utilisation basique de Scolarel</a></li>
 </ul>

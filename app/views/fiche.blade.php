@@ -240,7 +240,7 @@ $arrayMonthTotext = array(
                                     <th><strong>{{$serviceCM + $specifiqueCM}}</strong></th>
                                     <th><strong>{{$serviceTD + $specifiqueTD}}</strong></th>
                                     <th><strong>{{$serviceTP + $specifiqueTP}}</strong></th>
-                                    <th><strong>{{$serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}</strong></th>
+                                    <th><strong>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}</strong></th>
                                 </tr>
                                 <tr>
                                     <th>Pourcentage</th>
@@ -266,7 +266,7 @@ $arrayMonthTotext = array(
                                 </tr>
                                 <tr>
                                     <th>Service dû effectué</th>
-                                    <th>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}h</th>
+                                    <th>@if(intval($serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP) > intval($statut->SERVICE_STATUTAIRE)) OUI @else NON @endif</th>
                                 </tr>
                             </table>
 

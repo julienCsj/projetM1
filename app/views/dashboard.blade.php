@@ -33,6 +33,21 @@
 
                     <br>
                     <br>
+                    </p>
+                    <h3>Retour de bugs</h3>
+                    <p>Nous avons mis en place un Trello pour vous permettre de nous remonter des bugs ou problèmes.
+                    <br>
+                    <div style=" text-align:center">
+                        <a href="https://trello.com/b/7AM3JLAk/scolarel-bug-tracker" class="btn btn-primary ui-btn-lg" style="align:center;">Le Trello</a>
+                        <br><br>
+                    </div>
+                    Pour nous faire parvenir un bug, il suffit d'ajouter une carte dans la colonne "Signaler un bug" en cliquant sur "Add a card".<br>
+                    Vous avez ensuite la possibilité de donner un titre a votre carte. Appuyer sur entrer pour valider.
+                    Une fois la carte ajoutée, vous pouvez ajouter une description, une image, un fichier, etc... en cliquant
+                    sur la carte.<br><br>
+                    <img src="trello.png" />
+
+                    <br>
                     <br>
                     <br>
                     <br>
@@ -48,21 +63,21 @@
         <div class="col-sm-4">
             <div class="well well-sm bg-color-darken txt-color-white text-center">
                 <h5>Documentation utilisateur</h5>
-                <button class="btn btn-default">Voir</button>
+                <button class="btn btn-default disabled">Voir</button>
             </div>
         </div>
 
         <div class="col-sm-4">
             <div class="well well-sm bg-color-teal txt-color-white text-center">
                 <h5>Documentation technique</h5>
-                <button class="btn btn-default">Voir</button>
+                <button class="btn btn-default disabled">Voir</button>
             </div>
         </div>
 
         <div class="col-sm-4">
             <div class="well well-sm bg-color-pinkDark txt-color-white text-center">
                 <h5>Documentation du framework</h5>
-                <button class="btn btn-default">Voir</button>
+                <button class="btn btn-default disabled">Voir</button>
             </div>
         </div>
     </div>
