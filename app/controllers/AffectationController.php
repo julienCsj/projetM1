@@ -27,6 +27,10 @@ class AffectationController extends BaseController {
 
 
             $groupesCours = GroupeCours::getGroupeCoursByFormation($idFormation, $idModule);
+            $nbCoursParGroupeCours = array();
+            foreach($groupesCours as $groupe) {
+                $nbCoursParGroupeCours[$groupe->id] = DB::table('_groupecours_cours')->where('groupecoursID', '=', $groupe->id)->count();
+            }
             $groupesCoursEnseignantModule = GroupeCoursEnseignantModule::get($idModule);
             $modules = Module::getModulesByFormation($idFormation);
             $periodes = Calendrier::getPeriodesEnseignement($idFormation);
@@ -90,6 +94,7 @@ class AffectationController extends BaseController {
             $data['formation'] = $formation;
             $data['ue'] = $ue;
             $data['modules'] = $modules;
+            $data['nbCoursParGroupeCours'] = $nbCoursParGroupeCours;
             $data['periodes'] = $periodes;
             $data['lesCours'] = $cours;
             $data['typeCours'] = $typeCours;

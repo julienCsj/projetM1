@@ -11,9 +11,14 @@
         <table id="dt_basic_enseignant" class="table table-striped table-bordered table-hover" width="100%">
             <thead>
             <tr>
-                <th>Libelle</th>
+                <th>Intitulé</th>
+                <th>Etablissement</th>
+                <th>Diplome</th>
+                <th>N° UE</th>
                 <th>Type</th>
-                <th>Nombre d'heure </th>
+                <th>CM</th>
+                <th>TD</th>
+                <th>TP</th>
                 <th>Supprimer </th>
             </tr>
             </thead>
@@ -22,9 +27,15 @@
             @if (!empty($lesHeures))
                 @foreach ($lesHeures as $heure)
                     <tr>
-                        <td>{{ $heure->libelle }}</td>
+                        <td>{{ $heure->intitule }}</td>
+                        <td>{{ $heure->etablissement }}</td>
+                        <td>{{ $heure->diplome }}</td>
+                        <td>{{ $heure->numeroUE }}</td>
                         <td>{{ $heure->type }}</td>
-                        <td>{{ $heure->nbHeure }}</td>
+                        <td>{{ $heure->nbHeureCM }}</td>
+                        <td>{{ $heure->nbHeureTD }}</td>
+                        <td>{{ $heure->nbHeureTP }}</td>
+
                         <td><a class="btn btn-xs btn-danger" href="{{ route('heuresexterieures.supprimer', array($heure->id)); }}"> <i class="glyphicon glyphicon-trash"></i></a></td>
                     </tr>
                 @endforeach
@@ -40,11 +51,23 @@
         {{ Form::open(array('route' => 'heuresexterieures.ajouter')) }}
         <input type="hidden" name="enseignantID" value="{{$user->LOGIN}}">
         <div class="row padding-10">
-            <div class="form-group col-md-3 col-lg-3">
-                <label>Libelle</label>
-                <input class="form-control spinner-both" type="text" name="libelle" value="">
+            <div class="form-group col-md-2 col-lg-2">
+                <label>Intitule enseignement</label>
+                <input class="form-control spinner-both" type="text" name="intitule" value="">
             </div>
-            <div class="form-group col-md-3 col-lg-3">
+            <div class="form-group col-md-2 col-lg-2">
+                <label>Etablissement</label>
+                <input class="form-control spinner-both" type="text" name="etablissement" value="">
+            </div>
+            <div class="form-group col-md-2 col-lg-2">
+                <label>Diplome</label>
+                <input class="form-control spinner-both" type="text" name="diplome" value="">
+            </div>
+            <div class="form-group col-md-1 col-lg-1">
+                <label>No UE</label>
+                <input class="form-control spinner-both" type="text" name="numeroUE" value="">
+            </div>
+            <div class="form-group col-md-1 col-lg-1">
                 <label>Type</label>
                 <select class="form-control" name="type">
                     <option value="ups">Heure(s) UPS</option>
@@ -52,11 +75,19 @@
                     <option value="autre">Autre</option>
                 </select>
             </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label>Nombre d'heure</label>
-                <input class="form-control spinner-both" type="number" name="nbHeure" value="">
+            <div class="form-group col-md-1 col-lg-1">
+                <label>CM (en h)</label>
+                <input class="form-control spinner-both" type="number" name="nbHeureCM" value="">
             </div>
-            <div class="form-group col-md-3 col-lg-3">
+            <div class="form-group col-md-1 col-lg-1">
+                <label>TD (en h)</label>
+                    <input class="form-control spinner-both" type="number" name="nbHeureTD" value="">
+            </div>
+            <div class="form-group col-md-1 col-lg-1">
+                <label>TP (en h)</label>
+                    <input class="form-control spinner-both" type="number" name="nbHeureTP" value="">
+            </div>
+            <div class="form-group col-md-1 col-lg-1">
                 <label>&nbsp;</label>
                 <input class="form-control" type="submit"  value="Ajouter">
             </div>

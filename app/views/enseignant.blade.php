@@ -78,7 +78,7 @@
                     </label>
                 </div>
                 <section id="section-status-select">
-                    <label class="select">Type de status
+                    <label class="select">Type de statut
                         <select name="status" id="input-status">
                             @foreach ($typeStatus as $t)
                             @if($t['id'] != 1)

@@ -131,10 +131,16 @@ class CreateStatusEnseignant extends Migration {
         Schema::create('_heuresexternes', function($table){
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('libelle');
-            $table->string('nbHeure');
             $table->string('enseignantID');
             $table->string('type');
+            $table->string('intitule');
+            $table->string('etablissement');
+            $table->string('diplome');
+            $table->string('numeroUE');
+            $table->integer('nbHeureCM');
+            $table->integer('nbHeureTD');
+            $table->integer('nbHeureTP');
+
         });
 
         Schema::create('_groupecours_module_enseignant', function($table){

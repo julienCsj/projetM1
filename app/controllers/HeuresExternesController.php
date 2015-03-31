@@ -15,9 +15,14 @@ class HeuresExternesController extends BaseController {
     public function postAjouterHeure()
     {
         $heure = new HeureExterne();
-        $heure->libelle = Input::get("libelle");
-        $heure->nbHeure = Input::get("nbHeure");
+        $heure->intitule = Input::get("intitule");
+        $heure->etablissement = Input::get("etablissement");
+        $heure->numeroUE = Input::get("numeroUE");
+        $heure->diplome = Input::get("diplome");
         $heure->type = Input::get("type");
+        $heure->nbHeureCM = Input::get("nbHeureCM");
+        $heure->nbHeureTD = Input::get("nbHeureTD");
+        $heure->nbHeureTP = Input::get("nbHeureTP");
         $heure->enseignantID = Input::get("enseignantID");
         $heure->save();
 
