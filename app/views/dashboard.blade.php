@@ -38,7 +38,7 @@
                     <p>Nous avons mis en place un Trello pour vous permettre de nous remonter des bugs ou problèmes.
                     <br>
                     <div style=" text-align:center">
-                        <a href="https://trello.com/b/7AM3JLAk/scolarel-bug-tracker" class="btn btn-primary ui-btn-lg" style="align:center;width:100%;">Le Trello</a>
+                        <a href="https://trello.com/b/7AM3JLAk/scolarel-bug-tracker" target="_blank" class="btn btn-primary ui-btn-lg" style="align:center;width:100%;">Le Trello</a>
                         <br><br>
                     </div>
                     Pour nous faire parvenir un bug, il suffit d'ajouter une carte dans la colonne "Signaler un bug" en cliquant sur "Add a card".<br>
@@ -74,7 +74,7 @@
         <div class="col-sm-4">
             <div class="well well-sm bg-color-pinkDark txt-color-white text-center">
                 <h5>Documentation du framework</h5>
-                <button class="btn btn-default disabled">Voir</button>
+                <a class="btn btn-default" href="http://laravel.com/docs/4.2">Voir</a>
             </div>
         </div>
     </div>

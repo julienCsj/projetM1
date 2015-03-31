@@ -5,15 +5,12 @@ class GenerationFicheController extends BaseController {
     public function getFiche($idEnseignant = -1) {
         $lesEnseignants = Enseignant::getEnseignantsWithPageData();
 
-        //exit(var_dump($lesEnseignants));
-
         $data = array(
             'breadcrumb' => array("Scolarel", "Fiche"),
             'lesEnseignants' => $lesEnseignants,
             'idEnseignant' => $idEnseignant,
         );
 
-        //exit(var_dump($data));
         if($idEnseignant != -1) {
             $config = Configuration::find(1);
             $data['enseignant'] = Enseignant::where('login', '=', $idEnseignant)->get();

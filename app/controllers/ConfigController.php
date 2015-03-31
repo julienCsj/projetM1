@@ -12,8 +12,8 @@ class ConfigController extends BaseController {
 
     public function postConfig() {
         $annee = Input::get("annee");
-        $rentree = Input("dateRentree");
-        $fin = Input('dateFin');
+        $rentree = Input::get("dateRentree");
+        $fin = Input::get('dateFin');
 
         $conf =  Configuration::where('id', 1)->first();
         $conf->annee = $annee;

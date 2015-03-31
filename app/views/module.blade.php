@@ -133,7 +133,7 @@
                                     de
                                     <select name="duree">
                                         <option value="60">01h00</option>
-                                        <option value="90">01h30</option>
+                                        <option value="90" selected>01h30</option>
                                         <option value="120">02h00</option>
                                         <option value="180">03h00</option>
                                     </select>

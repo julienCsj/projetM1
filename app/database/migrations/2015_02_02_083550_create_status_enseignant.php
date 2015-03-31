@@ -33,8 +33,8 @@ class CreateStatusEnseignant extends Migration {
 			$table->string('libelle');
 		});
 
-        DB::insert("INSERT INTO `_financement`(`libelle`) VALUES ('MFCA');");
         DB::insert("INSERT INTO `_financement`(`libelle`) VALUES ('IUT');");
+        DB::insert("INSERT INTO `_financement`(`libelle`) VALUES ('MFCA');");
         DB::insert("INSERT INTO `_financement`(`libelle`) VALUES ('Autre');");
 
 		Schema::create('_typestatusenseignant', function($table){

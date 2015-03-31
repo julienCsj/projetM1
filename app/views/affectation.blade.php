@@ -282,9 +282,10 @@ foreach($typeCoursMap as $k => $v) {
             nbSeance = parseInt(nbSeance);
 
             $('#selectNb').find('option').remove()
-            for(i=1; i<=nbSeance; i++) {
+            for(i=1; i<=nbSeance-1; i++) {
                 $('#selectNb').append(new Option(i, i));
             }
+            $('#selectNb').append(new Option(nbSeance, nbSeance, true, true));
         });
 
 

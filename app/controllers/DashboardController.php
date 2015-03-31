@@ -8,21 +8,6 @@
 
 class DashboardController extends BaseController {
 
-    /*
-    |--------------------------------------------------------------------------
-    | IndexController
-    |--------------------------------------------------------------------------
-    |
-    |
-    |
-    |
-    |
-    |
-    |
-    */
-
-    //private $titre = "Proprietaire";
-
     public function getIndex()
     {
         $data = array(
