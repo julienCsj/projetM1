@@ -44,7 +44,6 @@ Route::group(array('before' => 'auth'), function () { // Login required
     // Routes enseignant / status
     Route::get('enseignant', array('as' => 'enseignant', 'uses' => 'EnseignantController@getEnseignants'));
     Route::post('enseignant/status', array('as' => 'enseignant.postModifierStatus', 'uses' => 'StatusEnseignantController@postModifierStatus'));
-    Route::get('enseignant/{idEnseignant}/voeux', array('as' => 'voeux.getVoeuxProfesseur', 'uses' => 'VoeuxController@getVoeuxProfesseur'));
 
     // Routes enseignant / voeux
     Route::get('voeux', array('as' => 'voeux', 'uses' => 'VoeuxController@getVoeux'));
