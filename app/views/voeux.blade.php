@@ -17,11 +17,13 @@
                     <th>Mercredi</th>
                     <th>Jeudi</th>
                     <th>Vendredi</th>
+                    <th>Samedi</th>
                 </tr>
             </thead>
             <tbody id="tab_voeux">
             	<tr>
                     <th>8h - 9h30</th>
+                    <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
@@ -35,9 +37,11 @@
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
                 </tr>
             	<tr>
                     <th>11h - 12h30</th>
+                    <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
@@ -51,9 +55,11 @@
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
                 </tr>
             	<tr>
                     <th>13h30 - 15h</th>
+                    <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
@@ -67,9 +73,29 @@
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
                 </tr>
             	<tr>
                     <th>16h30 - 18h</th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                </tr>
+                <tr>
+                    <th>18h00 - 19h30</th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                    <th><button class="btn"></button></th>
+                </tr>
+                <tr>
+                    <th>19h30 - 21h</th>
+                    <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
@@ -89,8 +115,8 @@
 <script type="text/javascript">
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
     function initializeButton(data) {
-        for (var j = 0; j < 5; j++) { // chaque jour
-		  for (var i = 0; i < 7; i++) { // chaque créneau horaire
+        for (var j = 0; j < 6; j++) { // chaque jour
+		  for (var i = 0; i < 9; i++) { // chaque créneau horaire
 				var button = $("#tab_voeux tr:eq("+i+") th:eq("+(j+1)+") button");
 				if (data[j][i]) {
 					button.html("Disponible")
