@@ -55,11 +55,9 @@
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
-                    <th><button class="btn"></button></th>
                 </tr>
             	<tr>
                     <th>13h30 - 15h</th>
-                    <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
@@ -73,11 +71,9 @@
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
-                    <th><button class="btn"></button></th>
                 </tr>
             	<tr>
                     <th>16h30 - 18h</th>
-                    <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
@@ -91,11 +87,9 @@
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
-                    <th><button class="btn"></button></th>
                 </tr>
                 <tr>
                     <th>19h30 - 21h</th>
-                    <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
                     <th><button class="btn"></button></th>
@@ -117,6 +111,10 @@
     function initializeButton(data) {
         for (var j = 0; j < 6; j++) { // chaque jour
 		  for (var i = 0; i < 9; i++) { // chaque créneau horaire
+                if (j==5 && i > 2) {
+                    // does nothing on samedi morning
+                    break;
+                }
 				var button = $("#tab_voeux tr:eq("+i+") th:eq("+(j+1)+") button");
 				if (data[j][i]) {
 					button.html("Disponible")

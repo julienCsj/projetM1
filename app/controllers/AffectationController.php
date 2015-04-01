@@ -81,7 +81,7 @@ class AffectationController extends BaseController {
             group by type, duree "));
 
             $enseignants = ModuleEnseignant::getEnseignants($idModule);
-            $financements = Financement::select('*')->orderBy("id", 'DESC')->get();
+            $financements = Financement::getFinancementParModule($idModule);
             
 
             $typeCoursMap = array();
