@@ -24,7 +24,7 @@
                             @foreach ($groupesCoursLibres as $groupeCours)
                             <li>
                                 <div data-id="{{$groupeCours->id}}" data-size="{{$groupeCours->nbcours}}" class="draggable bg-color-green txt-color-white">
-                                    {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séances)
+                                    {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séance(s))
                                 </div>
                             </li>
                             @endforeach
@@ -38,7 +38,7 @@
                 <div class="row">
                     @foreach ($periodes as $periode)
                     <div class="col-sm-12">
-                        <span>Période du {{$periode["dateDebut"]}} au {{$periode["dateFin"]}} : {{count($periode['sem'])}} semaines</span>
+                        <span>Période {{$periode["nom"]}} du {{$periode["dateDebut"]}} au {{$periode["dateFin"]}} : {{count($periode['sem'])}} semaine(s)</span>
                     </div>
                     <div class="col-sm-12">
                         <div data-id="{{$periode["id"]}}" data-size="{{count($periode['sem'])}}" class="droppable col-sm-12 well">
@@ -47,7 +47,7 @@
                                 @foreach ($periode["groupesCours"] as $groupeCours)
                                 <li>
                                     <div data-id="{{$groupeCours->id}}" data-size="{{$groupeCours->nbcours}}" class="draggable bg-color-green txt-color-white" style="width: 50%;">
-                                        {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séances)
+                                        {{$groupeCours->libelle}} ({{$groupeCours->nbcours}} séance(s))
                                         @if ($groupeCours->nbcours != count($periode['sem']))
                                         &nbsp;Semaine {{$groupeCours->semaine}}
                                         @endif
