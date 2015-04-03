@@ -2,7 +2,7 @@
     <IfModule mod_negotiation.c>
         Options -MultiViews
     </IfModule>
-    RewriteBase /~nil/
+    #RewriteBase /~nil/
     RewriteEngine On
 
     # Redirect Trailing Slashes...
