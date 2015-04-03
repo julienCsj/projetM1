@@ -82,6 +82,13 @@ $menu = Parsedown::instance()->parse(file_exists($menuPath) ? file_get_contents(
 			margin-left: -4px;
 			line-height: 1.1em;
 		}
+		h2 {
+			font-size: 35px;
+			font-weight: bold;
+			color: #2f3338;
+			line-height: 1.1em;
+			margin-bottom: 50px;
+		}
 		h3 {
 			color: #2f3338;
 			font-size: 22px;
