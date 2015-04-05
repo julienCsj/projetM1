@@ -69,7 +69,7 @@
             </div>
             <div class="form-group">
                 <label>Nom de la période</label>
-                <input class="form-control" type="text" name="nom" placeholder="Nom de la période" id="nomPeriode">
+                <input class="form-control" type="text" id="nomPeriode" name="nom" placeholder="Nom de la période" id="nomPeriode">
             </div>
         </fieldset>
     </form>
@@ -122,7 +122,20 @@
 
         makeDraggable();
 
+        function addPeriode() {
+            var type = $("#input-type").val();
+            var nom = $("#nomPeriode").val();
 
+            if(type=="vacance") {
+                $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"bg-color-red txt-color-white external-event\" data-description=\"Périodes de vacances\" data-icon=\"fa-time\" data-attribute=\"vacance\">"+nom+"</span> </li>");
+                makeDraggable();
+            } else if(type=="enseignement") {
+                $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"txt-color-white external-event\" style='background-color:#3a87ad;' data-description=\"Période d'enseignement\" data-icon=\"fa-time\" data-attribute=\"enseignement\">"+nom+"</span> </li>");
+                makeDraggable();
+            }
+            $("#nomPeriode").val("");
+            $('#dialog-message').dialog("close");
+        }
 
         /* Ajout de période
         ------------------------------------------------------------------*/
@@ -140,19 +153,15 @@
                 html: "<i class='fa fa-check'></i>&nbsp; OK",
                 "class": "btn btn-primary",
                 click: function () {
-                    var type = $("#input-type").val();
-                    var nom = $("#nomPeriode").val();
-
-                    if(type=="vacance") {
-                        $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"bg-color-red txt-color-white external-event\" data-description=\"Périodes de vacances\" data-icon=\"fa-time\" data-attribute=\"vacance\">"+nom+"</span> </li>");
-                        makeDraggable();
-                    } else if(type=="enseignement") {
-                        $("#external-events").append("<li class=\"ui-draggable\" style=\"position: relative;\"><span class=\"txt-color-white external-event\" style='background-color:#3a87ad;' data-description=\"Période d'enseignement\" data-icon=\"fa-time\" data-attribute=\"enseignement\">"+nom+"</span> </li>");
-                        makeDraggable();
-                    }
-                    $(this).dialog("close");
+                    addPeriode();
                 }
             }]
+        });
+
+        $('#nomPeriode').keypress(function(e) {
+            if(e.which == 13) {
+                addPeriode();
+            }
         });
 
         /* initialize the calendar

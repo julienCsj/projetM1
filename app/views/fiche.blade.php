@@ -19,7 +19,7 @@ $arrayMonthTotext = array(
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        <h1>Aide Génération fiche <small></small></h1>
+        <h1>Aide Génération fiche de {{ucfirst($enseignant->FIRSTNAME)}} {{ucfirst($enseignant->LASTNAME)}}<small></small></h1>
         <div class="alert alert-info fade in">
             <button class="close" data-dismiss="alert">×</button>
             <strong>A propos de cette page.</strong> {{TipsService::getTip("generationFiche")}}
@@ -28,11 +28,12 @@ $arrayMonthTotext = array(
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                 <ul id="menu" style="width: 100%">
-                    @foreach ($lesEnseignants as $e)
-                        <li>
-                            <a href="{{route('generationFicheProf', array($e->LOGIN))}}">{{ucfirst($e->FIRSTNAME)}} {{ucfirst($e->LASTNAME)}}</a>
-                        </li>
-                    @endforeach
+                    <label>Choisir un enseignant</label>
+                    <select multiple style="width:100%" name="lesEnseignants[]" class="selectmumtiple">
+                        @foreach ($lesEnseignants as $e)
+                            <option value="{{route('generationFicheProf', array($e->LOGIN))}}">{{ucfirst($e->FIRSTNAME)}} {{ucfirst($e->LASTNAME)}}</option>
+                        @endforeach
+                    </select>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
@@ -417,9 +418,14 @@ $arrayMonthTotext = array(
     }
 
     $(document).ready(function () {
-        pageSetUp();
         $('#tabs').tabs();
         $("#menu").menu();
+
+        $('.selectmumtiple').select2()
+                .on("select2-selecting", function(e) {
+                    console.log("selecting val=" + e.val + " choice=" + e.object.text);
+                    window.location.replace(e.val);
+                });
 
         @if($idEnseignant != -1)
         $('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');

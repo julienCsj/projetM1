@@ -13,7 +13,8 @@ class GenerationFicheController extends BaseController {
 
         if($idEnseignant != -1) {
             $config = Configuration::find(1);
-            $data['enseignant'] = Enseignant::where('login', '=', $idEnseignant)->get();
+            $data['enseignant'] = Enseignant::where('user.login', '=', $idEnseignant)->join('user', 'user.login', '=', 'enseignant.login')->first();
+            //exit(var_dump($data['enseignant']));
             $data["statut"] = Enseignant::getOneEnseignantAndStatus($idEnseignant);
             $data['voeux'] = Voeux::getVoeux($idEnseignant);
             $data['heuresexternes'] = HeureExterne::where('enseignantID', '=', $idEnseignant)->get();
