@@ -64,39 +64,44 @@
 
 <!-- #dialog-message -->
 <div id="dialog-message" title="Dialog Simple Title">
-    <p>
-        Vous pouvez changer le statut de l'enseignant pour définir le volume horaire, ou le renseigner à la main
-    </p>
+    <div class="row">
+        <div class="col-sm-12">
+            <p>
+                Vous pouvez changer le statut de l'enseignant pour définir le volume horaire, ou le renseigner à la main
+            </p>
 
-    <form id="form-status-enseignant" class="smart-form" novalidate="novalidate">
+            <form id="form-status-enseignant" class="smart-form" novalidate="novalidate">
 
-        <fieldset>
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" class="checkbox style-3" name="choix" id="input-choix">
-                      <span>Appliquer un volume horaire spécifique</span>
-                    </label>
-                </div>
-                <section id="section-status-select">
-                    <label class="select">Type de statut
-                        <select name="status" id="input-status">
-                            @foreach ($typeStatus as $t)
-                            @if($t['id'] != 1)
-                            <option value="{{$t['id']}}">{{$t['label']}} - {{$t['heure']}} à {{$t['heure_max']}} heures </option>
-                            @endif
-                            @endforeach
-                        </select> </label>
-                </section>
-                <section id="section-status-input">
-                    <label class="input">Volume horaire
-                        <input type="text" name="volumeHoraire" placeholder="192" id="input-volumeHoraire">
-                    </label>
-                </section>
+                <fieldset>
+                    <div class="checkbox">
+                        <label>
+                          <input type="checkbox" class="checkbox style-3" name="choix" id="input-choix">
+                          <span>Appliquer un volume horaire spécifique</span>
+                        </label>
+                    </div>
+                    <section id="section-status-select">
+                        <label class="select">Type de statut
+                            <select name="status" id="input-status">
+                                @foreach ($typeStatus as $t)
+                                @if($t['id'] != 1)
+                                <option value="{{$t['id']}}">{{$t['label']}} - {{$t['heure']}} à {{$t['heure_max']}} heures </option>
+                                @endif
+                                @endforeach
+                            </select>
+                        </label>
+                    </section>
+                    <section id="section-status-input">
+                        <label class="input">Volume horaire
+                            <input type="text" name="volumeHoraire" placeholder="192" id="input-volumeHoraire">
+                        </label>
+                    </section>
+                </fieldset>
 
-        </fieldset>
-        <input type="hidden" name="idEnseignant" id="input-idEnseignant">
-        <input type="hidden" name="id" id="input-id-statusenseignant">
-    </form>
+                <input type="hidden" name="idEnseignant" id="input-idEnseignant">
+                <input type="hidden" name="id" id="input-id-statusenseignant">
+            </form>
+        </div>
+    </div>
 </div>
 <!-- #dialog-message -->
 

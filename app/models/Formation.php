@@ -42,6 +42,29 @@ class Formation extends Eloquent {
             ->select('semestre.id', 'pages.short_title', 'pages.long_title')
             ->get()[0];
     }
+
+    public static function getFormationAvecGroupes($id) {
+        $formation = Formation::getFormationSimple($id);
+
+        $groupestd = DB::select(DB::raw(''
+            . 'select count(*) as res '
+            . 'from _groupe '
+            . 'where semestre_id = "'.$id.'"'));
+
+        $groupestp = DB::select(DB::raw(''
+            . 'select sum(sous_groupe) as res '
+            . 'from _groupe '
+            . 'where semestre_id = "'.$id.'"'));
+
+        if($groupestp[0]->res == NULL) {
+            $groupestp[0]->res = 0;
+        }
+
+        $formation->nbgroupestd = $groupestd[0]->res;
+        $formation->nbgroupestp = $groupestp[0]->res;
+
+        return $formation;
+    }
     
     public static function getFormationUeModule() {
         $lesFormations = (array) Formation::all();

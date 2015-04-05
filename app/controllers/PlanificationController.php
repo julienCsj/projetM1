@@ -14,9 +14,7 @@ class PlanificationController extends BaseController {
 
     public function getPlanificationFormation($idFormation)
     {
-      $formation = Formation::find($idFormation)
-                ->join('pages', 'pages.id', '=', 'semestre.id')
-                ->select('semestre.id', 'pages.short_title', 'pages.long_title')->firstOrFail();
+      $formation = Formation::getFormationSimple($idFormation);
 
       $groupesCoursLibres = GroupeCours::getGroupeCoursLibresByFormation($idFormation);
 

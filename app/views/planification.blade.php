@@ -17,7 +17,7 @@
             </div>
                         
             <div class="col-sm-12 col-md-3 col-lg-3">
-                <h3>Groupe de cours à planifier</h3>
+                <h3>Groupes de cours à planifier</h3>
                 <form>
                     <div data-id="supprimer" data-size="1000" class="droppable col-sm-12 well">
                         <ul id="liste" class="list-unstyled">
@@ -105,6 +105,7 @@
 
     $(init);
 
+    // Initialisation du drag and drop
     function init() {
 	    $('.draggable').draggable({
 	    	containment: '#drag',
@@ -141,7 +142,6 @@
 
     function planificationSimple(groupecours, calendrier) {
         envoyerPlanification(groupecours, calendrier, 1, "simple");
-        
 	}
 
     function planificationImpossible(groupecours, calendrier) {
@@ -182,6 +182,7 @@
         mettreAJourAffichageRevert(dernierGroupeCours);
     });
 
+    //Envoie de la planification en ajax au controleur
     function envoyerPlanification(groupecours, calendrier, semaine, type) {
         var from_data = {
             "groupecoursID": groupecours.attr('data-id'),
@@ -215,6 +216,7 @@
         });
     }
 
+    // Gestion de l'affichage des listes lors d'un drag and drop
     function mettreAJourAffichage(groupecours, calendrier, type) {
         var elem = groupecours.parent();
         var liste = calendrier.find('#liste');

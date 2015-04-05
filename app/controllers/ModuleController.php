@@ -15,11 +15,11 @@ class ModuleController extends BaseController {
             'breadcrumb' => array('Scolarel', 'Formations, Ue\'s & modules')
         );
 
-        // Si un module a été selectionner par l'utilisateur, alors on récupère ses informations
+        // Si un module a été selectionné par l'utilisateur, alors on récupère ses informations
         if($idModule != -1) {
             $module = Module::getModuleWithData($idModule);
             $ue = Ue::getUeSimple($idUe);
-            $formation = Formation::getFormationSimple($idFormation);
+            $formation = Formation::getFormationAvecGroupes($idFormation);
 
             //exit(var_dump($formation));
             $data['module'] = $module;

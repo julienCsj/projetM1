@@ -21,17 +21,17 @@
             @endif
             <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                 <ul id="menu" style="width: 100%">
-                    @foreach ($lesFormations as $formation)
+                    @foreach ($lesFormations as $formation_liste)
                     <li>
-                        <a href="javascript:void(0);">{{$formation->short_title}}</a>
+                        <a href="javascript:void(0);">{{$formation_liste->short_title}}</a>
                         <ul>
-                            @foreach($formation->lesUE as $ue)
+                            @foreach($formation_liste->lesUE as $ue)
                                 <li>
                                     <a href="javascript:void(0);">{{$ue->short_title}}</a>
                                     <ul>
                                         @foreach($ue->lesModules as $mod)
                                             <li>
-                                                <a href="{{ route('moduleModification', array($formation->id, $ue->id, $mod->ID))}}">{{$mod->SHORT_TITLE}}</a>
+                                                <a href="{{ route('moduleModification', array($formation_liste->id, $ue->id, $mod->ID))}}">{{$mod->SHORT_TITLE}}</a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -143,15 +143,15 @@
                         <div id="tabs-b">
                             <div class="row padding-10">
                                 <div class="form-group col-md-4 col-lg-4">
-                                    <label>Groupe CM</label>
+                                    <label>Groupe CM (1)</label>
                                     <input class="form-control spinner-both" type="number" name="groupeCM" value="{{$module->GROUPE_CM}}">
                                 </div>
                                 <div class="form-group col-md-4 col-lg-4">
-                                    <label>Groupe TD</label>
+                                    <label>Groupe TD ({{$formation->nbgroupestd}} groupe(s) définis)</label>
                                     <input class="form-control spinner-both"  type="number" name="groupeTD" value="{{$module->GROUPE_TD}}">
                                 </div>
                                 <div class="form-group col-md-4 col-lg-4">
-                                    <label>Groupe TP</label>
+                                    <label>Groupe TP ({{$formation->nbgroupestp}} groupe(s) définis)</label>
                                     <input class="form-control spinner-both"  type="number" name="groupeTP" value="{{$module->GROUPE_TP}}">
                                 </div>
                             </div>

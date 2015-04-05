@@ -95,7 +95,7 @@
                                         ?>
                                         <div class="row col-sm-12">
                                             <div class="well">
-                                                [{{strtoupper($groupeCours->type)}} - {{$nbCoursParGroupeCours[$groupeCours->id]}} séance(s)] Groupe de cours de {{$groupeCours->duree}} min ({{$nbGroupe}} groupe(s) de {{strtoupper($groupeCours->type)}}) - {{$groupeCours->libelle}}
+                                                [{{strtoupper($groupeCours->type)}}] {{$nbCoursParGroupeCours[$groupeCours->id]}} séance(s) de {{$groupeCours->duree}} min ({{$nbGroupe}} groupe(s)) - {{$groupeCours->libelle}}
                                                 <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($idFormation, $ue->id, $module->ID, $groupeCours->id)); }}">Supprimer</a>
                                                 <button onclick='affecterAUnEnseignant({{$groupeCours->id}},{{$nbGroupe}}, "{{$groupeCours->type}}", {{json_encode($precendenteValeur)}})' data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Modifier Affectation</button>
                                             </div>
@@ -139,7 +139,7 @@
             <input type="hidden" name="idUe" value="{{$ue->id}}">
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <div id="alerts">
 
@@ -147,8 +147,6 @@
                             <div class="form-group">
                                 <label class="input">Libellé</label>
                                 <input type="text" name="libelle" class="form-control" required value="{{$module->SHORT_TITLE}} "/>
-
-                                </select>
                             </div>
                             <label class="input">Type de séances</label>
                             <select name="type" id="selectType" class="form-control" required/>

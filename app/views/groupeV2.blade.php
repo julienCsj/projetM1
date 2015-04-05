@@ -100,7 +100,7 @@
                             <select name="sous_groupe" class="form-control" required/>
                             <option value="" selected disabled>Nombre de sous-groupes</option>
                             <option value="1">1</option>
-                            <option value="2">2</option>
+                            <option value="2" selected>2</option>
                             <option value="3">3</option>
                             </select>
                         </div>
