@@ -64,7 +64,7 @@
                                 <p class="alert alert-info">Valeur du PPN : CM : {{$module->CM_PPN}}h -  TD : {{$module->TD_PPN}}h -  TP : {{$module->TP_PPN}}h</p>
 
                                 <div class="col-centered" style="height: 120px;">
-                                    <div class="col-xs-3 col-sm-3">
+                                    <div class="col-xs-3 col-sm-2">
                                     </div>
                                     <div class="col-xs-2 col-sm-2 ">
                                         <time datetime="" class="icon" style="width: 100%">
@@ -84,7 +84,13 @@
                                             <span>{{$totalTP}}</span>
                                         </time>
                                     </div>
-                                    <div class="col-xs-3 col-sm-3">
+                                    <div class="col-xs-2 col-sm-2">
+                                        <time datetime="" class="icon" style="width: 100%">
+                                            <strong>HETD</strong>
+                                            <span>{{$totalCM*1.5 + $totalTD*$formation->nbgroupestd + $totalTP*$formation->nbgroupestp}}</span>
+                                        </time>
+                                    </div>
+                                    <div class="col-xs-3 col-sm-2">
                                     </div>
                                 </div>
                                 <table class="table table-bordered padding-top-10">
