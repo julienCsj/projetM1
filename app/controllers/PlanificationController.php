@@ -46,7 +46,25 @@ class PlanificationController extends BaseController {
             $planification->semaine = $semaine;
             $planification->save();
         }
-
         return "Ok";
+    }
+
+    public function postDatesSemaines()
+    {
+        $idCalendrier = Input::get('calendrierID');
+
+        $periode = Calendrier::find($idCalendrier);
+
+        $result = PeriodeToSemaineService::extractWeeksSimple($periode);
+
+        $i = 0;
+        foreach($result['sem'] as $semaine) {
+          $data[$i] = $semaine['datedeb'];
+          $i++;
+        }
+
+        //return json_encode($data);
+        echo json_encode($data);
+        exit;
     }
 }

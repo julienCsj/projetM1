@@ -163,13 +163,36 @@
         dernierCalendrier = calendrier;
         dernierGroupeCours = groupecours;
 
-        $('#decalage').empty();
-        var limite = calendrier.attr('data-size')-groupecours.attr('data-size');
-        for(var i = 1; i<=limite+1; i++){
-            $('#decalage').append("<option value='"+i+"'>"+i+"</option>");
-        }
+        //Récupération des dates des semaines en ajax
+        var from_data = {
+            "calendrierID": calendrier.attr('data-id'),
+        };
+        $.ajax({
+            url: "datesSemaines",
+            data: from_data,
+            type: "POST"
+        })
+        .done(function (html) {
+            // Ajout des dates des semaines au dropdown
+            dates = JSON.parse(html);
+            $('#decalage').empty();
+            var limite = calendrier.attr('data-size')-groupecours.attr('data-size');
+            for(var i = 1; i<=limite+1; i++){
+                $('#decalage').append("<option value='"+i+"'>Semaine "+i+" commençant le "+dates[i-1]+"</option>");
+            }
 
-        $('#modaldecalage').modal('toggle');
+            $('#modaldecalage').modal('toggle');
+
+        })
+        .fail(function (html) {
+            $.bigBox({
+                title: "Erreur",
+                content: "Un problème est survenu !",
+                color: "#C46A69",
+                icon: "fa fa-warning swing animated",
+                timeout: 3000
+            });
+        });
     }
 
     $('#validerdecalage').click(function(){
@@ -190,7 +213,7 @@
             "semaine": semaine,
         };
         $.ajax({
-            url: "{{$formation->id}}/ajouterPlanification",
+            url: "ajouterPlanification",
             data: from_data,
             type: "POST"
         })

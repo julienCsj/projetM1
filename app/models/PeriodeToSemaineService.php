@@ -9,6 +9,12 @@ class PeriodeToSemaineService {
 		return $result;
 	}
 
+	public static function extractWeeksSimple($periode) {
+		$result = PeriodeToSemaineService::extractWeeksFromPeriod($periode);
+
+		return $result;
+	}
+
 	public static function extractWeeksFromPeriod($v) {
 		$jour = array(
 			"1" => "lundi",
@@ -79,6 +85,7 @@ class PeriodeToSemaineService {
 				"fin" => $fin_result, // dimanche soir
 				"semaine" => date("W", $deb),
 				"annee" => date("Y", $deb),
+				"datedeb" => $jour[date("N", $deb)]." " . date("d ", $deb) . $mois[date("n", $deb)]. date(" Y", $deb),
 				"label" => "Semaine #".date("W", $deb)." du ". $jour[date("N", $deb)]." " . date("d ", $deb) . $mois[date("n", $deb)]. date(" Y", $deb)." au " . $jour[date("N", $fin_result)]." " . date("d ", $fin_result) . $mois[date("n", $fin_result)]
 			);
 			$deb = $fin_semaine;

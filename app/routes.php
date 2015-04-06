@@ -73,7 +73,9 @@ Route::group(array('before' => 'auth'), function () { // Login required
     // Routes module planification
     Route::get('planification', array('as' => 'planification', 'uses' => 'PlanificationController@getPlanification'));
     Route::get('planification/{idFormation}', array('as' => 'planification.planificationFormation', 'uses' => 'PlanificationController@getPlanificationFormation'));
-    Route::post('planification/{idFormation}/ajouterPlanification', array('as' => 'planification.ajouterPlanification', 'uses' => 'PlanificationController@postAjouterPlanification'));
+    Route::post('planification/ajouterPlanification', array('as' => 'planification.ajouterPlanification', 'uses' => 'PlanificationController@postAjouterPlanification'));
+    Route::post('planification/datesSemaines', array('as' => 'planification.datesSemaines', 'uses' => 'PlanificationController@postDatesSemaines'));
+
 
     // Module Aide génération des fiches enseignants
     Route::get('fiche/', array('as' => 'generationFiche', 'uses' => 'GenerationFicheController@getFiche'));
