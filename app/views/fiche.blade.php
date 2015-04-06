@@ -19,7 +19,7 @@ $arrayMonthTotext = array(
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        <h1>Aide Génération fiche de {{ucfirst($enseignant->FIRSTNAME)}} {{ucfirst($enseignant->LASTNAME)}}<small></small></h1>
+        <h1>Aide Génération fiche @if(isset($enseignant)) de {{ucfirst($enseignant->FIRSTNAME)}} {{ucfirst($enseignant->LASTNAME)}} @endif <small></small></h1>
         <div class="alert alert-info fade in">
             <button class="close" data-dismiss="alert">×</button>
             <strong>A propos de cette page.</strong> {{TipsService::getTip("generationFiche")}}
