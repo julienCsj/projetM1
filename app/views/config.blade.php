@@ -37,6 +37,24 @@
                         Date de fin des cours
                         <input type="text" class="form-control" name="dateFin" placeholder="jj/mm/aaaa" value="{{$config->dateFin}}" />
                     </div>
+                    <hr>
+                    <div class="form-group">
+                        Coefficient service CM
+                        <input type="text" class="form-control" name="valeurCMEnHService" placeholder="1.5" value="{{$config->valeurCMEnHService}}" />
+                        Coefficient service TD
+                        <input type="text" class="form-control" name="valeurTDEnHService" placeholder="1" value="{{$config->valeurTDEnHService}}" />
+                        Coefficient service TP
+                        <input type="text" class="form-control" name="valeurTPEnHService" placeholder="1" value="{{$config->valeurTPEnHService}}" />
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        Coefficient service CM HCC
+                        <input type="text" class="form-control" name="valeurCMEnHServiceHCC" placeholder="1.5" value="{{$config->valeurCMEnHServiceHCC}}" />
+                        Coefficient service TD HCC
+                        <input type="text" class="form-control" name="valeurTDEnHServiceHCC" placeholder="1" value="{{$config->valeurTDEnHServiceHCC}}" />
+                        Coefficient service TP HCC
+                        <input type="text" class="form-control" name="valeurTPEnHServiceHCC" placeholder="0.66" value="{{$config->valeurTPEnHServiceHCC}}" />
+                    </div>
                     <input type="submit" class="form-control" value="Sauvegarder" />
 
                 </div>
