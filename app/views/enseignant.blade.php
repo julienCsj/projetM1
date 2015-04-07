@@ -62,44 +62,45 @@
     </div>
 </section>
 
-<!-- #dialog-message -->
-<div id="dialog-message" title="Dialog Simple Title">
-    <div class="row">
-        <div class="col-sm-12">
-            <p>
-                Vous pouvez changer le statut de l'enseignant pour définir le volume horaire, ou le renseigner à la main
-            </p>
-
-            <form id="form-status-enseignant" class="smart-form" novalidate="novalidate">
-
-                <fieldset>
-                    <div class="checkbox">
-                        <label>
-                          <input type="checkbox" class="checkbox style-3" name="choix" id="input-choix">
-                          <span>Appliquer un volume horaire spécifique</span>
-                        </label>
-                    </div>
-                    <section id="section-status-select">
-                        <label class="select">Type de statut
-                            <select name="status" id="input-status">
+<div id="modalstatut" class="modal fade" title="Statut" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modifier le statut</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-horizontal">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="input">Appliquer un volume horaire spécifique</label>
+                            <input name="choix" id="input-choix" class="form-control" type="checkbox" />
+                        </div>
+                        <div id="section-status-select" class="form-group">
+                            <label class="select">Type de statut</label>
+                            <select name="status" class="form-control" id="input-status">
                                 @foreach ($typeStatus as $t)
                                 @if($t['id'] != 1)
                                 <option value="{{$t['id']}}">{{$t['label']}} - {{$t['heure']}} à {{$t['heure_max']}} heures </option>
                                 @endif
                                 @endforeach
                             </select>
-                        </label>
-                    </section>
-                    <section id="section-status-input">
-                        <label class="input">Volume horaire
-                            <input type="text" name="volumeHoraire" placeholder="192" id="input-volumeHoraire">
-                        </label>
-                    </section>
-                </fieldset>
-
+                        </div>
+                        <div id="section-status-input" class="form-group">
+                            <label class="input">Volume horaire</label>
+                            <input type="text" name="volumeHoraire" class="form-control" placeholder="Exemple : 192" id="input-volumeHoraire">
+                        </div>
+                    </div>
+                </div>
                 <input type="hidden" name="idEnseignant" id="input-idEnseignant">
                 <input type="hidden" name="id" id="input-id-statusenseignant">
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button id="annuler" type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <input id="validerstatut" type="submit" class="btn btn-primary" value="Valider" />
+            </div>
         </div>
     </div>
 </div>
@@ -144,7 +145,7 @@
             $("#input-choix").prop("checked", false);
             toggleVisibilityFormChoix(false);
         }
-        $('#dialog-message').dialog('open');
+        $("#modalstatut").modal('toggle');
         return false;
     }
     function modifier_statut() {
@@ -196,29 +197,6 @@
     $(document).ready(function () {
         pageSetUp();
         $('#dt_basic_enseignant').DataTable();
-
-        $('#dialog-message').dialog({
-            autoOpen: false,
-            modal: true,
-            title: "Modifier le statut",
-            buttons: [{
-                    html: "Annuler",
-                    "class": "btn btn-default",
-                    click: function () {
-                        $(this).dialog("close");
-                    }
-                }, {
-                    html: "<i class='fa fa-check'></i>&nbsp; OK",
-                    "class": "btn btn-primary",
-                    click: function () {
-                        $(this).dialog("close");
-                        modifier_statut();
-                    }
-                }]
-        });
-        // au click sur le statut d'un enseignant
-        // recupere idStatus et le volume horaire
-        // et ouvre la pop up selon ces vars
         
         $("#input-choix").bind('change', function() {
             if ($(this).is(':checked')) {
@@ -227,5 +205,14 @@
                 toggleVisibilityFormChoix(false);
             }
         })
+
+        $("#annuler").click(function() {
+            $("#modalstatut").modal('toggle');
+        });
+
+        $("#validerstatut").click(function() {
+            modifier_statut();
+            $("#modalstatut").modal('toggle');
+        });
     });
 </script>

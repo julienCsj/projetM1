@@ -133,21 +133,20 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Ajout d'un groupe de cours</h4>
             </div>
-            {{ Form::open(array('route' => 'affectation.ajouterGroupeCours')) }}
             <input type="hidden" name="idModule" value="{{$module->ID}}" />
             <input type="hidden" name="idFormation" value="{{$formation->id}}">
             <input type="hidden" name="idUe" value="{{$ue->id}}">
             <div class="modal-body">
-                <div class="row">
+                <div class="row form-horizontal">
                     <div class="col-sm-12">
-                        <div class="form-group">
-                            <div id="alerts">
+                        <div id="alerts">
 
-                            </div>
-                            <div class="form-group">
-                                <label class="input">Libellé</label>
-                                <input type="text" name="libelle" class="form-control" required value="{{$module->SHORT_TITLE}} "/>
-                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="input">Libellé</label>
+                            <input type="text" name="libelle" class="form-control" required value="{{$module->SHORT_TITLE}} "/>
+                        </div>
+                        <div class="form-group">
                             <label class="input">Type de séances</label>
                             <select name="type" id="selectType" class="form-control" required/>
                             <option value="-1">Selectionner un type ...</option>
@@ -162,7 +161,6 @@
 
                             </select>
                         </div>
-
                         <div class="form-group" id="divEnCommun">
                             <label class="input">Il s'agit d'un groupe de cours en commun</label>
                             <input name="enCommun" id="enCommun" class="form-control" type="checkbox" />
@@ -181,7 +179,6 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                 <input type="submit" class="btn btn-primary" value="Valider" />
             </div>
-            {{ Form::close() }}
         </div>
     </div>
 </div>
