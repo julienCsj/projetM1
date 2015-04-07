@@ -133,6 +133,7 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Ajout d'un groupe de cours</h4>
             </div>
+            {{ Form::open(array('route' => 'affectation.ajouterGroupeCours')) }}
             <input type="hidden" name="idModule" value="{{$module->ID}}" />
             <input type="hidden" name="idFormation" value="{{$formation->id}}">
             <input type="hidden" name="idUe" value="{{$ue->id}}">
@@ -179,6 +180,7 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                 <input type="submit" class="btn btn-primary" value="Valider" />
             </div>
+            {{ Form::close() }}
         </div>
     </div>
 </div>
