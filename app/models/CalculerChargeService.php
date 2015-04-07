@@ -21,64 +21,30 @@ class CalculerChargeService {
         $resultEnMin = array(
             "cm" => 0,
             "td" => 0,
-            "tp" => 0,
-            "hcc_cm" => 0,
-            "hcc_td" => 0,
-            "hcc_tp" => 0,
+            "tp" => 0
         );
 
         // ETAPE 1 : RECUPERER LE RESULTAT PAR TYPE PAR SEMAINE
         $serviceParSemaine = CalculerChargeService::calculerServiceEnseignantParSemaine($idEnseignant);
 
         // ETAPE 2 : POUR CHAQUE GROUPE DE COURS
-        $estSupperieurAuServiceStatuaire = false;
+        $types = array("cm", "td", "tp");
         foreach($serviceParSemaine as $sem) {
             // itere sur les types de cours
-            $types = array("cm", "td", "tp");
             foreach ($types as $type) {
                 if ($sem[$type] != 0) {
                     // Gere le nombre d'heure en HCC et le total des heures par type
-                    if ($estSupperieurAuServiceStatuaire) {
-                        $resultEnMin["hcc_".$type] += $sem[$type];
-                    } else {
-                        $currentNbHeure = $resultEnMin["cm"]*floatval($config->valeurCMEnHService) + $resultEnMin["td"]*floatval($config->valeurTDEnHService) + $resultEnMin["tp"]*floatval($config->valeurTPEnHService);
-                        // Genere le volume horaire du prochain cours
-                        if ($type == "cm") {
-                            $nouveauVolume = $sem[$type] * floatval($config->valeurCMEnHService);
-                        } else {
-                            if ($type == "td") {
-                                $nouveauVolume = $sem[$type]*floatval($config->valeurTDEnHService);
-                            } else {
-                                if ($type == "tp") {
-                                    $nouveauVolume = $sem[$type]*floatval($config->valeurTPEnHService);
-                                }
-                            }
-                        }
-                        if ($estSupperieurAuServiceStatuaire == false && $currentNbHeure + $nouveauVolume >= $palierEnseignant) {
-                            $nbHeureCoursAAjoute = ($currentNbHeure + $nouveauVolume) - $palierEnseignant;
-                            //Ajoute la bonne valeur de hcc
-                            if ($type == "cm") {
-                                $nbHeureCoursAAjoute = $nbHeureCoursAAjoute / floatval($config->valeurCMEnHService);
-                            } else {
-                                if ($type == "td") {
-                                    $nbHeureCoursAAjoute = $nbHeureCoursAAjoute/floatval($config->valeurTDEnHService);
-                                } else {
-                                    if ($type == "tp") {
-                                        $nbHeureCoursAAjoute = $nbHeureCoursAAjoute/floatval($config->valeurTPEnHService);
-                                    }
-                                }
-                            }
-                            $resultEnMin["hcc_".$type] += $nbHeureCoursAAjoute;
-                            $estSupperieurAuServiceStatuaire = true;
-                        }
-                    }
                     $resultEnMin[$type] += $sem[$type];
                 }
             }
         }
+
+        $total = $resultEnMin["cm"] + $resultEnMin["td"] + $resultEnMin["tp"];
         foreach($resultEnMin as $k => $v) {
-            $resultEnMin[$k] = $v / 60;
+            $resultEnMin[$k . "_pourc"] = $v / $total;
+            $resultEnMin[$k] = $v / 60; // transforme les mins en heures
         }
+
         return $resultEnMin;
     }
 

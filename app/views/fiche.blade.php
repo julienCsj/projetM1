@@ -169,7 +169,10 @@ $arrayMonthTotext = array(
                                     <tr>
                                         <th>Mois</th>
                                         <th><i class="fa fa-calendar"></i> N° Semaine</th>
-                                        <th>Charge de travail</th>
+                                        <th>CM</th>
+                                        <th>TD</th>
+                                        <th>TP</th>
+                                        <th>Total heures placées</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -199,23 +202,24 @@ $arrayMonthTotext = array(
                                                     <?php $printMonth = false; ?>
                                                 @endif
                                             </td>
-                                            <td>Semaine #{{$s['numSemaine']}} - {{$s['label']}}</td>
+                                            <td>{{$s['label']}}</td>
                                             <td>
-                                                @if($s['cm'] + $s['td'] + $s['tp'] != 0)
                                                 @if ($s['cm'] != 0)
-                                                CM : {{$s['cm'] / 60}}h<br>
+                                                {{$s['cm'] / 60}}h<br>
                                                 @endif
+                                            </td>
+                                            <td>
                                                 @if ($s['td'] != 0)
-                                                TD : {{$s['td'] / 60}}h<br>
+                                                {{$s['td'] / 60}}h<br>
                                                 @endif
+                                            </td>
+                                            <td>
                                                 @if ($s['tp'] != 0)
-                                                TP : {{$s['tp'] / 60}}h<br>
+                                                {{$s['tp'] / 60}}h<br>
                                                 @endif
-                                                Total service : {{($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp']) / 60}}h<br/>
-                                                Total heures placées : {{($s['cm'] + $s['td'] + $s['tp'])/60}}h<br>
-                                                @else
-                                                Pas de cours assigné
-                                                @endif
+                                            </td>
+                                            <td>
+                                                {{($s['cm'] + $s['td'] + $s['tp'])/60}}h<br>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -230,13 +234,15 @@ $arrayMonthTotext = array(
                                 $serviceTD = $service_global["td"];
                                 $serviceTP = $service_global["tp"];
 
+
+                                $pourcentageCM = $service_global["cm_pourc"];
+                                $pourcentageTD = $service_global["td_pourc"];
+                                $pourcentageTP = $service_global["tp_pourc"];
+
+
                                 $specifiqueCM = 0;
                                 $specifiqueTD = 0;
                                 $specifiqueTP = 0;
-
-                                $hccCM = $service_global["hcc_cm"];
-                                $hccTD = $service_global["hcc_td"];
-                                $hccTP = $service_global["hcc_tp"];
                             ?>
                             @if($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP > 0)
                             <table class="table table-bordered table-striped table-condensed table-hover">
@@ -252,27 +258,27 @@ $arrayMonthTotext = array(
                                     <td>{{$serviceCM}}</td>
                                     <td>{{$serviceTD}}</td>
                                     <td>{{$serviceTP}}</td>
-                                    <td>{{$serviceCM + $serviceTD + $serviceTP}}</td>
+                                    <td>{{$serviceCM * $VALEUR_CM_HSERVICE + $serviceTD * $VALEUR_TD_HSERVICE + $serviceTP * $VALEUR_TP_HSERVICE}}</td>
                                 </tr>
                                 <tr>
                                     <td>Spécifique</td>
                                     <td>{{$specifiqueCM}}</td>
                                     <td>{{$specifiqueTD}}</td>
                                     <td>{{$specifiqueTP}}</td>
-                                    <td>{{$specifiqueCM + $specifiqueTD + $specifiqueTP}}</td>
+                                    <td>{{$specifiqueCM * $VALEUR_CM_HSERVICE + $specifiqueTD * $VALEUR_TD_HSERVICE + $specifiqueTP * $VALEUR_TP_HSERVICE}}</td>
                                 </tr>
                                 <tr>
                                     <td>Total</td>
                                     <td><strong>{{$serviceCM + $specifiqueCM}}</strong></td>
                                     <td><strong>{{$serviceTD + $specifiqueTD}}</strong></td>
                                     <td><strong>{{$serviceTP + $specifiqueTP}}</strong></td>
-                                    <td><strong>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}</strong></td>
+                                    <td><strong>{{($serviceCM + $specifiqueCM) * $VALEUR_CM_HSERVICE + ($serviceTD + $specifiqueTD) * $VALEUR_TD_HSERVICE + ($serviceTP + $specifiqueTP) * $VALEUR_TP_HSERVICE}}</strong></td>
                                 </tr>
                                 <tr>
                                     <td>Pourcentage</td>
-                                    <td>{{round((($serviceCM*1.5 + $specifiqueCM) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</td>
-                                    <td>{{round((($serviceTD + $specifiqueTD) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</td>
-                                    <td>{{round((($serviceTP + $specifiqueTP) / ($serviceCM*1.5 + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP)*100),2)}}%</td>
+                                    <td>{{round($pourcentageCM*100,2)}}%</td>
+                                    <td>{{round($pourcentageTD*100,2)}}%</td>
+                                    <td>{{round($pourcentageTP*100,2)}}%</td>
                                     <td></td>
                                 </tr>
                             </table>
@@ -288,7 +294,7 @@ $arrayMonthTotext = array(
                                 </tr>
                                 <tr>
                                     <td>Service en TD = TP</td>
-                                    <td>{{$serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP}}h</td>
+                                    <td>{{($serviceCM + $specifiqueCM) * $VALEUR_CM_HSERVICE + ($serviceTD + $specifiqueTD) * $VALEUR_TD_HSERVICE + ($serviceTP + $specifiqueTP) * $VALEUR_TP_HSERVICE}}h</td>
                                 </tr>
                                 <tr>
                                     <th>Service dû effectué</th>
@@ -308,19 +314,28 @@ $arrayMonthTotext = array(
                                     <th>TP</th>
                                     <th>Total en eq. TD</th>
                                 </tr>
+                                <?php
+                                    $totalHeureService = $serviceCM + $serviceTD + $serviceTP + $specifiqueCM + $specifiqueTD + $specifiqueTP;
+                                    if ($totalHeureService > $statut->SERVICE_STATUTAIRE) {
+                                        $totalHeureService = $statut->SERVICE_STATUTAIRE;
+                                    }
+                                    $totalHeureServiceCM = $totalHeureService * $pourcentageCM / $VALEUR_CM_HSERVICE;
+                                    $totalHeureServiceTD = $totalHeureService * $pourcentageTD / $VALEUR_TD_HSERVICE;
+                                    $totalHeureServiceTP = $totalHeureService * $pourcentageTP / $VALEUR_TP_HSERVICE;
+                                ?>
                                 <tr>
                                     <td>Service</td>
-                                    <td>{{($serviceCM + $specifiqueCM) - $hccCM}}</td>
-                                    <td>{{($serviceTD + $specifiqueTD) - $hccTD}}</td>
-                                    <td>{{($serviceTP + $specifiqueTP) - $hccTP}}</td>
-                                    <td><strong>{{(($serviceCM + $specifiqueCM) - $hccCM)*1.5 + (($serviceTD + $specifiqueTD) - $hccTD) + (($serviceTP + $specifiqueTP) - $hccTP)}}</strong></td>
+                                    <td>{{round($totalHeureServiceCM, 2)}}</td>
+                                    <td>{{round($totalHeureServiceTD, 2)}}</td>
+                                    <td>{{round($totalHeureServiceTP , 2)}}</td>
+                                    <td><strong>{{$totalHeureServiceCM * $VALEUR_CM_HSERVICE + $totalHeureServiceTD * $VALEUR_TD_HSERVICE + $totalHeureServiceTP * $VALEUR_TP_HSERVICE}}</strong></td>
                                 </tr>
                                 <tr>
                                     <td>HCC</td>
-                                    <td>{{$hccCM}}</td>
-                                    <td>{{$hccTD}}</td>
-                                    <td>{{$hccTP}}</td>
-                                    <td><strong>{{round($hccCM*1.5 + $hccTD + $hccTP*(2/3),2)}}</strong></td>
+                                    <td>{{round($serviceCM - $totalHeureServiceCM, 2)}}</td>
+                                    <td>{{round($serviceTD - $totalHeureServiceTD, 2)}}</td>
+                                    <td>{{round($serviceTP - $totalHeureServiceTP, 2)}}</td>
+                                    <td><strong>{{round(($serviceCM - $totalHeureServiceCM)*$VALEUR_CM_HSERVICE + ($totalHeureServiceTD * $VALEUR_TD_HSERVICE) * $VALEUR_TD_HSERVICE_HCC + ($totalHeureServiceTP * $VALEUR_TP_HSERVICE) * $VALEUR_TP_HSERVICE_HCC,2)}}</strong></td>
                                 </tr>
                             </table>
                             @else

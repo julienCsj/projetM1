@@ -44,3 +44,10 @@ Editez le fichier .htaccess (public_html/.htaccess) et décommentez la ligne pou
 
 Allouez les bons droits au dossier app/storage pour qu'ils ressemblent à ceci
 	drwxr-xr-x  7 www-data users 4096 mars  31 11:53 storage
+
+
+### Laravel
+
+Ce projet est basé sur Laravel 4.2, un framework PHP 5.  
+Vous pouvez retrouver la documentation technique [ici (site officiel)](http://laravel.com/docs) et [ici (branche 4.2 de la documentation officielle)](https://github.com/laravel/docs/tree/4.2) 
+
