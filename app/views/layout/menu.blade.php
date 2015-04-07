@@ -69,6 +69,9 @@
             <li class="{{ URL::route('generationFicheEnseignement') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('generationFicheEnseignement')}}" title="Génération des fiches"><i class="fa fa-lg fa-fw fa-building"></i> <span class="menu-item-parent">Fiches enseignement</span></a>
             </li>
+            <li class="{{ URL::route('emploidutemps') === URL::current() ? 'active' : '' }}">
+                <a href="{{URL::route('emploidutemps')}}" title="Emploi du temps"><i class="fa fa-lg fa-fw fa-building"></i> <span class="menu-item-parent">Emploi du temps</span></a>
+            </li>
             <li class="{{ URL::route('config') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('config')}}" title="Configuration"><i class="fa fa-lg fa-fw fa-wrench"></i> <span class="menu-item-parent">Configuration</span></a>
             </li>

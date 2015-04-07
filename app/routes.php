@@ -84,7 +84,9 @@ Route::group(array('before' => 'auth'), function () { // Login required
     // Module génération fiches enseignement
     Route::get('ficheEnseignement/', array('as' => 'generationFicheEnseignement', 'uses' => 'GenerationFicheController@getFicheEnseignement'));
 
-
+    // Module emploi du temps
+    Route::get('emploidutemps', array('as' => 'emploidutemps', 'uses' => 'EmploiDuTempsController@getEmploiDuTemps'));
+    Route::get('emploidutemps/{idFormation}/', array('as' => 'emploiDuTempsFormation', 'uses' => 'EmploiDuTempsController@getEmploiDuTemps'));
 
     // Routes module heures externe
     Route::get('heuresexterieures', array('as' => 'heuresexterieures', 'uses' => 'HeuresExternesController@getHeuresExternes'));

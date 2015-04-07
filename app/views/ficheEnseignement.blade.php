@@ -65,7 +65,7 @@ $arrayMonthTotext = array(
                                     <td>{{$service['cm'] / 60}}</td>
                                     <td>{{$service['td'] / 60}}</td>
                                     <td>{{$service['tp'] / 60}}</td>
-                                    <td><strong>{{intval(($service['cm'] + $service['td'] + $service['tp'])/60)}}</strong></td>
+                                    <td><strong>{{floatval(($service['cm'] + $service['td'] + $service['tp'])/60)}}</strong></td>
                                 </tr>
                                 @endforeach
                                 <tr>
@@ -73,7 +73,7 @@ $arrayMonthTotext = array(
                                     <td><strong>{{$total['cm'] / 60}}</strong></td>
                                     <td><strong>{{$total['td'] / 60}}</strong></td>
                                     <td><strong>{{$total['tp'] / 60}}</strong></td>
-                                    <td><strong>{{intval(($total['cm'] + $total['td'] + $total['tp'])/60)}}</strong></td>
+                                    <td><strong>{{floatval(($total['cm'] + $total['td'] + $total['tp'])/60)}}</strong></td>
                                 </tr>
                             </table>
                         </div>
@@ -102,7 +102,7 @@ $arrayMonthTotext = array(
                                                 <td>{{$service['cm'] / 60}}</td>
                                                 <td>{{$service['td'] / 60}}</td>
                                                 <td>{{$service['tp'] / 60}}</td>
-                                                <td><strong>{{intval(($service['cm'] + $service['td'] + $service['tp'])/60)}}</strong></td>
+                                                <td><strong>{{(floatval($service['cm']) + floatval($service['td']) + floatval($service['tp']))/60}}</strong></td>
                                             </tr>
                                         @endforeach
                                     @endforeach
