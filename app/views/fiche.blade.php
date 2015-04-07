@@ -153,7 +153,7 @@ $arrayMonthTotext = array(
                             @if(count($heuresexternes) == 0)
                                     <p class="text-center">Aucune heure externe déclarée.</p>
                             @else
-                                @foreach($heuresexternes as $h)
+                                @foreach($heuresexternes as $heure)
                                     <li>{{ $heure->intitule }} {{ $heure->etablissement }} {{ $heure->diplome }} {{ $heure->numeroUE }} {{ $heure->type }} {{ $heure->nbHeureCM }} {{ $heure->nbHeur }} {{ $heure->nbHeureTP }}</li>
                                 @endforeach
                             @endif
