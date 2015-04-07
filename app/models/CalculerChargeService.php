@@ -40,6 +40,9 @@ class CalculerChargeService {
         }
 
         $total = $resultEnMin["cm"] + $resultEnMin["td"] + $resultEnMin["tp"];
+        if ($total == 0) {
+            $total = 1;
+        }
         foreach($resultEnMin as $k => $v) {
             $resultEnMin[$k . "_pourc"] = $v / $total;
             $resultEnMin[$k] = $v / 60; // transforme les mins en heures

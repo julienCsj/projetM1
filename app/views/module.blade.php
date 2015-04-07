@@ -87,7 +87,7 @@
                                     <div class="col-xs-2 col-sm-2">
                                         <time datetime="" class="icon" style="width: 100%">
                                             <strong>HETD</strong>
-                                            <span>{{$totalCM*1.5 + $totalTD*$formation->nbgroupestd + $totalTP*$formation->nbgroupestp}}</span>
+                                            <span>{{$totalCM*1.5 + $totalTD*$formation->nbgroupestd + $totalTP*$formation->nbgroupestp/1.5}}</span>
                                         </time>
                                     </div>
                                     <div class="col-xs-3 col-sm-2">

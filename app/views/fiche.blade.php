@@ -172,6 +172,7 @@ $arrayMonthTotext = array(
                                         <th>CM</th>
                                         <th>TD</th>
                                         <th>TP</th>
+                                        <th>HETD</th>
                                         <th>Total heures placées</th>
                                     </tr>
                                 </thead>
@@ -203,6 +204,7 @@ $arrayMonthTotext = array(
                                                 @endif
                                             </td>
                                             <td>{{$s['label']}}</td>
+                                            @if($s['cm'] + $s['td'] + $s['tp'] != 0)
                                             <td>
                                                 @if ($s['cm'] != 0)
                                                 {{$s['cm'] / 60}}h<br>
@@ -219,8 +221,14 @@ $arrayMonthTotext = array(
                                                 @endif
                                             </td>
                                             <td>
+                                                {{($s['cm'] * 1.5 + $s['td'] + $s['tp']/1.5)/60}}h<br>
+                                            </td>
+                                            <td>
                                                 {{($s['cm'] + $s['td'] + $s['tp'])/60}}h<br>
                                             </td>
+                                            @else
+                                            <td colspan="5"></td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
