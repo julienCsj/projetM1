@@ -82,7 +82,7 @@
                 <a href="{{URL::route('voeux')}}" title="Adresses"><i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent">Voeux</span></a>
             </li>
             <li class="{{ URL::route('heuresexterieures') === URL::current() ? 'active' : '' }}">
-                <a href="{{URL::route('heuresexterieures')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent">Heures exterieures</span></a>
+                <a href="{{URL::route('heuresexterieures')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent">Complément de service</span></a>
             </li>
             <li class="{{ URL::route('monservice') === URL::current() ? 'active' : '' }}">
                 <a href="{{URL::route('monservice')}}" title="Timeline"><i class="fa fa-lg fa-fw fa-eye"></i> <span class="menu-item-parent">Mon service</span></a>

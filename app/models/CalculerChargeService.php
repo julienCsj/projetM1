@@ -368,7 +368,7 @@ class CalculerChargeService {
                     for($i=1; $i <=$nbCoursDansGroupeCours; $i++) {
                         $repartition = array();
                         foreach($enseignantGroupe as $eg) {
-                            $repartition[] = ucfirst($eg->firstname). " ". ucfirst($eg->lastname) . " pour $eg->nb_groupe groupe(s)";
+                            $repartition[] = ucfirst($eg->firstname). " ". ucfirst($eg->lastname) . " =pour $eg->nb_groupe groupe(s)";
                         }
                         $arraySemaine[CalculerChargeService::computeNumeroSemaine($i, $numeroSemaine)][]
                             = array("[$titreModule] $type de $duree min.<br />",

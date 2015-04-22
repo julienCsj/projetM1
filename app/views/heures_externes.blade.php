@@ -1,7 +1,7 @@
 @include('layout.header')
 <section id="widget-grid" class="">
     <div class="row">
-        <h1>Heures exterieures <small></small></h1>
+        <h1>Complément de service <small></small></h1>
         <div class="alert alert-info fade in">
             <button class="close" data-dismiss="alert">×</button>
             <strong>A propos de cette page.</strong> {{TipsService::getTip("heuresExternes")}}
@@ -70,8 +70,11 @@
             <div class="form-group col-md-1 col-lg-1">
                 <label>Type</label>
                 <select class="form-control" name="type">
-                    <option value="ups">Heure(s) UPS</option>
-                    <option value="mfca">Heure(s) MFCA</option>
+                    <option value="iut">Services IUT</option>
+                    <option value="mfca">Services MFCA</option>
+                    <option value="ups hors iut mfca">Services UPS hors IUT et MFCA</option>
+                    <option value="pres">Service PRES hors UPS</option>
+                    <option value="hors pres et ups">Service hors PRES et UPS</option>
                     <option value="autre">Autre</option>
                 </select>
             </div>
