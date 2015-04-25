@@ -153,10 +153,59 @@ $arrayMonthTotext = array(
                             @if(count($heuresexternes) == 0)
                                     <p class="text-center">Aucune heure externe déclarée.</p>
                             @else
-                                @foreach($heuresexternes as $h)
-                                    <li>{{ $heure->intitule }} {{ $heure->etablissement }} {{ $heure->diplome }} {{ $heure->numeroUE }} {{ $heure->type }} {{ $heure->nbHeureCM }} {{ $heure->nbHeur }} {{ $heure->nbHeureTP }}</li>
+                                @foreach($heuresexternes as $heure)
+                                    <li>{{ $heure->intitule }} {{ $heure->etablissement }} {{ $heure->diplome }} {{ $heure->noUE }} {{ $heure->numeroUE }} {{ $heure->type }} {{ $heure->nbHeureCM }} {{ $heure->nbHeureTD }} {{ $heure->nbHeureTP }}</li>
                                 @endforeach
                             @endif
+                                {{ Form::open(array('route' => 'heuresexterieures.ajouter')) }}
+                                <input type="hidden" name="enseignantID" value="{{$enseignant->LOGIN}}">
+                                <input type="hidden" name="fromFiche" value="true" />
+                                <div class="row padding-10">
+                                    <div class="form-group col-md-2 col-lg-2">
+                                        <label>Int. ens.</label>
+                                        <input class="form-control spinner-both" type="text" name="intitule" value="">
+                                    </div>
+                                    <div class="form-group col-md-2 col-lg-2">
+                                        <label>Etab.</label>
+                                        <input class="form-control spinner-both" type="text" name="etablissement" value="">
+                                    </div>
+                                    <div class="form-group col-md-2 col-lg-2">
+                                        <label>Diplome</label>
+                                        <input class="form-control spinner-both" type="text" name="diplome" value="">
+                                    </div>
+                                    <div class="form-group col-md-1 col-lg-1">
+                                        <label>No UE</label>
+                                        <input class="form-control spinner-both" type="text" name="numeroUE" value="">
+                                    </div>
+                                    <div class="form-group col-md-1 col-lg-1">
+                                        <label>Type</label>
+                                        <select class="form-control" name="type">
+                                            <option value="iut">Services IUT</option>
+                                            <option value="mfca">Services MFCA</option>
+                                            <option value="ups hors iut mfca">Services UPS hors IUT et MFCA</option>
+                                            <option value="pres">Service PRES hors UPS</option>
+                                            <option value="hors pres et ups">Service hors PRES et UPS</option>
+                                            <option value="autre">Autre</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-1 col-lg-1">
+                                        <label>CM</label>
+                                        <input class="form-control spinner-both" type="number" name="nbHeureCM" value="">
+                                    </div>
+                                    <div class="form-group col-md-1 col-lg-1">
+                                        <label>TD</label>
+                                        <input class="form-control spinner-both" type="number" name="nbHeureTD" value="">
+                                    </div>
+                                    <div class="form-group col-md-1 col-lg-1">
+                                        <label>TP</label>
+                                        <input class="form-control spinner-both" type="number" name="nbHeureTP" value="">
+                                    </div>
+                                    <div class="form-group col-md-1 col-lg-1">
+                                        <label>&nbsp;</label>
+                                        <input class="form-control" type="submit"  value="+">
+                                    </div>
+                                </div>
+                                {{ Form::close() }}
                             </ul>
                         </div>
                     </div>

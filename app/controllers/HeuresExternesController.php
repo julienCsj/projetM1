@@ -26,7 +26,11 @@ class HeuresExternesController extends BaseController {
         $heure->enseignantID = Input::get("enseignantID");
         $heure->save();
 
-        return Redirect::route('heuresexterieures');    }
+        if(Input::get("fromFiche") == "true") {
+            return Redirect::action('GenerationFicheController@getFiche')->with(array("idEnseignant", $heure->enseignantID));
+        }
+        return Redirect::route('heuresexterieures');
+    }
 
     public function getSupprimerHeure($idHeure){
         HeureExterne::where("id", '=', $idHeure)->delete();
