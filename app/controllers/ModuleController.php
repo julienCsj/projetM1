@@ -48,10 +48,11 @@ class ModuleController extends BaseController {
             }
             // Calcul des totaux pour les CM, TD, TP
             $data['totalCM'] = floor($heureCM / 60)."h".$heureCM % 60;
-            if($heureCM % 60 == 0) $data['totalCM'].= 0;
             $data['totalTD'] = floor($heureTD / 60)."h".$heureTD % 60;
-            if($heureTD % 60 == 0) $data['totalTD'].= 0;
             $data['totalTP'] = floor($heureTP / 60)."h".$heureTP % 60;
+            
+            if($heureCM % 60 == 0) $data['totalCM'].= 0;
+            if($heureTD % 60 == 0) $data['totalTD'].= 0;
             if($heureTP % 60 == 0) $data['totalTP'].= 0;
         }
 

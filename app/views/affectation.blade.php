@@ -87,17 +87,23 @@
                                             $nbGroupe = $groupeCours->groupe_tp;
                                                 break;
                                         }
-                                        $precendenteValeur = array();
+                                        // Passe cette valeur à la vue pour la modal :'(
+                                        $_groupesCoursEnseignantModule = array();
                                         foreach ($groupesCoursEnseignantModule as $key => $v) {
                                             if ($v->groupecours_id == $groupeCours->id)
-                                                $precendenteValeur[] = $v;
+                                                $_groupesCoursEnseignantModule[] = $v;
+                                        }
+                                        // Ajoute une couleur rouge au bouton si il n'a pas de données 
+                                        $classBoutonRouge = " btn-success";
+                                        if (sizeof($_groupesCoursEnseignantModule) == 0) {
+                                            $classBoutonRouge = " btn-info";
                                         }
                                         ?>
                                         <div class="row col-sm-12">
                                             <div class="well">
                                                 [{{strtoupper($groupeCours->type)}}] {{$nbCoursParGroupeCours[$groupeCours->id]}} séance(s) de {{$groupeCours->duree}} min ({{$nbGroupe}} groupe(s)) - {{$groupeCours->libelle}}
                                                 <a class="btn btn-xs btn-danger pull-right" href="{{ route('affectation.supprimerGroupeCours', array($idFormation, $ue->id, $module->ID, $groupeCours->id)); }}">Supprimer</a>
-                                                <button onclick='affecterAUnEnseignant({{$groupeCours->id}},{{$nbGroupe}}, "{{$groupeCours->type}}", {{json_encode($precendenteValeur)}})' data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs btn-default pull-right"><i class="fa fa-tags"></i> Modifier Affectation</button>
+                                                <button onclick='affecterAUnEnseignant({{$groupeCours->id}},{{$nbGroupe}}, "{{$groupeCours->type}}", {{json_encode($_groupesCoursEnseignantModule)}})' data-toggle="modal" data-target="#affecter" data-type="{{$groupeCours->type}}" data-type-nb-groupe="{{$nbGroupe}}" href="#" class="btn btn-xs pull-right {{$classBoutonRouge}}"><i class="fa fa-tags"></i> Modifier Affectation</button>
                                             </div>
                                         </div>
                                     @endforeach
@@ -226,7 +232,7 @@ foreach($typeCoursMap as $k => $v) {
 
     $('#choixModuleCommun').hide();
 
-    function affecterAUnEnseignant(groupeCoursId, nbGroupe, type, precendenteValeur) {
+    function affecterAUnEnseignant(groupeCoursId, nbGroupe, type, _groupesCoursEnseignantModule) {
         var el = $("#affectation-formulaire");
         $("#affectation-formulaire .form-group").remove();
         var data = {
@@ -235,14 +241,14 @@ foreach($typeCoursMap as $k => $v) {
             "groupeCoursId": groupeCoursId,
             "nb" : nbGroupe,
             "type" : type,
-            "precendenteValeur" : precendenteValeur
+            "_groupesCoursEnseignantModule" : _groupesCoursEnseignantModule
         }
 
         for (var i = 0; i < data["nb"]; i++) {
             var listeEnseignant = "";
             for (var j = data["enseignant"].length - 1; j >= 0; j--) {
                 listeEnseignant += "<option value='"+data["enseignant"][j]["enseignant_id"]+"' ";
-                if (precendenteValeur[i] != null && precendenteValeur[i]["enseignant_id"] == data["enseignant"][j]["enseignant_id"]) {
+                if (_groupesCoursEnseignantModule[i] != null && _groupesCoursEnseignantModule[i]["enseignant_id"] == data["enseignant"][j]["enseignant_id"]) {
                     listeEnseignant += "selected ";
                 }
                 listeEnseignant += ">"+data["enseignant"][j]["LASTNAME"]+" " +data["enseignant"][j]["FIRSTNAME"]+"</option>";
@@ -250,7 +256,7 @@ foreach($typeCoursMap as $k => $v) {
             var listeFinancement = "";
             for (var j = data["financement"].length - 1; j >= 0; j--) {
                 listeFinancement += "<option value='"+data["financement"][j]["id"]+"' ";
-                if (precendenteValeur[i] != null && precendenteValeur[i]["financement_id"] == data["financement"][j]["id"]) {
+                if (_groupesCoursEnseignantModule[i] != null && _groupesCoursEnseignantModule[i]["financement_id"] == data["financement"][j]["id"]) {
                     listeFinancement += "selected ";
                 }
                 listeFinancement += ">"+data["financement"][j]["libelle"]+"</option>";

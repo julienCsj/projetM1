@@ -62,7 +62,12 @@
                         <div id="tabs-a">
                             <div class="row padding-10">
                                 <p class="alert alert-info">Valeur du PPN : CM : {{$module->CM_PPN}}h -  TD : {{$module->TD_PPN}}h -  TP : {{$module->TP_PPN}}h</p>
-
+                                @if(sizeof($module->lesEnseignants) == 0)
+                                <p class="alert alert-info">Il n'y a aucun enseignant lié à ce module. Vous ne pouvez donc pas planifier ce module.</p>
+                                @endif
+                                @if(sizeof($module->lesFinancements) == 0)
+                                <p class="alert alert-info">Il n'y a aucun financement lié à ce module. Vous ne pouvez donc pas planifier ce module.</p>
+                                @endif
                                 <div class="col-centered" style="height: 120px;">
                                     <div class="col-xs-3 col-sm-2">
                                     </div>
@@ -87,7 +92,7 @@
                                     <div class="col-xs-2 col-sm-2">
                                         <time datetime="" class="icon" style="width: 100%">
                                             <strong>HETD</strong>
-                                            <span>{{$totalCM*1.5 + $totalTD * $module->nbgroupestd + $totalTP * $module->nbgroupestp/1.5}}</span>
+                                            <span>{{$totalCM * $module->GROUPE_CM *1.5 + $totalTD * $module->GROUPE_TD + $totalTP * $module->GROUPE_TP/1.5}}</span>
                                         </time>
                                     </div>
                                     <div class="col-xs-3 col-sm-2">

@@ -16,19 +16,22 @@ class CalculerChargeService {
             return $indice;
     }
 
-    public static function calculerServiceEnseignantGlobal($idEnseignant, $config, $palierEnseignantHeure) {
+    public static function calculerServiceEnseignantGlobal($idEnseignant, $config, $palierEnseignantHeure, $heuresexternes) {
         $palierEnseignant = $palierEnseignantHeure*60;
-        $resultEnMin = array(
-            "cm" => 0,
-            "td" => 0,
-            "tp" => 0
-        );
-
+        $types = array("cm", "td", "tp");
+        $typeService = array('iut', 'mfca', 'ups hors iut mfca', 'pres', 'hors pres et ups', 'autre');
+        $resultEnMin = array();
+        // Peuplement des données initiales heuresExternes
+        foreach ($types as $type) {
+            $resultEnMin[$type] = 0;
+            foreach ($typeService as $typeServ) {
+                $resultEnMin[$type."_".$typeServ] = 0;
+            }
+        }
         // ETAPE 1 : RECUPERER LE RESULTAT PAR TYPE PAR SEMAINE
         $serviceParSemaine = CalculerChargeService::calculerServiceEnseignantParSemaine($idEnseignant);
 
         // ETAPE 2 : POUR CHAQUE GROUPE DE COURS
-        $types = array("cm", "td", "tp");
         foreach($serviceParSemaine as $sem) {
             // itere sur les types de cours
             foreach ($types as $type) {
@@ -38,16 +41,17 @@ class CalculerChargeService {
                 }
             }
         }
-
-        $total = $resultEnMin["cm"] + $resultEnMin["td"] + $resultEnMin["tp"];
-        if ($total == 0) {
-            $total = 1;
+        // Conversion des minutes en heures
+        foreach ($types as $type) {
+            $resultEnMin[$type] = $resultEnMin[$type] / 60;
         }
-        foreach($resultEnMin as $k => $v) {
-            $resultEnMin[$k . "_pourc"] = $v / $total;
-            $resultEnMin[$k] = $v / 60; // transforme les mins en heures
+        // Ajout des heures exte
+        foreach ($heuresexternes as $heuresexterne) {
+            $typeHE = $heuresexterne["type"];
+            $resultEnMin["cm_" . $typeHE] = $resultEnMin["cm_" . $typeHE] + intval($heuresexterne["nbHeureCM"]);
+            $resultEnMin["td_" . $typeHE] = $resultEnMin["td_" . $typeHE] + intval($heuresexterne["nbHeureTD"]);
+            $resultEnMin["tp_" . $typeHE] = $resultEnMin["tp_" . $typeHE] + intval($heuresexterne["nbHeureTP"]);
         }
-
         return $resultEnMin;
     }
 

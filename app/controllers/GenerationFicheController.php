@@ -4,7 +4,7 @@ class GenerationFicheController extends BaseController {
 
     public function getFiche($idEnseignant = -1) {
         $lesEnseignants = Enseignant::getEnseignantsWithPageData();
-
+        $lesHeuresExternes = HeureExterne::where('enseignantID', '=', $idEnseignant)->get();
         $data = array(
             'breadcrumb' => array("Scolarel", "Fiche"),
             'lesEnseignants' => $lesEnseignants,
@@ -17,8 +17,8 @@ class GenerationFicheController extends BaseController {
             //exit(var_dump($data['enseignant']));
             $data["statut"] = Enseignant::getOneEnseignantAndStatus($idEnseignant);
             $data['voeux'] = Voeux::getVoeux($idEnseignant);
-            $data['heuresexternes'] = HeureExterne::where('enseignantID', '=', $idEnseignant)->get();
-            $data['service_global'] = CalculerChargeService::calculerServiceEnseignantGlobal($idEnseignant, $config, $data["statut"]->SERVICE_STATUTAIRE);
+            $data['heuresexternes'] = $lesHeuresExternes;
+            $data['service_global'] = CalculerChargeService::calculerServiceEnseignantGlobal($idEnseignant, $config, $data["statut"]->SERVICE_STATUTAIRE, $lesHeuresExternes);
             $data['service'] = CalculerChargeService::calculerServiceEnseignantParSemaine($idEnseignant);
             $data['VALEUR_CM_HSERVICE'] = floatval($config["valeurCMEnHService"]);
             $data['VALEUR_TD_HSERVICE'] = floatval($config["valeurTDEnHService"]);
