@@ -60,14 +60,15 @@
         <div class="col-sm-4">
             <div class="well well-sm bg-color-darken txt-color-white text-center">
                 <h5>Documentation utilisateur</h5>
-                <button class="btn btn-default disabled">Voir</button>
+
+                <a class="btn btn-default" href="doc-1/?page=utilisateur">Voir</a>
             </div>
         </div>
 
         <div class="col-sm-4">
             <div class="well well-sm bg-color-teal txt-color-white text-center">
                 <h5>Documentation technique</h5>
-                <button class="btn btn-default disabled">Voir</button>
+                <a class="btn btn-default" href="doc-1/?page=technique">Voir</a>
             </div>
         </div>
 
