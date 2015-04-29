@@ -29,35 +29,65 @@ $arrayMonthTotext = array(
                         <h2> Paliers </h2>
                     </header>
                     <?php
-                        $hGlobal = $service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"];
-                        $hGlobalWithHcc = $service_global["cm"]*$VALEUR_CM_HSERVICE + $service_global["td"]*$VALEUR_TD_HSERVICE + $service_global["tp"] *$VALEUR_TP_HSERVICE
-                            + $service_global["hcc_cm"]*$VALEUR_CM_HSERVICE_HCC + $service_global["hcc_td"]*$VALEUR_TD_HSERVICE_HCC + $service_global["hcc_tp"]*$VALEUR_TP_HSERVICE_HCC;
-                        $pourcentServiceMinimal = $hGlobal / $palier;
-                        if ($pourcentServiceMinimal > 1) {
-                            $pourcentServiceMinimal = 1;
+                        $serviceCM = $service_global["cm"];
+                        $serviceTD = $service_global["td"];
+                        $serviceTP = $service_global["tp"];
+
+                        $serviceCM_iut = $service_global["cm_iut"];
+                        $serviceTD_iut = $service_global["td_iut"];
+                        $serviceTP_iut = $service_global["tp_iut"];
+
+                        $serviceCM_mfca = $service_global["cm_mfca"];
+                        $serviceTD_mfca = $service_global["td_mfca"];
+                        $serviceTP_mfca = $service_global["tp_mfca"];
+
+                        $serviceCM_ups_hors_iut_mfca = $service_global["cm_ups hors iut mfca"];
+                        $serviceTD_ups_hors_iut_mfca = $service_global["td_ups hors iut mfca"];
+                        $serviceTP_ups_hors_iut_mfca = $service_global["tp_ups hors iut mfca"];
+
+                        $serviceCM_hors_pres_et_ups = $service_global["cm_hors pres et ups"];
+                        $serviceTD_hors_pres_et_ups = $service_global["td_hors pres et ups"];
+                        $serviceTP_hors_pres_et_ups = $service_global["tp_hors pres et ups"];
+
+                        $serviceCM_autre = $service_global["cm_autre"];
+                        $serviceTD_autre = $service_global["td_autre"];
+                        $serviceTP_autre = $service_global["tp_autre"];
+
+                        $totalServiceCM = $serviceCM + $serviceCM_iut + $serviceCM_mfca + $serviceCM_ups_hors_iut_mfca + $serviceCM_hors_pres_et_ups;
+                        $totalServiceTD = $serviceTD + $serviceTD_iut + $serviceTD_mfca + $serviceTD_ups_hors_iut_mfca + $serviceTD_hors_pres_et_ups;
+                        $totalServiceTP = $serviceTP + $serviceTP_iut + $serviceTP_mfca + $serviceTP_ups_hors_iut_mfca + $serviceTP_hors_pres_et_ups;
+
+                        $totalHeureService = $totalServiceCM*$VALEUR_CM_HSERVICE + $totalServiceTD*$VALEUR_TD_HSERVICE + $totalServiceTP*$VALEUR_TP_HSERVICE;
+                        $nbHeureService = $totalHeureService;
+                        $heureService = intval($palier);
+                        if ($totalHeureService < $palier) {
+                            $heureService = $totalHeureService;
                         }
-                        $nbHeuresMaxi = $palier * 2;
-                        $pourcentServiceMaxi = $hGlobalWithHcc / $nbHeuresMaxi;
+                        $pourcentageHeureServiceMinimal = $heureService / ($palier * 2);
+
+                        if ($totalHeureService == 0) {
+                            $totalHeureService = 1;
+                        }
+                        $pourcentageCM = $totalServiceCM / $totalHeureService;
+                        $pourcentageTD = $totalServiceTD / $totalHeureService;
+                        $pourcentageTP = $totalServiceTP / $totalHeureService;
+                        $totalHeureServiceCM = $heureService * $pourcentageCM / $VALEUR_CM_HSERVICE;
+                        $totalHeureServiceTD = $heureService * $pourcentageTD / $VALEUR_TD_HSERVICE;
+                        $totalHeureServiceTP = $heureService * $pourcentageTP / $VALEUR_TP_HSERVICE;
+                        $pourcentageHeureHCC = (($totalServiceCM - $totalHeureServiceCM)*$VALEUR_CM_HSERVICE_HCC + ($totalServiceTD - $totalHeureServiceTD) * $VALEUR_TD_HSERVICE_HCC + ($totalServiceTP - $totalHeureServiceTP) * $VALEUR_TP_HSERVICE_HCC) / $palier;
                     ?>
                     <div class="well well-sm" id="event-container">
     			    		<span class="text">
     			    			Service minimal
     			    			<span class="pull-right">
-    			    				{{$hGlobal}}/{{$palier}} heures
+    			    				{{$nbHeureService}}/{{$palier}} heures
     			    			</span>
     			    		</span>
                         <div class="progress">
-                            <div class="progress-bar bg-color-greenLight" style="width: {{$pourcentServiceMinimal*100}}%;"></div>
+                            <div class="progress-bar bg-color-yellow" style="width: {{$pourcentageHeureHCC*100}}%;"></div>
+                            <div class="progress-bar bg-color-greenLight" style="width: {{$pourcentageHeureServiceMinimal*100}}%;"></div>
                         </div>
-    			    		<span class="text">
-    			    			Service maximal
-    			    			<span class="pull-right">
-    			    				{{$hGlobal}}/{{$nbHeuresMaxi}} heures
-    			    			</span>
-    			    		</span>
-                        <div class="progress">
-                            <div class="progress-bar bg-color-greenLight" style="width: {{$pourcentServiceMaxi*100}}%;"></div>
-                        </div>
+    			    		
 
                     </div>
                 </div>
