@@ -188,23 +188,25 @@ $arrayMonthTotext = array(
                                 <input type="hidden" name="enseignantID" value="{{$enseignant->LOGIN}}">
                                 <input type="hidden" name="fromFiche" value="true" />
                                 <div class="row padding-10">
-                                    <div class="form-group col-md-2 col-lg-2">
+                                    <div class="form-group col-md-3">
                                         <label>Int. ens.</label>
                                         <input class="form-control spinner-both" type="text" name="intitule" value="">
                                     </div>
-                                    <div class="form-group col-md-2 col-lg-2">
+                                    <div class="form-group col-md-3">
                                         <label>Etab.</label>
                                         <input class="form-control spinner-both" type="text" name="etablissement" value="">
                                     </div>
-                                    <div class="form-group col-md-2 col-lg-2">
+                                    <div class="form-group col-md-3">
                                         <label>Diplome</label>
                                         <input class="form-control spinner-both" type="text" name="diplome" value="">
                                     </div>
-                                    <div class="form-group col-md-1 col-lg-1">
+                                    <div class="form-group col-md-2">
                                         <label>No UE</label>
                                         <input class="form-control spinner-both" type="text" name="numeroUE" value="">
                                     </div>
-                                    <div class="form-group col-md-1 col-lg-1">
+                                </div>
+                                <div class="row padding-10">
+                                    <div class="form-group col-md-2">
                                         <label>Type</label>
                                         <select class="form-control" name="type">
                                             <option value="iut">Services IUT</option>
@@ -215,21 +217,21 @@ $arrayMonthTotext = array(
                                             <option value="autre">Autre</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-1 col-lg-1">
+                                    <div class="form-group col-md-2">
                                         <label>CM</label>
                                         <input class="form-control spinner-both" type="number" name="nbHeureCM" value="">
                                     </div>
-                                    <div class="form-group col-md-1 col-lg-1">
+                                    <div class="form-group col-md-2">
                                         <label>TD</label>
                                         <input class="form-control spinner-both" type="number" name="nbHeureTD" value="">
                                     </div>
-                                    <div class="form-group col-md-1 col-lg-1">
+                                    <div class="form-group col-md-2">
                                         <label>TP</label>
                                         <input class="form-control spinner-both" type="number" name="nbHeureTP" value="">
                                     </div>
-                                    <div class="form-group col-md-1 col-lg-1">
+                                    <div class="form-group col-md-2">
                                         <label>&nbsp;</label>
-                                        <input class="form-control" type="submit"  value="+">
+                                        <input class="form-control btn btn-success" type="submit"  value="Ajouter">
                                     </div>
                                 </div>
                                 {{ Form::close() }}
