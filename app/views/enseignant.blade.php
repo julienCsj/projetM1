@@ -16,7 +16,6 @@
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Statut horaire </th>
-                    <th>Pourcentage </th>
                     <th>Voir attribution heure</th>
                     <th>Voeux enseignant</th>
                 </tr>
@@ -43,12 +42,6 @@
                         <span data-id="-1" data-status="0" data-volumeHoraire="-1">Statut non renseigné</span>
                         @endif
                         </a>
-                    </td>
-                    <td>
-                        <div class="easy-pie-chart text-danger easyPieChart" data-percent="0" data-pie-size="25" data-pie-track-color="rgba(169, 3, 41,0.07)" style="width: 30px; height: 30px; line-height: 30px;">
-                            <span class="percent txt-color-red">0</span>
-                        </div>
-                        % heures planifiées
                     </td>
                     <td><a href="{{ route('generationFicheProf', array($e->LOGIN))}}#tabs-c">Voir fiche enseignant</a></td>
                     <td><a href="{{ route('generationFicheProf', array($e->LOGIN))}}">Voir voeux</a></td>
