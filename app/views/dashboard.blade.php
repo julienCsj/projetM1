@@ -61,21 +61,21 @@
             <div class="well well-sm bg-color-darken txt-color-white text-center">
                 <h5>Documentation utilisateur</h5>
 
-                <a class="btn btn-default" href="doc-1/?page=utilisateur">Voir</a>
+                <a class="btn btn-default" href="doc-1/?page=utilisateur" target="_blank">Voir</a>
             </div>
         </div>
 
         <div class="col-sm-4">
             <div class="well well-sm bg-color-teal txt-color-white text-center">
                 <h5>Documentation technique</h5>
-                <a class="btn btn-default" href="doc-1/?page=technique">Voir</a>
+                <a class="btn btn-default" href="doc-1/?page=technique" target="_blank">Voir</a>
             </div>
         </div>
 
         <div class="col-sm-4">
             <div class="well well-sm bg-color-pinkDark txt-color-white text-center">
                 <h5>Documentation du framework</h5>
-                <a class="btn btn-default" href="http://laravel.com/docs/4.2">Voir</a>
+                <a class="btn btn-default" href="http://laravel.com/docs/4.2" target="_blank">Voir</a>
             </div>
         </div>
     </div>

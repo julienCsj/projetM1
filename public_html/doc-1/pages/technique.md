@@ -67,10 +67,10 @@ Si vous souhaitez executer toutes les migrations présentes dans le dossier migr
 Si vous souhaitez rollback d'une migration et ainsi supprimer les données et le schéma :
 	php artisan migrate:rollback
 
-Si vous souhaitez rollback toutes les migrations et ainsi supprimer les données et le schéma :
+Si vous souhaitez rollback toutes les migrations :
 	php artisan migrate:reset
 
-Si votre migration echoue en cours, des tables vont se créer sans pour autant finir correctement et ajouter un tuple dans la table migration.
+Si ta migration échoue en cours, les premières tables correctes auront été créés sans pour autant finir correctement et ajouter un tuple dans la table migration. Tu ne pourras donc plus faire de rollback. A toi de faire des migrations correctes ! ;-) 
 
 ### Laravel
 
