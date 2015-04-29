@@ -8,6 +8,7 @@ class ServiceController extends BaseController {
         $lesHeuresExternes = HeureExterne::where('enseignantID', '=', $userId)->get();
 
         $data = array(
+            'userId' => $userId,
             'notifications' => array(),
             'breadcrumb' => array('#ApplicationJaneDoe', 'le service'),
             'service' => CalculerChargeService::calculerServiceEnseignantParSemaine($userId),
@@ -20,6 +21,7 @@ class ServiceController extends BaseController {
             'VALEUR_TP_HSERVICE_HCC' => floatval($config["valeurTPEnHServiceHCC"]),
             'palier' => $statut->SERVICE_STATUTAIRE
         );
+        $data['lesFormations'] = Formation::all();
         return View::make('service')->with($data);
     }
 

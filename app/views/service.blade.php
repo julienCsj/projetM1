@@ -179,34 +179,32 @@ $arrayMonthTotext = array(
                     </div>
                     <div id="tabs-b">
                         <div class="row padding-10">
-                            <table class="table table-bordered table-striped table-condensed table-hover">
-                                <tr>
-                                    <td></td>
-                                    <td>CM</td>
-                                    <td>TD</td>
-                                    <td>TP</td>
-                                    <td>TOTAL</td>
-                                </tr>
                                 @foreach($lesFormations as $f)
-                                    <tr>
-                                        <th colspan="5" class="text-align-center">{{$f->long_title}}</th>
-                                    </tr>
-                                    @foreach($f->lesUE as $ue)
-                                        @foreach($ue->lesModules as $mod)
-                                            <?php
-                                            $service = CalculerChargeService::calculerServiceModuleGlobal($mod->ID);
-                                            ?>
-                                            <tr>
-                                                <td>{{$mod->LONG_TITLE}}</td>
-                                                <td>{{$service['cm'] / 60}}</td>
-                                                <td>{{$service['td'] / 60}}</td>
-                                                <td>{{$service['tp'] / 60}}</td>
-                                                <td><strong>{{(floatval($service['cm']) + floatval($service['td']) + floatval($service['tp']))/60}}</strong></td>
-                                            </tr>
+                                    <p><h3>{{$f->long_title}}</h3></p>
+                                    <?php
+                                    $service = CalculerChargeService::calculerServiceEnseignantModule($f->id, $userId);
+                                    ?>
+                                    <ul>
+                                        @foreach($service as $s)
+                                        <?php
+                                        if(count($s) <= 6) {
+                                            echo "<p class=\"text-center\">Aucun cours dans ce module</p>";
+                                        } else {
+                                            for($i=0; $i<count($s)-6; $i++) {
+                                                //exit(var_dump($s[$i][0]));
+                                                $intitule = $s[$i][0];
+                                                echo "<li>$intitule</li>";
+                                                echo "<ul>";
+                                                foreach($s[$i][1] as $repartition) {
+                                                    echo "<li>$repartition</li>";
+                                                }
+                                                echo "</ul>";
+                                            }
+                                        }
+                                        ?>
                                         @endforeach
-                                    @endforeach
+                                    </ul>
                                 @endforeach
-                            </table>
                         </div>
                     </div>
                 </div>
