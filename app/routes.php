@@ -95,7 +95,7 @@ Route::group(array('before' => 'auth'), function () { // Login required
 
     // Routes étudiants
     Route::get('etudiant', array('as' => 'etudiant', 'uses' => 'EtudiantController@getListeFormation'));
-    Route::get('etudiant/calendrier/{idFormation}/ue/{idUe}', array('as' => 'etudiant.calendrierFormation', 'uses' => 'EtudiantController@getHeuresFormation'));
+    Route::get('etudiant/calendrier/{idFormation}', array('as' => 'etudiant.calendrierFormation', 'uses' => 'EtudiantController@getHeuresFormation'));
 
 
     // Routes pour la Configuration
@@ -105,14 +105,6 @@ Route::group(array('before' => 'auth'), function () { // Login required
     // Routes à classer
     Route::get('monservice', array('as' => 'monservice', 'uses' => 'ServiceController@getService'));
     Route::get('deconnexion', array('as' => 'deconnexion', 'uses' => 'IdentificationController@deconnexion'));
-});
-
-Route::get('/test', function()
-{
-    //exit(var_dump(CalculerChargeService::calculerServiceEnseignantGlobal("olivier.catteau")));
-    exit(var_dump(CalculerChargeService::calculerServiceEnseignantParSemaine("olivier.catteau")));
-    //exit(var_dump(CalculerChargeService::calculerServiceFormationGlobal("sem00001")));
-
 });
 
 

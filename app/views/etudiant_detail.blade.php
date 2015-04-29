@@ -3,7 +3,7 @@
 <section id="widget-grid" class="">
     <div class="row">
         <!-- NEW WIDGET START -->
-        <h1>Gestion des modules <small>@if(isset($formation)){{$formation->long_title}}@endif</small></h1>
+        <h1>Detail emploi du temps <small>@if(isset($formation)){{$formation->long_title}}@endif</small></h1>
         <br/>
         <br/>
         <!-- NEW WIDGET START -->
@@ -33,41 +33,35 @@
 
                     <!-- widget div-->
                     <div>
-
-                        <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                            <!-- This area used as dropdown edit box -->
-
+                        <div id="tabs">
+                        <ul>
+                            @foreach($service as $s)
+                            <li>
+                                <a href="#tabs-{{$s['numSemaine']}}">{{$s['numSemaine']}}</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                        @foreach($service as $s)
+                        <div id="tabs-{{$s['numSemaine']}}">
+                            <div class="row padding-10">
+                                <h6 class="text-center">{{$s['label']}}</h6>
+                                <ul>
+                                    <?php
+                                    if(count($s) <= 6) {
+                                        echo "<p class=\"text-center\">Aucun cours a placer cette semaine</p>";
+                                    } else {
+                                        for($i=0; $i<count($s)-6; $i++) {
+                                            //exit(var_dump($s[$i][0]));
+                                            $intitule = $s[$i][0];
+                                            echo "<li>$intitule</li>";
+                                        }
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
                         </div>
-                        <!-- end widget edit box -->
-
-                        <!-- widget content -->
-                        <div class="widget-body no-padding">
-                            <table id="dt_basic_enseignant" class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>UE</th>
-                                        <th>CM</th>
-                                        <th>TD </th>
-                                        <th>TP </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($UElist as $ue)
-                                    <tr>
-                                <td>{{$ue["module"]->LONG_TITLE}}</td>
-                                <td>{{$ue["totalCM"]}}</td>
-                                <td>{{$ue["totalTD"]}}</td>
-                                <td>{{$ue["totalTP"]}}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-
-                        </div>
-                        <!-- end widget div -->
+                        @endforeach
                     </div>
-                    <!-- end widget -->
             
             </div>
         </div>
@@ -81,47 +75,11 @@
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
 
-    function computeCM() {
-        var nbCm = parseFloat($("#spinner-cm60").val())
-                + parseFloat($("#spinner-cm90").val()) * 1.5
-                + parseFloat($("#spinner-cm120").val()) * 2;
-        $("#CMeff").html(""+nbCm);
-    }
-
-    function computeTD() {
-        var nbTd = parseFloat($("#spinner-td60").val())
-                + parseFloat($("#spinner-td90").val()) * 1.5
-                + parseFloat($("#spinner-td120").val()) * 2;
-        $("#TDeff").html(""+nbTd);
-    }
-
-    function computeTP() {
-        var nbTp = parseFloat($("#spinner-tp60").val())
-                + parseFloat($("#spinner-tp90").val()) * 1.5
-                + parseFloat($("#spinner-tp120").val()) * 2;
-        $("#TPeff").html(""+nbTp);
-    }
     $(document).ready(function () {
         //pageSetUp();
 
         $('#tabs').tabs();
-        $("#menu").menu();
 
-        computeCM();
-        computeTD();
-        computeTP();
-
-        $("#spinner-cm60").change( function() { computeCM();});
-        $("#spinner-cm90").change( function() { computeCM(); } );
-        $("#spinner-cm120").change( function() { computeCM(); } );
-
-        $("#spinner-td60").change( function() { computeTD(); } );
-        $("#spinner-td90").change( function() { computeTD(); } );
-        $("#spinner-td120").change( function() { computeTD(); } );
-
-        $("#spinner-tp60").change( function() { computeTP(); } );
-        $("#spinner-tp90").change( function() { computeTP(); } );
-        $("#spinner-tp120").change( function() { computeTP(); } );
     });
 
 

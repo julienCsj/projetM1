@@ -53,11 +53,11 @@
                         <div class="widget-body no-padding">
                             <ul id="menu" style="width: 100%">
 							    @foreach ($lesFormations as $formation)
-							        <label>{{$formation->long_title}}</label>
+							        <label><a href="{{ route('etudiant.calendrierFormation', array($formation->id))}}">{{$formation->long_title}}</a></label>
 							        <ul>
 							            @foreach($formation->lesUE as $ue)
 							                <li>
-							                    <a href="{{ route('etudiant.calendrierFormation', array($formation->id, $ue->id))}}">{{$ue->long_title}}</a>
+							                    {{$ue->long_title}}
 							                </li>
 							            @endforeach
 							        </ul>
