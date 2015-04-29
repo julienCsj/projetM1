@@ -18,7 +18,8 @@ class CalendrierController extends BaseController {
             'notifications' => array(),
             'breadcrumb' => array('Scolarel', array("link"=> URL::route('calendrier'),"label"=>'Calendriers'), $formation->long_title),
             'formation' => $formation,
-            'calendrier' => Calendrier::where('idFormation', '=', $idFormation)->get());
+            'calendrier' => Calendrier::where('idFormation', '=', $idFormation)->get(),
+            'dateRentree' => Configuration::find(1)->firstOrFail()->dateRentree);
 
         return View::make('calendrier')->with($data);
     }

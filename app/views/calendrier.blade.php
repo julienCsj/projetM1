@@ -180,6 +180,7 @@
             defaultView: 'year',
             firstDay: 1,
             firstMonth: 8,
+            defaultDate: "{{$dateRentree}}",
             editable: true,
             events: [
                 @foreach($calendrier as $event)
