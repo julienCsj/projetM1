@@ -95,90 +95,121 @@ $arrayMonthTotext = array(
         </div>
 
         <div class="row">
-            <?php $i = 0; ?>
-
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false"
-                     data-widget-colorbutton="false"
-                     data-widget-editbutton="false"
-                     data-widget-togglebutton="false"
-                     data-widget-deletebutton="false"
-                     data-widget-fullscreenbutton="false"
-                     data-widget-custombutton="false"
-                     data-widget-collapsed="false"
-                     data-widget-sortable="false"
-                        >
-                    <header>
-                        <h2>Répartition de la charge par semaine</h2>
-                    </header>
+                <div id="tabs">
+                    <ul>
+                        <li>
+                            <a href="#tabs-a">Charge par Semaine</a>
+                        </li>
+                        <li>
+                            <a href="#tabs-b">Charge par Module</a>
+                        </li>
+                    </ul>
 
-                    <!-- widget div-->
-                    <div>
-                        <div class="widget-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Mois</th>
-                                            <th><i class="fa fa-calendar"></i> N° Semaine</th>
-                                            <th>Charge de travail</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                            $printMonth = true;
-                                            $precedentMonth = -1;
-                                        ?>
-                                        @foreach($service as $s)
-                                            <tr class="@if($s['cm'] + $s['td'] + $s['tp'] == 0)
-                                                    info
-                                                    @else
-                                                    success
-                                                    @endif
-                                            ">
-                                                <td>
-                                                    <?php
-                                                        $d = new DateTime();
-                                                        $d->setISODate($s['annee'],$s['numSemaine'],1);    
-                                                        $mois = date("n", $d->getTimestamp());
-                                                        if ($mois != $precedentMonth) {
-                                                            $printMonth = true;
-                                                        }
-                                                        $precedentMonth = $mois;
-                                                    ?>
-                                                    @if($printMonth)
-                                                        {{$arrayMonthTotext[$mois]}}
-                                                        <?php $printMonth = false; ?>
-                                                    @endif
-                                                </td>
-                                                <td>Semaine #{{$s['numSemaine']}} - {{$s['label']}}</td>
-                                                <td>
-                                                    @if($s['cm'] + $s['td'] + $s['tp'] != 0)
-                                                    @if ($s['cm'] != 0)
-                                                    CM : {{$s['cm'] / 60}}h<br>
-                                                    @endif
-                                                    @if ($s['td'] != 0)
-                                                    TD : {{$s['td'] / 60}}h<br>
-                                                    @endif
-                                                    @if ($s['tp'] != 0)
-                                                    TP : {{$s['tp'] / 60}}h<br>
-                                                    @endif
-                                                    Total service : {{($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp']) / 60}}h<br/>
-                                                    Total heures placées : {{($s['cm'] + $s['td'] + $s['tp'])/60}}h<br>
-                                                    @else
-                                                    Pas de cours assigné
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                
+                    <div id="tabs-a">
+                        <div class="row padding-10">
+                            <?php $i = 0; ?>
+                            <div>
+                                <div class="widget-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Mois</th>
+                                                    <th><i class="fa fa-calendar"></i> N° Semaine</th>
+                                                    <th>Charge de travail</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                    $printMonth = true;
+                                                    $precedentMonth = -1;
+                                                ?>
+                                                @foreach($service as $s)
+                                                    <tr class="@if($s['cm'] + $s['td'] + $s['tp'] == 0)
+                                                            info
+                                                            @else
+                                                            success
+                                                            @endif
+                                                    ">
+                                                        <td>
+                                                            <?php
+                                                                $d = new DateTime();
+                                                                $d->setISODate($s['annee'],$s['numSemaine'],1);    
+                                                                $mois = date("n", $d->getTimestamp());
+                                                                if ($mois != $precedentMonth) {
+                                                                    $printMonth = true;
+                                                                }
+                                                                $precedentMonth = $mois;
+                                                            ?>
+                                                            @if($printMonth)
+                                                                {{$arrayMonthTotext[$mois]}}
+                                                                <?php $printMonth = false; ?>
+                                                            @endif
+                                                        </td>
+                                                        <td>Semaine #{{$s['numSemaine']}} - {{$s['label']}}</td>
+                                                        <td>
+                                                            @if($s['cm'] + $s['td'] + $s['tp'] != 0)
+                                                            @if ($s['cm'] != 0)
+                                                            CM : {{$s['cm'] / 60}}h<br>
+                                                            @endif
+                                                            @if ($s['td'] != 0)
+                                                            TD : {{$s['td'] / 60}}h<br>
+                                                            @endif
+                                                            @if ($s['tp'] != 0)
+                                                            TP : {{$s['tp'] / 60}}h<br>
+                                                            @endif
+                                                            Total service : {{($s['cm']*$VALEUR_CM_HSERVICE + $s['td']*$VALEUR_TD_HSERVICE + $s['tp']) / 60}}h<br/>
+                                                            Total heures placées : {{($s['cm'] + $s['td'] + $s['tp'])/60}}h<br>
+                                                            @else
+                                                            Pas de cours assigné
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div id="tabs-b">
+                        <div class="row padding-10">
+                            <table class="table table-bordered table-striped table-condensed table-hover">
+                                <tr>
+                                    <td></td>
+                                    <td>CM</td>
+                                    <td>TD</td>
+                                    <td>TP</td>
+                                    <td>TOTAL</td>
+                                </tr>
+                                @foreach($lesFormations as $f)
+                                    <tr>
+                                        <th colspan="5" class="text-align-center">{{$f->long_title}}</th>
+                                    </tr>
+                                    @foreach($f->lesUE as $ue)
+                                        @foreach($ue->lesModules as $mod)
+                                            <?php
+                                            $service = CalculerChargeService::calculerServiceModuleGlobal($mod->ID);
+                                            ?>
+                                            <tr>
+                                                <td>{{$mod->LONG_TITLE}}</td>
+                                                <td>{{$service['cm'] / 60}}</td>
+                                                <td>{{$service['td'] / 60}}</td>
+                                                <td>{{$service['tp'] / 60}}</td>
+                                                <td><strong>{{(floatval($service['cm']) + floatval($service['td']) + floatval($service['tp']))/60}}</strong></td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                @endforeach
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </article>
         </div>
     </div>
@@ -189,8 +220,8 @@ $arrayMonthTotext = array(
 
 <script type="text/javascript">
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
-
-    $(document).ready(function() {
+    $(document).ready(function () {
         pageSetUp();
+        $('#tabs').tabs();
     });
 </script>

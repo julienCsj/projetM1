@@ -350,7 +350,6 @@ $arrayMonthTotext = array(
                                 $pourcentageCM = $totalServiceCM / $totalHeureService;
                                 $pourcentageTD = $totalServiceTD / $totalHeureService;
                                 $pourcentageTP = $totalServiceTP / $totalHeureService;
-
                             ?>
                             @if($totalHeureService > 0)
                             <table class="table table-bordered table-striped table-condensed table-hover">

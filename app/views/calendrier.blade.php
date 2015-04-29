@@ -286,7 +286,7 @@
                 .done(function (html) {
                     $.bigBox({
                         title: "Modification réalisé",
-                        content: "Le status de l'enseignant a bien été modifié !",
+                        content: "Le statut de l'enseignant a bien été modifié !",
                         color: "#3276B1",
                         icon: "fa fa-bell swing animated",
                         timeout: 2000

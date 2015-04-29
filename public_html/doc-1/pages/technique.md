@@ -46,6 +46,32 @@ Allouez les bons droits au dossier app/storage pour qu'ils ressemblent à ceci
 	drwxr-xr-x  7 www-data users 4096 mars  31 11:53 storage
 
 
+
+### Ajouter un responsable
+
+Pour ajouter un responsable, vous devez editer **app/controllers/IdentificationController.php**.
+Il suffit d'ajouter le login des enseignants dans 
+    public static $listeResponsable = array(...,"nouvel.user");
+
+### Reinitialiser la base de données
+
+Nous utilisons le système de [Migration](http://laravel.com/docs/4.2/migrations) de Laravel. La migration s'appuie sur une migration qui a un tuple par migration effective.
+
+Si vous souhaitez créer de nouvelles tables, il faut créer un nouveau fichier de migration :
+	php artisan migrate:make le_nom_de_la_migration
+
+
+Si vous souhaitez executer toutes les migrations présentes dans le dossier migration et qui ne serait pas dans la table migration :
+	php artisan migrate
+
+Si vous souhaitez rollback d'une migration et ainsi supprimer les données et le schéma :
+	php artisan migrate:rollback
+
+Si vous souhaitez rollback toutes les migrations :
+	php artisan migrate:reset
+
+Si ta migration échoue en cours, les premières tables correctes auront été créés sans pour autant finir correctement et ajouter un tuple dans la table migration. Tu ne pourras donc plus faire de rollback. A toi de faire des migrations correctes ! ;-) 
+
 ### Laravel
 
 Ce projet est basé sur Laravel 4.2, un framework PHP 5.  
