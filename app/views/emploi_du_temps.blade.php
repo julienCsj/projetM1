@@ -5,7 +5,7 @@
         <h1>Gestion des modules <small>@if(isset($module)){{$formation->long_title}} > {{$ue->long_title}} > {{$module->LONG_TITLE}}@endif</small></h1>
         <div class="alert alert-info fade in">
             <button class="close" data-dismiss="alert">×</button>
-            <strong>A propos de cette page.</strong>
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("emploiDuTemps")}}
         </div>
         <div class="row">
             @if(!isset($lesFormations))

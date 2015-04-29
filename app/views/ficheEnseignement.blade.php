@@ -22,7 +22,7 @@ $arrayMonthTotext = array(
         <h1>Aide Génération fiche <small></small></h1>
         <div class="alert alert-info fade in">
             <button class="close" data-dismiss="alert">×</button>
-            <strong>A propos de cette page.</strong> {{TipsService::getTip("generationFiche")}}
+            <strong>A propos de cette page.</strong> {{TipsService::getTip("generationFicheEnse")}}
         </div>
         <!-- NEW WIDGET START -->
         <div class="row">

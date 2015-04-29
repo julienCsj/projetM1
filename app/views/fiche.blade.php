@@ -44,7 +44,7 @@ $arrayMonthTotext = array(
                             <a href="#tabs-a">Voeux</a>
                         </li>
                         <li>
-                            <a href="#tabs-b">Heures extérieures</a>
+                            <a href="#tabs-b">Heures complémentaires</a>
                         </li>
                         <li>
                             <a href="#tabs-c">Service de l'enseignant par semaine</a>
@@ -151,11 +151,38 @@ $arrayMonthTotext = array(
                         <div class="row padding-10">
                             <ul>
                             @if(count($heuresexternes) == 0)
-                                    <p class="text-center">Aucune heure externe déclarée.</p>
+                                    <p class="text-center">Aucune heure complementaire déclarée.</p>
                             @else
-                                @foreach($heuresexternes as $heure)
-                                    <li>{{ $heure->intitule }} {{ $heure->etablissement }} {{ $heure->diplome }} {{ $heure->noUE }} {{ $heure->numeroUE }} {{ $heure->type }} {{ $heure->nbHeureCM }} {{ $heure->nbHeureTD }} {{ $heure->nbHeureTP }}</li>
-                                @endforeach
+
+                                        <table id="dt_basic_enseignant" class="table table-striped table-bordered table-hover" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Intitulé</th>
+                                                <th>Etablissement</th>
+                                                <th>Diplome</th>
+                                                <th>N° UE</th>
+                                                <th>Type</th>
+                                                <th>CM</th>
+                                                <th>TD</th>
+                                                <th>TP</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            @foreach($heuresexternes as $heure)
+                                                    <tr>
+                                                        <td>{{ $heure->intitule }}</td>
+                                                        <td>{{ $heure->etablissement }}</td>
+                                                        <td>{{ $heure->diplome }}</td>
+                                                        <td>{{ $heure->numeroUE }}</td>
+                                                        <td>{{ $heure->type }}</td>
+                                                        <td>{{ $heure->nbHeureCM }}</td>
+                                                        <td>{{ $heure->nbHeureTD }}</td>
+                                                        <td>{{ $heure->nbHeureTP }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                             @endif
                                 {{ Form::open(array('route' => 'heuresexterieures.ajouter')) }}
                                 <input type="hidden" name="enseignantID" value="{{$enseignant->LOGIN}}">
