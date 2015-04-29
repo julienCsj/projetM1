@@ -176,7 +176,7 @@ class CalculerChargeService {
                 }
             }
         }
-        //dd($arrayModule);
+        $arrayModule[$unCoursDuGroupe->moduleID][0] /= 60;
         return $arrayModule;
     }
 
