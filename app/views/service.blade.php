@@ -183,22 +183,18 @@ $arrayMonthTotext = array(
                     <div id="tabs-b">
                         <div class="row padding-10">
                             <table class="table table-bordered table-striped table-condensed table-hover">
-                                <tr>
-                                    <td></td>
-                                    <td>TOTAL</td>
-                                </tr>
                                 @foreach($lesFormations as $f)
                                     <tr>
                                         <th colspan="2" class="text-align-center">{{$f->long_title}}</th>
                                     </tr>
                                     <?php
-                                    $service = CalculerChargeService::calculerServiceModuleGlobal($f->id, $userId);
+                                    $service = CalculerChargeService::calculerServiceEnseignantModule($f->id, $userId);
                                     ?>
-                                    @foreach($service as $s)
-                                        <tr>
-                                            <td>NIL</td>
-                                            <td><strong>{{$s}}</strong></td>
-                                        </tr>
+                                    @foreach($service as $mod)
+                                    <tr>
+                                        <td>{{$mod[1]}}</td>
+                                        <td><strong>{{$mod[0]}} heures</strong></td>
+                                    </tr>
                                     @endforeach
                                 @endforeach
                             </table>

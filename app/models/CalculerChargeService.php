@@ -131,13 +131,13 @@ class CalculerChargeService {
     }
 
     public static function calculerServiceEnseignantModule($idFormation, $idEnseignant) {
-
         // ETAPE 1 : RECUPERER L'ENSEMBLE DES GROUPE_COURS DE LA FORMATION
         $lesIdGroupesCoursDeLaFormation = DB::table('_groupecours')
-            ->select(DB::raw('_groupecours.id as groupecours_id'))
+            ->select(DB::raw('_groupecours.id as groupecours_id, count(*) as nbGroupes'))
             ->join('_groupecours_module_enseignant', 'groupecours_id', '=', '_groupecours.id')
             ->where('enseignant_id', '=', $idEnseignant)
-            ->where('formationID', '=', $idFormation)
+            ->where('_groupecours.formationID', '=', $idFormation)
+            ->groupBy('groupecours_id')
             ->get();
 
         $arrayModule = array();
@@ -150,77 +150,33 @@ class CalculerChargeService {
             // Si le groupe de cours a été planifié
             if($estPlanifier > 0)
             {
-                // Récuperer la période qui correspond au groupe_cours
-                $idPeriode = DB::table('_planification')
-                    ->select(DB::raw('calendrierID'))
+                // RECUPERER LA DUREE ET LE TYPE DES COURS DE CE GC
+                $unCoursDuGroupe = DB::table('_groupecours_cours')
+                    ->select('coursID', 'moduleID')
+                    ->join('_cours', '_cours.id', '=', 'coursID')
                     ->where('groupecoursID', '=', $idGroupeCours->groupecours_id)
                     ->first();
 
-                $periode = Calendrier::find($idPeriode->calendrierID);
+                $nbCours = DB::table('_groupecours_cours')
+                    ->select(DB::raw('count(*) as nbCours'))
+                    ->where('groupecoursID', '=', $idGroupeCours->groupecours_id)
+                    ->first();
 
-                // Réupérer la date de début période sous forme de timestamp (pour faciliter les calculs)
-                $dateDebutPeriode = strtotime($periode->dateDebut);
-
-                // ETAPE 3 : Deux cas possible, soit le nombre de cours de la période = nombre de semaine (un cours par semaine)
-                //           soit le nombre de cours est inferieur au nombre de semaine (il y a un décalage)
-                $extractWeek = PeriodeToSemaineService::extractWeeksFromPeriod($periode);
-                $extractWeek = $extractWeek["sem"];
-                $nbSemainePeriode = count($extractWeek);
-
-                $nbCoursDansGroupeCours = DB::table('_groupecours_cours')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->count();
-
-                // Calculer le numéro de la premiere semaine
-                $numeroSemaine = CalculerChargeService::timestampToWeek($dateDebutPeriode);
-
-                // RECUPERER LA DUREE ET LE TYPE DES COURS DE CE GC
-                $unCoursDuGroupe = DB::table('_groupecours_cours')->select('coursID', 'moduleID')->join('_cours', '_cours.id', '=', 'coursID')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->first();
-
+                //dd($nbCours);
                 $duree = Cours::find($unCoursDuGroupe->coursID)->duree;
-                $type = Cours::find($unCoursDuGroupe->coursID)->type;
+
                 $titreModule = Module::getModuleWithData(Cours::find($unCoursDuGroupe->coursID)->moduleID)->SHORT_TITLE;
-                $nbCoursDansGroupeCours = DB::table('_groupecours_cours')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->count();
 
-                $enseignantGroupe = DB::table('_groupecours_module_enseignant')
-                                        ->select(DB::raw("count(*) as nb_groupe, enseignant_id, firstname, lastname "))
-                                        ->where('groupecours_id', '=', $idGroupeCours->groupecours_id)
-                                        ->join("user", '_groupecours_module_enseignant.enseignant_id', '=', 'user.login')
-                                        ->groupBy("enseignant_id")
-                                        ->get();
-
-                $arrayModule[$unCoursDuGroupe->moduleID] = 0;
-                echo("J'ARRIVE AUX IF");
-
-                if ($nbCoursDansGroupeCours == $nbSemainePeriode) {
-                    // Attribuer un cours a chaque semaine
-                    for($i=1; $i <=$nbCoursDansGroupeCours; $i++) {
-                        $repartition = array();
-                        foreach($enseignantGroupe as $eg) {
-                            $repartition[] = ucfirst($eg->firstname). " ". ucfirst($eg->lastname) . " =pour $eg->nb_groupe groupe(s)";
-                        }
-                        $arrayModule[$unCoursDuGroupe->moduleID] += $duree;
-                        dd("MERDEOZF?OAQ?FAOZF?");
+                $arrayModule[$unCoursDuGroupe->moduleID][0] = 0;
+                $arrayModule[$unCoursDuGroupe->moduleID][1] = DB::table('pages')->select('long_title')->where('ID','=',$unCoursDuGroupe->moduleID)->first()->long_title;
+                for($j=1; $j <=$nbCours->nbCours; $j++) {
+                    for($i=1; $i <=$idGroupeCours->nbGroupes; $i++) {   
+                        $arrayModule[$unCoursDuGroupe->moduleID][0] += intval($duree);
                     }
-
-                } else {
-                    // Récuperer le décallage de début de période
-                    $decalage = DB::table('_planification')->select('semaine')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->first();
-                    $decalage = intval($decalage->semaine);
-
-                    // Attribuer un cours par semaine a partir du décallage
-                    for($i=$decalage; $i <=$nbCoursDansGroupeCours+($decalage-1); $i++) {
-                        $repartition = array();
-                        foreach($enseignantGroupe as $eg) {
-                            $repartition[] = ucfirst($eg->firstname). " ". ucfirst($eg->lastname) . " pour $eg->nb_groupe groupe(s)";
-                        }
-                        //echo "Semaine ".intval($i+$numeroSemaine-1)." ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
-                        $arrayModule[$unCoursDuGroupe->moduleID] += $duree;
-                        echo($duree);
-                    }
-
                 }
-
             }
         }
+        //dd($arrayModule);
         return $arrayModule;
     }
 
