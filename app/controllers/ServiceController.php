@@ -6,12 +6,12 @@ class ServiceController extends BaseController {
         $config = Configuration::find(1);
         $statut = Enseignant::getOneEnseignantAndStatus($userId);
         $lesHeuresExternes = HeureExterne::where('enseignantID', '=', $userId)->get();
-
         $data = array(
             'userId' => $userId,
             'notifications' => array(),
             'breadcrumb' => array('#ApplicationJaneDoe', 'le service'),
             'service' => CalculerChargeService::calculerServiceEnseignantParSemaine($userId),
+            "service_formation" => CalculerChargeService::genererEmploiDuTempsEnseignant($userId),
             'service_global' => CalculerChargeService::calculerServiceEnseignantGlobal($userId, $config, $statut->SERVICE_STATUTAIRE, $lesHeuresExternes),
             'VALEUR_CM_HSERVICE' => floatval($config["valeurCMEnHService"]),
             'VALEUR_TD_HSERVICE' => floatval($config["valeurTDEnHService"]),

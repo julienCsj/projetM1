@@ -106,6 +106,9 @@ $arrayMonthTotext = array(
                         <li>
                             <a href="#tabs-b">Charge par Module</a>
                         </li>
+                        <li>
+                            <a href="#tabs-c">Emploi du temps</a>
+                        </li>
                     </ul>
 
                     <div id="tabs-a">
@@ -201,6 +204,37 @@ $arrayMonthTotext = array(
                             </table>
                         </div>
                     </div>
+                    <div id="tabs-c">
+                        <div id="tabs-service">
+                            <ul>
+                                @foreach($service_formation as $s)
+                                <li>
+                                    <a href="#tabs-sem-{{$s['numSemaine']}}">{{$s['numSemaine']}}</a>
+                                </li>
+                                @endforeach
+                            </ul>
+                            @foreach($service_formation as $s)
+                            <div id="tabs-sem-{{$s['numSemaine']}}">
+                                <div class="row padding-10">
+                                    <h6 class="text-center">{{$s['label']}}</h6>
+                                    <ul>
+                                        <?php
+                                        if(count($s) <= 6) {
+                                            echo "<p class=\"text-center\">Aucun cours cette semaine</p>";
+                                        } else {
+                                            for($i=0; $i<count($s)-6; $i++) {
+                                                //exit(var_dump($s[$i][0]));
+                                                $intitule = $s[$i][0];
+                                                echo "<li>$intitule</li>";
+                                            }
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </article>
         </div>
@@ -215,5 +249,7 @@ $arrayMonthTotext = array(
     $(document).ready(function () {
         pageSetUp();
         $('#tabs').tabs();
+        $('#tabs-service').tabs();
+
     });
 </script>
