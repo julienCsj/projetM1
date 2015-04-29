@@ -187,6 +187,8 @@ class CalculerChargeService {
                                         ->groupBy("enseignant_id")
                                         ->get();
 
+                $arrayModule[$unCoursDuGroupe->moduleID] = 0;
+                echo("J'ARRIVE AUX IF");
 
                 if ($nbCoursDansGroupeCours == $nbSemainePeriode) {
                     // Attribuer un cours a chaque semaine
@@ -195,7 +197,8 @@ class CalculerChargeService {
                         foreach($enseignantGroupe as $eg) {
                             $repartition[] = ucfirst($eg->firstname). " ". ucfirst($eg->lastname) . " =pour $eg->nb_groupe groupe(s)";
                         }
-                        $arrayModule[$unCoursDuGroupe->moduleID] = $arrayModule[$unCoursDuGroupe->moduleID]+intval($duree);
+                        $arrayModule[$unCoursDuGroupe->moduleID] += $duree;
+                        dd("MERDEOZF?OAQ?FAOZF?");
                     }
 
                 } else {
@@ -210,7 +213,8 @@ class CalculerChargeService {
                             $repartition[] = ucfirst($eg->firstname). " ". ucfirst($eg->lastname) . " pour $eg->nb_groupe groupe(s)";
                         }
                         //echo "Semaine ".intval($i+$numeroSemaine-1)." ($decalage) : $type de $duree min * $nbGroupeAssigneALenseignant <br />";
-                        $arrayModule[$unCoursDuGroupe->moduleID] = $arrayModule[$unCoursDuGroupe->moduleID]+intval($duree);
+                        $arrayModule[$unCoursDuGroupe->moduleID] += $duree;
+                        echo($duree);
                     }
 
                 }

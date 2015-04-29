@@ -179,32 +179,26 @@ $arrayMonthTotext = array(
                     </div>
                     <div id="tabs-b">
                         <div class="row padding-10">
+                            <table class="table table-bordered table-striped table-condensed table-hover">
+                                <tr>
+                                    <td></td>
+                                    <td>TOTAL</td>
+                                </tr>
                                 @foreach($lesFormations as $f)
-                                    <p><h3>{{$f->long_title}}</h3></p>
+                                    <tr>
+                                        <th colspan="2" class="text-align-center">{{$f->long_title}}</th>
+                                    </tr>
                                     <?php
-                                    $service = CalculerChargeService::calculerServiceEnseignantModule($f->id, $userId);
+                                    $service = CalculerChargeService::calculerServiceModuleGlobal($f->id, $userId);
                                     ?>
-                                    <ul>
-                                        @foreach($service as $s)
-                                        <?php
-                                        if(count($s) <= 6) {
-                                            echo "<p class=\"text-center\">Aucun cours dans ce module</p>";
-                                        } else {
-                                            for($i=0; $i<count($s)-6; $i++) {
-                                                //exit(var_dump($s[$i][0]));
-                                                $intitule = $s[$i][0];
-                                                echo "<li>$intitule</li>";
-                                                echo "<ul>";
-                                                foreach($s[$i][1] as $repartition) {
-                                                    echo "<li>$repartition</li>";
-                                                }
-                                                echo "</ul>";
-                                            }
-                                        }
-                                        ?>
-                                        @endforeach
-                                    </ul>
+                                    @foreach($service as $s)
+                                        <tr>
+                                            <td>NIL</td>
+                                            <td><strong>{{$s}}</strong></td>
+                                        </tr>
+                                    @endforeach
                                 @endforeach
+                            </table>
                         </div>
                     </div>
                 </div>
