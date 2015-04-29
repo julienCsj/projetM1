@@ -1,5 +1,17 @@
 ## Documentation technique
 
+### Changement d'année
+
+Vous devez changer dans la page Configuration l'année scolaire, la date de rentrée et la date de fin de l'année. De plus, vous devez supprimer :
+- toutes les affectations de cours sur des périodes.
+- toutes les périodes
+
+### Ajouter un responsable
+
+Pour ajouter un responsable, vous devez editer **app/controllers/IdentificationController.php**.
+Il suffit d'ajouter le login des enseignants dans 
+    public static $listeResponsable = array(...,"nouvel.user");
+
 
 ### Installation et mise à jour du projet
 
@@ -45,13 +57,6 @@ Editez le fichier .htaccess (public_html/.htaccess) et décommentez la ligne pou
 Allouez les bons droits au dossier app/storage pour qu'ils ressemblent à ceci
 	drwxr-xr-x  7 www-data users 4096 mars  31 11:53 storage
 
-
-
-### Ajouter un responsable
-
-Pour ajouter un responsable, vous devez editer **app/controllers/IdentificationController.php**.
-Il suffit d'ajouter le login des enseignants dans 
-    public static $listeResponsable = array(...,"nouvel.user");
 
 ### Reinitialiser la base de données
 
