@@ -26,8 +26,8 @@ class HeuresExternesController extends BaseController {
         $heure->enseignantID = Input::get("enseignantID");
         $heure->save();
 
-        if(Input::get("fromFiche") == "true") {
-            return Redirect::action('GenerationFicheController@getFiche')->with(array("idEnseignant", $heure->enseignantID));
+        if(Input::get("fromFiche")) {
+            return Redirect::action('GenerationFicheController@getFiche')->with(array("idEnseignant" => $heure->enseignantID));
         }
         return Redirect::route('heuresexterieures');
     }
