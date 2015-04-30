@@ -26,7 +26,7 @@ $arrayMonthTotext = array(
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" role="widget">
                     <header>
-                        <h2> Paliers </h2>
+                        <h2> Service </h2>
                     </header>
                     <?php
                         $serviceCM = $service_global["cm"];
@@ -78,9 +78,9 @@ $arrayMonthTotext = array(
                     ?>
                     <div class="well well-sm" id="event-container">
     			    		<span class="text">
-    			    			Service minimal
+    			    			Votre service : 
     			    			<span class="pull-right">
-    			    				{{$nbHeureService}}/{{$palier}} heures
+    			    				{{$nbHeureService}} h d'enseignement / palier de {{$palier}}h.
     			    			</span>
     			    		</span>
                         <div class="progress">
