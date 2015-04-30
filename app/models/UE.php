@@ -6,48 +6,48 @@
  * and open the template in the editor.
  */
 
-class UE extends Eloquent {
+class UE extends EloqUEnt {
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'ue';
+    protected $table = 'UE';
     //protected $fillable = array('libelle', 'montant');
     public $timestamps = false;
     public $lesModules = array();
 
     /*
-     * Redéfinition de la méthode all de Eloquent.
+     * Redéfinition de la méthode all de EloqUEnt.
      * La base de données n'etant pas normalisé, il est impossible ici
-     * d'utiliser Eloquent de maniere conventionnelle.
+     * d'utiliser EloqUEnt de maniere conventionnelle.
      */
 
     public static function all($column = null) {
-        return DB::table('ue')
-                        ->join('pages', 'pages.id', '=', 'ue.id')
-                        ->select('ue.id', 'short_title', 'long_title')
+        return DB::table('UE')
+                        ->join('pages', 'pages.id', '=', 'UE.id')
+                        ->select('UE.id', 'short_title', 'long_title')
                         ->get();
     }
 
     public static function getUeSimple($id) {
-        return DB::table('ue')
-            ->where('ue.id', '=', $id)
-            ->join('pages', 'pages.id', '=', 'ue.id')
-            ->select('ue.id', 'pages.short_title', 'pages.long_title')
+        return DB::table('UE')
+            ->where('UE.id', '=', $id)
+            ->join('pages', 'pages.id', '=', 'UE.id')
+            ->select('UE.id', 'pages.short_title', 'pages.long_title')
             ->get()[0];
     }
 
     /*
-     * TO DO : Ecrire la requete avec le query builder
+     * TO DO : Ecrire la reqUEte avec le qUEry builder
      */
     public static function getUeByFormation($formation) {
         return DB::select(DB::raw(''
-                        . 'select ue.id, short_title, long_title '
-                        . 'from ue, pages, links '
-                        . 'where ue.id = pages.id '
-                        . 'and links.id_src = ue.id '
+                        . 'select UE.id, short_title, long_title '
+                        . 'from UE, pages, links '
+                        . 'where UE.id = pages.id '
+                        . 'and links.id_src = UE.id '
                         . 'and links.id_dst = "' . $formation . '"'
                         . ''));  
     }

@@ -12,6 +12,7 @@ class IdentificationController extends BaseController {
     public function getFormulaireConnexion() {
         return View::make('connexion');
     }
+
     // La liste des comptes enseignant qui quand ils se connectent ont le privilege d'être responsable formation
     public static $listeResponsable = array("olivier.catteau", "erwan.callarec", "sylvie.cara", "corinne.lasbouygues");
 
