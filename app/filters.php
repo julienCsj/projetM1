@@ -70,6 +70,18 @@ Route::filter('guest', function()
 	if (Auth::check()) return Redirect::to('/');
 });
 
+Route::filter('responsable', function()
+{
+	if (Session::get("user")->isResponsable != true)
+		return Redirect::to('/');
+});
+
+Route::filter('enseignant', function()
+{
+	if (Session::get("user")->isEnseignant != true)
+		return Redirect::to('/');
+});
+
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter
