@@ -21,11 +21,6 @@ class CreateStatusEnseignant extends Migration {
 			$table->foreign('semestre_id')->references('id')->on('semestre');
 		});
 
-		DB::insert("INSERT INTO `_groupe`(`id`, `nom`, `semestre_id`, `sous_groupe`) VALUES (1, 'A', 'sem00001', 1);");
-		DB::insert("INSERT INTO `_groupe`(`id`, `nom`, `semestre_id`, `sous_groupe`) VALUES (2, 'C', 'sem00001', 3);");
-		DB::insert("INSERT INTO `_groupe`(`id`, `nom`, `semestre_id`, `sous_groupe`) VALUES (3, 'D', 'sem00001', 0);");
-		DB::insert("INSERT INTO `_groupe`(`id`, `nom`, `semestre_id`, `sous_groupe`) VALUES (4, 'E', 'sem00001', 0);");
-		DB::insert("INSERT INTO `_groupe`(`id`, `nom`, `semestre_id`, `sous_groupe`) VALUES (5, 'Test', 'sem00001', 2);");
 
 		Schema::create('_financement', function($table){
 			$table->engine = 'InnoDB';
