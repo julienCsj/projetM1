@@ -132,7 +132,7 @@ class CalculerChargeService {
 
     public static function calculerServiceEnseignantModule($idFormation, $idEnseignant) {
         // ETAPE 1 : RECUPERER L'ENSEMBLE DES GROUPE_COURS DE LA FORMATION
-        $lesIdGroupesCoursDeLaFormation = DB::table('_groupecours')
+        $lesGroupesCoursEnseignant = DB::table('_groupecours')
             ->select(DB::raw('_groupecours.id as groupecours_id, count(*) as nbGroupes'))
             ->join('_groupecours_module_enseignant', 'groupecours_id', '=', '_groupecours.id')
             ->where('enseignant_id', '=', $idEnseignant)
@@ -143,14 +143,14 @@ class CalculerChargeService {
         $arrayModule = array();
 
         // ETAPE 2 : POUR CHAQUE GROUPE DE COURS
-        foreach($lesIdGroupesCoursDeLaFormation as $idGroupeCours) {
+        foreach($lesGroupesCoursEnseignant as $idGroupeCours) {
 
             $estPlanifier = DB::table('_planification')->where('groupecoursID', '=', $idGroupeCours->groupecours_id)->count();
 
             // Si le groupe de cours a été planifié
             if($estPlanifier > 0)
             {
-                // RECUPERER LA DUREE ET LE TYPE DES COURS DE CE GC
+                // RECUPERER LA DUREE ET DES COURS DE CE GC
                 $unCoursDuGroupe = DB::table('_groupecours_cours')
                     ->select('coursID', 'moduleID')
                     ->join('_cours', '_cours.id', '=', 'coursID')
@@ -162,21 +162,24 @@ class CalculerChargeService {
                     ->where('groupecoursID', '=', $idGroupeCours->groupecours_id)
                     ->first();
 
-                //dd($nbCours);
                 $duree = Cours::find($unCoursDuGroupe->coursID)->duree;
 
                 $titreModule = Module::getModuleWithData(Cours::find($unCoursDuGroupe->coursID)->moduleID)->SHORT_TITLE;
 
-                $arrayModule[$unCoursDuGroupe->moduleID][0] = 0;
                 $arrayModule[$unCoursDuGroupe->moduleID][1] = DB::table('pages')->select('long_title')->where('ID','=',$unCoursDuGroupe->moduleID)->first()->long_title;
+                // Pour chaque cours du groupe de cours
                 for($j=1; $j <=$nbCours->nbCours; $j++) {
-                    for($i=1; $i <=$idGroupeCours->nbGroupes; $i++) {   
-                        $arrayModule[$unCoursDuGroupe->moduleID][0] += intval($duree);
+                    // Pour chaque groupe pris en charge par l'enseignant
+                    for($i=1; $i <=$idGroupeCours->nbGroupes; $i++) {
+                        // On ajoute la durée du cours au total
+                        if(isset($arrayModule[$unCoursDuGroupe->moduleID][0]))  
+                            $arrayModule[$unCoursDuGroupe->moduleID][0] += intval($duree)/60;
+                        else
+                            $arrayModule[$unCoursDuGroupe->moduleID][0] = intval($duree)/60;
                     }
                 }
             }
         }
-        $arrayModule[$unCoursDuGroupe->moduleID][0] /= 60;
         return $arrayModule;
     }
 
