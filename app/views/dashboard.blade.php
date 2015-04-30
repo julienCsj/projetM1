@@ -34,23 +34,6 @@
                     <br>
                     <br>
                     </p>
-                    <h3>Retour de bugs</h3>
-                    <p>Nous avons mis en place un Trello pour vous permettre de nous remonter des bugs ou problèmes.
-                    <br>
-                    <div style=" text-align:center">
-                        <a href="https://trello.com/b/7AM3JLAk/scolarel-bug-tracker" target="_blank" class="btn btn-primary ui-btn-lg" style="align:center;width:100%;">Le Trello</a>
-                        <br><br>
-                    </div>
-                    Pour nous faire parvenir un bug, il suffit d'ajouter une carte dans la colonne "Signaler un bug" en cliquant sur "Add a card".<br>
-                    Vous avez ensuite la possibilité de donner un titre a votre carte. Appuyer sur entrer pour valider.
-                    Une fois la carte ajoutée, vous pouvez ajouter une description, une image, un fichier, etc... en cliquant
-                    sur la carte.<br><br>
-                    <img src="trello.png" style="width: 100%;" />
-
-                    <br>
-                    <br>
-                    <br>
-                    </p>
                     <!-- end widget content -->
 
                 </div>

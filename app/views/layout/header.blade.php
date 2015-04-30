@@ -100,7 +100,6 @@
             @endforeach
         </ol>
         <span class="ribbon-button-alignment pull-right"> 
-            <span id="signalerbug" class="btn btn-ribbon"><i class="fa fa-life-bouy"> Signaler un bug</i></span> 
         </span>
     </div>
     <!-- END RIBBON -->
